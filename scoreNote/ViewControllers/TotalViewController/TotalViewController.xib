@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="32700.99.1234" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina5_9" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22684"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="TotalViewController">
+            <connections>
+                <outlet property="startDateLabel" destination="qqa-kc-1iC" id="BeT-bs-0I6"/>
+                <outlet property="tableView" destination="3OM-ty-WKg" id="Gnj-Hh-fu8"/>
+                <outlet property="totalButton" destination="MwI-dJ-0lJ" id="CtZ-gt-WWm"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6mL-0T-oDh" userLabel="TopView">
+                    <rect key="frame" x="0.0" y="50" width="375" height="92"/>
+                    <subviews>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="起投时间：2023年9月" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qqa-kc-1iC">
+                            <rect key="frame" x="19.999999999999993" y="58" width="116.33333333333331" height="14"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="11"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MwI-dJ-0lJ">
+                            <rect key="frame" x="20" y="10" width="44" height="33"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                            <state key="normal" title="总计：">
+                                <color key="titleColor" systemColor="labelColor"/>
+                            </state>
+                        </button>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="K3U-Nf-6uz">
+                            <rect key="frame" x="310" y="13" width="50" height="27"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                            <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                            <state key="normal" title="标签排行">
+                                <color key="titleColor" systemColor="linkColor"/>
+                            </state>
+                            <connections>
+                                <action selector="tagRankAction:" destination="-1" eventType="touchUpInside" id="bJD-DD-gxK"/>
+                            </connections>
+                        </button>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pQX-6v-ftP">
+                            <rect key="frame" x="250" y="13" width="50" height="27"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                            <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                            <state key="normal" title="生涯统计">
+                                <color key="titleColor" systemColor="linkColor"/>
+                            </state>
+                            <connections>
+                                <action selector="CareerStatusAction:" destination="-1" eventType="touchUpInside" id="ipb-4M-MUL"/>
+                            </connections>
+                        </button>
+                        <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="XYk-ze-m1W">
+                            <rect key="frame" x="306" y="49.666666666666671" width="51" height="31"/>
+                            <connections>
+                                <action selector="switchAction:" destination="-1" eventType="valueChanged" id="Te5-W5-O31"/>
+                            </connections>
+                        </switch>
+                    </subviews>
+                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    <constraints>
+                        <constraint firstItem="qqa-kc-1iC" firstAttribute="leading" secondItem="MwI-dJ-0lJ" secondAttribute="leading" id="D7g-8N-kfa"/>
+                        <constraint firstAttribute="bottom" secondItem="qqa-kc-1iC" secondAttribute="bottom" constant="20" id="IBV-fl-z0h"/>
+                        <constraint firstItem="qqa-kc-1iC" firstAttribute="top" secondItem="MwI-dJ-0lJ" secondAttribute="bottom" constant="15" id="Q7X-2D-YBK"/>
+                        <constraint firstItem="pQX-6v-ftP" firstAttribute="centerY" secondItem="MwI-dJ-0lJ" secondAttribute="centerY" id="RX1-tG-mAD"/>
+                        <constraint firstItem="XYk-ze-m1W" firstAttribute="centerY" secondItem="qqa-kc-1iC" secondAttribute="centerY" id="UqP-1F-Zcz"/>
+                        <constraint firstItem="MwI-dJ-0lJ" firstAttribute="top" secondItem="6mL-0T-oDh" secondAttribute="top" constant="10" id="VSv-mx-C8s"/>
+                        <constraint firstItem="K3U-Nf-6uz" firstAttribute="leading" secondItem="pQX-6v-ftP" secondAttribute="trailing" constant="10" id="Xhx-SW-F8R"/>
+                        <constraint firstAttribute="trailing" secondItem="XYk-ze-m1W" secondAttribute="trailing" constant="20" symbolic="YES" id="cHx-hz-dYX"/>
+                        <constraint firstItem="MwI-dJ-0lJ" firstAttribute="leading" secondItem="6mL-0T-oDh" secondAttribute="leading" constant="20" id="hmg-Kf-1RG"/>
+                        <constraint firstItem="K3U-Nf-6uz" firstAttribute="centerY" secondItem="MwI-dJ-0lJ" secondAttribute="centerY" id="oYI-UD-9dp"/>
+                        <constraint firstAttribute="trailing" secondItem="K3U-Nf-6uz" secondAttribute="trailing" constant="15" id="vob-qE-Ujc"/>
+                    </constraints>
+                </view>
+                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="3OM-ty-WKg">
+                    <rect key="frame" x="0.0" y="142" width="375" height="636"/>
+                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    <connections>
+                        <outlet property="dataSource" destination="-1" id="WSg-gC-23Q"/>
+                        <outlet property="delegate" destination="-1" id="8Ma-vX-T53"/>
+                    </connections>
+                </tableView>
+            </subviews>
+            <viewLayoutGuide key="safeArea" id="Q5M-cg-NOt"/>
+            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+            <constraints>
+                <constraint firstItem="6mL-0T-oDh" firstAttribute="top" secondItem="Q5M-cg-NOt" secondAttribute="top" id="3as-UA-hs4"/>
+                <constraint firstItem="3OM-ty-WKg" firstAttribute="leading" secondItem="Q5M-cg-NOt" secondAttribute="leading" id="F3q-H7-6wo"/>
+                <constraint firstItem="6mL-0T-oDh" firstAttribute="leading" secondItem="Q5M-cg-NOt" secondAttribute="leading" id="GOj-tG-stQ"/>
+                <constraint firstItem="3OM-ty-WKg" firstAttribute="top" secondItem="6mL-0T-oDh" secondAttribute="bottom" id="NZ7-b2-dva"/>
+                <constraint firstItem="Q5M-cg-NOt" firstAttribute="trailing" secondItem="6mL-0T-oDh" secondAttribute="trailing" id="P8y-Gj-VXB"/>
+                <constraint firstItem="Q5M-cg-NOt" firstAttribute="trailing" secondItem="3OM-ty-WKg" secondAttribute="trailing" id="T9U-KD-FEW"/>
+                <constraint firstItem="Q5M-cg-NOt" firstAttribute="bottom" secondItem="3OM-ty-WKg" secondAttribute="bottom" id="qxb-qR-ppM"/>
+            </constraints>
+            <point key="canvasLocation" x="64.799999999999997" y="71.674876847290648"/>
+        </view>
+    </objects>
+    <resources>
+        <systemColor name="labelColor">
+            <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="linkColor">
+            <color red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>

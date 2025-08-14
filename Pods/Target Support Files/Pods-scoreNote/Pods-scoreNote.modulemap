@@ -1,0 +1,6 @@
+framework module Pods_scoreNote {
+  umbrella header "Pods-scoreNote-umbrella.h"
+
+  export *
+  module * { export * }
+}

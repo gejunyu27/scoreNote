@@ -1,0 +1,41 @@
+//
+//  CommonPrefix.pch
+//  shopping
+//
+//  Created by gejunyu on 2020/7/3.
+//  Copyright © 2020 jsmcc. All rights reserved.
+//
+
+#ifndef CommonPrefix_pch
+#define CommonPrefix_pch
+
+//header
+#import "SCPublicDefine.h"
+
+//category
+#import "UIColor+SCHex.h"
+#import "UIView+SCExtension.h"
+#import "NSString+SCExtension.h"
+#import "NSError+SCExtension.h"
+#import "NSObject+SCHUD.h"
+#import "UIControl+SCExtension.h"
+#import "NSDate+SCExtension.h"
+#import "NSDictionary+SCExtension.h"
+
+//View
+#import "NumberInputView.h"
+
+//Util
+#import "SCUtilities.h"
+#import "DataManager.h"
+#import "ConfigManager.h"
+
+//Models
+
+
+//Third Libraries
+
+#endif /* CommonPrefix_pch */
+
+
+
