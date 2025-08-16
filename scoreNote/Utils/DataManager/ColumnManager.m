@@ -16,7 +16,7 @@
 
 + (void)updateColumns
 {
-    NSInteger newestVersion = 0;
+    NSInteger newestVersion = 0; //增加字段方法：这个数字加1，然后在下面的getNewest...方法中加上要新增的字段。
     
     NSInteger currentVersion = [[NSUserDefaults standardUserDefaults] integerForKey:KEY_DB_VERSION];
     

@@ -146,7 +146,7 @@
     }
     //不是开发者要先输密码
     [self developerPassword];
-    [NumberInputView showWithText:nil title:@"开发者密码每日自动更新" clickView:nil type:InputTypeNoDot block:^(NSString * _Nonnull outputText) {
+    [NumberInputView showWithText:nil title:@"开发者密码" clickView:nil type:InputTypeNoDot block:^(NSString * _Nonnull outputText) {
         if (outputText.length > 0) {
             if ([outputText isEqualToString:self.developerPassword]) {
                 self.isDeveloper = YES; //下次再进不用输密码

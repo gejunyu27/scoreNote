@@ -8,7 +8,7 @@
 
 #import "NSObject+SCHUD.h"
 
-static CGFloat kDelay = 1.5;
+static CGFloat kDelay = 1;
 
 @interface SCHUD : UILabel
 AS_SINGLETON(SCHUD)
