@@ -93,9 +93,9 @@
         }
         
         BOOL result = [RecordManager addNewLine:record outMoney:outmoney];
-        if (result) {
-            [self refreshUI];
-        }else {
+        
+        [self refreshUI]; //超过止损线也会添加失败，所以失败也得刷新
+        if (!result) {
             [self showWithStatus:@"添加失败"];
         }
     }];
@@ -170,6 +170,11 @@
 
 - (void)editProfitPerLine:(RecordModel *)record
 {
+    if (record.isBreaking) {
+        [self showWithStatus:@"止损中 无法修改"];
+        return;
+    }
+    
     NSString *text = record.profitPerLine == 0 ? @"" :[SCUtilities removeFloatSuffix:record.profitPerLine];
     
     @weakify(self)
@@ -186,6 +191,11 @@
 
 - (void)editBaseProfit:(RecordModel *)record
 {
+    if (record.isBreaking) {
+        [self showWithStatus:@"止损中 无法修改"];
+        return;
+    }
+    
     NSString *text = record.baseProfit == 0 ? @"" :[SCUtilities removeFloatSuffix:record.baseProfit];
     
     @weakify(self)

@@ -76,6 +76,16 @@
     return _startTime;
 }
 
+- (CGFloat)isBreaking
+{
+    BOOL result = self.lineList.lastObject.isOver && self.allProfit <= -self.breakLine;
+    
+    if (result) {
+        self.profitPerLine = 0;
+        self.baseProfit = 0;
+    }
+    return result;
+}
 
 @end
 

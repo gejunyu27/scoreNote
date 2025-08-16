@@ -127,7 +127,14 @@ DEF_SINGLETON(RecordManager)
         
         if (!lastLine.isOver) {
             lastLine.isOver = YES;
+            
             BOOL result = [DataManager updateLine:lastLine];
+            
+            if (record.isBreaking) {
+                [DataManager updateRecord:record];
+                return NO;
+            }
+            
             if (!result) {
                 return NO;
             }

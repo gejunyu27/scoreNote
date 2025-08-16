@@ -133,6 +133,10 @@
     }
     
     _noteTextView.layer.borderColor = isBuyToday ? [UIColor colorWithHex:@"#49AB58"].CGColor : [UIColor blackColor].CGColor;
+    
+    //止损状态
+    self.profitLabel.textColor = model.isBreaking ? [UIColor redColor] : [UIColor blackColor];
+
 }
 
 - (void)refreshUI
@@ -140,7 +144,7 @@
     [self refreshUI:self.model title:self.titleLabel.text maxNum:self.maxNum];
 }
 
-#pragma -mark
+#pragma -mark action
 
 - (IBAction)overAction:(id)sender {
     if ([self.delegate respondsToSelector:@selector(recordView:overRecord:)]) {
@@ -169,6 +173,9 @@
             
         }
     }
+    
+    //止损线检测
+    [self.model isBreaking];
     
     //移除买法
     _model.currentScore = @"";
@@ -263,6 +270,14 @@
     @weakify(self)
     cell.updateBlock = ^(LineModel * _Nonnull line) {
         @strongify(self)
+        
+        if (line == self.model.lineList.lastObject) {
+            if ([self.model isBreaking]) { //止损线检测
+                [DataManager updateRecord:self.model];
+            }
+            
+        }
+        
         [self refreshUI:self.model title:self.titleLabel.text maxNum:self.maxNum];
     };
     
