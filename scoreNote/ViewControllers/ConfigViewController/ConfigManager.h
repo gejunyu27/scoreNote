@@ -12,14 +12,14 @@ typedef NS_ENUM(NSInteger, ConfigType) {
     ConfigTypeLineHeight,
     ConfigTypeLineFont,
     ConfigTypeLineProfit,
-    ConfigTypeLineInputH
+    ConfigTypeInputH
 };
 
 #define LINE_HEIGHT  [ConfigManager getValue:ConfigTypeLineHeight]
 #define LINE_WIDTH   [ConfigManager getValue:ConfigTypeLineWidth]
 #define LINE_FONT    SCFONT_SIZED([ConfigManager getValue:ConfigTypeLineFont])
 #define LINE_PROFIT  [ConfigManager getValue:ConfigTypeLineProfit]
-#define LINE_INPUTH  SCREEN_FIX([ConfigManager getValue:ConfigTypeLineInputH])
+#define INPUTH       SCREEN_FIX([ConfigManager getValue:ConfigTypeInputH])
 
 
 

@@ -144,7 +144,7 @@
 {
     if (!_keyboardView) {
         //键盘区
-        _keyboardView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.width, LINE_INPUTH)];
+        _keyboardView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.width, INPUTH)];
         _keyboardView.bottom = self.height;
         _keyboardView.backgroundColor = HEX_RGB(@"#D1D3DA");
         [self addSubview:_keyboardView];

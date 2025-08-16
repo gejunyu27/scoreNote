@@ -39,7 +39,7 @@
             _nameLabel.text = @"默认每期利润";
             break;
             
-        case ConfigTypeLineInputH:
+        case ConfigTypeInputH:
             _nameLabel.text = @"自定键盘高度";
             break;
             

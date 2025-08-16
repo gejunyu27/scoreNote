@@ -11,23 +11,23 @@
 #define kLineWidth   @"ConfigLineWidth"
 #define kLineFontNum @"ConfigLineFontNum"
 #define kLineProfit  @"ConfigLineProfit"
-#define kLineInputH  @"ConfigLineInputH"
+#define kInputH      @"ConfigInputH"
 
 @interface ConfigManager ()
 @property (nonatomic, assign) CGFloat lineWidth;
 @property (nonatomic, assign) CGFloat lineHeight;
 @property (nonatomic, assign) CGFloat lineFontNum;
 @property (nonatomic, assign) CGFloat lineProfit;
-@property (nonatomic, assign) CGFloat lineInputH;
+@property (nonatomic, assign) CGFloat inputH;
 
 @end
 
 @implementation ConfigManager
-@synthesize lineWidth = _lineWidth;
-@synthesize lineHeight = _lineHeight;
+@synthesize lineWidth   = _lineWidth;
+@synthesize lineHeight  = _lineHeight;
 @synthesize lineFontNum = _lineFontNum;
-@synthesize lineProfit = _lineProfit;
-@synthesize lineInputH = _lineInputH;
+@synthesize lineProfit  = _lineProfit;
+@synthesize inputH      = _inputH;
 
 DEF_SINGLETON(ConfigManager)
 
@@ -52,8 +52,8 @@ DEF_SINGLETON(ConfigManager)
             manager.lineProfit = value;
             break;
             
-        case ConfigTypeLineInputH:
-            manager.lineInputH = value;
+        case ConfigTypeInputH:
+            manager.inputH = value;
             break;
             
         default:
@@ -79,8 +79,8 @@ DEF_SINGLETON(ConfigManager)
         case ConfigTypeLineProfit:
             return manager.lineProfit;
             
-        case ConfigTypeLineInputH:
-            return manager.lineInputH;
+        case ConfigTypeInputH:
+            return manager.inputH;
             
         default:
             return 0;
@@ -197,31 +197,31 @@ DEF_SINGLETON(ConfigManager)
     [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
-- (CGFloat)lineInputH
+- (CGFloat)inputH
 {
-    if (_lineInputH > 0) {
-        return _lineInputH;
+    if (_inputH > 0) {
+        return _inputH;
     }
     
-    _lineInputH = [[NSUserDefaults standardUserDefaults] floatForKey:kLineInputH];
+    _inputH = [[NSUserDefaults standardUserDefaults] floatForKey:kInputH];
     
-    if (_lineInputH > 0) {
-        return _lineInputH;
+    if (_inputH > 0) {
+        return _inputH;
     }
     
-    self.lineInputH = IS_LARGE_SCREEN ? 300 : 250;
+    self.inputH = IS_LARGE_SCREEN ? 300 : 250;
     
-    return _lineInputH;
+    return _inputH;
 }
 
-- (void)setLineInputH:(CGFloat)lineInputH
+- (void)setInputH:(CGFloat)inputH
 {
-    if (lineInputH == _lineInputH) {
+    if (inputH == _inputH) {
         return;
     }
     
-    _lineInputH = lineInputH;
-    [[NSUserDefaults standardUserDefaults] setFloat:lineInputH forKey:kLineInputH];
+    _inputH = inputH;
+    [[NSUserDefaults standardUserDefaults] setFloat:inputH forKey:kInputH];
     [[NSUserDefaults standardUserDefaults] synchronize];
     
 }
