@@ -195,7 +195,7 @@ DEF_SINGLETON(TagManager)
         @{name:@"金珠子20倍",maxCount:@132},
         @{name:@"金盾20倍",maxCount:@293},
         @{name:@"金牛半全场",maxCount:@179},
-        @{name:@"聚宝盆200倍",maxCount:@234},
+        @{name:@"聚宝盆200倍",maxCount:@313},
         @{name:@"橘子10倍",maxCount:@187},
         @{name:@"金冠10倍",maxCount:@145},
         @{name:@"金鱼20倍",maxCount:@259},
@@ -223,7 +223,7 @@ DEF_SINGLETON(TagManager)
         //M
         @{name:@"米兰高赔",maxCount:@71},
         @{name:@"梅西高赔",maxCount:@58},
-        @{name:@"梅西进球",maxCount:@84},
+        @{name:@"梅西进球",maxCount:@97},
         @{name:@"梅西半全场",maxCount:@57},
         @{name:@"米奇十倍",maxCount:@64},
         @{name:@"魔力10.0",maxCount:@52},
@@ -311,12 +311,13 @@ DEF_SINGLETON(TagManager)
         @{name:@"星辰10倍",maxCount:@147},
         @{name:@"小帅10.0",maxCount:@119},
         @{name:@"向阳10倍",maxCount:@67},
+        @{name:@"XG足球10倍",maxCount:@47},
         
         //Y
         @{name:@"豫西北高赔",maxCount:@65},
         @{name:@"咏春",maxCount:@107},
         @{name:@"一支梅(低调)",maxCount:@80},
-        @{name:@"阳光里10.0",maxCount:@41},
+        @{name:@"阳光里10.0",maxCount:@51},
         @{name:@"渔人码头",maxCount:@50},
         @{name:@"玉衣10.0",maxCount:@77},
         @{name:@"一触即发",maxCount:@54},

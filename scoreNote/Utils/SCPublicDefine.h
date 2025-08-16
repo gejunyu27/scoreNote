@@ -118,7 +118,7 @@
 
 #pragma mark - 键值
 #define KEY_HIGH_PROFIT      @"KEY_HIGH_PROFIT"     //最高利润
-#define KEY_LOW_PROFIT       @"KEY_LOW_PROFIT"      //最低利润
+#define KEY_LOW_PROFIT       @"KEY_LOW_PROFIT"      //最低利润  -790000
 #define KEY_DB_VERSION       @"KEY_DB_VERSION"      //数据库版本
 
 #pragma mark - 通知
