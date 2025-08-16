@@ -12,7 +12,8 @@ typedef NS_ENUM(NSInteger, ConfigType) {
     ConfigTypeLineHeight,
     ConfigTypeLineFont,
     ConfigTypeLineProfit,
-    ConfigTypeInputH
+    ConfigTypeInputH,
+    ConfigTypeBreakLine
 };
 
 #define LINE_HEIGHT  [ConfigManager getValue:ConfigTypeLineHeight]
@@ -20,6 +21,7 @@ typedef NS_ENUM(NSInteger, ConfigType) {
 #define LINE_FONT    SCFONT_SIZED([ConfigManager getValue:ConfigTypeLineFont])
 #define LINE_PROFIT  [ConfigManager getValue:ConfigTypeLineProfit]
 #define INPUTH       SCREEN_FIX([ConfigManager getValue:ConfigTypeInputH])
+#define BREAKLINE    [ConfigManager getValue:ConfigTypeBreakLine]
 
 
 

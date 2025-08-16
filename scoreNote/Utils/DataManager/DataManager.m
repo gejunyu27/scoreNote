@@ -86,6 +86,7 @@ DEF_SINGLETON(DataManager)
         record.isOver        = [rs intForColumn:@"isOver"];
         record.currentScore  = [rs stringForColumn:@"currentScore"];
         record.overTagName   = [rs stringForColumn:@"overTagName"];
+        record.breakLine     = [rs doubleForColumn:@"breakLine"];
         
         
         NSString *createTime = [rs stringForColumn:@"createTime"];
@@ -136,8 +137,8 @@ DEF_SINGLETON(DataManager)
         return NO;
     }
     
-    NSString *sql = [NSString stringWithFormat:@"UPDATE %@ SET profitPerLine = ?, baseProfit = ?, endTime = ?, tagId = ?, realNum = ?, note = ?, isOver = ?, currentScore = ?, overTagName = ? WHERE id = ?", t_record];
-    BOOL result = [kDatabase executeUpdate:sql, @(record.profitPerLine), @(record.baseProfit), record.endTime, @(record.tagId), @(record.realNum), (record.note?:@""), @(record.isOver?1:0), (record.currentScore?:@""), (record.overTagName?:@""), record.recordId];
+    NSString *sql = [NSString stringWithFormat:@"UPDATE %@ SET profitPerLine = ?, baseProfit = ?, endTime = ?, tagId = ?, realNum = ?, note = ?, isOver = ?, currentScore = ?, overTagName = ?, breakLine = ? WHERE id = ?", t_record];
+    BOOL result = [kDatabase executeUpdate:sql, @(record.profitPerLine), @(record.baseProfit), record.endTime, @(record.tagId), @(record.realNum), (record.note?:@""), @(record.isOver?1:0), (record.currentScore?:@""), (record.overTagName?:@""), @(record.breakLine),  record.recordId];
     
     if (result) {
         [self postRecordUpdateNoti];
@@ -181,8 +182,8 @@ DEF_SINGLETON(DataManager)
 //    }
     NSInteger failNum = 0;
     for (NSInteger i=0; i<num; i++) {
-        NSString *sql = [NSString stringWithFormat:@"INSERT INTO %@ (profitPerLine,createTime,isOver) VALUES (?,?,?)", t_record];
-        BOOL result =  [kDatabase executeUpdate:sql, @(LINE_PROFIT), [NSDate date], @0];
+        NSString *sql = [NSString stringWithFormat:@"INSERT INTO %@ (profitPerLine,createTime,isOver,breakLine) VALUES (?,?,?,?)", t_record];
+        BOOL result =  [kDatabase executeUpdate:sql, @(LINE_PROFIT), [NSDate date], @0, @(BREAKLINE)];
         if (!result) {
             failNum++;
         }
@@ -526,7 +527,7 @@ DEF_SINGLETON(DataManager)
         if ([_db open]) {
 
             //3.创建记录表
-            NSString *recordSql = [NSString stringWithFormat:@"CREATE TABLE IF NOT EXISTS %@ (id integer PRIMARY KEY AUTOINCREMENT, profitPerLine real, createTime text NOT NULL, endTime text, tagId integer, baseProfit real, realNum integer, note text, isOver integer, currentScore text, overTagName text)", t_record];
+            NSString *recordSql = [NSString stringWithFormat:@"CREATE TABLE IF NOT EXISTS %@ (id integer PRIMARY KEY AUTOINCREMENT, profitPerLine real, createTime text NOT NULL, endTime text, tagId integer, baseProfit real, realNum integer, note text, isOver integer, currentScore text, overTagName text, breakLine real)", t_record];
             [_db executeUpdate:recordSql];
             
             //4.创建列表

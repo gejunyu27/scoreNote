@@ -12,6 +12,7 @@
 #define kLineFontNum @"ConfigLineFontNum"
 #define kLineProfit  @"ConfigLineProfit"
 #define kInputH      @"ConfigInputH"
+#define kBreakLine   @"ConfigBreakLine"
 
 @interface ConfigManager ()
 @property (nonatomic, assign) CGFloat lineWidth;
@@ -19,6 +20,7 @@
 @property (nonatomic, assign) CGFloat lineFontNum;
 @property (nonatomic, assign) CGFloat lineProfit;
 @property (nonatomic, assign) CGFloat inputH;
+@property (nonatomic, assign) CGFloat breakLine;
 
 @end
 
@@ -28,6 +30,7 @@
 @synthesize lineFontNum = _lineFontNum;
 @synthesize lineProfit  = _lineProfit;
 @synthesize inputH      = _inputH;
+@synthesize breakLine   = _breakLine;
 
 DEF_SINGLETON(ConfigManager)
 
@@ -56,6 +59,10 @@ DEF_SINGLETON(ConfigManager)
             manager.inputH = value;
             break;
             
+        case ConfigTypeBreakLine:
+            manager.breakLine = value;
+            break;
+            
         default:
             break;
     }
@@ -82,6 +89,9 @@ DEF_SINGLETON(ConfigManager)
         case ConfigTypeInputH:
             return manager.inputH;
             
+        case ConfigTypeBreakLine:
+            return manager.breakLine;
+            
         default:
             return 0;
     }
@@ -96,11 +106,10 @@ DEF_SINGLETON(ConfigManager)
     
     _lineWidth = [[NSUserDefaults standardUserDefaults] floatForKey:kLineWidth];
     
-    if (_lineWidth > 0) {
-        return _lineWidth;
+    if (_lineWidth <= 0) {
+        self.lineWidth = 110;
     }
-    
-    self.lineWidth = 110;
+
     return _lineWidth;
     
 }
@@ -123,11 +132,10 @@ DEF_SINGLETON(ConfigManager)
     
     _lineHeight = [[NSUserDefaults standardUserDefaults] floatForKey:kLineHeight];
     
-    if (_lineHeight > 0) {
-        return _lineHeight;
+    if (_lineHeight <= 0) {
+        self.lineHeight = 25;
     }
-    
-    self.lineHeight = 25;
+
     return _lineHeight;
     
 }
@@ -150,11 +158,10 @@ DEF_SINGLETON(ConfigManager)
     
     _lineFontNum = [[NSUserDefaults standardUserDefaults] floatForKey:kLineFontNum];
     
-    if (_lineFontNum > 0) {
-        return _lineFontNum;
+    if (_lineFontNum <= 0) {
+        self.lineFontNum = 13;
     }
-    
-    self.lineFontNum = 13;
+
     return _lineFontNum;
     
 }
@@ -178,11 +185,10 @@ DEF_SINGLETON(ConfigManager)
     
     _lineProfit = [[NSUserDefaults standardUserDefaults] floatForKey:kLineProfit];
     
-    if (_lineProfit > 0) {
-        return _lineProfit;
+    if (_lineProfit <= 0) {
+        self.lineProfit = 50;
     }
     
-    self.lineProfit = 50;
     return _lineProfit;
 }
 
@@ -205,11 +211,9 @@ DEF_SINGLETON(ConfigManager)
     
     _inputH = [[NSUserDefaults standardUserDefaults] floatForKey:kInputH];
     
-    if (_inputH > 0) {
-        return _inputH;
+    if (_inputH <= 0) {
+        self.inputH = IS_LARGE_SCREEN ? 300 : 250;
     }
-    
-    self.inputH = IS_LARGE_SCREEN ? 300 : 250;
     
     return _inputH;
 }
@@ -224,6 +228,32 @@ DEF_SINGLETON(ConfigManager)
     [[NSUserDefaults standardUserDefaults] setFloat:inputH forKey:kInputH];
     [[NSUserDefaults standardUserDefaults] synchronize];
     
+}
+
+- (CGFloat)breakLine
+{
+    if (_breakLine > 0) {
+        return _breakLine;
+    }
+    
+    _breakLine = [[NSUserDefaults standardUserDefaults] floatForKey:kBreakLine];
+    
+    if (_breakLine <= 0) {
+        self.breakLine = 5000;
+    }
+    
+    return _breakLine;
+}
+
+- (void)setBreakLine:(CGFloat)breakLine
+{
+    if (breakLine == _breakLine) {
+        return;
+    }
+    
+    _breakLine = breakLine;
+    [[NSUserDefaults standardUserDefaults] setFloat:breakLine forKey:kBreakLine];
+    [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
 @end
