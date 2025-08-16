@@ -15,8 +15,6 @@
 #define kConfigCell @"ConfigCell"
 
 @interface ConfigViewController () <UITableViewDelegate, UITableViewDataSource>
-@property (weak, nonatomic) IBOutlet UILabel *dateLabel;
-
 @property (weak, nonatomic) IBOutlet UIButton *targetButton;
 @property (weak, nonatomic) IBOutlet UIButton *firstPointButton;
 @property (weak, nonatomic) IBOutlet UIButton *secondPointButton;
@@ -42,9 +40,6 @@
     
     self.title = @"设置";
     
-    //每10天提醒一次备份 这里简单处理，每月8,18,28号提醒
-    [self backupsTips];
-    
     [_tableView registerNib:[UINib nibWithNibName:kConfigCell bundle:nil] forCellReuseIdentifier:kConfigCell];
     
     //后门程序
@@ -61,15 +56,6 @@
     if (_hasUpdate) {
         _hasUpdate = NO;
         [[NSNotificationCenter defaultCenter] postNotificationName:NOTI_CONFIG_UPDATE object:nil];
-    }
-}
-
-- (void)backupsTips
-{
-    NSString *dateStr = [[NSDate date] getStringWithDateFormat:@"dd"];
-    
-    if ([dateStr containsString:@"8"]) {
-        _dateLabel.text = @"温馨提示：建议备份一次数据库";
     }
 }
 
@@ -227,12 +213,12 @@
 #pragma mark -UITableViewDelegate, UITableViewDataSource
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 5;
+    return 6;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 70;
+    return 65;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath

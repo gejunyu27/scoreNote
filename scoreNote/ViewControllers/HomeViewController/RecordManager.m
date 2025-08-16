@@ -210,6 +210,22 @@ DEF_SINGLETON(RecordManager)
     return result;
 }
 
+#pragma mark -修改止损线
++ (BOOL)editBreakLine:(CGFloat)breakLine record:(RecordModel *)record
+{
+    CGFloat oldBreakLine = record.breakLine;
+    
+    record.breakLine = breakLine;
+    
+    BOOL result = [DataManager updateRecord:record];
+    
+    if (!result) {
+        record.breakLine = oldBreakLine;
+    }
+    
+    return result;
+}
+
 #pragma mark -修改标签
 + (BOOL)editTag:(NSInteger)tagId record:(RecordModel *)record
 {

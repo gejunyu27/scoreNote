@@ -43,6 +43,10 @@
             _nameLabel.text = @"自定键盘高度";
             break;
             
+        case ConfigTypeBreakLine:
+            _nameLabel.text = @"止损线";
+            break;
+            
         default:
             break;
     }

@@ -34,6 +34,8 @@ AS_SINGLETON(RecordManager)
 + (BOOL)editProfitPerLine:(CGFloat)profitPerLine record:(RecordModel *)record;
 //修改固定利润
 + (BOOL)editBaseProfit:(CGFloat)baseProfit record:(RecordModel *)record;
+//修改止损线
++ (BOOL)editBreakLine:(CGFloat)breakLine record:(RecordModel *)record;
 
 //修改标签
 + (BOOL)editTag:(NSInteger)tagId record:(RecordModel *)record;

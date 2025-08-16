@@ -145,6 +145,10 @@
         [self editBaseProfit:record];
     }]];
     
+    [ac addAction:[UIAlertAction actionWithTitle:[NSString stringWithFormat:@"修改止损线：%@", [SCUtilities removeFloatSuffix:record.breakLine]] style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        [self editBreakLine:record];
+    }]];
+    
     [ac addAction:[UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil]];
     
     [self presentViewController:ac animated:YES completion:nil];
@@ -195,6 +199,23 @@
         }
     }];
     
+}
+
+- (void)editBreakLine:(RecordModel *)record
+{
+    NSString *text = record.breakLine == 0 ? @"" :[SCUtilities removeFloatSuffix:record.breakLine];
+    
+    @weakify(self)
+    [NumberInputView showWithText:text title:@"修改止损线" clickView:nil type:InputTypeNoSymbol block:^(NSString * _Nonnull outputText) {
+        @strongify(self)
+        BOOL result = [RecordManager editBreakLine:outputText.floatValue record:record];
+        if (result) {
+            [self refreshUI];
+            
+        }else {
+            [self showWithStatus:@"修改失败"];
+        }
+    }];
 }
 
 - (void)recordView:(RecordView *)recordView overRecord:(nonnull RecordModel *)record
