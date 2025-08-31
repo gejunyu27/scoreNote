@@ -7,9 +7,10 @@
 
 #import "RecordDetailViewController.h"
 
-@interface RecordDetailViewController () <UITableViewDelegate, UITableViewDataSource>
+@interface RecordDetailViewController () <UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate>
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) UILabel *bottomLabel;
+@property (nonatomic, strong) UILabel *noteLabel;
 
 @end
 
@@ -17,7 +18,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+    [self addKeyboardNotification];
 }
 
 - (void)setModel:(RecordModel *)model
@@ -30,22 +31,29 @@
     
     self.title = VALID_STRING(model.tagModel.name) ? model.tagModel.name : @"详情";
  
-    NSString *dateFormat = @"yyyy-MM-dd HH:mm:ss";
-    
-    //创建时间
-    NSString *startTime = [model.startTime getStringWithDateFormat:dateFormat];
-    //结束时间
-    NSString *endTime = [model.endTime getStringWithDateFormat:dateFormat]?:@"（进行中）";
+    //总投入
+    NSString *allOut = [SCUtilities removeFloatSuffix:model.allOut];
     //总计利润
     NSString *profit = [SCUtilities removeFloatSuffix:model.allProfit];
     
-    NSString *text = [NSString stringWithFormat:@"  实际期数：%li期 \n  开始时间：%@ \n  结束时间：%@ \n  总计利润：%@\n  备注内容：%@", model.realNum, startTime, endTime, profit, model.note];
+    
+    NSString *text = [NSString stringWithFormat:@"  净利润：%@     总投入：%@     实际%li期", profit, allOut, model.realNum];
     
     NSMutableAttributedString *att = [[NSMutableAttributedString alloc] initWithString:text];
     
     [att addAttributes:@{NSForegroundColorAttributeName:(model.allProfit>0?[UIColor redColor]:[UIColor blackColor])} range:[text rangeOfString:profit]];
     
     self.bottomLabel.attributedText = att;
+    
+    //备注
+    if (model.note.length > 0) { //调整下坐标
+        self.noteLabel.text = [NSString stringWithFormat:@"  %@",model.note];
+        CGFloat noteH = 25;
+        self.noteLabel.height = noteH;
+        self.noteLabel.top -= noteH;
+        self.bottomLabel.bottom = self.noteLabel.top;
+        self.tableView.height = self.bottomLabel.top;
+    }
     
 }
 
@@ -99,13 +107,30 @@
 - (UILabel *)bottomLabel
 {
     if (!_bottomLabel) {
-        CGFloat h = 140;
-        _bottomLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, SCREEN_HEIGHT-NAV_BAR_HEIGHT-SCREEN_SAFE_BOTTOM-h, SCREEN_WIDTH, h)];
-        _bottomLabel.numberOfLines = 5;
-        _bottomLabel.layer.borderWidth = 1;
+        CGFloat h = 30;
+        _bottomLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, self.noteLabel.top-h, SCREEN_WIDTH, h)];
         [self.view addSubview:_bottomLabel];
+        
+        UIView *line = [[UIView alloc] initWithFrame:CGRectMake(0, 0, _bottomLabel.width, 1)];
+        line.backgroundColor = [UIColor blackColor];
+        [_bottomLabel addSubview:line];
     }
     return _bottomLabel;
+}
+
+- (UILabel *)noteLabel
+{
+    if (!_noteLabel) {
+        CGFloat edge = 10;
+        _noteLabel = [[UILabel alloc] initWithFrame:CGRectMake(edge, SCREEN_HEIGHT-NAV_BAR_HEIGHT-SCREEN_SAFE_BOTTOM, SCREEN_WIDTH-edge*2, 0)];
+        _noteLabel.layer.borderWidth = 0.5;
+        _noteLabel.layer.cornerRadius = 5;
+        _noteLabel.layer.borderColor = [UIColor grayColor].CGColor;
+        _noteLabel.font = [UIFont systemFontOfSize:12];
+        _noteLabel.text = @"无备注";
+        [self.view addSubview:_noteLabel];
+    }
+    return _noteLabel;
 }
 
 @end
