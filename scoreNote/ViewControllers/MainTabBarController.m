@@ -14,6 +14,9 @@
 
 #define kTabImg(P)    [[UIImage imageNamed:P] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]
 
+#define kNormalTextAttributes   @{NSForegroundColorAttributeName: HEX_RGB(@"#999999")}
+#define kSelectedTextAttributes @{NSForegroundColorAttributeName: HEX_RGB(@"#F2270C")}
+
 @implementation MainTabBarController
 
 - (void)viewDidLoad
@@ -33,44 +36,65 @@
     HomeViewController *homeVc = [HomeViewController new];
     homeVc.isMainTabVC = YES;
     homeVc.title = @"首页";
-    homeVc.tabBarItem.image = kTabImg(@"Tab_Home");
-    homeVc.tabBarItem.selectedImage = kTabImg(@"Tab_Home_selected");
+    UITabBarItem *homeItem = homeVc.tabBarItem;
+    homeItem.image = kTabImg(@"Tab_Home");
+    homeItem.selectedImage = kTabImg(@"Tab_Home_selected");
+    if (@available(iOS 26.0, *)) { //ios26必须在这儿设置，否则文字错位 另外普通状态文字颜色无法改变，原因未知
+        [homeItem setTitleTextAttributes:kSelectedTextAttributes forState:UIControlStateSelected];
+    }
     BaseNavigationController *homeNav = [[BaseNavigationController alloc] initWithRootViewController:homeVc];
     [temp addObject:homeNav];
     
     TotalViewController *totalVc = [TotalViewController new];
     totalVc.isMainTabVC = YES;
     totalVc.title = @"统计";
-    totalVc.tabBarItem.image = kTabImg(@"Tab_Cart");
-    totalVc.tabBarItem.selectedImage = kTabImg(@"Tab_Cart_selected");
+    UITabBarItem *totalItem = totalVc.tabBarItem;
+    totalItem.image = kTabImg(@"Tab_Cart");
+    totalItem.selectedImage = kTabImg(@"Tab_Cart_selected");
+    if (@available(iOS 26.0, *)) { //ios26必须在这儿设置，否则文字错位 另外普通状态文字颜色无法改变，原因未知
+        [totalItem setTitleTextAttributes:kSelectedTextAttributes forState:UIControlStateSelected];
+    }
     BaseNavigationController *totalNav = [[BaseNavigationController alloc] initWithRootViewController:totalVc];
     [temp addObject:totalNav];
-
+    
     TagViewController *tagVc = [TagViewController new];
     tagVc.isMainTabVC = YES;
     tagVc.title = @"标签";
-    tagVc.tabBarItem.image = kTabImg(@"Tab_Category");
-    tagVc.tabBarItem.selectedImage = kTabImg(@"Tab_Category_selected");
+    UITabBarItem *tagItem = tagVc.tabBarItem;
+    tagItem.image = kTabImg(@"Tab_Category");
+    tagItem.selectedImage = kTabImg(@"Tab_Category_selected");
+    if (@available(iOS 26.0, *)) { //ios26必须在这儿设置，否则文字错位 另外普通状态文字颜色无法改变，原因未知
+        [tagItem setTitleTextAttributes:kSelectedTextAttributes forState:UIControlStateSelected];
+    }
     BaseNavigationController *tagNav = [[BaseNavigationController alloc] initWithRootViewController:tagVc];
     [temp addObject:tagNav];
-
+    
     ConfigViewController *orderVc = [ConfigViewController new];
     orderVc.isMainTabVC = YES;
     orderVc.title = @"设置";
-    orderVc.tabBarItem.image = kTabImg(@"Tab_MyOrder");
-    orderVc.tabBarItem.selectedImage = kTabImg(@"Tab_MyOrder_selected");
+    UITabBarItem *orderItem = orderVc.tabBarItem;
+    orderItem.image = kTabImg(@"Tab_MyOrder");
+    orderItem.selectedImage = kTabImg(@"Tab_MyOrder_selected");
+    if (@available(iOS 26.0, *)) { //ios26必须在这儿设置，否则文字错位 另外普通状态文字颜色无法改变，原因未知
+        [orderItem setTitleTextAttributes:kSelectedTextAttributes forState:UIControlStateSelected];
+    }
     BaseNavigationController *orderNav = [[BaseNavigationController alloc] initWithRootViewController:orderVc];
     [temp addObject:orderNav];
     
     self.viewControllers = temp.copy;
-
+    
 }
 
 - (void)setupTabBar
 {
-//    self.tabBar.backgroundImage = [UIImage new];
+    if (@available(iOS 26.0, *)) { //ios26新增毛玻璃效果，不再使用传统效果
+        return;
+    }
+    
+    //传统效果
+    //    self.tabBar.backgroundImage = [UIImage new];
     self.tabBar.backgroundColor = [UIColor whiteColor];
-//    self.tabBar.shadowImage     = [UIImage new];
+    //    self.tabBar.shadowImage     = [UIImage new];
     self.tabBar.barStyle     = UIBarStyleBlack;
     self.tabBar.translucent  = NO;
     self.tabBar.barTintColor = [UIColor whiteColor];
@@ -80,15 +104,10 @@
     self.tabBar.layer.shadowOpacity = 0.3;
     
     //字体颜色
-    NSDictionary *normalTextAttributes   = @{NSForegroundColorAttributeName: HEX_RGB(@"#999999"), NSFontAttributeName:SCFONT_SIZED(10)};
-    NSDictionary *selectedTextAttributes = @{NSForegroundColorAttributeName: HEX_RGB(@"#F2270C"), NSFontAttributeName:SCFONT_SIZED(10)};
-
     for (UITabBarItem *item in self.tabBar.items) {
-        [item setTitleTextAttributes:normalTextAttributes forState:UIControlStateNormal];
-        [item setTitleTextAttributes:selectedTextAttributes forState:UIControlStateSelected];
+        [item setTitleTextAttributes:kNormalTextAttributes forState:UIControlStateNormal];
+        [item setTitleTextAttributes:kSelectedTextAttributes forState:UIControlStateSelected];
     }
-    
-    
 }
 
 @end
