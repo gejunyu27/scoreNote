@@ -53,7 +53,11 @@
     
     CGFloat top = self.navigationController ? NAV_BAR_HEIGHT : 0;
     
-    self.view.top = isShow ? top-200 : top;
+    if (@available(iOS 26.0, *)) { //暂时这么写
+        self.view.top = isShow ? -200 : 0;
+    }else {
+        self.view.top = isShow ? top-200 : top;
+    }
     
     
 }
