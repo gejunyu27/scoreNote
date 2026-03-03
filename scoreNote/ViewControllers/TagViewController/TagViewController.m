@@ -19,6 +19,10 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    if (@available(iOS 15.0, *)) {
+        self.tableView.sectionHeaderTopPadding = 0;
+    }
+    
     [_tableView registerNib:[UINib nibWithNibName:kTagCell bundle:nil] forCellReuseIdentifier:kTagCell];
 
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addAlick)];
