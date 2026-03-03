@@ -111,7 +111,12 @@
 {
     if (!_footerLabel) {
         CGFloat h = SCREEN_FIX(35);
-        _footerLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, SCREEN_HEIGHT-NAV_BAR_HEIGHT-SCREEN_SAFE_BOTTOM-h, SCREEN_WIDTH, h)];
+        CGFloat y = SCREEN_HEIGHT-NAV_BAR_HEIGHT-SCREEN_SAFE_BOTTOM-h;
+        if (@available(iOS 26.0, *)) {
+            y = SCREEN_HEIGHT-SCREEN_SAFE_BOTTOM-h;
+        }
+        
+        _footerLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, y, SCREEN_WIDTH, h)];
         _footerLabel.font = SCFONT_SIZED(20);
         _footerLabel.layer.borderWidth = 1;
         [self.view addSubview:_footerLabel];

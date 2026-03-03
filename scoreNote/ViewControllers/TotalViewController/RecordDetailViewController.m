@@ -122,7 +122,12 @@
 {
     if (!_noteLabel) {
         CGFloat edge = 10;
-        _noteLabel = [[UILabel alloc] initWithFrame:CGRectMake(edge, SCREEN_HEIGHT-NAV_BAR_HEIGHT-SCREEN_SAFE_BOTTOM, SCREEN_WIDTH-edge*2, 0)];
+        
+        CGFloat y = SCREEN_HEIGHT-NAV_BAR_HEIGHT-SCREEN_SAFE_BOTTOM;
+        if (@available(iOS 26.0, *)) {
+            y = SCREEN_HEIGHT-SCREEN_SAFE_BOTTOM;
+        }
+        _noteLabel = [[UILabel alloc] initWithFrame:CGRectMake(edge, y, SCREEN_WIDTH-edge*2, 0)];
         _noteLabel.layer.borderWidth = 0.5;
         _noteLabel.layer.cornerRadius = 5;
         _noteLabel.layer.borderColor = [UIColor grayColor].CGColor;
