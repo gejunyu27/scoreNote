@@ -74,7 +74,12 @@
 - (UITableView *)tableView
 {
     if (!_tableView) {
-        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT - NAV_BAR_HEIGHT)];
+        CGFloat h = SCREEN_HEIGHT - NAV_BAR_HEIGHT;
+        if (@available(iOS 26.0, *)) {
+            h = SCREEN_HEIGHT;
+        }
+        
+        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, h)];
         _tableView.delegate = self;
         _tableView.dataSource = self;
 //        _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
