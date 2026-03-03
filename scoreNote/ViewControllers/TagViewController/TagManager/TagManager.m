@@ -98,7 +98,7 @@ DEF_SINGLETON(TagManager)
         @{name:@"北斗星(夜蝶)",maxCount:@63},
         @{name:@"八零后(夜蝶)",maxCount:@44},
         @{name:@"白泽(夜蝶)",maxCount:@49},
-        @{name:@"彬彬(夜蝶)",maxCount:@44},
+        @{name:@"彬彬(夜蝶)",maxCount:@56},
         @{name:@"报喜10.0",maxCount:@61},
         @{name:@"冰红茶",maxCount:@75},
         @{name:@"八爪鱼",maxCount:@115},
@@ -118,12 +118,14 @@ DEF_SINGLETON(TagManager)
         @{name:@"超人10.0",maxCount:@153},
         @{name:@"苍狼10倍",maxCount:@132},
         @{name:@"草莓10倍",maxCount:@136},
+        @{name:@"彩中中10倍",maxCount:@57},
+        @{name:@"CC高赔",maxCount:@50},
         
         //D
         @{name:@"多宝10.0",maxCount:@56},
         @{name:@"大奶10.0",maxCount:@52},
         @{name:@"大鹏半全场",maxCount:@138},
-        @{name:@"东方红(低调)",maxCount:@50},
+        @{name:@"东方红",maxCount:@58},
         @{name:@"大地",maxCount:@105},
         @{name:@"大奔10.0",maxCount:@104},
         @{name:@"大鱼",maxCount:@111},
@@ -132,7 +134,7 @@ DEF_SINGLETON(TagManager)
         @{name:@"东方10.0",maxCount:@177},
         
         //F
-        @{name:@"富贵3十倍",maxCount:@44},
+        @{name:@"富贵3十倍",maxCount:@69},
         @{name:@"凤宝人10.0",maxCount:@92},
         @{name:@"放手一搏(夜蝶)",maxCount:@51},
         @{name:@"飞翔高赔",maxCount:@101},
@@ -144,16 +146,17 @@ DEF_SINGLETON(TagManager)
         @{name:@"锋芒20.0",maxCount:@289},
         
         //G
-        @{name:@"光明高赔",maxCount:@41},
+        @{name:@"光明高赔",maxCount:@58},
         @{name:@"公牛高赔",maxCount:@64},
         @{name:@"格格高赔",maxCount:@72},
         @{name:@"冠中高赔",maxCount:@74},
         @{name:@"功名10.0",maxCount:@109},
         @{name:@"高原高赔",maxCount:@107},
+        @{name:@"高平10倍",maxCount:@70},
         
         //H
         @{name:@"红豆高赔",maxCount:@77},
-        @{name:@"和信高赔",maxCount:@85},
+        @{name:@"和信高赔",maxCount:@88},
         @{name:@"红中高赔",maxCount:@79},
         @{name:@"花娘高赔",maxCount:@63},
         @{name:@"火焰(低调)",maxCount:@90},
@@ -174,9 +177,11 @@ DEF_SINGLETON(TagManager)
         @{name:@"宏力10倍",maxCount:@103},
         @{name:@"火单高赔",maxCount:@84},
         @{name:@"红火20倍",maxCount:@176},
+        @{name:@"花仙子10倍",maxCount:@47},
+        @{name:@"鸿运当头",maxCount:@55},
         
         //J
-        @{name:@"聚焦10.0",maxCount:@34},
+        @{name:@"聚焦10.0",maxCount:@47},
         @{name:@"军师(低调)",maxCount:@52},
         @{name:@"金泉高赔 ",maxCount:@38},
         @{name:@"聚缘",maxCount:@70},
@@ -195,35 +200,43 @@ DEF_SINGLETON(TagManager)
         @{name:@"金珠子20倍",maxCount:@132},
         @{name:@"金盾20倍",maxCount:@293},
         @{name:@"金牛半全场",maxCount:@179},
-        @{name:@"聚宝盆200倍",maxCount:@313},
+        @{name:@"聚宝盆200倍",maxCount:@500},
         @{name:@"橘子10倍",maxCount:@187},
         @{name:@"金冠10倍",maxCount:@145},
         @{name:@"金鱼20倍",maxCount:@259},
         @{name:@"金宝20倍",maxCount:@233},
         @{name:@"金山10.0",maxCount:@228},
+        @{name:@"金点子10倍",maxCount:@52},
+        @{name:@"金算盘10倍",maxCount:@46},
+        @{name:@"聚宝盆10倍",maxCount:@49},
         
         //K
         @{name:@"空军(低调)",maxCount:@60},
         @{name:@"凯歌(低调)",maxCount:@32},
-        @{name:@"狂人",maxCount:@53},
+        @{name:@"狂人10倍",maxCount:@57},
         @{name:@"凯恩",maxCount:@123},
         @{name:@"狂飙10.0",maxCount:@199},
+        @{name:@"凯旋高赔",maxCount:@54},
         
         //L
-        @{name:@"老班长10.0",maxCount:@50},
+        @{name:@"老班长10.0",maxCount:@74},
         @{name:@"蓝精灵10.0",maxCount:@78},
         @{name:@"领秀高赔",maxCount:@42},
-        @{name:@"冷陌(夜蝶)",maxCount:@36},
+        @{name:@"冷漠10倍",maxCount:@39},
         @{name:@"李老师高赔",maxCount:@40},
         @{name:@"理想10倍",maxCount:@119},
         @{name:@"蓝天高赔",maxCount:@176},
         @{name:@"柳叶10倍",maxCount:@141},
         @{name:@"雷电10.0",maxCount:@196},
+        @{name:@"老姜头10倍",maxCount:@46},
+        @{name:@"零零捌竞猜",maxCount:@59},
+        @{name:@"龍单20.0",maxCount:@100},
+        @{name:@"乐乐E单",maxCount:@51},
         
         //M
         @{name:@"米兰高赔",maxCount:@71},
-        @{name:@"梅西高赔",maxCount:@58},
-        @{name:@"梅西进球",maxCount:@97},
+        @{name:@"梅西高赔",maxCount:@69},
+        @{name:@"梅西进球",maxCount:@103},
         @{name:@"梅西半全场",maxCount:@57},
         @{name:@"米奇十倍",maxCount:@64},
         @{name:@"魔力10.0",maxCount:@52},
@@ -236,11 +249,16 @@ DEF_SINGLETON(TagManager)
         @{name:@"梅西比分",maxCount:@98},
         @{name:@"马卡龙10倍",maxCount:@199},
         @{name:@"玫瑰10.0",maxCount:@193},
+        @{name:@"MISS张高赔",maxCount:@46},
+        @{name:@"码头高赔",maxCount:@61},
         
         //N
         @{name:@"牛牛高赔",maxCount:@62},
         @{name:@"Nice(十年)",maxCount:@38},
         @{name:@"农夫高赔",maxCount:@105},
+        @{name:@"牛总10倍",maxCount:@50},
+        @{name:@"暖姐高赔",maxCount:@57},
+        @{name:@"牛肉面10倍",maxCount:@64},
         
         //P
         @{name:@"鹏程高赔",maxCount:@105},
@@ -255,12 +273,15 @@ DEF_SINGLETON(TagManager)
         @{name:@"千里马高赔",maxCount:@96},
         @{name:@"青稞10倍",maxCount:@146},
         @{name:@"乾坤半全场",maxCount:@236},
+        @{name:@"麒麟解盘20倍",maxCount:@98},
+        @{name:@"麒麟解盘10倍",maxCount:@42},
         
         //R
-        @{name:@"任性小小余10.0",maxCount:@38},
+        @{name:@"任性小小余10.0",maxCount:@55},
         @{name:@"如玉高赔",maxCount:@41},
         @{name:@"人参果10倍",maxCount:@102},
         @{name:@"日月高赔",maxCount:@159},
+        @{name:@"热浪10倍",maxCount:@107},
         
         //S
         @{name:@"十三朝10.0",maxCount:@24},
@@ -274,6 +295,9 @@ DEF_SINGLETON(TagManager)
         @{name:@"十安10.0",maxCount:@112},
         @{name:@"盛世20倍",maxCount:@163},
         @{name:@"水仙10.0",maxCount:@170},
+        @{name:@"闪耀半全场",maxCount:@317},
+        @{name:@"少林10倍",maxCount:@31},
+        @{name:@"神针10倍",maxCount:@50},
         
         //T
         @{name:@"兔博士高赔",maxCount:@47},
@@ -284,23 +308,25 @@ DEF_SINGLETON(TagManager)
         @{name:@"天下20倍",maxCount:@174},
         @{name:@"太极10.0",maxCount:@182},
         @{name:@"太阳20.0",maxCount:@270},
+        @{name:@"桃花源10倍",maxCount:@51},
         
         //V
         @{name:@"VV高赔",maxCount:@58},
         
         //W
         @{name:@"五月花十倍",maxCount:@86},
-        @{name:@"威龙高赔",maxCount:@40},
+        @{name:@"威龙高赔",maxCount:@64},
         @{name:@"万足金10.0",maxCount:@60},
         @{name:@"悟空20倍",maxCount:@119},
         @{name:@"万通20倍",maxCount:@219},
         @{name:@"完美高赔",maxCount:@100},
         @{name:@"无极20.0",maxCount:@265},
+        @{name:@"王子10倍",maxCount:@43},
         
         //X
         @{name:@"行者10.0",maxCount:@60},
         @{name:@"幸运星10.0",maxCount:@65},
-        @{name:@"熊猫高赔",maxCount:@49},
+        @{name:@"熊猫高赔",maxCount:@53},
         @{name:@"星光足球10.0",maxCount:@45},
         @{name:@"小样(低调)",maxCount:@39},
         @{name:@"小熙(低调)",maxCount:@66},
@@ -312,6 +338,13 @@ DEF_SINGLETON(TagManager)
         @{name:@"小帅10.0",maxCount:@119},
         @{name:@"向阳10倍",maxCount:@67},
         @{name:@"XG足球10倍",maxCount:@47},
+        @{name:@"小公主10倍",maxCount:@41},
+        @{name:@"小公主20倍",maxCount:@141},
+        @{name:@"小牛10倍",maxCount:@38},
+        @{name:@"小玉10倍",maxCount:@66},
+        @{name:@"小姐姐高赔",maxCount:@49},
+        @{name:@"星象高赔",maxCount:@33},
+        @{name:@"小李哥高倍",maxCount:@43},
         
         //Y
         @{name:@"豫西北高赔",maxCount:@65},
@@ -328,6 +361,7 @@ DEF_SINGLETON(TagManager)
         @{name:@"阳光10倍",maxCount:@137},
         @{name:@"月亮10倍",maxCount:@176},
         @{name:@"鹰眼10倍",maxCount:@73},
+        @{name:@"阳哥10倍",maxCount:@40},
         
         //Z
         @{name:@"自研10.0",maxCount:@57},
