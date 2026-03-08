@@ -79,10 +79,6 @@
         maxH = MAX(maxH, view.bottom);
     }];
     
-    if (@available(iOS 26.0, *)) { //适配毛玻璃效果 执行这个方法的前提是scrollview高度等于屏幕高度
-        maxH -= STATUS_BAR_HEIGHT;
-    }
-    
     //滚动范围
     self.scrollView.contentSize = CGSizeMake(MAX(_scrollView.width+1, x), maxH);
 }
@@ -297,7 +293,7 @@
         if (@available(iOS 26.0, *)) {
             //ios26不减导航栏高度，否则会出错，原因未知 tabbar高度可减可不减。减了底部正好在tabbar上方，不减和毛玻璃效果适配'
 //            h = SCREEN_HEIGHT - TAB_BAR_HEIGHT;
-            h = SCREEN_HEIGHT; //这里不减，上面scrollview滚动高度减去状态栏高度，视觉效果最好
+            h = SCREEN_HEIGHT; //这里不减，视觉效果最好
         }
         
         _scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, h)];
