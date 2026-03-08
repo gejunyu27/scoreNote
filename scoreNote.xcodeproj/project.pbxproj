@@ -78,7 +78,6 @@
 		4D8E69A22AEE894E00458818 /* RecordManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D8E69A12AEE894E00458818 /* RecordManager.m */; };
 		4D8E69A52AEE8BCA00458818 /* TagManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D8E69A42AEE8BCA00458818 /* TagManager.m */; };
 		4D8E69AF2AF1431700458818 /* TotalViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D8E69AD2AF1431700458818 /* TotalViewController.m */; };
-		4D8E69B02AF1431700458818 /* TotalViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4D8E69AE2AF1431700458818 /* TotalViewController.xib */; };
 		4D8E69B82AF146A300458818 /* TotalSectionModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D8E69B72AF146A300458818 /* TotalSectionModel.m */; };
 		4D8E69C12AF15A8500458818 /* TagViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D8E69BF2AF15A8500458818 /* TagViewController.m */; };
 		4DBBF52627A4F6F900EFCD8F /* RecordModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DBBF52527A4F6F900EFCD8F /* RecordModel.m */; };
@@ -236,7 +235,6 @@
 		4D8E69A42AEE8BCA00458818 /* TagManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TagManager.m; sourceTree = "<group>"; };
 		4D8E69AC2AF1431700458818 /* TotalViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TotalViewController.h; sourceTree = "<group>"; };
 		4D8E69AD2AF1431700458818 /* TotalViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TotalViewController.m; sourceTree = "<group>"; };
-		4D8E69AE2AF1431700458818 /* TotalViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TotalViewController.xib; sourceTree = "<group>"; };
 		4D8E69B62AF146A300458818 /* TotalSectionModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TotalSectionModel.h; sourceTree = "<group>"; };
 		4D8E69B72AF146A300458818 /* TotalSectionModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TotalSectionModel.m; sourceTree = "<group>"; };
 		4D8E69BE2AF15A8500458818 /* TagViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TagViewController.h; sourceTree = "<group>"; };
@@ -540,7 +538,6 @@
 			children = (
 				4D8E69AC2AF1431700458818 /* TotalViewController.h */,
 				4D8E69AD2AF1431700458818 /* TotalViewController.m */,
-				4D8E69AE2AF1431700458818 /* TotalViewController.xib */,
 				4D6EFC142AEE3F7700A446FF /* TotalViewModel.h */,
 				4D6EFC152AEE3F7700A446FF /* TotalViewModel.m */,
 				4D8E69B62AF146A300458818 /* TotalSectionModel.h */,
@@ -721,7 +718,6 @@
 				4DC4EC1B27B2462400049E8B /* score@3x.png in Resources */,
 				4D7748A227A656C800F505EA /* LineCell.xib in Resources */,
 				4D84F08427A3BDB10094558F /* Tab_Home_selected@2x.png in Resources */,
-				4D8E69B02AF1431700458818 /* TotalViewController.xib in Resources */,
 				4D84F00327A38ACC0094558F /* Assets.xcassets in Resources */,
 				4DC9255529FF5AF9004556ED /* TagCell.xib in Resources */,
 				4D84F09C27A3C2790094558F /* ConfigViewController.xib in Resources */,
