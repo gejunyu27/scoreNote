@@ -51,11 +51,10 @@
     
     BOOL isShow = [noti.name isEqualToString:UIKeyboardWillShowNotification];
     
-    CGFloat top = self.navigationController ? NAV_BAR_HEIGHT : 0;
-    
-    if (@available(iOS 26.0, *)) { //暂时这么写
-        self.view.top = isShow ? -200 : 0;
+    if (@available(iOS 26.0, *)) {
+        self.view.top = isShow ? -200 : 0; //暂时这么写
     }else {
+        CGFloat top = self.navigationController ? NAV_BAR_HEIGHT : 0;
         self.view.top = isShow ? top-200 : top;
     }
     

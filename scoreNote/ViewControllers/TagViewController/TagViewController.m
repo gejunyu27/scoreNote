@@ -27,6 +27,8 @@
 
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addAlick)];
     
+    [self addKeyboardNotification];
+    
 }
 
 - (void)viewWillAppear:(BOOL)animated
