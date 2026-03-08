@@ -11,21 +11,19 @@
 #import "TagManager.h"
 
 @interface TagViewController () <UITableViewDelegate, UITableViewDataSource, TagCellDelegate>
-@property (weak, nonatomic) IBOutlet UITableView *tableView;
+@property (nonatomic, strong) UITableView *tableView;
+
+
 @end
 
 @implementation TagViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
-    if (@available(iOS 15.0, *)) {
-        self.tableView.sectionHeaderTopPadding = 0;
-    }
-    
-    [_tableView registerNib:[UINib nibWithNibName:kTagCell bundle:nil] forCellReuseIdentifier:kTagCell];
 
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addAlick)];
+    
+    [self tableView];
     
     [self addKeyboardNotification];
     
@@ -221,5 +219,32 @@
     [TagManager editMaxCount:maxCount tag:model];
 }
 
+#pragma mark -UI
+- (UITableView *)tableView
+{
+    if (!_tableView) {
+        CGFloat h = SCREEN_HEIGHT - NAV_BAR_HEIGHT - TAB_BAR_HEIGHT;
+        if (@available(iOS 26.0, *)) {
+            //ios26不减导航栏高度，否则会出错，原因未知 tabbar高度可减可不减。减了底部正好在tabbar上方，不减和毛玻璃效果适配'
+            //            h = SCREEN_HEIGHT - TAB_BAR_HEIGHT;
+            h = SCREEN_HEIGHT; //这里不减，视觉效果最好
+        }
+        
+        _tableView = [[UITableView alloc] initWithFrame: CGRectMake(0, 0, SCREEN_WIDTH, h)];
+        _tableView.showsVerticalScrollIndicator = NO;
+        _tableView.showsHorizontalScrollIndicator = NO;
+        _tableView.dataSource = self;
+        _tableView.delegate = self;
+        _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+        if (@available(iOS 15.0, *)) {
+            _tableView.sectionHeaderTopPadding = 0;
+        }
+        
+        [_tableView registerNib:[UINib nibWithNibName:kTagCell bundle:nil] forCellReuseIdentifier:kTagCell];
+        [self.view addSubview:_tableView];
+        
+    }
+    return _tableView;
+}
 
 @end

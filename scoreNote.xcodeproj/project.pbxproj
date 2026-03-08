@@ -81,7 +81,6 @@
 		4D8E69B02AF1431700458818 /* TotalViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4D8E69AE2AF1431700458818 /* TotalViewController.xib */; };
 		4D8E69B82AF146A300458818 /* TotalSectionModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D8E69B72AF146A300458818 /* TotalSectionModel.m */; };
 		4D8E69C12AF15A8500458818 /* TagViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D8E69BF2AF15A8500458818 /* TagViewController.m */; };
-		4D8E69C22AF15A8500458818 /* TagViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4D8E69C02AF15A8500458818 /* TagViewController.xib */; };
 		4DBBF52627A4F6F900EFCD8F /* RecordModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DBBF52527A4F6F900EFCD8F /* RecordModel.m */; };
 		4DC4EC1A27B2462400049E8B /* score@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4DC4EC1827B2462400049E8B /* score@2x.png */; };
 		4DC4EC1B27B2462400049E8B /* score@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4DC4EC1927B2462400049E8B /* score@3x.png */; };
@@ -242,7 +241,6 @@
 		4D8E69B72AF146A300458818 /* TotalSectionModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TotalSectionModel.m; sourceTree = "<group>"; };
 		4D8E69BE2AF15A8500458818 /* TagViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TagViewController.h; sourceTree = "<group>"; };
 		4D8E69BF2AF15A8500458818 /* TagViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TagViewController.m; sourceTree = "<group>"; };
-		4D8E69C02AF15A8500458818 /* TagViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TagViewController.xib; sourceTree = "<group>"; };
 		4DBBF52427A4F6F900EFCD8F /* RecordModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RecordModel.h; sourceTree = "<group>"; };
 		4DBBF52527A4F6F900EFCD8F /* RecordModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RecordModel.m; sourceTree = "<group>"; };
 		4DC4EC1827B2462400049E8B /* score@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "score@2x.png"; sourceTree = "<group>"; };
@@ -562,7 +560,6 @@
 			children = (
 				4D8E69BE2AF15A8500458818 /* TagViewController.h */,
 				4D8E69BF2AF15A8500458818 /* TagViewController.m */,
-				4D8E69C02AF15A8500458818 /* TagViewController.xib */,
 				4DC9255129FF5AF9004556ED /* TagCell.h */,
 				4DC9255229FF5AF9004556ED /* TagCell.m */,
 				4DC9255329FF5AF9004556ED /* TagCell.xib */,
@@ -720,7 +717,6 @@
 			files = (
 				4D84F08827A3BDB10094558F /* Tab_MyOrder_selected@2x.png in Resources */,
 				4B7A33442C4ECA0D00F91B34 /* TagDetailCell.xib in Resources */,
-				4D8E69C22AF15A8500458818 /* TagViewController.xib in Resources */,
 				4DC4EC1A27B2462400049E8B /* score@2x.png in Resources */,
 				4DC4EC1B27B2462400049E8B /* score@3x.png in Resources */,
 				4D7748A227A656C800F505EA /* LineCell.xib in Resources */,
