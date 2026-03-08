@@ -305,6 +305,16 @@
 			path = TagManager;
 			sourceTree = "<group>";
 		};
+		4B4AC4B22F5DAF6A00F22FDB /* ColumnAddViewController */ = {
+			isa = PBXGroup;
+			children = (
+				4BD3A8642C628F3600BB146C /* ColumnAddViewController.h */,
+				4BD3A8652C628F3600BB146C /* ColumnAddViewController.m */,
+				4BD3A8662C628F3600BB146C /* ColumnAddViewController.xib */,
+			);
+			path = ColumnAddViewController;
+			sourceTree = "<group>";
+		};
 		4B529F6C2C4BB8DB0044736F /* TagRankViewController */ = {
 			isa = PBXGroup;
 			children = (
@@ -590,9 +600,7 @@
 				4D4FA1482AED696800D2C2AF /* ConfigCell.xib */,
 				4D368C642AED777500700B2C /* ConfigManager.h */,
 				4D368C652AED777500700B2C /* ConfigManager.m */,
-				4BD3A8642C628F3600BB146C /* ColumnAddViewController.h */,
-				4BD3A8652C628F3600BB146C /* ColumnAddViewController.m */,
-				4BD3A8662C628F3600BB146C /* ColumnAddViewController.xib */,
+				4B4AC4B22F5DAF6A00F22FDB /* ColumnAddViewController */,
 				4BADE9992C5E6063008D67EC /* SqlEditViewController */,
 			);
 			path = ConfigViewController;
