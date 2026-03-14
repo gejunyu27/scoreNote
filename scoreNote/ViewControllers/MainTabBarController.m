@@ -11,6 +11,8 @@
 #import "ConfigViewController.h"
 #import "TagViewController.h"
 #import "TotalViewController.h"
+#import "TestViewController.h"
+
 
 #define kTabImg(P)    [[UIImage imageNamed:P] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]
 
@@ -22,10 +24,13 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
+
     [self createTabs];
     
-    [self setupTabBar];
+    if (@available(iOS 26.0, *)) { //ios26新增毛玻璃效果，不再使用传统效果
+        [self setupTabBar];
+    }
+
     
 }
 
@@ -87,10 +92,6 @@
 
 - (void)setupTabBar
 {
-    if (@available(iOS 26.0, *)) { //ios26新增毛玻璃效果，不再使用传统效果
-        return;
-    }
-    
     //传统效果
     //    self.tabBar.backgroundImage = [UIImage new];
     self.tabBar.backgroundColor = [UIColor whiteColor];
