@@ -33,6 +33,7 @@
 		4BADE9982C5E4376008D67EC /* CareerCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4BADE9962C5E4376008D67EC /* CareerCell.xib */; };
 		4BADE99F2C5E6194008D67EC /* SqlEditViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BADE99E2C5E6194008D67EC /* SqlEditViewController.m */; };
 		4BADE9A82C5E7A9C008D67EC /* SqlLineViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BADE9A72C5E7A9C008D67EC /* SqlLineViewController.m */; };
+		4BCDB8802F65950700181DBE /* TestViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BCDB87F2F65950700181DBE /* TestViewController.m */; };
 		4BD3A8672C628F3600BB146C /* ColumnAddViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4BD3A8662C628F3600BB146C /* ColumnAddViewController.xib */; };
 		4BD3A8682C628F3600BB146C /* ColumnAddViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BD3A8652C628F3600BB146C /* ColumnAddViewController.m */; };
 		4D0806722AEAB6DC007BB9BF /* SCToolBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D0806712AEAB6DC007BB9BF /* SCToolBar.m */; };
@@ -155,6 +156,8 @@
 		4BADE99E2C5E6194008D67EC /* SqlEditViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SqlEditViewController.m; sourceTree = "<group>"; };
 		4BADE9A62C5E7A9C008D67EC /* SqlLineViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SqlLineViewController.h; sourceTree = "<group>"; };
 		4BADE9A72C5E7A9C008D67EC /* SqlLineViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SqlLineViewController.m; sourceTree = "<group>"; };
+		4BCDB87E2F65950700181DBE /* TestViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TestViewController.h; sourceTree = "<group>"; };
+		4BCDB87F2F65950700181DBE /* TestViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TestViewController.m; sourceTree = "<group>"; };
 		4BD3A8642C628F3600BB146C /* ColumnAddViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ColumnAddViewController.h; sourceTree = "<group>"; };
 		4BD3A8652C628F3600BB146C /* ColumnAddViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ColumnAddViewController.m; sourceTree = "<group>"; };
 		4BD3A8662C628F3600BB146C /* ColumnAddViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ColumnAddViewController.xib; sourceTree = "<group>"; };
@@ -384,6 +387,15 @@
 			path = SqlEditViewController;
 			sourceTree = "<group>";
 		};
+		4BCDB8762F6593E800181DBE /* TestVewController */ = {
+			isa = PBXGroup;
+			children = (
+				4BCDB87E2F65950700181DBE /* TestViewController.h */,
+				4BCDB87F2F65950700181DBE /* TestViewController.m */,
+			);
+			path = TestVewController;
+			sourceTree = "<group>";
+		};
 		4D84EFE727A38AC80094558F = {
 			isa = PBXGroup;
 			children = (
@@ -434,6 +446,7 @@
 			children = (
 				4D84F03427A38DE20094558F /* MainTabBarController.h */,
 				4D84F03527A38DE20094558F /* MainTabBarController.m */,
+				4BCDB8762F6593E800181DBE /* TestVewController */,
 				4D8A654927AB75A20082C1A3 /* HomeViewController */,
 				4D8A655327AB77890082C1A3 /* TotalViewController */,
 				4D8E69BD2AF15A1600458818 /* TagViewController */,
@@ -832,6 +845,7 @@
 				4BD3A8682C628F3600BB146C /* ColumnAddViewController.m in Sources */,
 				4D84F05B27A396AF0094558F /* NSObject+SCHUD.m in Sources */,
 				4B0B1F242C5F9A6E0008C94C /* SqlEditUtil.m in Sources */,
+				4BCDB8802F65950700181DBE /* TestViewController.m in Sources */,
 				4D84F06627A396AF0094558F /* UIView+SCExtension.m in Sources */,
 				4D84F06227A396AF0094558F /* NSString+SCExtension.m in Sources */,
 				4D8E69B82AF146A300458818 /* TotalSectionModel.m in Sources */,
@@ -1025,6 +1039,11 @@
 				EXCLUDED_ARCHS = "";
 				GCC_PREFIX_HEADER = "$(SRCROOT)/scoreNote/Utils/CommonPrefix.pch";
 				GENERATE_INFOPLIST_FILE = YES;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/FMDB/FMDB.framework/Headers\"",
+					"$(SRCROOT)/**",
+				);
 				INFOPLIST_FILE = scoreNote/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "进球笔记";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -1064,6 +1083,11 @@
 				EXCLUDED_ARCHS = "";
 				GCC_PREFIX_HEADER = "$(SRCROOT)/scoreNote/Utils/CommonPrefix.pch";
 				GENERATE_INFOPLIST_FILE = YES;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/FMDB/FMDB.framework/Headers\"",
+					"$(SRCROOT)/**",
+				);
 				INFOPLIST_FILE = scoreNote/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "进球笔记";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
