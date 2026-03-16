@@ -21,8 +21,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) UILabel *buyNumLabel;          //已跟期数
 @property (nonatomic, strong) UIButton *perProfitButton;     //每期利润
 @property (nonatomic, strong) UIButton *baseProfitButton;    //固定利润
-@property (nonatomic, strong) UILabel *planProfitLabel;       //总计利润
-
+@property (nonatomic, strong) UILabel *planProfitLabel;      //总计利润
+@property (nonatomic, strong) UILabel *planGetLabel;         //预期获得
 
 
 @property (nonatomic, strong) UIView *line;              //分割线
@@ -80,6 +80,7 @@ NS_ASSUME_NONNULL_BEGIN
         _tagNumButton = [[UIButton alloc] initWithFrame:CGRectMake(0, qiLabel.top, btnW, 20)];
         [_tagNumButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
         _tagNumButton.titleLabel.font = SCFONT_SIZED(12);
+        [_tagNumButton setTitle:@"111" forState:UIControlStateNormal];
         _tagNumButton.layer.cornerRadius = 5;
         _tagNumButton.layer.borderColor = HEX_RGB(@"#F2F2F2").CGColor;
         _tagNumButton.layer.borderWidth = 1;
@@ -118,7 +119,7 @@ NS_ASSUME_NONNULL_BEGIN
         [self.contentView addSubview:_recordView];
         
         //利润
-        _profitLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 160, 22)];
+        _profitLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 160, 20)];
         _profitLabel.textAlignment = NSTextAlignmentLeft;
         _profitLabel.text = @"当前利润：-5839";
         [_recordView addSubview:_profitLabel];
@@ -135,30 +136,35 @@ NS_ASSUME_NONNULL_BEGIN
         
         CGFloat labelH    = 20;
         UIFont *labelFont = SCFONT_SIZED(14);
+        UIColor *labelColor = [UIColor grayColor];
         
         //已跟期数
-        _buyNumLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, _profitLabel.bottom+5, 75, labelH)];
+        _buyNumLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, _profitLabel.bottom+6, 75, labelH)];
         _buyNumLabel.textAlignment = NSTextAlignmentLeft;
         _buyNumLabel.font = labelFont;
         _buyNumLabel.text = @"已跟78期";
+        _buyNumLabel.textColor = labelColor;
         [_recordView addSubview:_buyNumLabel];
         //
         //计划利润
         _planProfitLabel = [[UILabel alloc] initWithFrame:CGRectMake(_buyNumLabel.right, _buyNumLabel.top, 120, labelH)];
         _planProfitLabel.text = @"计划利润:7802";
         _planProfitLabel.font = labelFont;
+        _planProfitLabel.textColor = labelColor;
         [_recordView addSubview:_planProfitLabel];
 
         //每期利润
-        UILabel *perProfitLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, _buyNumLabel.bottom+2, 100, labelH)];
+        UILabel *perProfitLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, _buyNumLabel.bottom+1, 100, labelH)];
         perProfitLabel.textAlignment = NSTextAlignmentLeft;
         perProfitLabel.text = @"其中：每期利润";
         perProfitLabel.font = labelFont;
+        perProfitLabel.textColor = labelColor;
         [_recordView addSubview:perProfitLabel];
         
         _perProfitButton = [[UIButton alloc] initWithFrame:CGRectMake(perProfitLabel.right, perProfitLabel.top, 35, labelH)];
         [_perProfitButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
         [_perProfitButton setTitle:@"50" forState:UIControlStateNormal];
+        [_perProfitButton setTitleColor:labelColor forState:UIControlStateNormal];
         _perProfitButton.titleLabel.font = labelFont;
         _perProfitButton.layer.cornerRadius = 5;
         _perProfitButton.layer.borderColor = HEX_RGB(@"#F2F2F2").CGColor;
@@ -169,18 +175,24 @@ NS_ASSUME_NONNULL_BEGIN
         UILabel *baseProfitLabel = [[UILabel alloc] initWithFrame:CGRectMake(_perProfitButton.right+2, _perProfitButton.top, 58, labelH)];
         baseProfitLabel.text = @"固定利润";
         baseProfitLabel.font = labelFont;
+        baseProfitLabel.textColor = labelColor;
         [_recordView addSubview:baseProfitLabel];
         //
         _baseProfitButton = [[UIButton alloc] initWithFrame:CGRectMake(baseProfitLabel.right, baseProfitLabel.top, 65, labelH)];
         [_baseProfitButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
         [_baseProfitButton setTitle:@"5000" forState:UIControlStateNormal];
+        [_baseProfitButton setTitleColor:labelColor forState:UIControlStateNormal];
         _baseProfitButton.titleLabel.font = labelFont;
         _baseProfitButton.layer.cornerRadius = 5;
         _baseProfitButton.layer.borderColor = HEX_RGB(@"#F2F2F2").CGColor;
         _baseProfitButton.layer.borderWidth = 1;
         [_recordView addSubview:_baseProfitButton];
         
-        
+        //计划获得
+        _planGetLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, _baseProfitButton.bottom+6, _recordView.width, 20)];
+        _planGetLabel.textAlignment = NSTextAlignmentLeft;
+        _planGetLabel.text = @"本次投注所需利润：10283";
+        [_recordView addSubview:_planGetLabel];
         
         
     }
