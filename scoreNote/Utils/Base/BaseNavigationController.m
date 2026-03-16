@@ -17,21 +17,26 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-    if (@available(iOS 15.0, *)) {
-        UINavigationBarAppearance *ba = [UINavigationBarAppearance new];
-        ba.backgroundEffect = [UIBlurEffect effectWithStyle:UIBlurEffectStyleRegular];
-        ba.backgroundColor = [UIColor whiteColor];
-        ba.titleTextAttributes = @{NSForegroundColorAttributeName: [UIColor blackColor]};
-        self.navigationBar.scrollEdgeAppearance = ba;
-        self.navigationBar.standardAppearance = ba;
-    }
+
     
-    if (@available(iOS 26.0, *)) { //ios26 导航栏分割线消失，与毛玻璃样式有关。如果需要，在这儿自建分割线，但跳转页面会消失，不建议用
-//        UIView *line = [[UIView alloc] initWithFrame:CGRectMake(0, 54-0.5, SCREEN_WIDTH, 0.5)];
-//        line.backgroundColor = [UIColor lightGrayColor];
-//        [self.navigationBar addSubview:line];
+    if (@available(iOS 26.0, *)) { //ios26 采用毛玻璃样式
+        
+//        UINavigationBarAppearance *standardAppearance   = [UINavigationBarAppearance new];
+//        standardAppearance.backgroundEffect = [UIBlurEffect effectWithStyle:UIBlurEffectStyleLiquidGlass]
+//
+//        UINavigationBarAppearance *scrollEdgeAppearance = [UINavigationBarAppearance new];
+        
         
     }else {
+        if (@available(iOS 15.0, *)) {
+            UINavigationBarAppearance *ba = [UINavigationBarAppearance new];
+            ba.backgroundEffect = [UIBlurEffect effectWithStyle:UIBlurEffectStyleRegular];
+            ba.backgroundColor = [UIColor whiteColor];
+            ba.titleTextAttributes = @{NSForegroundColorAttributeName: [UIColor blackColor]};
+            self.navigationBar.scrollEdgeAppearance = ba;
+            self.navigationBar.standardAppearance = ba;
+        }
+        
             self.view.backgroundColor = [UIColor whiteColor];
             self.navigationBar.translucent = NO;
         //    [self.navigationBar setShadowImage:[[UIImage alloc]init]];

@@ -11,6 +11,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 #define kTRCellH 45
+#define kTagRankCellId @"TagRankCellId"
 
 @interface TagRankCell : UITableViewCell
 - (void)setData:(TagRankModel *)model row:(NSInteger)row;

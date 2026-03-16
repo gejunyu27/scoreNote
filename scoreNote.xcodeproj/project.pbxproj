@@ -34,6 +34,7 @@
 		4BADE99F2C5E6194008D67EC /* SqlEditViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BADE99E2C5E6194008D67EC /* SqlEditViewController.m */; };
 		4BADE9A82C5E7A9C008D67EC /* SqlLineViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BADE9A72C5E7A9C008D67EC /* SqlLineViewController.m */; };
 		4BCDB8802F65950700181DBE /* TestViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BCDB87F2F65950700181DBE /* TestViewController.m */; };
+		4BCDB8842F65A0B000181DBE /* HomeCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BCDB8832F65A0B000181DBE /* HomeCell.m */; };
 		4BD3A8672C628F3600BB146C /* ColumnAddViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4BD3A8662C628F3600BB146C /* ColumnAddViewController.xib */; };
 		4BD3A8682C628F3600BB146C /* ColumnAddViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BD3A8652C628F3600BB146C /* ColumnAddViewController.m */; };
 		4D0806722AEAB6DC007BB9BF /* SCToolBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D0806712AEAB6DC007BB9BF /* SCToolBar.m */; };
@@ -158,6 +159,8 @@
 		4BADE9A72C5E7A9C008D67EC /* SqlLineViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SqlLineViewController.m; sourceTree = "<group>"; };
 		4BCDB87E2F65950700181DBE /* TestViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TestViewController.h; sourceTree = "<group>"; };
 		4BCDB87F2F65950700181DBE /* TestViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TestViewController.m; sourceTree = "<group>"; };
+		4BCDB8822F65A0B000181DBE /* HomeCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HomeCell.h; sourceTree = "<group>"; };
+		4BCDB8832F65A0B000181DBE /* HomeCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HomeCell.m; sourceTree = "<group>"; };
 		4BD3A8642C628F3600BB146C /* ColumnAddViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ColumnAddViewController.h; sourceTree = "<group>"; };
 		4BD3A8652C628F3600BB146C /* ColumnAddViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ColumnAddViewController.m; sourceTree = "<group>"; };
 		4BD3A8662C628F3600BB146C /* ColumnAddViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ColumnAddViewController.xib; sourceTree = "<group>"; };
@@ -392,8 +395,18 @@
 			children = (
 				4BCDB87E2F65950700181DBE /* TestViewController.h */,
 				4BCDB87F2F65950700181DBE /* TestViewController.m */,
+				4BCDB8812F65A09D00181DBE /* HomeCell */,
 			);
 			path = TestVewController;
+			sourceTree = "<group>";
+		};
+		4BCDB8812F65A09D00181DBE /* HomeCell */ = {
+			isa = PBXGroup;
+			children = (
+				4BCDB8822F65A0B000181DBE /* HomeCell.h */,
+				4BCDB8832F65A0B000181DBE /* HomeCell.m */,
+			);
+			path = HomeCell;
 			sourceTree = "<group>";
 		};
 		4D84EFE727A38AC80094558F = {
@@ -836,6 +849,7 @@
 				4D77489527A6489000F505EA /* RecordView.m in Sources */,
 				4DBBF52627A4F6F900EFCD8F /* RecordModel.m in Sources */,
 				4B7A333D2C4EC4DF00F91B34 /* TagDetailViewController.m in Sources */,
+				4BCDB8842F65A0B000181DBE /* HomeCell.m in Sources */,
 				4B529F6B2C4B75EA0044736F /* TagRankViewController.m in Sources */,
 				4D84F03627A38DE20094558F /* MainTabBarController.m in Sources */,
 				4D84F05C27A396AF0094558F /* NSDate+SCExtension.m in Sources */,

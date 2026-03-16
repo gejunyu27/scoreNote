@@ -32,10 +32,6 @@
 //默认图片
 #define  IMG_PLACE_HOLDER   SCIMAGE(@"home_localLife_newsDefault")
 
-//序号宽度
-#define kMargin  20.0
-
-
 //单例
 #undef  AS_SINGLETON
 #define AS_SINGLETON( __class ) \

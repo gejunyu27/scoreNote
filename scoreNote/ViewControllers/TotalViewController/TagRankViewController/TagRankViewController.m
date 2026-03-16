@@ -44,7 +44,7 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    TagRankCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass(TagRankCell.class)];
+    TagRankCell *cell = [tableView dequeueReusableCellWithIdentifier:kTagRankCellId];
     
     NSInteger row = indexPath.row;
     if (row < self.viewModel.rankList.count) {
@@ -84,7 +84,7 @@
         _tableView.dataSource = self;
 //        _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
         _tableView.showsVerticalScrollIndicator = YES;
-        [_tableView registerClass:TagRankCell.class forCellReuseIdentifier:NSStringFromClass(TagRankCell.class)];
+        [_tableView registerClass:TagRankCell.class forCellReuseIdentifier:kTagRankCellId];
         if (@available(iOS 15.0, *)) {
             _tableView.sectionHeaderTopPadding = 0;
         }

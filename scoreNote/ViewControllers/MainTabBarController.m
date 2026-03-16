@@ -27,10 +27,7 @@
 
     [self createTabs];
     
-    if (@available(iOS 26.0, *)) { //ios26新增毛玻璃效果，不再使用传统效果
-        [self setupTabBar];
-    }
-
+    [self setupTabBar];
     
 }
 
@@ -49,6 +46,18 @@
     }
     BaseNavigationController *homeNav = [[BaseNavigationController alloc] initWithRootViewController:homeVc];
     [temp addObject:homeNav];
+    
+    TestViewController *testVc = [TestViewController new];
+    testVc.isMainTabVC = YES;
+    testVc.title = @"测试";
+    UITabBarItem *testItem = testVc.tabBarItem;
+    testItem.image = kTabImg(@"Tab_Home");
+    testItem.selectedImage = kTabImg(@"Tab_Home_selected");
+    if (@available(iOS 26.0, *)) { //ios26必须在这儿设置，否则文字错位 另外普通状态文字颜色无法改变，原因未知
+        [testItem setTitleTextAttributes:kSelectedTextAttributes forState:UIControlStateSelected];
+    }
+    BaseNavigationController *testNav = [[BaseNavigationController alloc] initWithRootViewController:testVc];
+    [temp addObject:testNav];
     
     TotalViewController *totalVc = [TotalViewController new];
     totalVc.isMainTabVC = YES;
@@ -92,6 +101,10 @@
 
 - (void)setupTabBar
 {
+    if (@available(iOS 26.0, *)) { //ios26新增毛玻璃效果，不再使用传统效果
+        return;
+    }
+    
     //传统效果
     //    self.tabBar.backgroundImage = [UIImage new];
     self.tabBar.backgroundColor = [UIColor whiteColor];
