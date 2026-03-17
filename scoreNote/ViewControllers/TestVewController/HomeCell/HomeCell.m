@@ -24,8 +24,16 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) UILabel *planProfitLabel;      //总计利润
 @property (nonatomic, strong) UILabel *planGetLabel;         //预期获得
 
+@property (nonatomic, strong) UITextField *noteField;        //笔记
 
-@property (nonatomic, strong) UIView *line;              //分割线
+@property (nonatomic, strong) UIView *buyView;               //购买区
+@property (nonatomic, strong) UIButton *buyButton;
+
+@property (nonatomic, strong) UIButton *linesButton;         //详情按钮
+@property (nonatomic, strong) UIButton *overButton;          //结束按钮
+
+
+@property (nonatomic, strong) UIView *line;                 //分割线
 
 @end
 
@@ -45,8 +53,8 @@ NS_ASSUME_NONNULL_BEGIN
 {
     self.selectionStyle = UITableViewCellSelectionStyleNone;
     
-    [self recordView];
-    [self line];
+    [self overButton];
+    
 }
 
 #define kMargin 10
@@ -199,10 +207,79 @@ NS_ASSUME_NONNULL_BEGIN
     return _recordView;
 }
 
+- (UITextField *)noteField
+{
+    if (!_noteField) {
+        _noteField = [[UITextField alloc] initWithFrame:CGRectMake(kMargin, self.recordView.bottom+kMargin, SCREEN_WIDTH-kMargin*2, 25)];
+        _noteField.borderStyle = UITextBorderStyleLine;
+        _noteField.font = SCFONT_SIZED(11);
+        _noteField.placeholder = @"填写备注";
+        _noteField.returnKeyType = UIReturnKeyDone;
+        [self.contentView addSubview:_noteField];
+    }
+    return _noteField;
+}
+
+#define kBtnColor HEX_RGB(@"#74B1FF")
+
+- (UIView *)buyView
+{
+    if (!_buyView) {
+        CGFloat y = self.noteField.bottom + kMargin;
+        CGFloat h = self.line.top - y - kMargin;
+        _buyView = [[UIView alloc] initWithFrame:CGRectMake(kMargin, y, SCREEN_FIX(220), h)];
+        _buyView.backgroundColor = kBtnColor;
+        _buyView.layer.cornerRadius = 5;
+        [self.contentView addSubview:_buyView];
+        
+        _buyButton = [[UIButton alloc] initWithFrame:_buyView.bounds];
+        [_buyButton setTitle:@"快 速 购 买" forState:UIControlStateNormal];
+        _buyButton.titleLabel.font = SCFONT_BOLD_SIZED(20);
+        [_buyButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        [_buyView addSubview:_buyButton];
+    }
+    return _buyView;
+}
+
+- (UIButton *)linesButton
+{
+    if (!_linesButton) {
+        CGFloat y = self.buyView.top;
+        CGFloat h = (self.buyView.bottom - y - kMargin)/2;
+        CGFloat x = self.buyView.right+kMargin;
+        CGFloat w = SCREEN_WIDTH - x - kMargin;
+        _linesButton = [[UIButton alloc] initWithFrame:CGRectMake(x, y, w, h)];
+        _linesButton.layer.cornerRadius = 5;
+        [_linesButton setTitle:@"查看列表" forState:UIControlStateNormal];
+        _linesButton.titleLabel.font = SCFONT_SIZED(15);
+        [_linesButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        _linesButton.backgroundColor = kBtnColor;
+        [self.contentView addSubview:_linesButton];
+    }
+    return _linesButton;
+}
+
+- (UIButton *)overButton
+{
+    if (!_overButton) {
+        _overButton = [UIButton buttonWithType:UIButtonTypeSystem];
+        _overButton.frame = self.linesButton.frame;
+        _overButton.top = self.linesButton.bottom + kMargin;
+        [_overButton setTitle:@"结       束" forState:UIControlStateNormal];
+        _overButton.layer.cornerRadius = self.linesButton.layer.cornerRadius;
+        _overButton.titleLabel.font = self.linesButton.titleLabel.font;
+        [_overButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        _overButton.backgroundColor = kBtnColor;
+        
+        [self.contentView addSubview:_overButton];
+    }
+    return _overButton;
+}
+
 - (UIView *)line
 {
     if (!_line) {
-        _line = [[UIView alloc] initWithFrame:CGRectMake(0, kHomeCellH-0.5, SCREEN_WIDTH, 0.5)];
+        _line = [[UIView alloc] initWithFrame:CGRectMake(0, kHomeCellH-1, SCREEN_WIDTH, 1)];
         _line.backgroundColor = [UIColor blackColor];
         [self.contentView addSubview:_line];
     }
