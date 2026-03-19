@@ -12,7 +12,16 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+@protocol HomeCellDelegate <NSObject>
+- (void)homeCellInsertNewLineWithRecord:(RecordModel *)record;
+
+
+@end
+
 @interface HomeCell : UITableViewCell
+
+@property (nonatomic, weak) id <HomeCellDelegate> delegate;
+@property (nonatomic, strong) RecordModel *record;
 
 @end
 

@@ -10,7 +10,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface TestViewController () <UITableViewDelegate, UITableViewDataSource>
+@interface TestViewController () <UITableViewDelegate, UITableViewDataSource, HomeCellDelegate>
 @property (nonatomic, strong) UITableView *tableView;
 
 @end
@@ -31,11 +31,13 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:kHomeCellId forIndexPath:indexPath];
-
-    
+    HomeCell *cell = [tableView dequeueReusableCellWithIdentifier:kHomeCellId forIndexPath:indexPath];
+    cell.delegate = self;
+    cell.record = nil;
     return cell;
 }
+
+#pragma mark -HomeCellDelegate
 
 #pragma mark -UI
 - (UITableView *)tableView

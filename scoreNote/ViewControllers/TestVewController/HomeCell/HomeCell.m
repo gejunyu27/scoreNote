@@ -43,20 +43,57 @@ NS_ASSUME_NONNULL_BEGIN
 {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
-        [self initUI];
+        self.selectionStyle = UITableViewCellSelectionStyleNone;
+        
+        [self overButton];
     }
     return self;
 }
 
-#pragma mark -ui
-- (void)initUI
+#pragma mark -data
+- (void)setRecord:(RecordModel *)record
 {
-    self.selectionStyle = UITableViewCellSelectionStyleNone;
+    _record = record;
     
-    [self overButton];
+    //标签
+    [_tagNameButton setTitle:(_record.tagModel ? _record.tagModel.name : @"无跟单") forState:UIControlStateNormal];
     
+    //实际期数
+    [_tagNumButton setTitle:[NSString stringWithFormat:@"%li", _record.realNum] forState:UIControlStateNormal];
+    
+    //本期买法
+    [_scoreButton setTitle:(record.currentScore.length == 0 ? @"添加本期买法" : record.currentScore) forState:UIControlStateNormal];
+    
+    //笔记
+    _noteField.text = record.note;
+    
+    //当前利润
+    CGFloat allProfit = record.allProfit;
+    _profitLabel.text = [NSString stringWithFormat:@"当前利润：%@", [SCUtilities removeFloatSuffix:allProfit]];
+    
+    //止损线
+    [_breakButton setTitle:[NSString stringWithFormat:@"止损线%@", [SCUtilities removeFloatSuffix:record.breakLine]] forState:UIControlStateNormal];
+    
+    //已跟期数
+    NSInteger count = record.lineList.count;
+    _buyNumLabel.text = [NSString stringWithFormat:@"已跟%li期", count];
+    
+    //计划利润
+    CGFloat planProfit = (count+1)*record.profitPerLine + record.baseProfit;
+    _planProfitLabel.text = [NSString stringWithFormat:@"计划利润：%@",[SCUtilities removeFloatSuffix:planProfit]];
+    
+    //每期利润
+    [_perProfitButton setTitle:[SCUtilities removeFloatSuffix:record.profitPerLine] forState:UIControlStateNormal];
+    
+    //固定利润
+    [_baseProfitButton setTitle:[SCUtilities removeFloatSuffix:record.baseProfit] forState:UIControlStateNormal];
+    
+    //本次投注所需利润
+    CGFloat planGet = MAX(planProfit - allProfit, 0);
+    _planGetLabel.text  = [NSString stringWithFormat:@"本次投注所需利润：%@", [SCUtilities removeFloatSuffix:planGet]];
 }
 
+#pragma mark -ui
 #define kMargin 10
 
 - (UIView *)tagView
@@ -67,7 +104,6 @@ NS_ASSUME_NONNULL_BEGIN
         
         //单子
         _tagNameButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, _tagView.width, 25)];
-        [_tagNameButton setTitle:@"无跟单" forState:UIControlStateNormal];
         [_tagNameButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
         _tagNameButton.titleLabel.font = SCFONT_SIZED(12);
         _tagNameButton.layer.cornerRadius = 5;
@@ -88,7 +124,7 @@ NS_ASSUME_NONNULL_BEGIN
         _tagNumButton = [[UIButton alloc] initWithFrame:CGRectMake(0, qiLabel.top, btnW, 20)];
         [_tagNumButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
         _tagNumButton.titleLabel.font = SCFONT_SIZED(12);
-        [_tagNumButton setTitle:@"111" forState:UIControlStateNormal];
+        [_tagNumButton setTitle:@"0" forState:UIControlStateNormal];
         _tagNumButton.layer.cornerRadius = 5;
         _tagNumButton.layer.borderColor = HEX_RGB(@"#F2F2F2").CGColor;
         _tagNumButton.layer.borderWidth = 1;
@@ -107,7 +143,6 @@ NS_ASSUME_NONNULL_BEGIN
         CGFloat y = numAddButton.bottom+5;
         CGFloat h = _tagView.height-y;
         _scoreButton = [[UIButton alloc] initWithFrame:CGRectMake(0, y, _tagView.width, h)];
-        [_scoreButton setTitle:@"添加本期买法" forState:UIControlStateNormal];
         [_scoreButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
         _scoreButton.titleLabel.font = SCFONT_SIZED(11);
         _scoreButton.layer.cornerRadius = 5;
@@ -129,12 +164,10 @@ NS_ASSUME_NONNULL_BEGIN
         //利润
         _profitLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 160, 20)];
         _profitLabel.textAlignment = NSTextAlignmentLeft;
-        _profitLabel.text = @"当前利润：-5839";
         [_recordView addSubview:_profitLabel];
         //
         _breakButton = [[UIButton alloc] initWithFrame:CGRectMake(_profitLabel.right, 0, _recordView.width-_profitLabel.right, _profitLabel.height)];
         [_breakButton setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
-        [_breakButton setTitle:@"止损线5000" forState:UIControlStateNormal];
         _breakButton.titleLabel.font = SCFONT_SIZED(13);
         _breakButton.layer.cornerRadius = 5;
         _breakButton.layer.borderColor = HEX_RGB(@"#F2F2F2").CGColor;
@@ -150,13 +183,11 @@ NS_ASSUME_NONNULL_BEGIN
         _buyNumLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, _profitLabel.bottom+6, 75, labelH)];
         _buyNumLabel.textAlignment = NSTextAlignmentLeft;
         _buyNumLabel.font = labelFont;
-        _buyNumLabel.text = @"已跟78期";
         _buyNumLabel.textColor = labelColor;
         [_recordView addSubview:_buyNumLabel];
         //
         //计划利润
         _planProfitLabel = [[UILabel alloc] initWithFrame:CGRectMake(_buyNumLabel.right, _buyNumLabel.top, 120, labelH)];
-        _planProfitLabel.text = @"计划利润:7802";
         _planProfitLabel.font = labelFont;
         _planProfitLabel.textColor = labelColor;
         [_recordView addSubview:_planProfitLabel];
@@ -171,7 +202,6 @@ NS_ASSUME_NONNULL_BEGIN
         
         _perProfitButton = [[UIButton alloc] initWithFrame:CGRectMake(perProfitLabel.right, perProfitLabel.top, 35, labelH)];
         [_perProfitButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-        [_perProfitButton setTitle:@"50" forState:UIControlStateNormal];
         [_perProfitButton setTitleColor:labelColor forState:UIControlStateNormal];
         _perProfitButton.titleLabel.font = labelFont;
         _perProfitButton.layer.cornerRadius = 5;
@@ -188,7 +218,6 @@ NS_ASSUME_NONNULL_BEGIN
         //
         _baseProfitButton = [[UIButton alloc] initWithFrame:CGRectMake(baseProfitLabel.right, baseProfitLabel.top, 65, labelH)];
         [_baseProfitButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-        [_baseProfitButton setTitle:@"5000" forState:UIControlStateNormal];
         [_baseProfitButton setTitleColor:labelColor forState:UIControlStateNormal];
         _baseProfitButton.titleLabel.font = labelFont;
         _baseProfitButton.layer.cornerRadius = 5;
@@ -199,7 +228,6 @@ NS_ASSUME_NONNULL_BEGIN
         //计划获得
         _planGetLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, _baseProfitButton.bottom+6, _recordView.width, 20)];
         _planGetLabel.textAlignment = NSTextAlignmentLeft;
-        _planGetLabel.text = @"本次投注所需利润：10283";
         [_recordView addSubview:_planGetLabel];
         
         
@@ -220,7 +248,7 @@ NS_ASSUME_NONNULL_BEGIN
     return _noteField;
 }
 
-#define kBtnColor HEX_RGB(@"#74B1FF")
+#define kBtnColor HEX_RGB(@"#674FF6")
 
 - (UIView *)buyView
 {
@@ -228,14 +256,15 @@ NS_ASSUME_NONNULL_BEGIN
         CGFloat y = self.noteField.bottom + kMargin;
         CGFloat h = self.line.top - y - kMargin;
         _buyView = [[UIView alloc] initWithFrame:CGRectMake(kMargin, y, SCREEN_FIX(220), h)];
-        _buyView.backgroundColor = kBtnColor;
-        _buyView.layer.cornerRadius = 5;
+        _buyView.layer.cornerRadius = 8;
+        _buyView.layer.borderWidth = 1;
+        _buyView.layer.borderColor = kBtnColor.CGColor;
         [self.contentView addSubview:_buyView];
         
         _buyButton = [[UIButton alloc] initWithFrame:_buyView.bounds];
         [_buyButton setTitle:@"快 速 购 买" forState:UIControlStateNormal];
         _buyButton.titleLabel.font = SCFONT_BOLD_SIZED(20);
-        [_buyButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        [_buyButton setTitleColor:kBtnColor forState:UIControlStateNormal];
         [_buyView addSubview:_buyButton];
     }
     return _buyView;
@@ -250,10 +279,12 @@ NS_ASSUME_NONNULL_BEGIN
         CGFloat w = SCREEN_WIDTH - x - kMargin;
         _linesButton = [[UIButton alloc] initWithFrame:CGRectMake(x, y, w, h)];
         _linesButton.layer.cornerRadius = 5;
+        _linesButton.layer.borderWidth = 1;
+        _linesButton.layer.borderColor = [UIColor blackColor].CGColor;
         [_linesButton setTitle:@"查看列表" forState:UIControlStateNormal];
         _linesButton.titleLabel.font = SCFONT_SIZED(15);
-        [_linesButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-        _linesButton.backgroundColor = kBtnColor;
+        [_linesButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+//        _linesButton.backgroundColor = kBtnColor;
         [self.contentView addSubview:_linesButton];
     }
     return _linesButton;
@@ -267,9 +298,11 @@ NS_ASSUME_NONNULL_BEGIN
         _overButton.top = self.linesButton.bottom + kMargin;
         [_overButton setTitle:@"结       束" forState:UIControlStateNormal];
         _overButton.layer.cornerRadius = self.linesButton.layer.cornerRadius;
+        _overButton.layer.borderWidth = 1;
+        _overButton.layer.borderColor = [UIColor blackColor].CGColor;
         _overButton.titleLabel.font = self.linesButton.titleLabel.font;
-        [_overButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-        _overButton.backgroundColor = kBtnColor;
+        [_overButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+//        _overButton.backgroundColor = kBtnColor;
         
         [self.contentView addSubview:_overButton];
     }
