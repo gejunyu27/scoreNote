@@ -76,14 +76,18 @@
     return _startTime;
 }
 
-- (CGFloat)isBreaking
+- (BOOL)isBreaking
 {
-    BOOL result = self.lineList.lastObject.isOver && self.allProfit <= -self.breakLine;
+    //旧版
+//    BOOL result = self.lineList.lastObject.isOver && self.allProfit <= -self.breakLine;
+//    
+//    if (result) {
+//        self.profitPerLine = 0;
+//        self.baseProfit = 0;
+//    }
     
-    if (result) {
-        self.profitPerLine = 0;
-        self.baseProfit = 0;
-    }
+    //新版
+    BOOL result = self.allProfit <= -self.breakLine;
     return result;
 }
 

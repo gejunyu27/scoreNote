@@ -170,11 +170,6 @@
 
 - (void)editProfitPerLine:(RecordModel *)record
 {
-    if (record.isBreaking) {
-        [self showWithStatus:@"止损中 无法修改"];
-        return;
-    }
-    
     NSString *text = record.profitPerLine == 0 ? @"" :[SCUtilities removeFloatSuffix:record.profitPerLine];
     
     @weakify(self)
@@ -191,11 +186,6 @@
 
 - (void)editBaseProfit:(RecordModel *)record
 {
-    if (record.isBreaking) {
-        [self showWithStatus:@"止损中 无法修改"];
-        return;
-    }
-    
     NSString *text = record.baseProfit == 0 ? @"" :[SCUtilities removeFloatSuffix:record.baseProfit];
     
     @weakify(self)

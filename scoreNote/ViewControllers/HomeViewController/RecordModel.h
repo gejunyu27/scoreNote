@@ -52,7 +52,7 @@ NS_ASSUME_NONNULL_BEGIN
 //总计利润
 @property (nonatomic, assign, readonly) CGFloat allProfit;
 //是否止损中
-@property (nonatomic, assign, readonly) CGFloat isBreaking;
+@property (nonatomic, assign, readonly) BOOL isBreaking;
 
 @end
 

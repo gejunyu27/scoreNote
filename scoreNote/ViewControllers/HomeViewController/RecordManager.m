@@ -35,7 +35,8 @@ DEF_SINGLETON(RecordManager)
 #pragma mark -获取首页展示的记录
 + (NSMutableArray <RecordModel *> *)homeRecords
 {
-    NSInteger homeNum = 15; //首页默认显示15个
+    //首页默认显示数量 旧版显示15个 新版1个
+    NSInteger homeNum = 1;
     
     //如果有直接返回
     if ([self sharedInstance].homeRecords.count >= homeNum) {
@@ -106,11 +107,11 @@ DEF_SINGLETON(RecordManager)
         [homeRecords removeObject:record];
     }
     
-    //列表新增一个空白记录 填补主页记录数量
-    RecordModel *newRecord = [DataManager insertNewRecord];
-    if (newRecord) {
-        [homeRecords addObject:newRecord];
-    }
+    //列表新增一个空白记录 填补主页记录数量  //旧版功能 新版不需要
+//    RecordModel *newRecord = [DataManager insertNewRecord];
+//    if (newRecord) {
+//        [homeRecords addObject:newRecord];
+//    }
     
     //检测真实期数，如果期数比标签最大期高，则更新
     [TagManager checkMaxCount:record.realNum tagId:record.tagId];
@@ -121,7 +122,7 @@ DEF_SINGLETON(RecordManager)
 #pragma mark -添加新列
 + (BOOL)addNewLine:(RecordModel *)record outMoney:(CGFloat)outMoney
 {
-    //上一列强制结束
+    //上一列强制结束  旧版需要，新版只有结束了上期才能购买，不再存在这个问题
     if (record.lineList.count > 0) {
         LineModel *lastLine = record.lineList.lastObject;
         
@@ -254,6 +255,36 @@ DEF_SINGLETON(RecordManager)
 {
     BOOL result = [DataManager updateRecord:record];
 
+    return result;
+}
+
++ (BOOL)editRealNum:(NSInteger)realNum record:(RecordModel *)record
+{
+    NSInteger oldRealNum = record.realNum;
+    
+    record.realNum = realNum;
+    
+    BOOL result = [DataManager updateRecord:record];
+    
+    if (!result) {
+        record.realNum = oldRealNum;
+    }
+    
+    return result;
+}
+
++ (BOOL)editCurrentScore:(NSString *)currentScore record:(RecordModel *)record
+{
+    NSString *oldScore = record.currentScore;
+    
+    record.currentScore = currentScore;
+    
+    BOOL result = [DataManager updateRecord:record];
+    
+    if (!result) {
+        record.currentScore = oldScore;
+    }
+    
     return result;
 }
 

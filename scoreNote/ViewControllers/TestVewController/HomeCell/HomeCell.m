@@ -9,15 +9,15 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface HomeCell ()
+@interface HomeCell () <UITextFieldDelegate>
 @property (nonatomic, strong) UIView *tagView;               //标签区
-@property (nonatomic, strong) UIButton *tagNameButton;       //标签名
-@property (nonatomic, strong) UIButton *tagNumButton;        //标签期数
+@property (nonatomic, strong) UIButton *tagSelectButton;       //标签名
+@property (nonatomic, strong) UIButton *realNumButton;       //标签实际期数
 @property (nonatomic, strong) UIButton *scoreButton;         //买法按钮
 
 @property (nonatomic, strong) UIView *recordView;            //记录区
 @property (nonatomic, strong) UILabel *profitLabel;          //利润
-@property (nonatomic, strong) UIButton *breakButton;         //止损
+@property (nonatomic, strong) UIButton *breakLineButton;         //止损
 @property (nonatomic, strong) UILabel *buyNumLabel;          //已跟期数
 @property (nonatomic, strong) UIButton *perProfitButton;     //每期利润
 @property (nonatomic, strong) UIButton *baseProfitButton;    //固定利润
@@ -56,10 +56,10 @@ NS_ASSUME_NONNULL_BEGIN
     _record = record;
     
     //标签
-    [_tagNameButton setTitle:(_record.tagModel ? _record.tagModel.name : @"无跟单") forState:UIControlStateNormal];
+    [_tagSelectButton setTitle:(_record.tagModel ? _record.tagModel.name : @"无跟单") forState:UIControlStateNormal];
     
     //实际期数
-    [_tagNumButton setTitle:[NSString stringWithFormat:@"%li", _record.realNum] forState:UIControlStateNormal];
+    [_realNumButton setTitle:[NSString stringWithFormat:@"%li", _record.realNum] forState:UIControlStateNormal];
     
     //本期买法
     [_scoreButton setTitle:(record.currentScore.length == 0 ? @"添加本期买法" : record.currentScore) forState:UIControlStateNormal];
@@ -72,7 +72,7 @@ NS_ASSUME_NONNULL_BEGIN
     _profitLabel.text = [NSString stringWithFormat:@"当前利润：%@", [SCUtilities removeFloatSuffix:allProfit]];
     
     //止损线
-    [_breakButton setTitle:[NSString stringWithFormat:@"止损线%@", [SCUtilities removeFloatSuffix:record.breakLine]] forState:UIControlStateNormal];
+    [_breakLineButton setTitle:[NSString stringWithFormat:@"止损线%@", [SCUtilities removeFloatSuffix:record.breakLine]] forState:UIControlStateNormal];
     
     //已跟期数
     NSInteger count = record.lineList.count;
@@ -89,8 +89,99 @@ NS_ASSUME_NONNULL_BEGIN
     [_baseProfitButton setTitle:[SCUtilities removeFloatSuffix:record.baseProfit] forState:UIControlStateNormal];
     
     //本次投注所需利润
-    CGFloat planGet = MAX(planProfit - allProfit, 0);
-    _planGetLabel.text  = [NSString stringWithFormat:@"本次投注所需利润：%@", [SCUtilities removeFloatSuffix:planGet]];
+    if (record.isBreaking) { //需要止损
+        _profitLabel.textColor = [UIColor redColor];
+        _planGetLabel.textColor = [UIColor redColor];
+        _planGetLabel.text = @"建议止损或保本";
+        
+    }else {
+        _profitLabel.textColor = [UIColor blackColor];
+        _planGetLabel.textColor = [UIColor blackColor];
+        
+        CGFloat planGet = MAX(planProfit - allProfit, 0);
+        _planGetLabel.text  = [NSString stringWithFormat:@"本次投注所需利润：%@", [SCUtilities removeFloatSuffix:planGet]];
+        
+    }
+    
+}
+
+#pragma mark -action
+- (void)tagSelectClicked:(UIButton *)sender
+{
+    if ([self.delegate respondsToSelector:@selector(homeCellTagSelect:)]) {
+        [self.delegate homeCellTagSelect:_record];
+    }
+}
+
+- (void)realNumClicked:(UIButton *)sender
+{
+    if ([self.delegate respondsToSelector:@selector(homeCellEditRealNum:clickView:)]) {
+        [self.delegate homeCellEditRealNum:_record clickView:sender];
+    }
+}
+
+- (void)numAddClicked:(UIButton *)sender
+{
+    if ([self.delegate respondsToSelector:@selector(homeCellAddRealNum:)]) {
+        [self.delegate homeCellAddRealNum:_record];
+    }
+}
+
+- (void)scoreClicked:(UIButton *)sender
+{
+    if ([self.delegate respondsToSelector:@selector(homeCellEditScore:clickView:)]) {
+        [self.delegate homeCellEditScore:_record clickView:sender];
+    }
+}
+
+- (void)breakLineClicked:(UIButton *)sender
+{
+    if ([self.delegate respondsToSelector:@selector(homeCellEditBreakLine:clickView:)]) {
+        [self.delegate homeCellEditBreakLine:_record clickView:sender];
+    }
+}
+
+- (void)perProfitClicked:(UIButton *)sender
+{
+    if ([self.delegate respondsToSelector:@selector(homeCellEditProfitPerLine:clickView:)]) {
+        [self.delegate homeCellEditProfitPerLine:_record clickView:sender];
+    }
+}
+
+- (void)baseProfitClicked:(UIButton *)sender
+{
+    if ([self.delegate respondsToSelector:@selector(homeCellEditBaseProfit:clickView:)]) {
+        [self.delegate homeCellEditBaseProfit:_record clickView:sender];
+    }
+}
+
+- (void)buyClicked:(UIButton *)sender
+{
+    if ([self.delegate respondsToSelector:@selector(homeCellBuy:clickView:)]) {
+        [self.delegate homeCellBuy:_record clickView:sender];
+    }
+}
+
+- (void)linesClicked:(UIButton *)sender
+{
+    if ([self.delegate respondsToSelector:@selector(homeCellShowLines:)]) {
+        [self.delegate homeCellShowLines:_record];
+    }
+}
+
+- (void)overClicked:(UIButton *)sender
+{
+    if ([self.delegate respondsToSelector:@selector(homeCellOverRecord:)]) {
+        [self.delegate homeCellOverRecord:_record];
+    }
+}
+
+#pragma mark -UITextFieldDelegate
+- (void)textFieldDidEndEditing:(UITextField *)textField
+{
+    if ([self.delegate respondsToSelector:@selector(homeCellEditNote:record:)]) {
+        [self.delegate homeCellEditNote:textField.text record:_record];
+    }
 }
 
 #pragma mark -ui
@@ -103,40 +194,44 @@ NS_ASSUME_NONNULL_BEGIN
         [self.contentView addSubview:_tagView];
         
         //单子
-        _tagNameButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, _tagView.width, 25)];
-        [_tagNameButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-        _tagNameButton.titleLabel.font = SCFONT_SIZED(12);
-        _tagNameButton.layer.cornerRadius = 5;
-        _tagNameButton.layer.borderColor = [UIColor blackColor].CGColor;
-        _tagNameButton.layer.borderWidth = 1;
-        [_tagView addSubview:_tagNameButton];
+        UIColor *tagColor = [UIColor blueColor];
+        _tagSelectButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, _tagView.width, 25)];
+        [_tagSelectButton setTitleColor:tagColor forState:UIControlStateNormal];
+        _tagSelectButton.titleLabel.font = SCFONT_SIZED(12);
+        _tagSelectButton.layer.cornerRadius = 5;
+        _tagSelectButton.layer.borderColor = tagColor.CGColor;
+        _tagSelectButton.layer.borderWidth = 1;
+        [_tagSelectButton addTarget:self action:@selector(tagSelectClicked:) forControlEvents:UIControlEventTouchUpInside];
+        [_tagView addSubview:_tagSelectButton];
         
         //"期"
         CGFloat qiW = 27;
         CGFloat btnW = (_tagView.width-qiW)/2;
-        UILabel *qiLabel = [[UILabel alloc] initWithFrame:CGRectMake(btnW, _tagNameButton.bottom+5, qiW, 20)];
+        UILabel *qiLabel = [[UILabel alloc] initWithFrame:CGRectMake(btnW, _tagSelectButton.bottom+5, qiW, 20)];
         qiLabel.text = @"期";
         qiLabel.font = SCFONT_SIZED(12);
         qiLabel.textAlignment = NSTextAlignmentCenter;
         [_tagView addSubview:qiLabel];
         
         //单子期数
-        _tagNumButton = [[UIButton alloc] initWithFrame:CGRectMake(0, qiLabel.top, btnW, 20)];
-        [_tagNumButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-        _tagNumButton.titleLabel.font = SCFONT_SIZED(12);
-        [_tagNumButton setTitle:@"0" forState:UIControlStateNormal];
-        _tagNumButton.layer.cornerRadius = 5;
-        _tagNumButton.layer.borderColor = HEX_RGB(@"#F2F2F2").CGColor;
-        _tagNumButton.layer.borderWidth = 1;
-        [_tagView addSubview:_tagNumButton];
+        _realNumButton = [[UIButton alloc] initWithFrame:CGRectMake(0, qiLabel.top, btnW, 20)];
+        [_realNumButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+        _realNumButton.titleLabel.font = SCFONT_SIZED(12);
+        [_realNumButton setTitle:@"0" forState:UIControlStateNormal];
+        _realNumButton.layer.cornerRadius = 5;
+        _realNumButton.layer.borderColor = HEX_RGB(@"#F2F2F2").CGColor;
+        _realNumButton.layer.borderWidth = 1;
+        [_realNumButton addTarget:self action:@selector(realNumClicked:) forControlEvents:UIControlEventTouchUpInside];
+        [_tagView addSubview:_realNumButton];
         
         //增加期
-        UIButton *numAddButton = [[UIButton alloc] initWithFrame:CGRectMake(btnW+qiW, _tagNumButton.top, btnW, _tagNumButton.height)];
+        UIButton *numAddButton = [[UIButton alloc] initWithFrame:CGRectMake(btnW+qiW, _realNumButton.top, btnW, _realNumButton.height)];
         numAddButton.titleLabel.font = SCFONT_SIZED(15);
         [numAddButton setTitle:@"+" forState:UIControlStateNormal];
         [numAddButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
         numAddButton.backgroundColor = HEX_RGB(@"#E5E5E9");
         numAddButton.layer.cornerRadius = 5;
+        [numAddButton addTarget:self action:@selector(numAddClicked:) forControlEvents:UIControlEventTouchUpInside];
         [_tagView addSubview:numAddButton];
         
         //买法
@@ -148,6 +243,7 @@ NS_ASSUME_NONNULL_BEGIN
         _scoreButton.layer.cornerRadius = 5;
         _scoreButton.layer.borderColor = [UIColor blackColor].CGColor;
         _scoreButton.layer.borderWidth = 1;
+        [_scoreButton addTarget:self action:@selector(scoreClicked:) forControlEvents:UIControlEventTouchUpInside];
         [_tagView addSubview:_scoreButton];
         
     }
@@ -165,14 +261,16 @@ NS_ASSUME_NONNULL_BEGIN
         _profitLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 160, 20)];
         _profitLabel.textAlignment = NSTextAlignmentLeft;
         [_recordView addSubview:_profitLabel];
-        //
-        _breakButton = [[UIButton alloc] initWithFrame:CGRectMake(_profitLabel.right, 0, _recordView.width-_profitLabel.right, _profitLabel.height)];
-        [_breakButton setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
-        _breakButton.titleLabel.font = SCFONT_SIZED(13);
-        _breakButton.layer.cornerRadius = 5;
-        _breakButton.layer.borderColor = HEX_RGB(@"#F2F2F2").CGColor;
-        _breakButton.layer.borderWidth = 1;
-        [_recordView addSubview:_breakButton];
+        
+        //止损线
+        _breakLineButton = [[UIButton alloc] initWithFrame:CGRectMake(_profitLabel.right, 0, _recordView.width-_profitLabel.right, _profitLabel.height)];
+        [_breakLineButton setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
+        _breakLineButton.titleLabel.font = SCFONT_SIZED(13);
+        _breakLineButton.layer.cornerRadius = 5;
+        _breakLineButton.layer.borderColor = HEX_RGB(@"#F2F2F2").CGColor;
+        _breakLineButton.layer.borderWidth = 1;
+        [_breakLineButton addTarget:self action:@selector(breakLineClicked:) forControlEvents:UIControlEventTouchUpInside];
+        [_recordView addSubview:_breakLineButton];
         
         
         CGFloat labelH    = 20;
@@ -207,6 +305,7 @@ NS_ASSUME_NONNULL_BEGIN
         _perProfitButton.layer.cornerRadius = 5;
         _perProfitButton.layer.borderColor = HEX_RGB(@"#F2F2F2").CGColor;
         _perProfitButton.layer.borderWidth = 1;
+        [_perProfitButton addTarget:self action:@selector(perProfitClicked:) forControlEvents:UIControlEventTouchUpInside];
         [_recordView addSubview:_perProfitButton];
         //
         //固定利润
@@ -223,6 +322,7 @@ NS_ASSUME_NONNULL_BEGIN
         _baseProfitButton.layer.cornerRadius = 5;
         _baseProfitButton.layer.borderColor = HEX_RGB(@"#F2F2F2").CGColor;
         _baseProfitButton.layer.borderWidth = 1;
+        [_baseProfitButton addTarget:self action:@selector(baseProfitClicked:) forControlEvents:UIControlEventTouchUpInside];
         [_recordView addSubview:_baseProfitButton];
         
         //计划获得
@@ -243,12 +343,11 @@ NS_ASSUME_NONNULL_BEGIN
         _noteField.font = SCFONT_SIZED(11);
         _noteField.placeholder = @"填写备注";
         _noteField.returnKeyType = UIReturnKeyDone;
+        _noteField.delegate = self;
         [self.contentView addSubview:_noteField];
     }
     return _noteField;
 }
-
-#define kBtnColor HEX_RGB(@"#674FF6")
 
 - (UIView *)buyView
 {
@@ -258,13 +357,14 @@ NS_ASSUME_NONNULL_BEGIN
         _buyView = [[UIView alloc] initWithFrame:CGRectMake(kMargin, y, SCREEN_FIX(220), h)];
         _buyView.layer.cornerRadius = 8;
         _buyView.layer.borderWidth = 1;
-        _buyView.layer.borderColor = kBtnColor.CGColor;
+        _buyView.layer.borderColor = [UIColor blackColor].CGColor;
         [self.contentView addSubview:_buyView];
         
         _buyButton = [[UIButton alloc] initWithFrame:_buyView.bounds];
-        [_buyButton setTitle:@"快 速 购 买" forState:UIControlStateNormal];
+        [_buyButton setTitle:@"立 即 购 买" forState:UIControlStateNormal];
         _buyButton.titleLabel.font = SCFONT_BOLD_SIZED(20);
-        [_buyButton setTitleColor:kBtnColor forState:UIControlStateNormal];
+        [_buyButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+        [_buyButton addTarget:self action:@selector(buyClicked:) forControlEvents:UIControlEventTouchUpInside];
         [_buyView addSubview:_buyButton];
     }
     return _buyView;
@@ -284,7 +384,7 @@ NS_ASSUME_NONNULL_BEGIN
         [_linesButton setTitle:@"查看列表" forState:UIControlStateNormal];
         _linesButton.titleLabel.font = SCFONT_SIZED(15);
         [_linesButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-//        _linesButton.backgroundColor = kBtnColor;
+        [_linesButton addTarget:self action:@selector(linesClicked:) forControlEvents:UIControlEventTouchUpInside];
         [self.contentView addSubview:_linesButton];
     }
     return _linesButton;
@@ -302,8 +402,7 @@ NS_ASSUME_NONNULL_BEGIN
         _overButton.layer.borderColor = [UIColor blackColor].CGColor;
         _overButton.titleLabel.font = self.linesButton.titleLabel.font;
         [_overButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-//        _overButton.backgroundColor = kBtnColor;
-        
+        [_overButton addTarget:self action:@selector(overClicked:) forControlEvents:UIControlEventTouchUpInside];
         [self.contentView addSubview:_overButton];
     }
     return _overButton;

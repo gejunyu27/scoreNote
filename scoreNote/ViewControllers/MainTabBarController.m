@@ -35,17 +35,17 @@
 {
     NSMutableArray *temp = [NSMutableArray array];
     
-    HomeViewController *homeVc = [HomeViewController new];
-    homeVc.isMainTabVC = YES;
-    homeVc.title = @"首页";
-    UITabBarItem *homeItem = homeVc.tabBarItem;
-    homeItem.image = kTabImg(@"Tab_Home");
-    homeItem.selectedImage = kTabImg(@"Tab_Home_selected");
-    if (@available(iOS 26.0, *)) { //ios26必须在这儿设置，否则文字错位 另外普通状态文字颜色无法改变，原因未知
-        [homeItem setTitleTextAttributes:kSelectedTextAttributes forState:UIControlStateSelected];
-    }
-    BaseNavigationController *homeNav = [[BaseNavigationController alloc] initWithRootViewController:homeVc];
-    [temp addObject:homeNav];
+//    HomeViewController *homeVc = [HomeViewController new];
+//    homeVc.isMainTabVC = YES;
+//    homeVc.title = @"首页";
+//    UITabBarItem *homeItem = homeVc.tabBarItem;
+//    homeItem.image = kTabImg(@"Tab_Home");
+//    homeItem.selectedImage = kTabImg(@"Tab_Home_selected");
+//    if (@available(iOS 26.0, *)) { //ios26必须在这儿设置，否则文字错位 另外普通状态文字颜色无法改变，原因未知
+//        [homeItem setTitleTextAttributes:kSelectedTextAttributes forState:UIControlStateSelected];
+//    }
+//    BaseNavigationController *homeNav = [[BaseNavigationController alloc] initWithRootViewController:homeVc];
+//    [temp addObject:homeNav];
     
     TestViewController *testVc = [TestViewController new];
     testVc.isMainTabVC = YES;

@@ -40,8 +40,10 @@ AS_SINGLETON(RecordManager)
 //修改标签
 + (BOOL)editTag:(NSInteger)tagId record:(RecordModel *)record;
 //修改真实期数
-+ (BOOL)editRealNum:(RecordModel *)record;
-
++ (BOOL)editRealNum:(RecordModel *)record; //弃用
++ (BOOL)editRealNum:(NSInteger)realNum record:(RecordModel *)record;
+//修改买法
++ (BOOL)editCurrentScore:(NSString *)currentScore record:(RecordModel *)record;
 
 
 @end
