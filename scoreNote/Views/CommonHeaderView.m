@@ -8,6 +8,8 @@
 #import "CommonHeaderView.h"
 #import "TotalSectionModel.h"
 
+#define kBGColor HEX_RGB(@"#EFEFF2")
+
 @interface  CommonHeaderView()
 @property (nonatomic, strong) UILabel *titleLabel;
 @property (nonatomic, strong) UILabel *tipLabel;
@@ -21,7 +23,7 @@
 {
     self = [super initWithReuseIdentifier:reuseIdentifier];
     if (self) {
-        self.contentView.backgroundColor = HEX_RGB(@"#EFEFF2");
+        self.contentView.backgroundColor = kBGColor;
         @weakify(self)
         [self.control sc_addEventTouchUpInsideHandle:^(id  _Nonnull sender) {
             @strongify(self)
@@ -40,6 +42,8 @@
     self.titleLabel.text = [NSString stringWithFormat:@"%@ %@    共%li单", (model.isOn ? @"▼" : @"▶︎"),model.name, model.recordList.count]; ;
 
     self.detailLabel.text =[NSString stringWithFormat:@"总计：%@", [SCUtilities removeFloatSuffix:model.allProfit]];
+    
+    self.contentView.backgroundColor = model.isOn ? [UIColor clearColor] : kBGColor;
 }
 
 - (void)setSqlRecord:(RecordModel *)record section:(NSInteger)section
