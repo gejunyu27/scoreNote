@@ -202,19 +202,20 @@
 {
     if (!_topView) {
         CGFloat y = 0;
-        if (@available(iOS 26.0, *)) {
-            /**
-             ios适配这里有个奇怪地方
-             NAV_BAR_HEIGHT 是98
-             self.navigationController.navigationBar.height是54
-             self.navigationController.navigationBar.bottom是116
-             STATUS_BAR_HEIGHT是54
-                如果一个页面只有tableview可以y写0，固定的写0就被盖在导航栏下。但这里导航栏高度不知道是怎么算的，先用116
-             */
-            y = self.navigationController.navigationBar.bottom;
-        }
+//        if (@available(iOS 26.0, *)) { //老版放顶部，新版不用了
+//            /**
+//             ios适配这里有个奇怪地方
+//             NAV_BAR_HEIGHT 是98
+//             self.navigationController.navigationBar.height是54
+//             self.navigationController.navigationBar.bottom是116
+//             STATUS_BAR_HEIGHT是54
+//                如果一个页面只有tableview可以y写0，固定的写0就被盖在导航栏下。但这里导航栏高度不知道是怎么算的，先用116
+//             */
+//            y = self.navigationController.navigationBar.bottom;
+//        }
         _topView = [[UIView alloc] initWithFrame:CGRectMake(0, y, SCREEN_WIDTH, SCREEN_FIX(70))];
         _topView.backgroundColor = [UIColor whiteColor];
+//        [self.view addSubview:_topView]; //新版改为tableview的headerview
         
         //topview ui
         //标签排行
@@ -256,11 +257,6 @@
         _startDateLabel.font = SCFONT_SIZED(11);
         [_topView addSubview:_startDateLabel];
         
-
-        
-
-        
-        [self.view addSubview:_topView];
     }
     return _topView;
 }
@@ -268,19 +264,29 @@
 - (UITableView *)tableView
 {
     if (!_tableView) {
-        CGFloat h = SCREEN_HEIGHT - NAV_BAR_HEIGHT - TAB_BAR_HEIGHT - self.topView.bottom;
+        //老版代码
+//        CGFloat h = SCREEN_HEIGHT - NAV_BAR_HEIGHT - TAB_BAR_HEIGHT - self.topView.bottom;
+//        if (@available(iOS 26.0, *)) {
+//            //ios26不减导航栏高度，否则会出错，原因未知 tabbar高度可减可不减。减了底部正好在tabbar上方，不减和毛玻璃效果适配'
+//            //            h = SCREEN_HEIGHT - TAB_BAR_HEIGHT;
+//            h = SCREEN_HEIGHT - self.topView.bottom; //这里不减，视觉效果最好
+//        }
+        
+        //新版
+        CGFloat h = SCREEN_HEIGHT - NAV_BAR_HEIGHT - TAB_BAR_HEIGHT;
         if (@available(iOS 26.0, *)) {
             //ios26不减导航栏高度，否则会出错，原因未知 tabbar高度可减可不减。减了底部正好在tabbar上方，不减和毛玻璃效果适配'
             //            h = SCREEN_HEIGHT - TAB_BAR_HEIGHT;
-            h = SCREEN_HEIGHT - self.topView.bottom; //这里不减，视觉效果最好
+            h = SCREEN_HEIGHT; //这里不减，视觉效果最好
         }
         
-        _tableView = [[UITableView alloc] initWithFrame: CGRectMake(0, self.topView.bottom, SCREEN_WIDTH, h)];
+        _tableView = [[UITableView alloc] initWithFrame: CGRectMake(0, 0/*self.topView.bottom*/, SCREEN_WIDTH, h)];
         _tableView.showsVerticalScrollIndicator = NO;
         _tableView.showsHorizontalScrollIndicator = NO;
         _tableView.dataSource = self;
         _tableView.delegate = self;
         _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+        _tableView.tableHeaderView = self.topView;
         if (@available(iOS 15.0, *)) {
             _tableView.sectionHeaderTopPadding = 0;
         }
