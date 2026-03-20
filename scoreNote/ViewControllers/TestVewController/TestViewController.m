@@ -200,6 +200,31 @@ NS_ASSUME_NONNULL_BEGIN
   
 }
 
+- (void)homeCellBuyLose:(RecordModel *)record
+{
+    BOOL result = [RecordManager lastLineLose:record];
+    [self refreshTableViewWithResult:result];
+    
+}
+
+- (void)homeCellBuyWin:(RecordModel *)record clickView:(UIView *)clickView
+{
+    @weakify(self)
+    [NumberInputView showWithText:@"" title:@"利润" clickView:clickView type:InputTypeNoSymbol block:^(NSString * _Nonnull outputText) {
+        @strongify(self)
+        if (outputText.length == 0) {
+            return;
+        }
+        
+        CGFloat profit = outputText.floatValue;
+        
+        BOOL result = [RecordManager lastLineWin:profit record:record];
+        
+        [self refreshTableViewWithResult:result];
+
+    }];
+}
+
 - (void)refreshTableViewWithResult:(BOOL)result
 {
     if (result) {

@@ -44,6 +44,10 @@ AS_SINGLETON(RecordManager)
 + (BOOL)editRealNum:(NSInteger)realNum record:(RecordModel *)record;
 //修改买法
 + (BOOL)editCurrentScore:(NSString *)currentScore record:(RecordModel *)record;
+//最新购买未中
++ (BOOL)lastLineLose:(RecordModel *)record;
+//最新购买红单
++ (BOOL)lastLineWin:(CGFloat)profit record:(RecordModel *)record;
 
 
 @end

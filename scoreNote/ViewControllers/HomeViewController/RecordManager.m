@@ -288,6 +288,40 @@ DEF_SINGLETON(RecordManager)
     return result;
 }
 
++ (BOOL)lastLineLose:(RecordModel *)record
+{
+    return [self lastLineOver:NO record:record profit:0];
+}
+
++ (BOOL)lastLineWin:(CGFloat)profit record:(RecordModel *)record
+{
+    return [self lastLineOver:YES record:record profit:profit];
+}
+
++ (BOOL)lastLineOver:(BOOL)isWin record:(RecordModel *)record profit:(CGFloat)profit
+{
+    if (!record || record.lineList.count == 0) {
+        return NO;
+    }
+    
+    LineModel *currentLine = record.lineList.lastObject;
+    
+    currentLine.getMoney = isWin ? (currentLine.outMoney + profit) : 0;
+    currentLine.isOver = YES;
+    
+    BOOL result = [DataManager updateLine:currentLine];
+    
+    if (result) {
+        record.currentScore = @"";
+        [DataManager updateRecord:record]; //这里成功与否不影响最新一单结束，只是影响买法的删除，所以不做返回
+    }else {
+        currentLine.getMoney = 0;
+        currentLine.isOver = NO;
+    }
+    
+    return result;
+}
+
 - (void)dealloc
 {
     [[NSNotificationCenter defaultCenter] removeObserver:self];

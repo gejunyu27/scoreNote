@@ -17,7 +17,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, strong) UIView *recordView;            //记录区
 @property (nonatomic, strong) UILabel *profitLabel;          //利润
-@property (nonatomic, strong) UIButton *breakLineButton;         //止损
+@property (nonatomic, strong) UIButton *breakLineButton;     //止损
 @property (nonatomic, strong) UILabel *buyNumLabel;          //已跟期数
 @property (nonatomic, strong) UIButton *perProfitButton;     //每期利润
 @property (nonatomic, strong) UIButton *baseProfitButton;    //固定利润
@@ -27,7 +27,10 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) UITextField *noteField;        //笔记
 
 @property (nonatomic, strong) UIView *buyView;               //购买区
-@property (nonatomic, strong) UIButton *buyButton;
+@property (nonatomic, strong) UIButton *buyButton;           //立即购买
+@property (nonatomic, strong) UILabel *boughtLabel;          //购买内容
+@property (nonatomic, strong) UIButton *winButton;           //中奖按钮
+@property (nonatomic, strong) UIButton *loseButton;          //未中按钮
 
 @property (nonatomic, strong) UIButton *linesButton;         //详情按钮
 @property (nonatomic, strong) UIButton *overButton;          //结束按钮
@@ -103,6 +106,16 @@ NS_ASSUME_NONNULL_BEGIN
         
     }
     
+    //购买按钮样式
+    BOOL isBought = record.lineList.count > 0 && !record.lineList.lastObject.isOver;  //购买过
+    _buyView.layer.borderColor = [UIColor blackColor].CGColor;
+    if (isBought) {
+        _buyButton.hidden = YES;
+        _boughtLabel.text = [NSString stringWithFormat:@"本次购买：%@",[SCUtilities removeFloatSuffix:record.lineList.lastObject.outMoney]];
+        
+    }else {
+        _buyButton.hidden = NO;
+    }
 }
 
 #pragma mark -action
@@ -173,6 +186,20 @@ NS_ASSUME_NONNULL_BEGIN
 {
     if ([self.delegate respondsToSelector:@selector(homeCellOverRecord:)]) {
         [self.delegate homeCellOverRecord:_record];
+    }
+}
+
+- (void)loseClicked:(UIButton *)sender
+{
+    if ([self.delegate respondsToSelector:@selector(homeCellBuyLose:)]) {
+        [self.delegate homeCellBuyLose:_record];
+    }
+}
+
+- (void)winClicked:(UIButton *)sender
+{
+    if ([self.delegate respondsToSelector:@selector(homeCellBuyWin:clickView:)]) {
+        [self.delegate homeCellBuyWin:_record clickView:sender];
     }
 }
 
@@ -366,12 +393,45 @@ NS_ASSUME_NONNULL_BEGIN
         _buyView.layer.borderColor = [UIColor blackColor].CGColor;
         [self.contentView addSubview:_buyView];
         
+        //购买内容
+        _boughtLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, _buyView.width, h/2)];
+        _boughtLabel.textAlignment = NSTextAlignmentCenter;
+        [_buyView addSubview:_boughtLabel];
+        
+        //未中按钮
+        CGFloat btnW = (_buyView.width-kMargin*3)/2;
+        CGFloat btnH = h/2-kMargin;
+        
+        for (int i=0; i<2; i++) {
+            UIButton *btn = [[UIButton alloc] initWithFrame:CGRectMake(kMargin+(btnW+kMargin)*i, _boughtLabel.bottom, btnW, btnH)];
+            btn.titleLabel.font = SCFONT_SIZED(15);
+            btn.layer.cornerRadius = 5;
+            btn.layer.borderWidth = 1;
+            btn.layer.borderColor = [UIColor blackColor].CGColor;
+            [_buyView addSubview:btn];
+            
+            if (i==0) { //未中
+                [btn setTitle:@"未    中" forState:UIControlStateNormal];
+                [btn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+                [btn addTarget:self action:@selector(loseClicked:) forControlEvents:UIControlEventTouchUpInside];
+                _loseButton = btn;
+            }else{ //红单
+                [btn setTitle:@"红    单" forState:UIControlStateNormal];
+                [btn setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
+                [btn addTarget:self action:@selector(winClicked:) forControlEvents:UIControlEventTouchUpInside];
+                _winButton = btn;
+            }
+        }
+        
+        //购买按钮
         _buyButton = [[UIButton alloc] initWithFrame:_buyView.bounds];
         [_buyButton setTitle:@"立 即 购 买" forState:UIControlStateNormal];
         _buyButton.titleLabel.font = SCFONT_BOLD_SIZED(20);
+        _buyButton.backgroundColor = [UIColor whiteColor];
         [_buyButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
         [_buyButton addTarget:self action:@selector(buyClicked:) forControlEvents:UIControlEventTouchUpInside];
         [_buyView addSubview:_buyButton];
+ 
     }
     return _buyView;
 }

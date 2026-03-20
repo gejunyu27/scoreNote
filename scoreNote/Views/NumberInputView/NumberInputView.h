@@ -12,8 +12,8 @@ NS_ASSUME_NONNULL_BEGIN
 typedef void(^InputBlock)(NSString *outputText);
 
 typedef NS_ENUM(NSInteger, InputType) {
-    InputTypeDefault = 0,     //默认，有全部功能
-    InputTypeNumber = 1,      //数字键盘，无扩展区，无空格
+    InputTypeDefault = 0,     //默认，有全部功能:除基本的数字，清空，完成，退格外，还有让平胜负，空格，小数点，加号
+    InputTypeNumber = 1,      //数字键盘，无让平胜负，无空格
     InputTypeReduce = 2,      //再上一个基础上 加号变负号
     InputTypeNoSymbol = 3,    //再上一个基础上 负号移除
     InputTypeNoDot = 4        //再上一个基础上 再移除小数点

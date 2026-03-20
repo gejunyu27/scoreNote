@@ -19,7 +19,7 @@
 
 - (void)setIsOver:(BOOL)isOver
 {
-    if (isOver && !_isOver) {
+    if (isOver && !_isOver) { //由非结束变为结束
         _endTime = [NSDate date];
         
         if (self == self.record.lineList.lastObject) { //如果是最后一个，结束的时候保留当前买法
