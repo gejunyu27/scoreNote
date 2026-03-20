@@ -75,8 +75,8 @@
     tagVc.isMainTabVC = YES;
     tagVc.title = @"标签";
     UITabBarItem *tagItem = tagVc.tabBarItem;
-    tagItem.image = kTabImg(@"Tab_Category");
-    tagItem.selectedImage = kTabImg(@"Tab_Category_selected");
+    tagItem.image = kTabImg(@"Tab_Tag");
+    tagItem.selectedImage = kTabImg(@"Tab_Tag_selected");
     if (@available(iOS 26.0, *)) { //ios26必须在这儿设置，否则文字错位 另外普通状态文字颜色无法改变，原因未知
         [tagItem setTitleTextAttributes:kSelectedTextAttributes forState:UIControlStateSelected];
     }
@@ -87,8 +87,8 @@
     orderVc.isMainTabVC = YES;
     orderVc.title = @"设置";
     UITabBarItem *orderItem = orderVc.tabBarItem;
-    orderItem.image = kTabImg(@"Tab_MyOrder");
-    orderItem.selectedImage = kTabImg(@"Tab_MyOrder_selected");
+    orderItem.image = kTabImg(@"Tab_Config");
+    orderItem.selectedImage = kTabImg(@"Tab_Config_selected");
     if (@available(iOS 26.0, *)) { //ios26必须在这儿设置，否则文字错位 另外普通状态文字颜色无法改变，原因未知
         [orderItem setTitleTextAttributes:kSelectedTextAttributes forState:UIControlStateSelected];
     }
