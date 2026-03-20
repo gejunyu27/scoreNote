@@ -184,6 +184,12 @@ NS_ASSUME_NONNULL_BEGIN
     }
 }
 
+- (BOOL)textFieldShouldReturn:(UITextField *)textField
+{
+    [textField resignFirstResponder];
+    return YES;
+}
+
 #pragma mark -ui
 #define kMargin 10
 
