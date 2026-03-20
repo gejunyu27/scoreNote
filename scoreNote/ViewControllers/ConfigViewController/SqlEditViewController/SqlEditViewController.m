@@ -46,7 +46,7 @@ typedef NS_ENUM(NSInteger, SqlRecordType) {
 - (void)addAlick
 {
     [SCUtilities alertWithTitle:@"确定要新建一个记录吗？" message:nil textFieldBlock:nil sureBlock:^(NSString * _Nullable text) {
-        RecordModel *record = [DataManager insertNewRecord];
+        RecordModel *record = [DataManager insertNewRecord:0];
         
         if (record) {
             [self showWithStatus:@"新增成功"];

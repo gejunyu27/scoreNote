@@ -166,20 +166,6 @@ DEF_SINGLETON(DataManager)
         return nil;
     }
     
-//    NSMutableString *sql = [NSMutableString stringWithFormat:@"INSERT INTO %@ (profitPerLine,createTime) VALUES ", t_record];
-//
-//    for (NSInteger i = 0; i<num; i++) {
-//        if (i > 0) {
-//            [sql appendString:@","];
-//        }
-//        [sql appendFormat:@"(%f,%@)", LINE_PROFIT, [NSDate date]];
-//
-//    }
-//    BOOL result = [kDatabase executeUpdate:sql];
-//
-//    if (!result) {
-//        return nil;
-//    }
     NSInteger failNum = 0;
     for (NSInteger i=0; i<num; i++) {
         NSString *sql = [NSString stringWithFormat:@"INSERT INTO %@ (profitPerLine,createTime,isOver,breakLine) VALUES (?,?,?,?)", t_record];
@@ -208,10 +194,23 @@ DEF_SINGLETON(DataManager)
 }
 
 #pragma mark -新增记录
-+ (RecordModel *)insertNewRecord
++ (RecordModel *)insertNewRecord:(NSInteger)tagId
 {
-    NSMutableArray *records = [self insertNewRecords:1];
-   
+    if (tagId < 0) {
+        return nil;
+    }
+    
+    NSString *sql = [NSString stringWithFormat:@"INSERT INTO %@ (profitPerLine,createTime,isOver,breakLine,tagId) VALUES (?,?,?,?,?)", t_record];
+    BOOL result =  [kDatabase executeUpdate:sql, @(LINE_PROFIT), [NSDate date], @0, @(BREAKLINE), @(tagId)];
+    if (!result) {
+        return nil;
+    }
+    
+    NSString *backSql = [NSString stringWithFormat:@"SELECT * FROM %@ ORDER BY id DESC LIMIT 0,1", t_record];
+    FMResultSet *rs = [kDatabase executeQuery:backSql];
+    
+    NSMutableArray <RecordModel *> *records = [self getRecordsFrom:rs];
+    
     RecordModel *record = records.count > 0 ? records.firstObject : nil;
     
     [self postRecordUpdateNoti];

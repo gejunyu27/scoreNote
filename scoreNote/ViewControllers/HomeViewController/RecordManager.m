@@ -35,28 +35,36 @@ DEF_SINGLETON(RecordManager)
 #pragma mark -获取首页展示的记录
 + (NSMutableArray <RecordModel *> *)homeRecords
 {
-    //首页默认显示数量 旧版显示15个 新版1个
-    NSInteger homeNum = 1;
+    //旧版
+//    //首页默认显示数量
+//    NSInteger homeNum = 15;
+//    
+//    //如果有直接返回
+//    if ([self sharedInstance].homeRecords.count >= homeNum) {
+//        return [self sharedInstance].homeRecords;
+//    }
+//    
+//    //没有从数据库获取
+//    //先获取所有在跟的
+//    NSMutableArray <RecordModel *> *homeRecords = [DataManager queryFollowingRecords];
+//    
+//    //不足数量，新建空白记录补齐
+//    if (homeRecords.count < homeNum) {
+//        NSInteger addNum = homeNum - homeRecords.count; //缺的数量
+//        
+//        NSMutableArray <RecordModel *> *newRecords = [DataManager insertNewRecords:addNum];
+//    
+//        if (newRecords.count > 0) {
+//            [homeRecords addObjectsFromArray:newRecords];
+//        }
+//    }
     
-    //如果有直接返回
-    if ([self sharedInstance].homeRecords.count >= homeNum) {
+    //新版
+    if ([self sharedInstance].homeRecords.count > 0) {
         return [self sharedInstance].homeRecords;
     }
-    
     //没有从数据库获取
-    //先获取所有在跟的
     NSMutableArray <RecordModel *> *homeRecords = [DataManager queryFollowingRecords];
-    
-    //不足15个，新建空白记录补齐
-    if (homeRecords.count < homeNum) {
-        NSInteger addNum = homeNum - homeRecords.count; //缺的数量
-        
-        NSMutableArray <RecordModel *> *newRecords = [DataManager insertNewRecords:addNum];
-    
-        if (newRecords.count > 0) {
-            [homeRecords addObjectsFromArray:newRecords];
-        }
-    }
     
     //把已经有购买记录的放前面
     [homeRecords sortUsingComparator:^NSComparisonResult(RecordModel *_Nonnull obj1, RecordModel *_Nonnull obj2) {
@@ -320,6 +328,19 @@ DEF_SINGLETON(RecordManager)
     }
     
     return result;
+}
+
++ (BOOL)addNewRecord:(NSInteger)tagId
+{
+    RecordModel *record = [DataManager insertNewRecord:tagId];
+    
+    if (!record) {
+        return NO;
+    }
+    
+    [[self sharedInstance].homeRecords addObject:record];
+    return YES;
+    
 }
 
 - (void)dealloc

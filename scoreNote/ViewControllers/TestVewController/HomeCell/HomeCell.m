@@ -116,6 +116,29 @@ NS_ASSUME_NONNULL_BEGIN
     }else {
         _buyButton.hidden = NO;
     }
+    
+    //买过的单子 标绿提醒 到第二天6点前消失
+    BOOL isBuyToday = NO;
+    if (record.lineList.count > 0) {
+        LineModel *lastModel = record.lineList.lastObject;
+        if (!lastModel.isOver) { //最后一个没结束
+            NSDate *buyDate = lastModel.beginTime;
+            NSDate *today   = [NSDate date];
+            
+            NSInteger days = [today daysBetweenDate:buyDate];
+            
+            if (days == 0) {
+                isBuyToday = YES;
+                
+            }else if (days == 1) { //已经不是同一天，查看是不是第二天早上6点前
+                NSInteger hour = [today getStringWithDateFormat:@"HH"].integerValue;
+                if (hour < 6) {
+                    isBuyToday = YES;
+                }
+            }
+        }
+    }
+    _buyView.layer.borderColor = isBuyToday ? HEX_RGB(@"#49AB58").CGColor : [UIColor blackColor].CGColor;
 }
 
 #pragma mark -action

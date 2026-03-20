@@ -118,7 +118,7 @@
     NSInteger section = indexPath.section;
     
     if (section == 0) {
-        cell.textLabel.text = @"删除标签";
+        cell.textLabel.text = @"无标签";
         
     }else if (section-1 < [TagManager pinyinList].count) {
         TagPinyinModel *pinyin = [TagManager pinyinList][section-1];

@@ -24,7 +24,8 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    //刷新ui
+    //ui
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addClick)];
     [self refreshUI];
     
     //添加键盘监控
@@ -233,6 +234,16 @@ NS_ASSUME_NONNULL_BEGIN
     }else {
         [self showWithStatus:@"修改失败"];
     }
+}
+
+#pragma mark -action
+- (void)addClick
+{
+    [TagSelectView show:^(TagModel * _Nullable tag) {
+        BOOL result = [RecordManager addNewRecord:tag.tagId];
+        [self refreshTableViewWithResult:result];
+        
+    }];
 }
 
 #pragma mark -UI

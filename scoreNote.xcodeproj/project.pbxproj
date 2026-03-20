@@ -75,8 +75,8 @@
 		4D8E69B82AF146A300458818 /* TotalSectionModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D8E69B72AF146A300458818 /* TotalSectionModel.m */; };
 		4D8E69C12AF15A8500458818 /* TagViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D8E69BF2AF15A8500458818 /* TagViewController.m */; };
 		4DBBF52627A4F6F900EFCD8F /* RecordModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DBBF52527A4F6F900EFCD8F /* RecordModel.m */; };
-		4DC4EC1A27B2462400049E8B /* score@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4DC4EC1827B2462400049E8B /* score@2x.png */; };
-		4DC4EC1B27B2462400049E8B /* score@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4DC4EC1927B2462400049E8B /* score@3x.png */; };
+		4DC4EC1A27B2462400049E8B /* welcome@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4DC4EC1827B2462400049E8B /* welcome@2x.png */; };
+		4DC4EC1B27B2462400049E8B /* welcome@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4DC4EC1927B2462400049E8B /* welcome@3x.png */; };
 		4DC9255429FF5AF9004556ED /* TagCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DC9255229FF5AF9004556ED /* TagCell.m */; };
 		4DC9255529FF5AF9004556ED /* TagCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4DC9255329FF5AF9004556ED /* TagCell.xib */; };
 /* End PBXBuildFile section */
@@ -231,8 +231,8 @@
 		4D8E69BF2AF15A8500458818 /* TagViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TagViewController.m; sourceTree = "<group>"; };
 		4DBBF52427A4F6F900EFCD8F /* RecordModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RecordModel.h; sourceTree = "<group>"; };
 		4DBBF52527A4F6F900EFCD8F /* RecordModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RecordModel.m; sourceTree = "<group>"; };
-		4DC4EC1827B2462400049E8B /* score@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "score@2x.png"; sourceTree = "<group>"; };
-		4DC4EC1927B2462400049E8B /* score@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "score@3x.png"; sourceTree = "<group>"; };
+		4DC4EC1827B2462400049E8B /* welcome@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "welcome@2x.png"; sourceTree = "<group>"; };
+		4DC4EC1927B2462400049E8B /* welcome@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "welcome@3x.png"; sourceTree = "<group>"; };
 		4DC9255129FF5AF9004556ED /* TagCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TagCell.h; sourceTree = "<group>"; };
 		4DC9255229FF5AF9004556ED /* TagCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TagCell.m; sourceTree = "<group>"; };
 		4DC9255329FF5AF9004556ED /* TagCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TagCell.xib; sourceTree = "<group>"; };
@@ -508,8 +508,8 @@
 		4D84F07727A3BD500094558F /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				4DC4EC1827B2462400049E8B /* score@2x.png */,
-				4DC4EC1927B2462400049E8B /* score@3x.png */,
+				4DC4EC1827B2462400049E8B /* welcome@2x.png */,
+				4DC4EC1927B2462400049E8B /* welcome@3x.png */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -723,8 +723,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				4B7A33442C4ECA0D00F91B34 /* TagDetailCell.xib in Resources */,
-				4DC4EC1A27B2462400049E8B /* score@2x.png in Resources */,
-				4DC4EC1B27B2462400049E8B /* score@3x.png in Resources */,
+				4DC4EC1A27B2462400049E8B /* welcome@2x.png in Resources */,
+				4DC4EC1B27B2462400049E8B /* welcome@3x.png in Resources */,
 				4D7748A227A656C800F505EA /* LineCell.xib in Resources */,
 				4D84F00327A38ACC0094558F /* Assets.xcassets in Resources */,
 				4DC9255529FF5AF9004556ED /* TagCell.xib in Resources */,

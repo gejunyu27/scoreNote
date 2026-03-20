@@ -21,7 +21,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addAlick)];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addClick)];
     
     [self tableView];
     
@@ -41,7 +41,7 @@
 
 
 #pragma mark -Action
-- (void)addAlick
+- (void)addClick
 {
     NSString *placeholder = @"#空白";
     [SCUtilities alertWithTitle:@"输入标签名" message:nil textFieldBlock:^(UITextField * _Nonnull textField) {
