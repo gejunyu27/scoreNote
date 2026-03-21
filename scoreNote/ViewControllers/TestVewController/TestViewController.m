@@ -9,7 +9,7 @@
 #import "HomeCell.h"
 #import "RecordManager.h"
 #import "TagSelectView.h"
-#import "RecordDetailViewController.h"
+#import "TestDetailViewController.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -116,9 +116,14 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)homeCellShowDetails:(RecordModel *)record
 {
-//    RecordDetailViewController *vc = [RecordDetailViewController new];
-//    vc.model = record;
-//    [self.navigationController pushViewController:vc animated:YES];
+    TestDetailViewController *vc = [TestDetailViewController new];
+    vc.record = record;
+    @weakify(self)
+    vc.updateBlock = ^{
+      @strongify(self)
+        [self.tableView reloadData];
+    };
+    [self.navigationController pushViewController:vc animated:YES];
 }
 
 - (void)homeCellOverRecord:(RecordModel *)record
@@ -171,6 +176,15 @@ NS_ASSUME_NONNULL_BEGIN
         [self showWithStatus:@"修改失败"];
     }
 }
+
+//- (void)homeCellEditNote:(NSString *)note record:(RecordModel *)record
+//{
+//    BOOL result = [RecordManager editNote:note record:record];
+//    if (!result) {
+//        [self showWithStatus:@"修改失败"];
+//    }
+//}
+
 
 #pragma mark -action
 - (void)addClick

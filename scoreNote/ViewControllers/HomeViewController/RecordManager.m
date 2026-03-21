@@ -320,8 +320,11 @@ DEF_SINGLETON(RecordManager)
     BOOL result = [DataManager updateLine:currentLine];
     
     if (result) {
-        record.currentScore = @"";
-        [DataManager updateRecord:record]; //这里成功与否不影响最新一单结束，只是影响买法的删除，所以不做返回
+        record.currentScore = @""; //买法删除
+        if (!isWin) {
+            record.realNum++; //失败实际期数自动+1，减少手动操作
+        }
+        [DataManager updateRecord:record]; //这里成功与否不影响最新一单结束，所以不做返回
     }else {
         currentLine.getMoney = 0;
         currentLine.isOver = NO;

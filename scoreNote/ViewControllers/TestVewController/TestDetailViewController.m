@@ -1,0 +1,274 @@
+//
+//  TestDetailViewController.m
+//  scoreNote
+//
+//  Created by Zhuanz密码0000 on 2026/3/21.
+//
+
+#import "TestDetailViewController.h"
+#import "RecordDetailCell.h"
+#import "RecordManager.h"
+
+NS_ASSUME_NONNULL_BEGIN
+
+@interface TestDetailViewController () <UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate>
+@property (nonatomic, strong) UITableView *tableView;
+@property (nonatomic, strong) UIView *topView;
+@property (nonatomic, strong) UILabel *profitLabel;
+@property (nonatomic, strong) UILabel *detailLabel;
+@property (nonatomic, strong) UITextField *noteField;
+@property (nonatomic, strong) UIButton *perProfitButton;
+@property (nonatomic, strong) UIButton *baseProfitButton;
+@property (nonatomic, strong) UIButton *breakLineButton;
+
+@property (nonatomic, assign) BOOL hasUpdated;
+@end
+
+@implementation TestDetailViewController
+
+- (void)viewDidLoad
+{
+    [super viewDidLoad];
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    
+    if (_hasUpdated && self.updateBlock) {
+        self.updateBlock();
+    }
+}
+
+#pragma mark -data
+- (void)setRecord:(RecordModel *)record
+{
+    _record = record;
+    [self updateData:YES];
+}
+
+- (void)updateData:(BOOL)refreshTable
+{
+    if (refreshTable) {
+        [self.tableView reloadData];
+    }
+    
+    //是否可编辑
+    BOOL canEdit = !_record.isOver; //在跟的才能编辑
+    _topView.userInteractionEnabled = canEdit;
+    
+    //标题
+    self.title = _record.tagModel ? _record.tagModel.name : @"详情";
+    
+    CGFloat allGet = _record.allGet;
+    CGFloat allOut = _record.allOut;
+    CGFloat profit = allGet - allOut;
+    
+    //利润
+    NSString *profitStr = [SCUtilities removeFloatSuffix:profit];
+    NSString *profitText = [NSString stringWithFormat:@"利润：%@",profitStr];
+    NSMutableAttributedString *att = [[NSMutableAttributedString alloc] initWithString:profitText];
+    [att addAttributes:@{NSForegroundColorAttributeName:(profit>0?[UIColor redColor]:[UIColor blackColor])} range:[profitText rangeOfString:profitStr]];
+    _profitLabel.attributedText = att;
+    
+    //支出收入
+    _detailLabel.text = [NSString stringWithFormat:@"共%li期，投入%li单%@元，收入%@元", _record.realNum, _record.lineList.count, [SCUtilities removeFloatSuffix:allOut], [SCUtilities removeFloatSuffix:allGet]];
+    
+    //笔记
+    _noteField.text = _record.note;
+    if (_record.note.length == 0) {
+        _noteField.placeholder = canEdit ? @"点击输入笔记" : @"无";
+    }
+    
+    //每期利润
+    [_perProfitButton setTitle:[NSString stringWithFormat:@"每期利润%@元", [SCUtilities removeFloatSuffix:_record.profitPerLine]] forState: UIControlStateNormal];
+    
+    //固定利润
+    [_baseProfitButton setTitle:[NSString stringWithFormat:@"固定利润%@元", [SCUtilities removeFloatSuffix:_record.baseProfit]] forState: UIControlStateNormal];
+    
+    //止损线
+    [_breakLineButton setTitle:[NSString stringWithFormat:@"止损线%@元", [SCUtilities removeFloatSuffix:_record.breakLine]] forState: UIControlStateNormal];
+}
+
+#pragma mark -UITableViewDelegate, UITableViewDataSource
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    return _record.lineList.count;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    RecordDetailCell *cell = [tableView dequeueReusableCellWithIdentifier:kRDCellId forIndexPath:indexPath];
+    
+    if (indexPath.row < _record.lineList.count) {
+        LineModel *line = _record.lineList[indexPath.row];
+        
+        cell.line = line;
+    }
+    
+    return cell;
+}
+
+#pragma mark -UITextFieldDelegate
+- (void)textFieldDidEndEditing:(UITextField *)textField
+{
+    BOOL result = [RecordManager editNote:textField.text record:_record];
+    if (!result) {
+        [self showWithStatus:@"修改失败"];
+    }
+}
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField
+{
+    [textField resignFirstResponder];
+    return YES;
+}
+
+#pragma mark -action
+- (void)perProfitClicked:(UIButton *)sender
+{
+    NSString *text = _record.profitPerLine ? [SCUtilities removeFloatSuffix:_record.profitPerLine] : @"";
+    
+    @weakify(self)
+    [NumberInputView showWithText:text title:@"修改每期利润" clickView:nil type:InputTypeNoDot block:^(NSString * _Nonnull outputText) {
+        @strongify(self)
+        BOOL result = [RecordManager editProfitPerLine:outputText.floatValue record:self.record];
+        [self handleEditResult:result refreshTable:NO];
+    }];
+}
+
+- (void)baseProfitClicked:(UIButton *)sender
+{
+    NSString *text = _record.baseProfit ? [SCUtilities removeFloatSuffix:_record.baseProfit] : @"" ;
+    
+    @weakify(self)
+    [NumberInputView showWithText:text title:@"修改固定利润" clickView:nil type:InputTypeReduce block:^(NSString * _Nonnull outputText) {
+        @strongify(self)
+        BOOL result = [RecordManager editBaseProfit:outputText.floatValue record:self.record];
+        [self handleEditResult:result refreshTable:NO];
+    }];
+}
+
+- (void)breakLineClicked:(UIButton *)sender
+{
+    NSString *text = _record.breakLine ? [SCUtilities removeFloatSuffix:_record.breakLine] : @"";
+    
+    @weakify(self)
+    [NumberInputView showWithText:text title:@"修改止损线" clickView:nil type:InputTypeNoSymbol block:^(NSString * _Nonnull outputText) {
+        @strongify(self)
+        BOOL result = [RecordManager editBreakLine:outputText.floatValue record:self.record];
+        [self handleEditResult:result refreshTable:NO];
+    }];
+}
+
+- (void)handleEditResult:(BOOL)result refreshTable:(BOOL)refreshTable
+{
+    if (result) {
+        _hasUpdated = YES;
+        [self updateData:refreshTable];
+        
+    }else {
+        [self showWithStatus:@"修改失败"];
+    }
+}
+
+
+#pragma mark -UI
+- (UITableView *)tableView
+{
+    if (!_tableView) {
+        CGFloat h = SCREEN_HEIGHT - NAV_BAR_HEIGHT - TAB_BAR_HEIGHT;
+        if (@available(iOS 26.0, *)) {
+            //ios26不减导航栏高度，否则会出错，原因未知 tabbar高度可减可不减。减了底部正好在tabbar上方，不减和毛玻璃效果适配'
+            //            h = SCREEN_HEIGHT - TAB_BAR_HEIGHT;
+            h = SCREEN_HEIGHT; //这里不减，视觉效果最好
+        }
+        
+        _tableView = [[UITableView alloc] initWithFrame: CGRectMake(0, 0, SCREEN_WIDTH, h)];
+        _tableView.showsVerticalScrollIndicator = NO;
+        _tableView.showsHorizontalScrollIndicator = NO;
+        _tableView.dataSource = self;
+        _tableView.delegate = self;
+        _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+        _tableView.rowHeight = kRDCellH;
+        [_tableView registerClass:RecordDetailCell.class forCellReuseIdentifier:kRDCellId];
+        _tableView.tableHeaderView = self.topView;
+        if (@available(iOS 15.0, *)) {
+            _tableView.sectionHeaderTopPadding = 0;
+        }
+        
+        [self.view addSubview:_tableView];
+    }
+    return _tableView;
+}
+
+- (UIView *)topView
+{
+    if (!_topView) {
+        _topView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 110)];
+        
+        //背景框
+        CGFloat margin = 15;
+        UIView *bgView = [[UIView alloc] initWithFrame:CGRectMake(margin, 0, _topView.width-margin*2, _topView.height)];
+        bgView.layer.cornerRadius = 10;
+        bgView.layer.borderWidth = 1;
+        bgView.layer.borderColor = [UIColor blackColor].CGColor;
+        [_topView addSubview:bgView];
+        
+        //利润
+        _profitLabel = [[UILabel alloc] initWithFrame:CGRectMake(margin, 5, 110, 30)];
+        _profitLabel.font = SCFONT_SIZED(16);
+        [bgView addSubview:_profitLabel];
+        
+        //详情
+        CGFloat detailX = _profitLabel.right+2;
+        _detailLabel = [[UILabel alloc] initWithFrame:CGRectMake(detailX, _profitLabel.top, bgView.width-detailX-margin, _profitLabel.height)];
+        _detailLabel.font = SCFONT_SIZED(11);
+        _detailLabel.textAlignment = NSTextAlignmentRight;
+        _detailLabel.textColor = [UIColor grayColor];
+        [bgView addSubview:_detailLabel];
+        
+        //笔记
+        UILabel *noteLabel = [[UILabel alloc] initWithFrame:CGRectMake(margin, _profitLabel.bottom+5, 40, 20)];
+        noteLabel.font = SCFONT_SIZED(15);
+        noteLabel.text = @"笔记：";
+        [bgView addSubview:noteLabel];
+        CGFloat noteX = noteLabel.right;
+        _noteField = [[UITextField alloc] initWithFrame:CGRectMake(noteX, noteLabel.top, bgView.width-margin-noteX, noteLabel.height)];
+        _noteField.font = SCFONT_SIZED(11);
+        _noteField.borderStyle = UITextBorderStyleRoundedRect;
+        _noteField.returnKeyType = UIReturnKeyDone;
+        _noteField.delegate = self;
+        [bgView addSubview:_noteField];
+        
+        CGFloat btnW = (bgView.width - margin*4)/3;
+        CGFloat btnY = noteLabel.bottom+10;
+        CGFloat btnH = bgView.height - btnY - margin;
+        
+        for (int i=0; i<3; i++) {
+            UIButton *btn = [[UIButton alloc] initWithFrame:CGRectMake(margin+(btnW+margin)*i, btnY, btnW, btnH)];
+            btn.backgroundColor = HEX_RGB(@"#A6A6A6");
+            [btn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+            btn.titleLabel.font = SCFONT_SIZED(11);
+            [bgView addSubview:btn];
+            
+            if (i==0) {
+                _perProfitButton = btn;
+                [_perProfitButton addTarget:self action:@selector(perProfitClicked:) forControlEvents:UIControlEventTouchUpInside];
+                
+            }else if (i==1) {
+                _baseProfitButton = btn;
+                [_baseProfitButton addTarget:self action:@selector(baseProfitClicked:) forControlEvents:UIControlEventTouchUpInside];
+                
+            }else if (i==2) {
+                _breakLineButton = btn;
+                [_breakLineButton addTarget:self action:@selector(breakLineClicked:) forControlEvents:UIControlEventTouchUpInside];
+            }
+        }
+    }
+    return _topView;
+}
+
+@end
+
+NS_ASSUME_NONNULL_END

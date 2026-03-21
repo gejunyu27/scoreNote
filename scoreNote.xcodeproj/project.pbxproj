@@ -35,6 +35,8 @@
 		4BADE9A82C5E7A9C008D67EC /* SqlLineViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BADE9A72C5E7A9C008D67EC /* SqlLineViewController.m */; };
 		4BCDB8802F65950700181DBE /* TestViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BCDB87F2F65950700181DBE /* TestViewController.m */; };
 		4BCDB8842F65A0B000181DBE /* HomeCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BCDB8832F65A0B000181DBE /* HomeCell.m */; };
+		4BCF8E9A2F6EB67200229CCB /* TestDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BCF8E992F6EB67200229CCB /* TestDetailViewController.m */; };
+		4BCF8E9D2F6EBA3300229CCB /* RecordDetailCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BCF8E9C2F6EBA3300229CCB /* RecordDetailCell.m */; };
 		4BD3A8672C628F3600BB146C /* ColumnAddViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4BD3A8662C628F3600BB146C /* ColumnAddViewController.xib */; };
 		4BD3A8682C628F3600BB146C /* ColumnAddViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BD3A8652C628F3600BB146C /* ColumnAddViewController.m */; };
 		4D0806722AEAB6DC007BB9BF /* SCToolBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D0806712AEAB6DC007BB9BF /* SCToolBar.m */; };
@@ -153,6 +155,10 @@
 		4BCDB87F2F65950700181DBE /* TestViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TestViewController.m; sourceTree = "<group>"; };
 		4BCDB8822F65A0B000181DBE /* HomeCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HomeCell.h; sourceTree = "<group>"; };
 		4BCDB8832F65A0B000181DBE /* HomeCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HomeCell.m; sourceTree = "<group>"; };
+		4BCF8E982F6EB67200229CCB /* TestDetailViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TestDetailViewController.h; sourceTree = "<group>"; };
+		4BCF8E992F6EB67200229CCB /* TestDetailViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TestDetailViewController.m; sourceTree = "<group>"; };
+		4BCF8E9B2F6EBA3300229CCB /* RecordDetailCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RecordDetailCell.h; sourceTree = "<group>"; };
+		4BCF8E9C2F6EBA3300229CCB /* RecordDetailCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RecordDetailCell.m; sourceTree = "<group>"; };
 		4BD3A8642C628F3600BB146C /* ColumnAddViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ColumnAddViewController.h; sourceTree = "<group>"; };
 		4BD3A8652C628F3600BB146C /* ColumnAddViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ColumnAddViewController.m; sourceTree = "<group>"; };
 		4BD3A8662C628F3600BB146C /* ColumnAddViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ColumnAddViewController.xib; sourceTree = "<group>"; };
@@ -379,6 +385,10 @@
 			children = (
 				4BCDB87E2F65950700181DBE /* TestViewController.h */,
 				4BCDB87F2F65950700181DBE /* TestViewController.m */,
+				4BCF8E982F6EB67200229CCB /* TestDetailViewController.h */,
+				4BCF8E992F6EB67200229CCB /* TestDetailViewController.m */,
+				4BCF8E9B2F6EBA3300229CCB /* RecordDetailCell.h */,
+				4BCF8E9C2F6EBA3300229CCB /* RecordDetailCell.m */,
 				4BCDB8812F65A09D00181DBE /* HomeCell */,
 			);
 			path = TestVewController;
@@ -821,6 +831,7 @@
 				4B529F6B2C4B75EA0044736F /* TagRankViewController.m in Sources */,
 				4D84F03627A38DE20094558F /* MainTabBarController.m in Sources */,
 				4D84F05C27A396AF0094558F /* NSDate+SCExtension.m in Sources */,
+				4BCF8E9D2F6EBA3300229CCB /* RecordDetailCell.m in Sources */,
 				4B7A33452C4ECA0D00F91B34 /* TagDetailCell.m in Sources */,
 				4B03922D2BECAC5900E6E7C4 /* InputButton.m in Sources */,
 				4B0B1F1E2C5F819D0008C94C /* TagModel.m in Sources */,
@@ -835,6 +846,7 @@
 				4D7FCE4A27AD89CF00BF3009 /* RecordDetailViewController.m in Sources */,
 				4BADE9852C5DDB33008D67EC /* CareerViewModel.m in Sources */,
 				4BAA8C812C5BCFE600283103 /* CareerViewController.m in Sources */,
+				4BCF8E9A2F6EB67200229CCB /* TestDetailViewController.m in Sources */,
 				4BADE99F2C5E6194008D67EC /* SqlEditViewController.m in Sources */,
 				4D84F06027A396AF0094558F /* NSError+SCExtension.m in Sources */,
 				4BADE9A82C5E7A9C008D67EC /* SqlLineViewController.m in Sources */,

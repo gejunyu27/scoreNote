@@ -11,6 +11,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface HomeCell () <UITextFieldDelegate>
 @property (nonatomic, strong) UIView *bgView;          //背景框
+@property (nonatomic, strong) UIView *redDot;          //红点，提示当前正在看的单子
 
 @property (nonatomic, strong) UIButton *tagButton;     //标签
 @property (nonatomic, strong) UILabel *profitLabel;    //利润
@@ -56,7 +57,7 @@ NS_ASSUME_NONNULL_BEGIN
     [self.realNumButton setTitle:[NSString stringWithFormat:@"第%li期", _record.realNum] forState:UIControlStateNormal];
 //
     //本期买法
-    [self.scoreButton setTitle:(record.currentScore.length == 0 ? @"编辑本期买法" : record.currentScore) forState:UIControlStateNormal];
+    [self.scoreButton setTitle:(record.currentScore.length == 0 ? @"无" : record.currentScore) forState:UIControlStateNormal];
 
     //备注
     NSInteger num = record.lineList.count+1; //下一期期数
@@ -166,6 +167,11 @@ NS_ASSUME_NONNULL_BEGIN
     }
 }
 
+- (void)setSelected:(BOOL)selected animated:(BOOL)animated
+{
+    self.redDot.hidden = !selected;
+}
+
 #pragma mark -ui
 - (UIView *)bgView
 {
@@ -203,7 +209,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (UILabel *)profitLabel
 {
     if (!_profitLabel) {
-        _profitLabel = [[UILabel alloc] initWithFrame:CGRectMake(self.tagButton.right+10, 15, 90, 30)];
+        _profitLabel = [[UILabel alloc] initWithFrame:CGRectMake(self.tagButton.right+10, 10, 90, 30)];
         _profitLabel.font = SCFONT_SIZED(23);
         [self.bgView addSubview:_profitLabel];
     }
@@ -213,10 +219,10 @@ NS_ASSUME_NONNULL_BEGIN
 - (UIButton *)realNumButton
 {
     if (!_realNumButton) {
-        _realNumButton = [[UIButton alloc] initWithFrame:CGRectMake(self.profitLabel.left, self.profitLabel.bottom+15, 70, 25)];
-        _realNumButton.titleLabel.font = SCFONT_SIZED(15);
+        _realNumButton = [[UIButton alloc] initWithFrame:CGRectMake(self.profitLabel.left, self.profitLabel.bottom, 70, 20)];
+        _realNumButton.titleLabel.font = SCFONT_SIZED(13);
         _realNumButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
-        [_realNumButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+        [_realNumButton setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
         [_realNumButton addTarget:self action:@selector(realNumClicked:) forControlEvents:UIControlEventTouchUpInside];
         [self.bgView addSubview:_realNumButton];
     }
@@ -226,11 +232,9 @@ NS_ASSUME_NONNULL_BEGIN
 - (UIButton *)scoreButton
 {
     if (!_scoreButton) {
-        CGFloat x = self.realNumButton.right;
-        CGFloat w = self.bgView.width-x-10;
-        _scoreButton = [[UIButton alloc] initWithFrame:CGRectMake(x, self.realNumButton.top, w, self.realNumButton.height)];
+        _scoreButton = [[UIButton alloc] initWithFrame:CGRectMake(self.profitLabel.left, self.realNumButton.bottom+5, 120, 30)];
         [_scoreButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-        _scoreButton.titleLabel.font = self.realNumButton.titleLabel.font;
+        _scoreButton.titleLabel.font = SCFONT_SIZED(17);
         _scoreButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
         [_scoreButton addTarget:self action:@selector(scoreClicked:) forControlEvents:UIControlEventTouchUpInside];
         [self.bgView addSubview:_scoreButton];
@@ -253,7 +257,7 @@ NS_ASSUME_NONNULL_BEGIN
 {
     if (!_tipsLabel) {
         CGFloat w = 110;
-        _tipsLabel = [[UILabel alloc] initWithFrame:CGRectMake(self.bgView.width-10-w, 15, w, 30)];
+        _tipsLabel = [[UILabel alloc] initWithFrame:CGRectMake(self.bgView.width-10-w, self.profitLabel.top, w, 30)];
         _tipsLabel.textColor = [UIColor grayColor];
         _tipsLabel.textAlignment = NSTextAlignmentRight;
         _tipsLabel.font = SCFONT_SIZED(11);
@@ -286,11 +290,13 @@ NS_ASSUME_NONNULL_BEGIN
         if (i == 0) {
             _loseButton = btn;
             [_loseButton setTitle:@"未 中" forState:UIControlStateNormal];
+            _loseButton.backgroundColor = [UIColor grayColor];
             [_loseButton addTarget:self action:@selector(loseClicked:) forControlEvents:UIControlEventTouchUpInside];
             
         }else if (i == 1) {
             _winButton = btn;
             [_winButton setTitle:@"红 单" forState:UIControlStateNormal];
+            _winButton.backgroundColor = HEX_RGB(@"#ED6D4B");
             [_winButton addTarget:self action:@selector(winClicked:) forControlEvents:UIControlEventTouchUpInside];
             
         }else if (i == 2) {
@@ -315,23 +321,20 @@ NS_ASSUME_NONNULL_BEGIN
     
 }
 
+- (UIView *)redDot
+{
+    if (!_redDot) {
+        CGFloat wh = 10;
+        CGFloat x = (self.bgView.left - wh)/2;
+        _redDot = [[UIView alloc] initWithFrame:CGRectMake(x, (kHomeCellH-wh)/2, wh, wh)];
+        _redDot.layer.cornerRadius = wh/2;
+        _redDot.backgroundColor = [UIColor redColor];
+        [self.contentView addSubview:_redDot];
+    }
+    return _redDot;
+}
 
 
-//
-//#pragma mark -UITextFieldDelegate
-//- (void)textFieldDidEndEditing:(UITextField *)textField
-//{
-//    if ([self.delegate respondsToSelector:@selector(homeCellEditNote:record:)]) {
-//        [self.delegate homeCellEditNote:textField.text record:_record];
-//    }
-//}
-//
-//- (BOOL)textFieldShouldReturn:(UITextField *)textField
-//{
-//    [textField resignFirstResponder];
-//    return YES;
-//}
-//
 
 @end
 
