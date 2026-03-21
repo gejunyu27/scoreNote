@@ -12,7 +12,9 @@
 @interface TagDetailViewController () <UITableViewDelegate, UITableViewDataSource>
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) NSArray <RecordModel *> *recordList;
-@property (nonatomic, strong) UILabel *footerLabel;
+@property (nonatomic, strong) UIView *topView;
+@property (nonatomic, strong) UILabel *profitLabel;
+@property (nonatomic, strong) UILabel *numLabel;
 
 @end
 
@@ -45,12 +47,15 @@
     }
     
     NSString *profitStr = [SCUtilities removeFloatSuffix:allProfit];
-    NSString *footerStr = [NSString stringWithFormat:@"    总利润：%@         共%li单", profitStr, _recordList.count];
-    NSMutableAttributedString *att = [[NSMutableAttributedString alloc] initWithString:footerStr];
+//    NSString *footerStr = [NSString stringWithFormat:@"    总利润：%@         共%li单", profitStr, _recordList.count];
+    NSString *profitText = [NSString stringWithFormat:@"总利润：%@", profitStr];
+    NSMutableAttributedString *att = [[NSMutableAttributedString alloc] initWithString:profitText];
     
-    [att addAttributes:@{NSForegroundColorAttributeName:(allProfit>0?[UIColor redColor]:[UIColor blackColor])} range:[footerStr rangeOfString:profitStr]];
+    [att addAttributes:@{NSForegroundColorAttributeName:(allProfit>0?[UIColor redColor]:[UIColor blackColor])} range:[profitText rangeOfString:profitStr]];
     
-    self.footerLabel.attributedText = att;
+    self.profitLabel.attributedText = att;
+    
+    self.numLabel.text = [NSString stringWithFormat:@"共%li单", _recordList.count];
 }
 
 #pragma mark -UITableViewDelegate, UITableViewDataSource
@@ -66,14 +71,13 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    TagDetailCell *cell = [tableView dequeueReusableCellWithIdentifier:kTagDetailCell];
+    TagDetailCell *cell = [tableView dequeueReusableCellWithIdentifier:kTDCellId];
     
     NSInteger row = indexPath.row;
     if (row < _recordList.count) {
-        RecordModel *model = _recordList[row];
-        [cell setData:model row:row];
+        RecordModel *record = _recordList[row];
+        [cell setRecord:record row:row];
     }
-    
     
     return cell;
 
@@ -93,35 +97,52 @@
 - (UITableView *)tableView
 {
     if (!_tableView) {
-        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, self.footerLabel.top)];
-        _tableView.delegate = self;
+        _tableView = [[UITableView alloc] initWithFrame: CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];
+        _tableView.showsVerticalScrollIndicator = NO;
+        _tableView.showsHorizontalScrollIndicator = NO;
+        _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
         _tableView.dataSource = self;
-//        _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-        _tableView.showsVerticalScrollIndicator = YES;
-        [_tableView registerNib:[UINib nibWithNibName:kTagDetailCell bundle:nil] forCellReuseIdentifier:kTagDetailCell];
+        _tableView.delegate = self;
+        _tableView.tableHeaderView = self.topView;
+        _tableView.backgroundColor = HEX_RGB(@"#F8F9FE");
+        [_tableView registerClass:TagDetailCell.class forCellReuseIdentifier:kTDCellId];
         if (@available(iOS 15.0, *)) {
             _tableView.sectionHeaderTopPadding = 0;
         }
+
         [self.view addSubview:_tableView];
     }
     return _tableView;
 }
 
-- (UILabel *)footerLabel
+- (UIView *)topView
 {
-    if (!_footerLabel) {
-        CGFloat h = SCREEN_FIX(35);
-        CGFloat y = SCREEN_HEIGHT-NAV_BAR_HEIGHT-SCREEN_SAFE_BOTTOM-h;
-        if (@available(iOS 26.0, *)) {
-            y = SCREEN_HEIGHT-SCREEN_SAFE_BOTTOM-h;
-        }
-        
-        _footerLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, y, SCREEN_WIDTH, h)];
-        _footerLabel.font = SCFONT_SIZED(20);
-        _footerLabel.layer.borderWidth = 1;
-        [self.view addSubview:_footerLabel];
-    }
-    return _footerLabel;
-}
+   if (!_topView) {
 
+       _topView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 60)];
+       
+       //topview ui
+       //背景框
+       CGFloat margin = 15;
+       UIView *bgView = [[UIView alloc] initWithFrame:CGRectMake(margin, 0, _topView.width-margin*2, _topView.height-5)];
+       bgView.backgroundColor = [UIColor whiteColor];
+       bgView.layer.cornerRadius = 10;
+       [bgView setCommonShadow];
+       [_topView addSubview:bgView];
+       
+       //利润
+       _profitLabel = [[UILabel alloc] initWithFrame:CGRectMake(margin, 0, 200, bgView.height)];
+       _profitLabel.font = SCFONT_SIZED(20);
+       [bgView addSubview:_profitLabel];
+       
+       //单子数
+       CGFloat w = 80;
+       _numLabel = [[UILabel alloc] initWithFrame:CGRectMake(bgView.width-margin-w, 0, w, bgView.height)];
+       _numLabel.font = _profitLabel.font;
+       _numLabel.textAlignment = NSTextAlignmentRight;
+       [bgView addSubview:_numLabel];
+       
+   }
+   return _topView;
+}
 @end

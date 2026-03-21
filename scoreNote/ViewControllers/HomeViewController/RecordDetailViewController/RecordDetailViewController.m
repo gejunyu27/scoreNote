@@ -8,6 +8,7 @@
 #import "RecordDetailViewController.h"
 #import "RecordDetailCell.h"
 #import "RecordManager.h"
+#import "SCToolBar.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -140,6 +141,10 @@ NS_ASSUME_NONNULL_BEGIN
 #pragma mark -UITextFieldDelegate
 - (void)textFieldDidEndEditing:(UITextField *)textField
 {
+    if ([textField.text isEqualToString:_record.note]) { //无变化
+        return;
+    }
+    
     BOOL result = [RecordManager editNote:textField.text record:_record];
     [self handleEditResult:result refreshTable:NO];
 }
@@ -267,6 +272,7 @@ NS_ASSUME_NONNULL_BEGIN
         _noteField.borderStyle = UITextBorderStyleRoundedRect;
         _noteField.returnKeyType = UIReturnKeyDone;
         _noteField.delegate = self;
+        [SCToolBar addNoteBarInTextField:_noteField];
         [bgView addSubview:_noteField];
         
         CGFloat btnW = (bgView.width - margin*4)/3;

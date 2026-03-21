@@ -12,7 +12,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface SCToolBar : UIToolbar
 
 //笔记
-+ (void)addNoteBarInTextView:(UITextView *)textView;
++ (void)addNoteBarInTextField:(UITextField *)textField;
 
 //通用
 + (void)addBarIn:(UIView *)view titles:(NSArray <NSString *>*)titles;

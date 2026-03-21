@@ -7,10 +7,11 @@
 
 #import "TotalViewController.h"
 #import "TotalViewModel.h"
-#import "CommonHeaderView.h"
+#import "TotalHeaderView.h"
 #import "RecordDetailViewController.h"
 #import "TagRankViewController.h"
 #import "CareerViewController.h"
+#import "TotalCell.h"
 
 @interface TotalViewController () <UITableViewDelegate, UITableViewDataSource>
 @property (nonatomic, strong) UIView *topView;
@@ -99,38 +100,33 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
-    return kCommonHeaderH;
+    return kTotalHeaderH;
 }
 
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
-    NSString *headId = @"headId";
+    TotalHeaderView *header = [tableView dequeueReusableHeaderFooterViewWithIdentifier:kTotalHeaderId];
     
-    CommonHeaderView *view = [tableView dequeueReusableHeaderFooterViewWithIdentifier:headId];
-    
-    if (!view) {
-        view = [[CommonHeaderView alloc] initWithReuseIdentifier:headId];
+    if (!header) {
+        header = [[TotalHeaderView alloc] initWithReuseIdentifier:kTotalHeaderId];
     }
     
     if (section < self.viewModel.sectionList.count) {
         TotalSectionModel *model = self.viewModel.sectionList[section];
-        [view setTotalSection:model];
+        header.model = model;
+        
         @weakify(self)
-        view.clickBlock = ^{
+        header.clickBlock = ^{
             @strongify(self)
             model.isOn^=1;
             [self.tableView reloadData];
         };
+        
     }
     
     
-    return view;
-}
-
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    return 45;
+    return header;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -145,28 +141,15 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSString *cellId = @"cellId";
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellId];
-    
-    if (!cell) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:cellId];
-        cell.selectionStyle = UITableViewCellSelectionStyleNone;
-        cell.textLabel.font = SCFONT_SIZED(24);
-        cell.detailTextLabel.font = SCFONT_SIZED(10);
-    }
-    
+    TotalCell *cell = [tableView dequeueReusableCellWithIdentifier:kTotalCellId forIndexPath:indexPath];
+
     if (indexPath.section < self.viewModel.sectionList.count) {
         TotalSectionModel *sectionModel = self.viewModel.sectionList[indexPath.section];
         
         if (indexPath.row < sectionModel.recordList.count) {
             RecordModel *record = sectionModel.recordList[indexPath.row];
             
-            cell.textLabel.text = [NSString stringWithFormat:@"%@",[SCUtilities removeFloatSuffix:record.allProfit]];
-            cell.textLabel.textColor = record.allProfit > 0 ? [UIColor redColor] : [UIColor blackColor];
-            
-            NSString *tagName = record.overTagName.length > 0 ? record.overTagName : record.tagModel.name;
-            tagName = tagName.length > 0 ? tagName : @"无";
-            cell.detailTextLabel.text = [NSString stringWithFormat:@"%@   %li期", tagName, record.realNum];
+            cell.record = record;
         }
     }
     
@@ -202,33 +185,41 @@
 {
     if (!_topView) {
         CGFloat y = 0;
-//        if (@available(iOS 26.0, *)) { //老版放顶部，新版不用了
-//            /**
-//             ios适配这里有个奇怪地方
-//             NAV_BAR_HEIGHT 是98
-//             self.navigationController.navigationBar.height是54
-//             self.navigationController.navigationBar.bottom是116
-//             STATUS_BAR_HEIGHT是54
-//                如果一个页面只有tableview可以y写0，固定的写0就被盖在导航栏下。但这里导航栏高度不知道是怎么算的，先用116
-//             */
-//            y = self.navigationController.navigationBar.bottom;
-//        }
-        _topView = [[UIView alloc] initWithFrame:CGRectMake(0, y, SCREEN_WIDTH, SCREEN_FIX(70))];
-        _topView.backgroundColor = [UIColor whiteColor];
-//        [self.view addSubview:_topView]; //新版改为tableview的headerview
+        //        if (@available(iOS 26.0, *)) { //老版放顶部，新版不用了
+        //            /**
+        //             ios适配这里有个奇怪地方
+        //             NAV_BAR_HEIGHT 是98
+        //             self.navigationController.navigationBar.height是54
+        //             self.navigationController.navigationBar.bottom是116
+        //             STATUS_BAR_HEIGHT是54
+        //                如果一个页面只有tableview可以y写0，固定的写0就被盖在导航栏下。但这里导航栏高度不知道是怎么算的，先用116
+        //             */
+        //            y = self.navigationController.navigationBar.bottom;
+        //        }
+        
+        _topView = [[UIView alloc] initWithFrame:CGRectMake(0, y, SCREEN_WIDTH, 80)];
+        //        [self.view addSubview:_topView]; //新版改为tableview的headerview
         
         //topview ui
+        //背景框
+        CGFloat margin = 15;
+        UIView *bgView = [[UIView alloc] initWithFrame:CGRectMake(margin, 0, _topView.width-margin*2, _topView.height-5)];
+        bgView.backgroundColor = [UIColor whiteColor];
+        bgView.layer.cornerRadius = 10;
+        [bgView setCommonShadow];
+        [_topView addSubview:bgView];
+        
         //标签排行
-        CGFloat btnH = SCREEN_FIX(20);
-        CGFloat btnW = SCREEN_FIX(50);
-        CGFloat btnY = SCREEN_FIX(5);
+        CGFloat btnH = 20;
+        CGFloat btnW = 50;
+        CGFloat btnY = 10;
         UIFont *btnFont = SCFONT_SIZED(12);
         UIButton *tagRankButton = [UIButton buttonWithType:UIButtonTypeSystem];
-        tagRankButton.frame = CGRectMake(_topView.width-btnW-5, btnY, btnW, btnH);
+        tagRankButton.frame = CGRectMake(bgView.width-btnW-5, btnY, btnW, btnH);
         tagRankButton.titleLabel.font = btnFont;
         [tagRankButton setTitle:@"标签排行" forState:UIControlStateNormal];
         [tagRankButton addTarget:self action:@selector(tagRankClicked:) forControlEvents:UIControlEventTouchUpInside];
-        [_topView addSubview:tagRankButton];
+        [bgView addSubview:tagRankButton];
         
         //生涯统计
         UIButton *careerButton = [UIButton buttonWithType:UIButtonTypeSystem];
@@ -236,26 +227,26 @@
         careerButton.titleLabel.font = btnFont;
         [careerButton setTitle:@"生涯统计" forState:UIControlStateNormal];
         [careerButton addTarget:self action:@selector(CareerClicked:) forControlEvents:UIControlEventTouchUpInside];
-        [_topView addSubview:careerButton];
+        [bgView addSubview:careerButton];
         
         //总计
         CGFloat labelX = 15;
         _totalLabel = [[UILabel alloc] initWithFrame:CGRectMake(labelX, btnY, careerButton.left - 15 - labelX, btnH)];
         _totalLabel.font = SCFONT_SIZED(18);
-        [_topView addSubview:_totalLabel];
+        [bgView addSubview:_totalLabel];
         
         //切换
         UISwitch *onSwitch = [UISwitch new];
-        onSwitch.right = _topView.width - SCREEN_FIX(10);
-        onSwitch.centerY = tagRankButton.bottom + SCREEN_FIX(25);
+        onSwitch.right = bgView.width - 10;
+        onSwitch.centerY = tagRankButton.bottom + 25;
         [onSwitch addTarget:self action:@selector(switchChange:) forControlEvents:UIControlEventValueChanged];
-        [_topView addSubview:onSwitch];
+        [bgView addSubview:onSwitch];
         
         //起投
-        _startDateLabel = [[UILabel alloc] initWithFrame:CGRectMake(labelX, _totalLabel.bottom+SCREEN_FIX(20), onSwitch.left-15-labelX, SCREEN_FIX(12))];
+        _startDateLabel = [[UILabel alloc] initWithFrame:CGRectMake(labelX, _totalLabel.bottom+20, onSwitch.left-15-labelX, SCREEN_FIX(12))];
         _startDateLabel.width = onSwitch.left - 15 - _startDateLabel.left;
         _startDateLabel.font = SCFONT_SIZED(11);
-        [_topView addSubview:_startDateLabel];
+        [bgView addSubview:_startDateLabel];
         
     }
     return _topView;
@@ -264,14 +255,6 @@
 - (UITableView *)tableView
 {
     if (!_tableView) {
-        //老版代码
-//        CGFloat h = SCREEN_HEIGHT - NAV_BAR_HEIGHT - TAB_BAR_HEIGHT - self.topView.bottom;
-//        if (@available(iOS 26.0, *)) {
-//            //ios26不减导航栏高度，否则会出错，原因未知 tabbar高度可减可不减。减了底部正好在tabbar上方，不减和毛玻璃效果适配'
-//            //            h = SCREEN_HEIGHT - TAB_BAR_HEIGHT;
-//            h = SCREEN_HEIGHT - self.topView.bottom; //这里不减，视觉效果最好
-//        }
-        
         //新版
         CGFloat h = SCREEN_HEIGHT - NAV_BAR_HEIGHT - TAB_BAR_HEIGHT;
         if (@available(iOS 26.0, *)) {
@@ -287,6 +270,9 @@
         _tableView.delegate = self;
         _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
         _tableView.tableHeaderView = self.topView;
+        _tableView.backgroundColor = HEX_RGB(@"#F8F9FE");
+        [_tableView registerClass:TotalCell.class forCellReuseIdentifier:kTotalCellId];
+        _tableView.rowHeight = kTotalCellH;
         if (@available(iOS 15.0, *)) {
             _tableView.sectionHeaderTopPadding = 0;
         }

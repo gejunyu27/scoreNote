@@ -34,9 +34,9 @@
 
 }
 
-+ (void)addNoteBarInTextView:(UITextView *)textView
++ (void)addNoteBarInTextField:(UITextField *)textField
 {
-    [self addBarIn:textView titles:@[@"清空", @"让", @"平", @"胜", @"负"]];
+    [self addBarIn:textField titles:@[@"清空", @"让", @"平", @"胜", @"负"]];
 }
 
 - (instancetype)initWithFrame:(CGRect)frame titles:(NSArray <NSString *> *)titles

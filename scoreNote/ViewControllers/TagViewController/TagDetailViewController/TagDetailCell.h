@@ -2,18 +2,18 @@
 //  TagDetailCell.h
 //  scoreNote
 //
-//  Created by Zhuanz密码0000 on 2024/7/23.
+//  Created by Zhuanz密码0000 on 2026/3/22.
 //
 
-#import <UIKit/UIKit.h>
+#import <Foundation/Foundation.h>
 
-#define kTDCellH 40
-#define kTagDetailCell @"TagDetailCell"
+#define kTDCellH 50
+#define kTDCellId @"kTDCellId"
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface TagDetailCell : UITableViewCell
-- (void)setData:(RecordModel *)model row:(NSInteger)row;
+- (void)setRecord:(RecordModel *)record row:(NSInteger)row;
 
 @end
 

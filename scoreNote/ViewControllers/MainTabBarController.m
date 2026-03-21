@@ -11,7 +11,6 @@
 #import "ConfigViewController.h"
 #import "TagViewController.h"
 #import "TotalViewController.h"
-#import "TestViewController.h"
 
 
 #define kTabImg(P)    [[UIImage imageNamed:P] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]
@@ -35,29 +34,17 @@
 {
     NSMutableArray *temp = [NSMutableArray array];
     
-//    HomeViewController *homeVc = [HomeViewController new];
-//    homeVc.isMainTabVC = YES;
-//    homeVc.title = @"首页";
-//    UITabBarItem *homeItem = homeVc.tabBarItem;
-//    homeItem.image = kTabImg(@"Tab_Home");
-//    homeItem.selectedImage = kTabImg(@"Tab_Home_selected");
-//    if (@available(iOS 26.0, *)) { //ios26必须在这儿设置，否则文字错位 另外普通状态文字颜色无法改变，原因未知
-//        [homeItem setTitleTextAttributes:kSelectedTextAttributes forState:UIControlStateSelected];
-//    }
-//    BaseNavigationController *homeNav = [[BaseNavigationController alloc] initWithRootViewController:homeVc];
-//    [temp addObject:homeNav];
-    
-    TestViewController *testVc = [TestViewController new];
-    testVc.isMainTabVC = YES;
-    testVc.title = @"测试";
-    UITabBarItem *testItem = testVc.tabBarItem;
-    testItem.image = kTabImg(@"Tab_Home");
-    testItem.selectedImage = kTabImg(@"Tab_Home_selected");
+    HomeViewController *homeVc = [HomeViewController new];
+    homeVc.isMainTabVC = YES;
+    homeVc.title = @"首页";
+    UITabBarItem *homeItem = homeVc.tabBarItem;
+    homeItem.image = kTabImg(@"Tab_Home");
+    homeItem.selectedImage = kTabImg(@"Tab_Home_selected");
     if (@available(iOS 26.0, *)) { //ios26必须在这儿设置，否则文字错位 另外普通状态文字颜色无法改变，原因未知
-        [testItem setTitleTextAttributes:kSelectedTextAttributes forState:UIControlStateSelected];
+        [homeItem setTitleTextAttributes:kSelectedTextAttributes forState:UIControlStateSelected];
     }
-    BaseNavigationController *testNav = [[BaseNavigationController alloc] initWithRootViewController:testVc];
-    [temp addObject:testNav];
+    BaseNavigationController *homeNav = [[BaseNavigationController alloc] initWithRootViewController:homeVc];
+    [temp addObject:homeNav];
     
     TotalViewController *totalVc = [TotalViewController new];
     totalVc.isMainTabVC = YES;

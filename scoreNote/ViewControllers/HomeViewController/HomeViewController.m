@@ -6,15 +6,14 @@
 //
 
 #import "HomeViewController.h"
-#import "SideBar.h"
-#import "RecordView.h"
+#import "HomeCell.h"
 #import "RecordManager.h"
 #import "TagSelectView.h"
+#import "RecordDetailViewController.h"
 
-@interface HomeViewController () <RecordViewDelegate>
-@property (nonatomic, strong) UIScrollView *scrollView;
-@property (nonatomic, strong) SideBar *sideBar;
-@property (nonatomic, strong) NSMutableArray <RecordView *> *viewList;
+@interface HomeViewController () <UITableViewDelegate, UITableViewDataSource, HomeCellDelegate>
+@property (nonatomic, strong) UITableView *tableView;
+@property (nonatomic, weak) NSMutableArray <RecordModel *> *records;
 
 @end
 
@@ -23,12 +22,10 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    //刷新ui
+    //ui
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addClick)];
     [self refreshUI];
-    
-    //添加键盘监控
-    [self addKeyboardNotification];
-    
+
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -43,182 +40,91 @@
 
 - (void)refreshUI
 {
-    //获取首页展示的记录
-    NSMutableArray <RecordModel *> *homeRecords = [RecordManager homeRecords];
+    //获取首页展示记录
+    _records = [RecordManager homeRecords];
     
-    NSInteger maxLineNum = 10; //最大列数
-    
-    for (RecordModel *record in homeRecords) {
-        maxLineNum = MAX(maxLineNum, record.lineList.count+1);
-    }
-    
-    //边框
-    self.sideBar.num = maxLineNum;
-    
-    //创建view
-    [self createRecordViews:homeRecords.count];
-    
-    //赋值
-    __block CGFloat x = self.sideBar.right;
-    __block CGFloat maxH = self.scrollView.height+1;
-    
-    [self.viewList enumerateObjectsUsingBlock:^(RecordView * _Nonnull view, NSUInteger idx, BOOL * _Nonnull stop) {
-        if (idx >= homeRecords.count) {
-            view.hidden = YES;
-            return;
-        }
-        
-        view.hidden = NO;
-        view.left = x;
-        
-        RecordModel *record = homeRecords[idx];
-        [view refreshUI:record title:[NSString stringWithFormat:@"%li",idx+1] maxNum:maxLineNum];
-        
-        x = view.right-1;
-        
-        maxH = MAX(maxH, view.bottom);
-    }];
-    
-    //滚动范围
-    self.scrollView.contentSize = CGSizeMake(MAX(_scrollView.width+1, x), maxH);
+    [self.tableView reloadData];
 }
 
-#pragma mark -RecordViewDelegate
-- (void)recordView:(RecordView *)recordView insertNewLineWithRecord:(RecordModel *)record view:(nullable UIView *)view
+#pragma mark -UITableViewDelegate, UITableViewDataSource
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    [NumberInputView showWithText:nil title:@"输入支出" clickView:view type:InputTypeNoSymbol block:^(NSString * _Nonnull outputText) {
+    return _records.count;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    HomeCell *cell = [tableView dequeueReusableCellWithIdentifier:kHomeCellId forIndexPath:indexPath];
+    cell.delegate = self;
+    
+    if (indexPath.row < _records.count) {
+        RecordModel *record = _records[indexPath.row];
+        cell.record = record;
+    }
+    
+    
+    return cell;
+}
+
+#pragma mark -HomeCellDelegate
+- (void)homeCellTagSelect:(RecordModel *)record
+{
+    [TagSelectView show:^(TagModel * _Nullable tag) {
+        BOOL result = [RecordManager editTag:(tag ? tag.tagId : 0) record:record];
+        [self refreshTableViewWithResult:result];
+    }];
+}
+
+- (void)homeCellEditRealNum:(RecordModel *)record
+{
+    @weakify(self)
+    NSString *text = record.realNum ? [NSString stringWithFormat:@"%li", record.realNum] : @"";
+    [NumberInputView showWithText:text title:@"编辑实际期数" clickView:nil type:InputTypeNoDot block:^(NSString * _Nonnull outputText) {
+        @strongify(self)
+        NSInteger realNum = MAX(outputText.integerValue, 0);
+        BOOL result = [RecordManager editRealNum:realNum record:record];
+        [self refreshTableViewWithResult:result];
+        
+    }];
+    
+}
+
+- (void)homeCellEditScore:(RecordModel *)record
+{
+    @weakify(self)
+    [NumberInputView showWithText:record.currentScore title:@"编辑买法" clickView:nil type:InputTypeDefault block:^(NSString * _Nonnull outputText) {
+        @strongify(self)
+        BOOL result = [RecordManager editCurrentScore:outputText record:record];
+        [self refreshTableViewWithResult:result];
+    }];
+}
+
+- (void)homeCellBuy:(RecordModel *)record
+{
+    [NumberInputView showWithText:nil title:@"输入投入额" clickView:nil type:InputTypeNoSymbol block:^(NSString * _Nonnull outputText) {
         CGFloat outmoney = VALID_STRING(outputText) ? outputText.floatValue : 0;
-        if (outmoney == 0) {
+        if (outmoney <= 0) {
             return;
         }
         
         BOOL result = [RecordManager addNewLine:record outMoney:outmoney];
-        
-        [self refreshUI]; //超过止损线也会添加失败，所以失败也得刷新
-        if (!result) {
-            [self showWithStatus:@"添加失败"];
-        }
-    }];
-    
-
-}
-
-- (void)recordView:(RecordView *)recordView tagSelect:(RecordModel *)record
-{
-    [TagSelectView show:^(TagModel * _Nullable tag) {
-        BOOL result = [RecordManager editTag:(tag ? tag.tagId : 0) record:record];
-        if (result) {
-            [recordView refreshUI];
-        }else {
-            [self showWithStatus:@"修改失败"];
-        }
+        [self refreshTableViewWithResult:result];
     }];
 }
 
-- (void)recordView:(RecordView *)recordView editRealNum:(RecordModel *)record
+- (void)homeCellShowDetails:(RecordModel *)record
 {
-    [RecordManager editRealNum:record];
-}
-
-
-
-- (void)recordView:(RecordView *)recordView editNote:(NSString *)note record:(RecordModel *)record
-{
-    BOOL result = [RecordManager editNote:note record:record];
-    if (!result) {
-        [self showWithStatus:@"修改失败"];
-    }
-}
-
-- (void)recordView:(RecordView *)recordView editRecord:(RecordModel *)record
-{
-    UIAlertController *ac = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleActionSheet];
-    [ac addAction:[UIAlertAction actionWithTitle:@"移除最后一列" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-        [self reduceLine:record];
-    }]];
-    
-    [ac addAction:[UIAlertAction actionWithTitle:[NSString stringWithFormat:@"修改每期利润：%@", [SCUtilities removeFloatSuffix:record.profitPerLine]] style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-        [self editProfitPerLine:record];
-    }]];
-    
-    [ac addAction:[UIAlertAction actionWithTitle:[NSString stringWithFormat:@"修改固定利润：%@", [SCUtilities removeFloatSuffix:record.baseProfit]] style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-        [self editBaseProfit:record];
-    }]];
-    
-    [ac addAction:[UIAlertAction actionWithTitle:[NSString stringWithFormat:@"修改止损线：%@", [SCUtilities removeFloatSuffix:record.breakLine]] style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-        [self editBreakLine:record];
-    }]];
-    
-    [ac addAction:[UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil]];
-    
-    [self presentViewController:ac animated:YES completion:nil];
-}
-
-- (void)reduceLine:(RecordModel *)record
-{
-    [SCUtilities alertWithTitle:@"确定要删除最后一列吗？" message:nil textFieldBlock:nil sureBlock:^(NSString * _Nonnull text) {
-        BOOL result = [RecordManager deleteLastLine:record];
-        if (result) {
-            [self refreshUI];
-        }else {
-            [self showWithStatus:@"删除失败"];
-        }
-        
-    }];
-    
-}
-
-- (void)editProfitPerLine:(RecordModel *)record
-{
-    NSString *text = record.profitPerLine == 0 ? @"" :[SCUtilities removeFloatSuffix:record.profitPerLine];
-    
+    RecordDetailViewController *vc = [RecordDetailViewController new];
+    [vc setRecord:record canEdit:YES];
     @weakify(self)
-    [NumberInputView showWithText:text title:@"修改每期利润" clickView:nil type:InputTypeNoDot block:^(NSString * _Nonnull outputText) {
-        @strongify(self)
-        BOOL result = [RecordManager editProfitPerLine:outputText.floatValue record:record];
-        if (result) {
-            [self refreshUI];
-        }else {
-            [self showWithStatus:@"修改失败"];
-        }
-    }];
+    vc.updateBlock = ^{
+      @strongify(self)
+        [self.tableView reloadData];
+    };
+    [self.navigationController pushViewController:vc animated:YES];
 }
 
-- (void)editBaseProfit:(RecordModel *)record
-{
-    NSString *text = record.baseProfit == 0 ? @"" :[SCUtilities removeFloatSuffix:record.baseProfit];
-    
-    @weakify(self)
-    [NumberInputView showWithText:text title:@"修改固定利润" clickView:nil type:InputTypeReduce block:^(NSString * _Nonnull outputText) {
-        @strongify(self)
-        BOOL result = [RecordManager editBaseProfit:outputText.floatValue record:record];
-        if (result) {
-            [self refreshUI];
-        }else {
-            [self showWithStatus:@"修改失败"];
-        }
-    }];
-    
-}
-
-- (void)editBreakLine:(RecordModel *)record
-{
-    NSString *text = record.breakLine == 0 ? @"" :[SCUtilities removeFloatSuffix:record.breakLine];
-    
-    @weakify(self)
-    [NumberInputView showWithText:text title:@"修改止损线" clickView:nil type:InputTypeNoSymbol block:^(NSString * _Nonnull outputText) {
-        @strongify(self)
-        BOOL result = [RecordManager editBreakLine:outputText.floatValue record:record];
-        if (result) {
-            [self refreshUI];
-            
-        }else {
-            [self showWithStatus:@"修改失败"];
-        }
-    }];
-}
-
-- (void)recordView:(RecordView *)recordView overRecord:(nonnull RecordModel *)record
+- (void)homeCellOverRecord:(RecordModel *)record
 {
     if (!record || record.lineList.count == 0) {
         [self showWithStatus:@"无购买记录"];
@@ -226,81 +132,96 @@
     }
     
     NSString *title = [NSString stringWithFormat:@"确定要结束%@吗", record.tagModel.name];
-    UIAlertController *ac = [UIAlertController alertControllerWithTitle:title message:nil preferredStyle:UIAlertControllerStyleAlert];
     
-    
-    [ac addAction:[UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleDefault handler:nil]];
-    
-    [ac addAction:[UIAlertAction actionWithTitle:@"结束" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
-        [self closeRecord:record];
-    }]];
-    
-    [self presentViewController:ac animated:YES completion:nil];
+    [SCUtilities alertWithTitle:title message:nil textFieldBlock:nil sureBlock:^(NSString * _Nonnull text) {
+        BOOL result = [RecordManager closeRecord:record];
+        [self refreshTableViewWithResult:result];
+    }];
+  
+}
+
+- (void)homeCellBuyLose:(RecordModel *)record
+{
+    BOOL result = [RecordManager lastLineLose:record];
+    [self refreshTableViewWithResult:result];
     
 }
 
-
-- (void)closeRecord:(RecordModel *)record
+- (void)homeCellBuyWin:(RecordModel *)record
 {
-    //关闭
-    BOOL closeResult = [RecordManager closeRecord:record];
-    if (!closeResult) {
-        [self showWithStatus:@"关闭失败"];
-        return;
-    }
-    
-    //刷新页面
-    [self refreshUI];
-    
+    @weakify(self)
+    [NumberInputView showWithText:@"" title:@"利润" clickView:nil type:InputTypeNoSymbol block:^(NSString * _Nonnull outputText) {
+        @strongify(self)
+        if (outputText.length == 0) {
+            return;
+        }
+        
+        CGFloat profit = outputText.floatValue;
+        
+        BOOL result = [RecordManager lastLineWin:profit record:record];
+        
+        [self refreshTableViewWithResult:result];
+
+    }];
 }
 
-#pragma mark -ui
-- (void)createRecordViews:(NSInteger)count
+- (void)refreshTableViewWithResult:(BOOL)result
 {
-    if (!_viewList) {
-        _viewList = [NSMutableArray array];
-    }
-    
-    //先创建缺几个view 考虑以后可能会增加新增记录功能
-    NSInteger num = count - _viewList.count;
-    
-    if (num <= 0) {
-        return;
-    }
-    
-    for (int i=0; i<num; i++) {
-        RecordView *rv = [RecordView new];
-        rv.delegate = self;
-        [self.scrollView addSubview:rv];
-        [_viewList addObject:rv];
+    if (result) {
+        [self.tableView reloadData];
+        
+    }else {
+        [self showWithStatus:@"修改失败"];
     }
 }
 
-- (UIScrollView *)scrollView
+//- (void)homeCellEditNote:(NSString *)note record:(RecordModel *)record
+//{
+//    BOOL result = [RecordManager editNote:note record:record];
+//    if (!result) {
+//        [self showWithStatus:@"修改失败"];
+//    }
+//}
+
+
+#pragma mark -action
+- (void)addClick
 {
-    if (!_scrollView) {
+    [TagSelectView show:^(TagModel * _Nullable tag) {
+        BOOL result = [RecordManager addNewRecord:tag.tagId];
+        [self refreshTableViewWithResult:result];
+        
+    }];
+}
+
+#pragma mark -UI
+- (UITableView *)tableView
+{
+    if (!_tableView) {
         CGFloat h = SCREEN_HEIGHT - NAV_BAR_HEIGHT - TAB_BAR_HEIGHT;
         if (@available(iOS 26.0, *)) {
             //ios26不减导航栏高度，否则会出错，原因未知 tabbar高度可减可不减。减了底部正好在tabbar上方，不减和毛玻璃效果适配'
-//            h = SCREEN_HEIGHT - TAB_BAR_HEIGHT;
+            //            h = SCREEN_HEIGHT - TAB_BAR_HEIGHT;
             h = SCREEN_HEIGHT; //这里不减，视觉效果最好
         }
         
-        _scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, h)];
-        _scrollView.showsVerticalScrollIndicator = NO;
-        _scrollView.showsHorizontalScrollIndicator = NO;
-        [self.view addSubview:_scrollView];
+        _tableView = [[UITableView alloc] initWithFrame: CGRectMake(0, 0, SCREEN_WIDTH, h)];
+        _tableView.showsVerticalScrollIndicator = NO;
+        _tableView.showsHorizontalScrollIndicator = NO;
+        _tableView.dataSource = self;
+        _tableView.delegate = self;
+        _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+        _tableView.rowHeight = kHomeCellH;
+        [_tableView registerClass:HomeCell.class forCellReuseIdentifier:kHomeCellId];
+        _tableView.backgroundColor = HEX_RGB(@"#F8F9FE");
+        if (@available(iOS 15.0, *)) {
+            _tableView.sectionHeaderTopPadding = 0;
+        }
+        
+        [self.view addSubview:_tableView];
     }
-    return _scrollView;
+    return _tableView;
 }
 
-- (SideBar *)sideBar
-{
-    if (!_sideBar) {
-        _sideBar = [[SideBar alloc] initWithFrame:CGRectMake(0, 0, 20, 0)];
-        [self.scrollView addSubview:_sideBar];
-    }
-    return _sideBar;
-}
 
 @end
