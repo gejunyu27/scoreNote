@@ -27,9 +27,7 @@ NS_ASSUME_NONNULL_BEGIN
     //ui
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addClick)];
     [self refreshUI];
-    
-    //添加键盘监控
-    [self addKeyboardNotification];
+
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -66,6 +64,7 @@ NS_ASSUME_NONNULL_BEGIN
         cell.record = record;
     }
     
+    
     return cell;
 }
 
@@ -84,21 +83,12 @@ NS_ASSUME_NONNULL_BEGIN
     NSString *text = record.realNum ? [NSString stringWithFormat:@"%li", record.realNum] : @"";
     [NumberInputView showWithText:text title:@"编辑实际期数" clickView:clickView type:InputTypeNoDot block:^(NSString * _Nonnull outputText) {
         @strongify(self)
-        [self updateNewRealNum:[outputText integerValue] record:record];
+        NSInteger realNum = MAX(outputText.integerValue, 0);
+        BOOL result = [RecordManager editRealNum:realNum record:record];
+        [self refreshTableViewWithResult:result];
         
     }];
     
-}
-
-- (void)homeCellAddRealNum:(RecordModel *)record
-{
-    [self updateNewRealNum:record.realNum+1 record:record];
-}
-
-- (void)updateNewRealNum:(NSInteger)realNum record:(RecordModel *)record
-{
-    BOOL result = [RecordManager editRealNum:MAX(realNum, 0) record:record];
-    [self refreshTableViewWithResult:result];
 }
 
 - (void)homeCellEditScore:(RecordModel *)record clickView:(nonnull UIView *)clickView
@@ -109,60 +99,6 @@ NS_ASSUME_NONNULL_BEGIN
         BOOL result = [RecordManager editCurrentScore:outputText record:record];
         [self refreshTableViewWithResult:result];
     }];
-}
-
-- (void)homeCellEditBreakLine:(RecordModel *)record clickView:(nonnull UIView *)clickView
-{
-    NSString *text = record.breakLine ? [SCUtilities removeFloatSuffix:record.breakLine] : @"";
-    
-    @weakify(self)
-    [NumberInputView showWithText:text title:@"修改止损线" clickView:clickView type:InputTypeNoSymbol block:^(NSString * _Nonnull outputText) {
-        @strongify(self)
-        BOOL result = [RecordManager editBreakLine:outputText.floatValue record:record];
-        [self refreshTableViewWithResult:result];
-    }];
-}
-
-- (void)homeCellEditProfitPerLine:(RecordModel *)record clickView:(UIView *)clickView
-{
-    if (record.isBreaking) {
-        [self showWithStatus:@"止损中 无法修改"];
-        return;
-    }
-    
-    NSString *text = record.profitPerLine ? [SCUtilities removeFloatSuffix:record.profitPerLine] : @"";
-    
-    @weakify(self)
-    [NumberInputView showWithText:text title:@"修改每期利润" clickView:clickView type:InputTypeNoDot block:^(NSString * _Nonnull outputText) {
-        @strongify(self)
-        BOOL result = [RecordManager editProfitPerLine:outputText.floatValue record:record];
-        [self refreshTableViewWithResult:result];
-    }];
-}
-
-- (void)homeCellEditBaseProfit:(RecordModel *)record clickView:(UIView *)clickView
-{
-    if (record.isBreaking) {
-        [self showWithStatus:@"止损中 无法修改"];
-        return;
-    }
-    
-    NSString *text = record.baseProfit ? [SCUtilities removeFloatSuffix:record.baseProfit] : @"" ;
-    
-    @weakify(self)
-    [NumberInputView showWithText:text title:@"修改固定利润" clickView:clickView type:InputTypeReduce block:^(NSString * _Nonnull outputText) {
-        @strongify(self)
-        BOOL result = [RecordManager editBaseProfit:outputText.floatValue record:record];
-        [self refreshTableViewWithResult:result];
-    }];
-}
-
-- (void)homeCellEditNote:(NSString *)note record:(RecordModel *)record
-{
-    BOOL result = [RecordManager editNote:note record:record];
-    if (!result) {
-        [self showWithStatus:@"修改失败"];
-    }
 }
 
 - (void)homeCellBuy:(RecordModel *)record clickView:(UIView *)clickView
@@ -178,11 +114,11 @@ NS_ASSUME_NONNULL_BEGIN
     }];
 }
 
-- (void)homeCellShowLines:(RecordModel *)record
+- (void)homeCellShowDetails:(RecordModel *)record
 {
-    RecordDetailViewController *vc = [RecordDetailViewController new];
-    vc.model = record;
-    [self.navigationController pushViewController:vc animated:YES];
+//    RecordDetailViewController *vc = [RecordDetailViewController new];
+//    vc.model = record;
+//    [self.navigationController pushViewController:vc animated:YES];
 }
 
 - (void)homeCellOverRecord:(RecordModel *)record
@@ -265,6 +201,7 @@ NS_ASSUME_NONNULL_BEGIN
         _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
         _tableView.rowHeight = kHomeCellH;
         [_tableView registerClass:HomeCell.class forCellReuseIdentifier:kHomeCellId];
+        _tableView.backgroundColor = HEX_RGB(@"#F8F9FE");
         if (@available(iOS 15.0, *)) {
             _tableView.sectionHeaderTopPadding = 0;
         }
