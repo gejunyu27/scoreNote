@@ -18,6 +18,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) UIButton *realNumButton; //实际期数按钮
 @property (nonatomic, strong) UIButton *scoreButton;   //买法
 @property (nonatomic, strong) UILabel *tipsLabel;      //说明
+@property (nonatomic, strong) UILabel *noteLabel;      //笔记
 
 @property (nonatomic, strong) UIButton *buyButton;      //购买按钮
 @property (nonatomic, strong) UIButton *loseButton;     //未中
@@ -55,9 +56,12 @@ NS_ASSUME_NONNULL_BEGIN
 //
     //实际期数
     [self.realNumButton setTitle:[NSString stringWithFormat:@"第%li期", _record.realNum] forState:UIControlStateNormal];
+    
+    //笔记
+    self.noteLabel.text = record.note;
 //
     //本期买法
-    [self.scoreButton setTitle:(record.currentScore.length == 0 ? @"无" : record.currentScore) forState:UIControlStateNormal];
+    [self.scoreButton setTitle:(record.currentScore.length == 0 ? @"编辑" : record.currentScore) forState:UIControlStateNormal];
 
     //备注
     NSInteger num = record.lineList.count+1; //下一期期数
@@ -91,7 +95,7 @@ NS_ASSUME_NONNULL_BEGIN
         }
     }
     
-    self.boughtLabel.textColor = isBuyToday ? HEX_RGB(@"#49AB58") : [UIColor blackColor];
+    self.boughtLabel.textColor = isBuyToday ? HEX_RGB(@"#49AB58") : [UIColor grayColor];
 
     //止损线
     if (record.isBreaking) {
@@ -100,6 +104,7 @@ NS_ASSUME_NONNULL_BEGIN
         
     }else {
         self.profitLabel.textColor = HEX_RGB(@"#6271DD");
+//        self.profitLabel.textColor = [UIColor grayColor];
         if (!isBought) {
             CGFloat planGet = MAX(planProfit - allProfit, 0);
             [self.buyButton setTitle:[NSString stringWithFormat:@"立即购买（+%@）",[SCUtilities removeFloatSuffix:planGet]] forState:UIControlStateNormal];
@@ -195,7 +200,7 @@ NS_ASSUME_NONNULL_BEGIN
 {
     if (!_tagButton) {
         CGFloat w = 120;
-        _tagButton = [[UIButton alloc] initWithFrame:CGRectMake(10, 5, w, w*0.8)];
+        _tagButton = [[UIButton alloc] initWithFrame:CGRectMake(10, 5, w, w*0.5)];
         [_tagButton setBackgroundImage:[UIImage imageNamed:@"TagIcon"] forState:UIControlStateNormal];
         _tagButton.titleLabel.font = SCFONT_BOLD_SIZED(16);
         [_tagButton setTitleEdgeInsets:UIEdgeInsetsMake(7, 0, 0, 4)];
@@ -209,7 +214,8 @@ NS_ASSUME_NONNULL_BEGIN
 - (UILabel *)profitLabel
 {
     if (!_profitLabel) {
-        _profitLabel = [[UILabel alloc] initWithFrame:CGRectMake(self.tagButton.right+10, 10, 90, 30)];
+        _profitLabel = [[UILabel alloc] initWithFrame:CGRectMake(self.tagButton.right+5, 0, 90, 30)];
+        _profitLabel.centerY = self.tagButton.centerY;
         _profitLabel.font = SCFONT_SIZED(23);
         [self.bgView addSubview:_profitLabel];
     }
@@ -219,8 +225,9 @@ NS_ASSUME_NONNULL_BEGIN
 - (UIButton *)realNumButton
 {
     if (!_realNumButton) {
-        _realNumButton = [[UIButton alloc] initWithFrame:CGRectMake(self.profitLabel.left, self.profitLabel.bottom, 70, 20)];
-        _realNumButton.titleLabel.font = SCFONT_SIZED(13);
+        _realNumButton = [[UIButton alloc] initWithFrame:CGRectMake(self.profitLabel.left, 0, 70, 20)];
+        _realNumButton.centerY = self.scoreButton.centerY;
+        _realNumButton.titleLabel.font = SCFONT_SIZED(15);
         _realNumButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
         [_realNumButton setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
         [_realNumButton addTarget:self action:@selector(realNumClicked:) forControlEvents:UIControlEventTouchUpInside];
@@ -229,13 +236,29 @@ NS_ASSUME_NONNULL_BEGIN
     return _realNumButton;
 }
 
+- (UILabel *)noteLabel
+{
+    if (!_noteLabel) {
+        CGFloat w = 80;
+        CGFloat y = self.tipsLabel.bottom;
+        _noteLabel = [[UILabel alloc] initWithFrame:CGRectMake(self.bgView.width-10-w, y, w, self.scoreButton.bottom - y)];
+        _noteLabel.textColor = [UIColor grayColor];
+        _noteLabel.numberOfLines = 0;
+        _noteLabel.font = SCFONT_SIZED(11);
+        [self.bgView addSubview:_noteLabel];
+    }
+    return _noteLabel;
+}
+
 - (UIButton *)scoreButton
 {
     if (!_scoreButton) {
-        _scoreButton = [[UIButton alloc] initWithFrame:CGRectMake(self.profitLabel.left, self.realNumButton.bottom+5, 120, 30)];
+        _scoreButton = [[UIButton alloc] initWithFrame:CGRectMake(14, self.tagButton.bottom+2, 107, 30)];
         [_scoreButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-        _scoreButton.titleLabel.font = SCFONT_SIZED(17);
-        _scoreButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
+        _scoreButton.titleLabel.font = SCFONT_SIZED(16);
+        _scoreButton.layer.cornerRadius = 8;
+        _scoreButton.layer.borderWidth = 2;
+        _scoreButton.layer.borderColor = HEX_RGB(@"#CACACA").CGColor;
         [_scoreButton addTarget:self action:@selector(scoreClicked:) forControlEvents:UIControlEventTouchUpInside];
         [self.bgView addSubview:_scoreButton];
     }
@@ -246,7 +269,9 @@ NS_ASSUME_NONNULL_BEGIN
 {
     if (!_boughtLabel) {
         CGFloat h = 15;
-        _boughtLabel = [[UILabel alloc] initWithFrame:CGRectMake(_buyButton.left, _buyButton.top-h, 50, h)];
+        _boughtLabel = [[UILabel alloc] initWithFrame:CGRectMake(self.realNumButton.right, 0, 50, h)];
+        _boughtLabel.centerY = self.realNumButton.centerY;
+        _boughtLabel.textAlignment = NSTextAlignmentLeft;
         _boughtLabel.font = SCFONT_SIZED(14);
         [self.bgView addSubview:_boughtLabel];
     }
@@ -256,8 +281,8 @@ NS_ASSUME_NONNULL_BEGIN
 - (UILabel *)tipsLabel
 {
     if (!_tipsLabel) {
-        CGFloat w = 110;
-        _tipsLabel = [[UILabel alloc] initWithFrame:CGRectMake(self.bgView.width-10-w, self.profitLabel.top, w, 30)];
+        CGFloat x = self.profitLabel.right+2;
+        _tipsLabel = [[UILabel alloc] initWithFrame:CGRectMake(x, self.profitLabel.top, self.bgView.width-10-x, 25)];
         _tipsLabel.textColor = [UIColor grayColor];
         _tipsLabel.textAlignment = NSTextAlignmentRight;
         _tipsLabel.font = SCFONT_SIZED(11);
@@ -270,7 +295,7 @@ NS_ASSUME_NONNULL_BEGIN
 {
     CGFloat horEdge = 15;
     CGFloat verEdge = 15;
-    CGFloat y       = self.tagButton.bottom+10;
+    CGFloat y       = self.scoreButton.bottom+10;
     CGFloat w       = (self.bgView.width-horEdge*5)/4;
     CGFloat h       = self.bgView.height - verEdge - y;
     
@@ -290,7 +315,7 @@ NS_ASSUME_NONNULL_BEGIN
         if (i == 0) {
             _loseButton = btn;
             [_loseButton setTitle:@"未 中" forState:UIControlStateNormal];
-            _loseButton.backgroundColor = [UIColor grayColor];
+            _loseButton.backgroundColor = HEX_RGB(@"#4792F7");
             [_loseButton addTarget:self action:@selector(loseClicked:) forControlEvents:UIControlEventTouchUpInside];
             
         }else if (i == 1) {

@@ -7,7 +7,7 @@
 
 #import <Foundation/Foundation.h>
 
-#define kHomeCellH 180
+#define kHomeCellH 170
 #define kHomeCellId @"HomeCellId"
 
 NS_ASSUME_NONNULL_BEGIN
