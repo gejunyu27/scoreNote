@@ -77,11 +77,11 @@ NS_ASSUME_NONNULL_BEGIN
     }];
 }
 
-- (void)homeCellEditRealNum:(RecordModel *)record clickView:(nonnull UIView *)clickView
+- (void)homeCellEditRealNum:(RecordModel *)record
 {
     @weakify(self)
     NSString *text = record.realNum ? [NSString stringWithFormat:@"%li", record.realNum] : @"";
-    [NumberInputView showWithText:text title:@"编辑实际期数" clickView:clickView type:InputTypeNoDot block:^(NSString * _Nonnull outputText) {
+    [NumberInputView showWithText:text title:@"编辑实际期数" clickView:nil type:InputTypeNoDot block:^(NSString * _Nonnull outputText) {
         @strongify(self)
         NSInteger realNum = MAX(outputText.integerValue, 0);
         BOOL result = [RecordManager editRealNum:realNum record:record];
@@ -91,19 +91,19 @@ NS_ASSUME_NONNULL_BEGIN
     
 }
 
-- (void)homeCellEditScore:(RecordModel *)record clickView:(nonnull UIView *)clickView
+- (void)homeCellEditScore:(RecordModel *)record
 {
     @weakify(self)
-    [NumberInputView showWithText:record.currentScore title:@"编辑买法" clickView:clickView type:InputTypeDefault block:^(NSString * _Nonnull outputText) {
+    [NumberInputView showWithText:record.currentScore title:@"编辑买法" clickView:nil type:InputTypeDefault block:^(NSString * _Nonnull outputText) {
         @strongify(self)
         BOOL result = [RecordManager editCurrentScore:outputText record:record];
         [self refreshTableViewWithResult:result];
     }];
 }
 
-- (void)homeCellBuy:(RecordModel *)record clickView:(UIView *)clickView
+- (void)homeCellBuy:(RecordModel *)record
 {
-    [NumberInputView showWithText:nil title:@"输入投入额" clickView:clickView type:InputTypeNoSymbol block:^(NSString * _Nonnull outputText) {
+    [NumberInputView showWithText:nil title:@"输入投入额" clickView:nil type:InputTypeNoSymbol block:^(NSString * _Nonnull outputText) {
         CGFloat outmoney = VALID_STRING(outputText) ? outputText.floatValue : 0;
         if (outmoney <= 0) {
             return;
@@ -144,10 +144,10 @@ NS_ASSUME_NONNULL_BEGIN
     
 }
 
-- (void)homeCellBuyWin:(RecordModel *)record clickView:(UIView *)clickView
+- (void)homeCellBuyWin:(RecordModel *)record
 {
     @weakify(self)
-    [NumberInputView showWithText:@"" title:@"利润" clickView:clickView type:InputTypeNoSymbol block:^(NSString * _Nonnull outputText) {
+    [NumberInputView showWithText:@"" title:@"利润" clickView:nil type:InputTypeNoSymbol block:^(NSString * _Nonnull outputText) {
         @strongify(self)
         if (outputText.length == 0) {
             return;

@@ -23,6 +23,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) UIButton *winButton;      //红单
 @property (nonatomic, strong) UIButton *detailButton;   //详情
 @property (nonatomic, strong) UIButton *overButton;     //结束
+@property (nonatomic, strong) UILabel *boughtLabel;     //本期购买
 
 @end
 
@@ -65,6 +66,31 @@ NS_ASSUME_NONNULL_BEGIN
     //购买
     BOOL isBought = record.lineList.count > 0 && !record.lineList.lastObject.isOver;  //购买过
     self.buyButton.hidden = isBought;
+    self.boughtLabel.hidden = !isBought;
+    
+    BOOL isBuyToday = NO; //当天是否有购买
+    
+    if (isBought) {
+        LineModel *line = record.lineList.lastObject;
+        self.boughtLabel.text = [NSString stringWithFormat:@"¥%@", [SCUtilities removeFloatSuffix:line.outMoney]];
+        
+        //标绿提醒当天买过了 到第二天6点前消失
+        NSDate *buyDate = line.beginTime;
+        NSDate *today   = [NSDate date];
+        NSInteger days = [today daysBetweenDate:buyDate];
+        
+        if (days == 0) {
+            isBuyToday = YES;
+            
+        }else if (days == 1) { //已经不是同一天，查看是不是第二天早上6点前
+            NSInteger hour = [today getStringWithDateFormat:@"HH"].integerValue;
+            if (hour < 6) {
+                isBuyToday = YES;
+            }
+        }
+    }
+    
+    self.boughtLabel.textColor = isBuyToday ? HEX_RGB(@"#49AB58") : [UIColor blackColor];
 
     //止损线
     if (record.isBreaking) {
@@ -81,28 +107,6 @@ NS_ASSUME_NONNULL_BEGIN
         
     }
 
-//    //买过的单子 标绿提醒 到第二天6点前消失
-//    BOOL isBuyToday = NO;
-//    if (record.lineList.count > 0) {
-//        LineModel *lastModel = record.lineList.lastObject;
-//        if (!lastModel.isOver) { //最后一个没结束
-//            NSDate *buyDate = lastModel.beginTime;
-//            NSDate *today   = [NSDate date];
-//
-//            NSInteger days = [today daysBetweenDate:buyDate];
-//
-//            if (days == 0) {
-//                isBuyToday = YES;
-//
-//            }else if (days == 1) { //已经不是同一天，查看是不是第二天早上6点前
-//                NSInteger hour = [today getStringWithDateFormat:@"HH"].integerValue;
-//                if (hour < 6) {
-//                    isBuyToday = YES;
-//                }
-//            }
-//        }
-//    }
-//    _buyView.layer.borderColor = isBuyToday ? HEX_RGB(@"#49AB58").CGColor : [UIColor blackColor].CGColor;
 }
 
 #pragma mark -action
@@ -115,22 +119,22 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)realNumClicked:(UIButton *)sender
 {
-    if ([self.delegate respondsToSelector:@selector(homeCellEditRealNum:clickView:)]) {
-        [self.delegate homeCellEditRealNum:_record clickView:sender];
+    if ([self.delegate respondsToSelector:@selector(homeCellEditRealNum:)]) {
+        [self.delegate homeCellEditRealNum:_record];
     }
 }
 
 - (void)scoreClicked:(UIButton *)sender
 {
-    if ([self.delegate respondsToSelector:@selector(homeCellEditScore:clickView:)]) {
-        [self.delegate homeCellEditScore:_record clickView:sender];
+    if ([self.delegate respondsToSelector:@selector(homeCellEditScore:)]) {
+        [self.delegate homeCellEditScore:_record];
     }
 }
 
 - (void)buyClicked:(UIButton *)sender
 {
-    if ([self.delegate respondsToSelector:@selector(homeCellBuy:clickView:)]) {
-        [self.delegate homeCellBuy:_record clickView:sender];
+    if ([self.delegate respondsToSelector:@selector(homeCellBuy:)]) {
+        [self.delegate homeCellBuy:_record];
     }
 }
 
@@ -157,8 +161,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)winClicked:(UIButton *)sender
 {
-    if ([self.delegate respondsToSelector:@selector(homeCellBuyWin:clickView:)]) {
-        [self.delegate homeCellBuyWin:_record clickView:sender];
+    if ([self.delegate respondsToSelector:@selector(homeCellBuyWin:)]) {
+        [self.delegate homeCellBuyWin:_record];
     }
 }
 
@@ -234,6 +238,16 @@ NS_ASSUME_NONNULL_BEGIN
     return _scoreButton;
 }
 
+- (UILabel *)boughtLabel
+{
+    if (!_boughtLabel) {
+        CGFloat h = 15;
+        _boughtLabel = [[UILabel alloc] initWithFrame:CGRectMake(_buyButton.left, _buyButton.top-h, 50, h)];
+        _boughtLabel.font = SCFONT_SIZED(14);
+        [self.bgView addSubview:_boughtLabel];
+    }
+    return _boughtLabel;
+}
 
 - (UILabel *)tipsLabel
 {
