@@ -10,7 +10,9 @@
 @interface TotalHeaderView ()
 @property (nonatomic, strong) UIButton *bgView;
 @property (nonatomic, strong) UILabel *titleLabel;
+@property (nonatomic, strong) UILabel *numsLabel;
 @property (nonatomic, strong) UILabel *tipsLabel;
+@property (nonatomic, strong) UILabel *profitLabel;
 
 @end
 
@@ -20,13 +22,7 @@
     self = [super initWithReuseIdentifier:reuseIdentifier];
     if (self) {
         self.backgroundColor = [UIColor clearColor];
-//        @weakify(self)
-//        [self.control sc_addEventTouchUpInsideHandle:^(id  _Nonnull sender) {
-//            @strongify(self)
-//            if (self.clickBlock) {
-//                self.clickBlock();
-//            }
-//        }];
+        [self tipsLabel];
     }
     return self;
 }
@@ -34,9 +30,11 @@
 #pragma mark -data
 - (void)setModel:(TotalSectionModel *)model
 {
-    self.titleLabel.text = [NSString stringWithFormat:@"%@ %@    共%li单", (model.isOn ? @"▼" : @"▶︎"),model.name, model.recordList.count]; ;
-
-    self.tipsLabel.text =[NSString stringWithFormat:@"总计：%@", [SCUtilities removeFloatSuffix:model.allProfit]];
+    self.titleLabel.text = [NSString stringWithFormat:@"%@ %@", (model.isOn ? @"▼" : @"▶︎"),model.name];
+    
+    self.numsLabel.text = [NSString stringWithFormat:@"共%li单", model.recordList.count];
+    
+    self.profitLabel.text =[NSString stringWithFormat:@"%@", [SCUtilities removeFloatSuffix:model.allProfit]];
 }
 
 #pragma mark -ui
@@ -66,25 +64,48 @@
 - (UILabel *)titleLabel
 {
     if (!_titleLabel) {
-        _titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(15, 0, 200, self.bgView.height)];
+        _titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(15, 0, 130, self.bgView.height)];
         [self.bgView addSubview:_titleLabel];
     }
     return _titleLabel;
 }
 
+- (UILabel *)numsLabel
+{
+    if (!_numsLabel) {
+        _numsLabel = [[UILabel alloc] initWithFrame:CGRectMake(self.titleLabel.right, 0, 80, self.bgView.height)];
+        [self.bgView addSubview:_numsLabel];
+    }
+    return _numsLabel;
+}
+
+- (UILabel *)profitLabel
+{
+    if (!_profitLabel) {
+        CGFloat w = 55;
+        _profitLabel = [[UILabel alloc] initWithFrame:CGRectMake(self.bgView.width-w-15, 0, w, self.bgView.height)];
+        _profitLabel.font = SCFONT_SIZED(12);
+        _profitLabel.textColor = [UIColor grayColor];
+        _profitLabel.textAlignment = NSTextAlignmentRight;
+        [self.bgView addSubview:_profitLabel];
+    }
+    return _profitLabel;
+}
+
 - (UILabel *)tipsLabel
 {
     if (!_tipsLabel) {
-        CGFloat w = 105;
-        _tipsLabel = [[UILabel alloc] initWithFrame:CGRectMake(self.bgView.width-w-15, 0, w, self.bgView.height)];
-        _tipsLabel.font = SCFONT_SIZED(12);
-        _tipsLabel.textColor = [UIColor grayColor];
+        CGFloat w = 30;
+        _tipsLabel = [[UILabel alloc] initWithFrame:CGRectMake(self.profitLabel.left-w, 0, w, self.bgView.height)];
+        _tipsLabel.font = _profitLabel.font;
+        _tipsLabel.textColor = _profitLabel.textColor;
         _tipsLabel.textAlignment = NSTextAlignmentRight;
-        
+        _tipsLabel.text = @"总计：";
         [self.bgView addSubview:_tipsLabel];
     }
     return _tipsLabel;
 }
+
 
 @end
 
