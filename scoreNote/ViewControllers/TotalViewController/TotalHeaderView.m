@@ -11,7 +11,6 @@
 @property (nonatomic, strong) UIButton *bgView;
 @property (nonatomic, strong) UILabel *titleLabel;
 @property (nonatomic, strong) UILabel *numsLabel;
-@property (nonatomic, strong) UILabel *tipsLabel;
 @property (nonatomic, strong) UILabel *profitLabel;
 
 @end
@@ -22,7 +21,6 @@
     self = [super initWithReuseIdentifier:reuseIdentifier];
     if (self) {
         self.backgroundColor = [UIColor clearColor];
-        [self tipsLabel];
     }
     return self;
 }
@@ -64,7 +62,7 @@
 - (UILabel *)titleLabel
 {
     if (!_titleLabel) {
-        _titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(15, 0, 130, self.bgView.height)];
+        _titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(15, 0, 140, self.bgView.height)];
         [self.bgView addSubview:_titleLabel];
     }
     return _titleLabel;
@@ -74,6 +72,8 @@
 {
     if (!_numsLabel) {
         _numsLabel = [[UILabel alloc] initWithFrame:CGRectMake(self.titleLabel.right, 0, 80, self.bgView.height)];
+        _numsLabel.textColor = [UIColor grayColor];
+        _numsLabel.font = SCFONT_SIZED(13);
         [self.bgView addSubview:_numsLabel];
     }
     return _numsLabel;
@@ -82,30 +82,15 @@
 - (UILabel *)profitLabel
 {
     if (!_profitLabel) {
-        CGFloat w = 55;
+        CGFloat w = 60;
         _profitLabel = [[UILabel alloc] initWithFrame:CGRectMake(self.bgView.width-w-15, 0, w, self.bgView.height)];
-        _profitLabel.font = SCFONT_SIZED(12);
+        _profitLabel.font = SCFONT_SIZED(13);
         _profitLabel.textColor = [UIColor grayColor];
         _profitLabel.textAlignment = NSTextAlignmentRight;
         [self.bgView addSubview:_profitLabel];
     }
     return _profitLabel;
 }
-
-- (UILabel *)tipsLabel
-{
-    if (!_tipsLabel) {
-        CGFloat w = 30;
-        _tipsLabel = [[UILabel alloc] initWithFrame:CGRectMake(self.profitLabel.left-w, 0, w, self.bgView.height)];
-        _tipsLabel.font = _profitLabel.font;
-        _tipsLabel.textColor = _profitLabel.textColor;
-        _tipsLabel.textAlignment = NSTextAlignmentRight;
-        _tipsLabel.text = @"总计：";
-        [self.bgView addSubview:_tipsLabel];
-    }
-    return _tipsLabel;
-}
-
 
 @end
 
