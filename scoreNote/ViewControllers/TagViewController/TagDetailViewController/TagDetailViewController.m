@@ -82,9 +82,9 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (indexPath.row < _recordList.count) {
-        RecordModel *model = _recordList[indexPath.row];
+        RecordModel *record = _recordList[indexPath.row];
         RecordDetailViewController *vc = [RecordDetailViewController new];
-        vc.model = model;
+        [vc setRecord:record canEdit:NO];
         [self.navigationController pushViewController:vc animated:YES];
     }
 }

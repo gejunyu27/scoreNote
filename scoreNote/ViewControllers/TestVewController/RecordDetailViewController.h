@@ -1,5 +1,5 @@
 //
-//  TestDetailViewController.h
+//  RecordDetailViewController.h
 //  scoreNote
 //
 //  Created by Zhuanz密码0000 on 2026/3/21.
@@ -9,9 +9,10 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface TestDetailViewController : BaseViewController
-@property (nonatomic, strong) RecordModel *record;
+@interface RecordDetailViewController : BaseViewController
 @property (nonatomic, copy) void (^updateBlock)(void);
+- (void)setRecord:(RecordModel *)record canEdit:(BOOL)canEdit;
+
 
 @end
 

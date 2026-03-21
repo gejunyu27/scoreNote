@@ -106,11 +106,19 @@
     self.frame = frame;
 }
 
-
-- (void)setBorderColorWithUIColor:(UIColor *)color
+//设置阴影
+- (void)setShadowWithColor:(UIColor *)color opacity:(CGFloat)opacity offset:(CGSize)offset radius:(CGFloat)radius
 {
-    self.layer.borderColor = color.CGColor;
-    
+    self.layer.shadowColor = color.CGColor;
+    self.layer.shadowOpacity = opacity;
+    self.layer.shadowOffset = offset;
+    self.layer.shadowRadius = radius;
+}
+
+//常用阴影
+- (void)setCommonShadow
+{
+    [self setShadowWithColor:[UIColor lightGrayColor] opacity:0.2 offset:CGSizeMake(2, 2) radius:4];
 }
 
 @end

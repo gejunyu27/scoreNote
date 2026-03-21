@@ -50,7 +50,10 @@ AS_SINGLETON(RecordManager)
 + (BOOL)lastLineWin:(CGFloat)profit record:(RecordModel *)record;
 //新增一个记录
 + (BOOL)addNewRecord:(NSInteger)tagId;
-
+//修改列支出
++ (BOOL)editLineOutMoney:(CGFloat)outMoney line:(LineModel *)line;
+//修改列收入
++ (BOOL)editLineGetMoney:(CGFloat)getMoney line:(LineModel *)line;
 
 @end
 

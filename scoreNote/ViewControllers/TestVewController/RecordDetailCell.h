@@ -9,11 +9,19 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-#define kRDCellH  40
+#define kRDCellH  60
 #define kRDCellId @"kRDCellId"
 
+@protocol RecordDetailCellDelegate <NSObject>
+
+- (void)recordDetailCellEditOutMoney:(LineModel *)line clickView:(UIView *)clickView;
+- (void)recordDetailCellEditGetMoney:(LineModel *)line clickView:(UIView *)clickView;
+
+@end
+
 @interface RecordDetailCell : UITableViewCell
-@property (nonatomic, strong) LineModel *line;
+@property (nonatomic, weak) id <RecordDetailCellDelegate> delegate;
+- (void)setLine:(LineModel *)line row:(NSInteger)row canEdit:(BOOL)canEdit;
 
 @end
 

@@ -23,9 +23,9 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic) CGPoint origin;      ///< Shortcut for frame.origin.
 @property (nonatomic) CGSize  size;        ///< Shortcut for frame.size.
 
-//边框颜色
-- (void)setBorderColorWithUIColor:(UIColor *)color;
-
+//设置阴影
+- (void)setShadowWithColor:(UIColor *)color opacity:(CGFloat)opacity offset:(CGSize)offset radius:(CGFloat)radius;
+- (void)setCommonShadow; //常用阴影
 @end
 
 NS_ASSUME_NONNULL_END

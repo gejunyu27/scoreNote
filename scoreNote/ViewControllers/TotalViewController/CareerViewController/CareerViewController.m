@@ -69,7 +69,7 @@
         
         if (model.record) {
             RecordDetailViewController *vc = [RecordDetailViewController new];
-            vc.model = model.record;
+            [vc setRecord:model.record canEdit:NO];
             [self.navigationController pushViewController:vc animated:YES];
         }
     }

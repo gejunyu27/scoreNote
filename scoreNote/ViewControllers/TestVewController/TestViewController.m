@@ -9,7 +9,7 @@
 #import "HomeCell.h"
 #import "RecordManager.h"
 #import "TagSelectView.h"
-#import "TestDetailViewController.h"
+#import "RecordDetailViewController.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -116,8 +116,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)homeCellShowDetails:(RecordModel *)record
 {
-    TestDetailViewController *vc = [TestDetailViewController new];
-    vc.record = record;
+    RecordDetailViewController *vc = [RecordDetailViewController new];
+    [vc setRecord:record canEdit:YES];
     @weakify(self)
     vc.updateBlock = ^{
       @strongify(self)

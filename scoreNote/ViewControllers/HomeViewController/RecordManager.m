@@ -346,6 +346,35 @@ DEF_SINGLETON(RecordManager)
     
 }
 
+//修改列支出
++ (BOOL)editLineOutMoney:(CGFloat)outMoney line:(LineModel *)line
+{
+    CGFloat oldOut = line.outMoney;
+    line.outMoney = outMoney;
+    
+    BOOL result = [DataManager updateLine:line];
+    
+    if (!result) {
+        line.outMoney = oldOut;
+    }
+    
+    return result;
+}
+//修改列收入
++ (BOOL)editLineGetMoney:(CGFloat)getMoney line:(LineModel *)line
+{
+    CGFloat oldGet = line.getMoney;
+    line.getMoney = getMoney;
+    
+    BOOL result = [DataManager updateLine:line];
+    
+    if (!result) {
+        line.getMoney = oldGet;
+    }
+    
+    return result;
+}
+
 - (void)dealloc
 {
     [[NSNotificationCenter defaultCenter] removeObserver:self];

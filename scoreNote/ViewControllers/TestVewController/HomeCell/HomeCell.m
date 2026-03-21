@@ -186,10 +186,7 @@ NS_ASSUME_NONNULL_BEGIN
         _bgView = [[UIView alloc] initWithFrame:CGRectMake(horEdge, verEdge, SCREEN_WIDTH-horEdge*2, kHomeCellH-verEdge*2)];
         _bgView.backgroundColor = [UIColor whiteColor];
         _bgView.layer.cornerRadius = 10;
-        _bgView.layer.shadowColor = [UIColor lightGrayColor].CGColor;
-        _bgView.layer.shadowOpacity = 0.2;
-        _bgView.layer.shadowOffset = CGSizeMake(2, 2);
-        _bgView.layer.shadowRadius = 4;
+        [_bgView setCommonShadow];
 
         [self.contentView addSubview:_bgView];
     }

@@ -182,7 +182,7 @@
         if (indexPath.row < sectionModel.recordList.count) {
             RecordModel *record = sectionModel.recordList[indexPath.row];
             RecordDetailViewController *vc = [RecordDetailViewController new];
-            vc.model = record;
+            [vc setRecord:record canEdit:NO];
             [self.navigationController pushViewController:vc animated:YES];
         }
     }

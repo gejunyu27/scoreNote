@@ -35,7 +35,7 @@
 		4BADE9A82C5E7A9C008D67EC /* SqlLineViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BADE9A72C5E7A9C008D67EC /* SqlLineViewController.m */; };
 		4BCDB8802F65950700181DBE /* TestViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BCDB87F2F65950700181DBE /* TestViewController.m */; };
 		4BCDB8842F65A0B000181DBE /* HomeCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BCDB8832F65A0B000181DBE /* HomeCell.m */; };
-		4BCF8E9A2F6EB67200229CCB /* TestDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BCF8E992F6EB67200229CCB /* TestDetailViewController.m */; };
+		4BCF8E9A2F6EB67200229CCB /* RecordDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BCF8E992F6EB67200229CCB /* RecordDetailViewController.m */; };
 		4BCF8E9D2F6EBA3300229CCB /* RecordDetailCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BCF8E9C2F6EBA3300229CCB /* RecordDetailCell.m */; };
 		4BD3A8672C628F3600BB146C /* ColumnAddViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4BD3A8662C628F3600BB146C /* ColumnAddViewController.xib */; };
 		4BD3A8682C628F3600BB146C /* ColumnAddViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BD3A8652C628F3600BB146C /* ColumnAddViewController.m */; };
@@ -49,7 +49,6 @@
 		4D7748A127A656C800F505EA /* LineCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D77489F27A656C800F505EA /* LineCell.m */; };
 		4D7748A227A656C800F505EA /* LineCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4D7748A027A656C800F505EA /* LineCell.xib */; };
 		4D7748C127A69D3F00F505EA /* RecordView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4D7748C027A69D3F00F505EA /* RecordView.xib */; };
-		4D7FCE4A27AD89CF00BF3009 /* RecordDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D7FCE4927AD89CF00BF3009 /* RecordDetailViewController.m */; };
 		4D7FCE4D27AEA30600BF3009 /* DataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D7FCE4C27AEA30600BF3009 /* DataManager.m */; };
 		4D84EFF527A38AC80094558F /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D84EFF427A38AC80094558F /* AppDelegate.m */; };
 		4D84F00327A38ACC0094558F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4D84F00227A38ACC0094558F /* Assets.xcassets */; };
@@ -155,8 +154,8 @@
 		4BCDB87F2F65950700181DBE /* TestViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TestViewController.m; sourceTree = "<group>"; };
 		4BCDB8822F65A0B000181DBE /* HomeCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HomeCell.h; sourceTree = "<group>"; };
 		4BCDB8832F65A0B000181DBE /* HomeCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HomeCell.m; sourceTree = "<group>"; };
-		4BCF8E982F6EB67200229CCB /* TestDetailViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TestDetailViewController.h; sourceTree = "<group>"; };
-		4BCF8E992F6EB67200229CCB /* TestDetailViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TestDetailViewController.m; sourceTree = "<group>"; };
+		4BCF8E982F6EB67200229CCB /* RecordDetailViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RecordDetailViewController.h; sourceTree = "<group>"; };
+		4BCF8E992F6EB67200229CCB /* RecordDetailViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RecordDetailViewController.m; sourceTree = "<group>"; };
 		4BCF8E9B2F6EBA3300229CCB /* RecordDetailCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RecordDetailCell.h; sourceTree = "<group>"; };
 		4BCF8E9C2F6EBA3300229CCB /* RecordDetailCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RecordDetailCell.m; sourceTree = "<group>"; };
 		4BD3A8642C628F3600BB146C /* ColumnAddViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ColumnAddViewController.h; sourceTree = "<group>"; };
@@ -179,8 +178,6 @@
 		4D77489F27A656C800F505EA /* LineCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LineCell.m; sourceTree = "<group>"; };
 		4D7748A027A656C800F505EA /* LineCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LineCell.xib; sourceTree = "<group>"; };
 		4D7748C027A69D3F00F505EA /* RecordView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RecordView.xib; sourceTree = "<group>"; };
-		4D7FCE4827AD89CF00BF3009 /* RecordDetailViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RecordDetailViewController.h; sourceTree = "<group>"; };
-		4D7FCE4927AD89CF00BF3009 /* RecordDetailViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RecordDetailViewController.m; sourceTree = "<group>"; };
 		4D7FCE4B27AEA30600BF3009 /* DataManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DataManager.h; sourceTree = "<group>"; };
 		4D7FCE4C27AEA30600BF3009 /* DataManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DataManager.m; sourceTree = "<group>"; };
 		4D84EFF027A38AC80094558F /* scoreNote.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = scoreNote.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -385,8 +382,8 @@
 			children = (
 				4BCDB87E2F65950700181DBE /* TestViewController.h */,
 				4BCDB87F2F65950700181DBE /* TestViewController.m */,
-				4BCF8E982F6EB67200229CCB /* TestDetailViewController.h */,
-				4BCF8E992F6EB67200229CCB /* TestDetailViewController.m */,
+				4BCF8E982F6EB67200229CCB /* RecordDetailViewController.h */,
+				4BCF8E992F6EB67200229CCB /* RecordDetailViewController.m */,
 				4BCF8E9B2F6EBA3300229CCB /* RecordDetailCell.h */,
 				4BCF8E9C2F6EBA3300229CCB /* RecordDetailCell.m */,
 				4BCDB8812F65A09D00181DBE /* HomeCell */,
@@ -566,8 +563,6 @@
 				4D8E69B72AF146A300458818 /* TotalSectionModel.m */,
 				4B2DC7D32C14845300D23CE8 /* BitCoinViewController.h */,
 				4B2DC7D42C14845300D23CE8 /* BitCoinViewController.m */,
-				4D7FCE4827AD89CF00BF3009 /* RecordDetailViewController.h */,
-				4D7FCE4927AD89CF00BF3009 /* RecordDetailViewController.m */,
 				4B529F6C2C4BB8DB0044736F /* TagRankViewController */,
 				4BAA8C7E2C5BCFB200283103 /* CareerViewController */,
 			);
@@ -843,10 +838,9 @@
 				4D84F06227A396AF0094558F /* NSString+SCExtension.m in Sources */,
 				4D8E69B82AF146A300458818 /* TotalSectionModel.m in Sources */,
 				4D7FCE4D27AEA30600BF3009 /* DataManager.m in Sources */,
-				4D7FCE4A27AD89CF00BF3009 /* RecordDetailViewController.m in Sources */,
 				4BADE9852C5DDB33008D67EC /* CareerViewModel.m in Sources */,
 				4BAA8C812C5BCFE600283103 /* CareerViewController.m in Sources */,
-				4BCF8E9A2F6EB67200229CCB /* TestDetailViewController.m in Sources */,
+				4BCF8E9A2F6EB67200229CCB /* RecordDetailViewController.m in Sources */,
 				4BADE99F2C5E6194008D67EC /* SqlEditViewController.m in Sources */,
 				4D84F06027A396AF0094558F /* NSError+SCExtension.m in Sources */,
 				4BADE9A82C5E7A9C008D67EC /* SqlLineViewController.m in Sources */,

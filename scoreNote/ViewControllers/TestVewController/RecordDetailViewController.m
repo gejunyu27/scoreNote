@@ -1,17 +1,19 @@
 //
-//  TestDetailViewController.m
+//  RecordDetailViewController.m
 //  scoreNote
 //
 //  Created by Zhuanz密码0000 on 2026/3/21.
 //
 
-#import "TestDetailViewController.h"
+#import "RecordDetailViewController.h"
 #import "RecordDetailCell.h"
 #import "RecordManager.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface TestDetailViewController () <UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate>
+@interface RecordDetailViewController () <UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate, RecordDetailCellDelegate>
+@property (nonatomic, strong) RecordModel *record;
+@property (nonatomic, assign) BOOL canEdit;
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) UIView *topView;
 @property (nonatomic, strong) UILabel *profitLabel;
@@ -24,7 +26,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, assign) BOOL hasUpdated;
 @end
 
-@implementation TestDetailViewController
+@implementation RecordDetailViewController
 
 - (void)viewDidLoad
 {
@@ -41,9 +43,10 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 #pragma mark -data
-- (void)setRecord:(RecordModel *)record
+- (void)setRecord:(RecordModel *)record canEdit:(BOOL)canEdit
 {
-    _record = record;
+    _record  = record;
+    _canEdit = canEdit && !record.isOver; //双重保险
     [self updateData:YES];
 }
 
@@ -54,8 +57,7 @@ NS_ASSUME_NONNULL_BEGIN
     }
     
     //是否可编辑
-    BOOL canEdit = !_record.isOver; //在跟的才能编辑
-    _topView.userInteractionEnabled = canEdit;
+    _topView.userInteractionEnabled = _canEdit;
     
     //标题
     self.title = _record.tagModel ? _record.tagModel.name : @"详情";
@@ -77,7 +79,7 @@ NS_ASSUME_NONNULL_BEGIN
     //笔记
     _noteField.text = _record.note;
     if (_record.note.length == 0) {
-        _noteField.placeholder = canEdit ? @"点击输入笔记" : @"无";
+        _noteField.placeholder = _canEdit ? @"点击输入笔记" : @"无";
     }
     
     //每期利润
@@ -100,22 +102,46 @@ NS_ASSUME_NONNULL_BEGIN
 {
     RecordDetailCell *cell = [tableView dequeueReusableCellWithIdentifier:kRDCellId forIndexPath:indexPath];
     
-    if (indexPath.row < _record.lineList.count) {
-        LineModel *line = _record.lineList[indexPath.row];
-        
-        cell.line = line;
+    NSInteger row = indexPath.row;
+    if (row < _record.lineList.count) {
+        LineModel *line = _record.lineList[row];
+        [cell setLine:line row:row canEdit:_canEdit];
+        cell.delegate = self;
     }
     
     return cell;
+}
+
+#pragma mark -RecordDetailCellDelegate
+- (void)recordDetailCellEditOutMoney:(LineModel *)line clickView:(UIView *)clickView
+{
+    NSString *text = line.outMoney > 0 ? [SCUtilities removeFloatSuffix:line.outMoney] : @"";
+    [NumberInputView showWithText:text title:@"输入投入额" clickView:clickView type:InputTypeNoSymbol block:^(NSString * _Nonnull outputText) {
+        CGFloat outmoney = VALID_STRING(outputText) ? outputText.floatValue : 0;
+
+        BOOL result = [RecordManager editLineOutMoney:outmoney line:line];
+        
+        [self handleEditResult:result refreshTable:YES];
+    }];
+}
+
+- (void)recordDetailCellEditGetMoney:(LineModel *)line clickView:(UIView *)clickView
+{
+    NSString *text = line.getMoney > 0 ? [SCUtilities removeFloatSuffix:line.getMoney] : @"";
+    [NumberInputView showWithText:text title:@"输入收入额" clickView:clickView type:InputTypeNoSymbol block:^(NSString * _Nonnull outputText) {
+        CGFloat getmoney = VALID_STRING(outputText) ? outputText.floatValue : 0;
+        
+        BOOL result = [RecordManager editLineGetMoney:getmoney line:line];
+        
+        [self handleEditResult:result refreshTable:YES];
+    }];
 }
 
 #pragma mark -UITextFieldDelegate
 - (void)textFieldDidEndEditing:(UITextField *)textField
 {
     BOOL result = [RecordManager editNote:textField.text record:_record];
-    if (!result) {
-        [self showWithStatus:@"修改失败"];
-    }
+    [self handleEditResult:result refreshTable:NO];
 }
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField
@@ -192,6 +218,7 @@ NS_ASSUME_NONNULL_BEGIN
         _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
         _tableView.rowHeight = kRDCellH;
         [_tableView registerClass:RecordDetailCell.class forCellReuseIdentifier:kRDCellId];
+        _tableView.backgroundColor = HEX_RGB(@"#F8F9FE");
         _tableView.tableHeaderView = self.topView;
         if (@available(iOS 15.0, *)) {
             _tableView.sectionHeaderTopPadding = 0;
@@ -205,51 +232,53 @@ NS_ASSUME_NONNULL_BEGIN
 - (UIView *)topView
 {
     if (!_topView) {
-        _topView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 110)];
+        _topView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 130)];
         
         //背景框
         CGFloat margin = 15;
-        UIView *bgView = [[UIView alloc] initWithFrame:CGRectMake(margin, 0, _topView.width-margin*2, _topView.height)];
+        UIView *bgView = [[UIView alloc] initWithFrame:CGRectMake(margin, 0, _topView.width-margin*2, _topView.height-5)];
+        bgView.backgroundColor = [UIColor whiteColor];
         bgView.layer.cornerRadius = 10;
-        bgView.layer.borderWidth = 1;
-        bgView.layer.borderColor = [UIColor blackColor].CGColor;
+        [bgView setCommonShadow];
         [_topView addSubview:bgView];
         
         //利润
-        _profitLabel = [[UILabel alloc] initWithFrame:CGRectMake(margin, 5, 110, 30)];
-        _profitLabel.font = SCFONT_SIZED(16);
+        _profitLabel = [[UILabel alloc] initWithFrame:CGRectMake(margin, 5, 120, 30)];
+        _profitLabel.font = SCFONT_SIZED(17);
         [bgView addSubview:_profitLabel];
         
         //详情
         CGFloat detailX = _profitLabel.right+2;
         _detailLabel = [[UILabel alloc] initWithFrame:CGRectMake(detailX, _profitLabel.top, bgView.width-detailX-margin, _profitLabel.height)];
-        _detailLabel.font = SCFONT_SIZED(11);
+        _detailLabel.font = SCFONT_SIZED(10);
         _detailLabel.textAlignment = NSTextAlignmentRight;
         _detailLabel.textColor = [UIColor grayColor];
         [bgView addSubview:_detailLabel];
         
         //笔记
-        UILabel *noteLabel = [[UILabel alloc] initWithFrame:CGRectMake(margin, _profitLabel.bottom+5, 40, 20)];
-        noteLabel.font = SCFONT_SIZED(15);
+        UILabel *noteLabel = [[UILabel alloc] initWithFrame:CGRectMake(margin, _profitLabel.bottom+10, 50, 20)];
+        noteLabel.font = _profitLabel.font;
         noteLabel.text = @"笔记：";
         [bgView addSubview:noteLabel];
         CGFloat noteX = noteLabel.right;
-        _noteField = [[UITextField alloc] initWithFrame:CGRectMake(noteX, noteLabel.top, bgView.width-margin-noteX, noteLabel.height)];
-        _noteField.font = SCFONT_SIZED(11);
+        _noteField = [[UITextField alloc] initWithFrame:CGRectMake(noteX, 0, bgView.width-margin-noteX, 22)];
+        _noteField.centerY = noteLabel.centerY;
+        _noteField.font = SCFONT_SIZED(13);
         _noteField.borderStyle = UITextBorderStyleRoundedRect;
         _noteField.returnKeyType = UIReturnKeyDone;
         _noteField.delegate = self;
         [bgView addSubview:_noteField];
         
         CGFloat btnW = (bgView.width - margin*4)/3;
-        CGFloat btnY = noteLabel.bottom+10;
-        CGFloat btnH = bgView.height - btnY - margin;
+        CGFloat btnY = noteLabel.bottom+15;
+        CGFloat btnH = bgView.height - btnY - 10;
         
         for (int i=0; i<3; i++) {
             UIButton *btn = [[UIButton alloc] initWithFrame:CGRectMake(margin+(btnW+margin)*i, btnY, btnW, btnH)];
-            btn.backgroundColor = HEX_RGB(@"#A6A6A6");
+            btn.backgroundColor = HEX_RGB(@"#4792F7");
             [btn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
             btn.titleLabel.font = SCFONT_SIZED(11);
+            btn.layer.cornerRadius = 5;
             [bgView addSubview:btn];
             
             if (i==0) {
