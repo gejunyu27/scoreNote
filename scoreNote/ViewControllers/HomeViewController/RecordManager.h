@@ -27,8 +27,8 @@ AS_SINGLETON(RecordManager)
 //修改笔记
 + (BOOL)editNote:(NSString *)note record:(RecordModel *)record;
 
-//删减最后一列 //老版功能
-+ (BOOL)deleteLastLine:(RecordModel *)record;
+//删除列
++ (BOOL)deleteLine:(LineModel *)line;
 
 //修改每期利润
 + (BOOL)editProfitPerLine:(CGFloat)profitPerLine record:(RecordModel *)record;
@@ -40,7 +40,6 @@ AS_SINGLETON(RecordManager)
 //修改标签
 + (BOOL)editTag:(NSInteger)tagId record:(RecordModel *)record;
 //修改真实期数
-+ (BOOL)editRealNum:(RecordModel *)record; //弃用
 + (BOOL)editRealNum:(NSInteger)realNum record:(RecordModel *)record;
 //修改买法
 + (BOOL)editCurrentScore:(NSString *)currentScore record:(RecordModel *)record;

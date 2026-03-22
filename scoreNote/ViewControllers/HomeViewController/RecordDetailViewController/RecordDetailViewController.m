@@ -47,7 +47,8 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)setRecord:(RecordModel *)record canEdit:(BOOL)canEdit
 {
     _record  = record;
-    _canEdit = canEdit && !record.isOver; //双重保险
+    _canEdit = canEdit && !record.isOver; //双重保险 目前只有在首页点击在投单子详情进入的，才能编
+    
     [self updateData:YES];
 }
 
@@ -113,6 +114,30 @@ NS_ASSUME_NONNULL_BEGIN
     return cell;
 }
 
+//左滑删除
+- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return _canEdit;
+}
+
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (editingStyle == UITableViewCellEditingStyleDelete) {
+        
+        [SCUtilities alertWithTitle:@"确定要删除吗" message:nil textFieldBlock:nil sureBlock:^(NSString * _Nullable text) {
+            NSInteger row = indexPath.row;
+            if (row < self.record.lineList.count) {
+                LineModel *line = self.record.lineList[row];
+                BOOL result = [RecordManager deleteLine:line];
+                [self handleEditResult:result refreshTable:YES];
+            }
+        }];
+        
+
+        
+    }
+}
+
+
 #pragma mark -RecordDetailCellDelegate
 - (void)recordDetailCellEditOutMoney:(LineModel *)line clickView:(UIView *)clickView
 {
@@ -156,6 +181,11 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 #pragma mark -action
+- (void)selectClicked
+{
+    
+}
+
 - (void)perProfitClicked:(UIButton *)sender
 {
     NSString *text = _record.profitPerLine ? [SCUtilities removeFloatSuffix:_record.profitPerLine] : @"";

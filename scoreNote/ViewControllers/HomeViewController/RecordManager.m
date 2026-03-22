@@ -177,19 +177,20 @@ DEF_SINGLETON(RecordManager)
     return result;
 }
 
-#pragma mark -删减最后一列
-+ (BOOL)deleteLastLine:(RecordModel *)record
+#pragma mark -删除列
++ (BOOL)deleteLine:(LineModel *)line
 {
-    if (record.lineList.count == 0) {
+    RecordModel *record = line.record;
+    
+    if (!line || !record || ![record.lineList containsObject:line]) {
         return NO;
     }
     
-    LineModel *lastLine = record.lineList.lastObject;
     
-    BOOL result = [DataManager deleteLine:lastLine];
+    BOOL result = [DataManager deleteLine:line];
     
     if (result) {
-        [record.lineList removeObject:lastLine];
+        [record.lineList removeObject:line];
     }
     return result;
 }
@@ -259,13 +260,6 @@ DEF_SINGLETON(RecordManager)
 }
 
 #pragma mark -修改真实期数
-+ (BOOL)editRealNum:(RecordModel *)record
-{
-    BOOL result = [DataManager updateRecord:record];
-
-    return result;
-}
-
 + (BOOL)editRealNum:(NSInteger)realNum record:(RecordModel *)record
 {
     NSInteger oldRealNum = record.realNum;
