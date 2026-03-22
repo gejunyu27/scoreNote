@@ -11,7 +11,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface HomeCell () <UITextFieldDelegate>
 @property (nonatomic, strong) UIView *bgView;          //背景框
-@property (nonatomic, strong) UIView *redDot;          //红点，提示当前正在看的单子
 
 @property (nonatomic, strong) UIButton *tagButton;     //标签
 @property (nonatomic, strong) UILabel *profitLabel;    //利润
@@ -170,11 +169,6 @@ NS_ASSUME_NONNULL_BEGIN
     if ([self.delegate respondsToSelector:@selector(homeCellBuyWin:)]) {
         [self.delegate homeCellBuyWin:_record];
     }
-}
-
-- (void)setSelected:(BOOL)selected animated:(BOOL)animated
-{
-    self.redDot.hidden = !selected;
 }
 
 #pragma mark -ui
@@ -342,21 +336,6 @@ NS_ASSUME_NONNULL_BEGIN
     [self.bgView addSubview:_buyButton];
     
 }
-
-- (UIView *)redDot
-{
-    if (!_redDot) {
-        CGFloat wh = 10;
-        CGFloat x = (self.bgView.left - wh)/2;
-        _redDot = [[UIView alloc] initWithFrame:CGRectMake(x, (kHomeCellH-wh)/2, wh, wh)];
-        _redDot.layer.cornerRadius = wh/2;
-        _redDot.backgroundColor = [UIColor redColor];
-        [self.contentView addSubview:_redDot];
-    }
-    return _redDot;
-}
-
-
 
 @end
 

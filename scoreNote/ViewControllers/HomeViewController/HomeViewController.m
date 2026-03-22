@@ -10,7 +10,6 @@
 #import "RecordManager.h"
 #import "TagSelectView.h"
 #import "RecordDetailViewController.h"
-#import "TestViewController.h"
 #import <WebKit/WebKit.h>
 
 @interface HomeViewController () <UITableViewDelegate, UITableViewDataSource, HomeCellDelegate>
@@ -26,13 +25,11 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    //ui
-    UIBarButtonItem *addItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"tianjia1"] style:UIBarButtonItemStylePlain target:self action:@selector(addClick)];
-    UIBarButtonItem *webItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"qiantaowangye"] style:UIBarButtonItemStylePlain target:self action:@selector(webClick)];
-//    self.navigationItem.rightBarButtonItems = @[addItem,webItem];
-    self.navigationItem.rightBarButtonItem = addItem;
-    self.navigationItem.leftBarButtonItem = webItem;
-    
+    //ui 嵌套网页 和 添加单子
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"AddItem"] style:UIBarButtonItemStylePlain target:self action:@selector(addClick)];
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"WebItem"] style:UIBarButtonItemStylePlain target:self action:@selector(webClick)];
+
+    //刷新数据
     [self refreshUI];
 
 }
