@@ -263,7 +263,7 @@
             h = SCREEN_HEIGHT; //这里不减，视觉效果最好
         }
         
-        _tableView = [[UITableView alloc] initWithFrame: CGRectMake(0, 0/*self.topView.bottom*/, SCREEN_WIDTH, h)];
+        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, h)];
         _tableView.showsVerticalScrollIndicator = NO;
         _tableView.showsHorizontalScrollIndicator = NO;
         _tableView.dataSource = self;

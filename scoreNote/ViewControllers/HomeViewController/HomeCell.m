@@ -107,7 +107,7 @@ NS_ASSUME_NONNULL_BEGIN
 //        self.profitLabel.textColor = [UIColor grayColor];
         if (!isBought) {
             CGFloat planGet = MAX(planProfit - allProfit, 0);
-            [self.buyButton setTitle:[NSString stringWithFormat:@"立即购买（+%@）",[SCUtilities removeFloatSuffix:planGet]] forState:UIControlStateNormal];
+            [self.buyButton setTitle:[NSString stringWithFormat:@"购买:需%@利润",[SCUtilities removeFloatSuffix:planGet]] forState:UIControlStateNormal];
         }
 
         

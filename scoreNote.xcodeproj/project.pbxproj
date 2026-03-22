@@ -39,6 +39,8 @@
 		4BCF8EA72F6F291C00229CCB /* TotalCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BCF8EA62F6F291C00229CCB /* TotalCell.m */; };
 		4BD3A8672C628F3600BB146C /* ColumnAddViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4BD3A8662C628F3600BB146C /* ColumnAddViewController.xib */; };
 		4BD3A8682C628F3600BB146C /* ColumnAddViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BD3A8652C628F3600BB146C /* ColumnAddViewController.m */; };
+		4BDCFF0E2F701DA7006D2539 /* tianjia1.png in Resources */ = {isa = PBXBuildFile; fileRef = 4BDCFF0D2F701DA7006D2539 /* tianjia1.png */; };
+		4BDCFF122F701E13006D2539 /* qiantaowangye.png in Resources */ = {isa = PBXBuildFile; fileRef = 4BDCFF112F701E13006D2539 /* qiantaowangye.png */; };
 		4D0806722AEAB6DC007BB9BF /* SCToolBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D0806712AEAB6DC007BB9BF /* SCToolBar.m */; };
 		4D368C662AED777500700B2C /* ConfigManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D368C652AED777500700B2C /* ConfigManager.m */; };
 		4D4FA1492AED696800D2C2AF /* ConfigCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D4FA1472AED696800D2C2AF /* ConfigCell.m */; };
@@ -157,6 +159,8 @@
 		4BD3A8642C628F3600BB146C /* ColumnAddViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ColumnAddViewController.h; sourceTree = "<group>"; };
 		4BD3A8652C628F3600BB146C /* ColumnAddViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ColumnAddViewController.m; sourceTree = "<group>"; };
 		4BD3A8662C628F3600BB146C /* ColumnAddViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ColumnAddViewController.xib; sourceTree = "<group>"; };
+		4BDCFF0D2F701DA7006D2539 /* tianjia1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tianjia1.png; sourceTree = "<group>"; };
+		4BDCFF112F701E13006D2539 /* qiantaowangye.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = qiantaowangye.png; sourceTree = "<group>"; };
 		4D0806702AEAB6DC007BB9BF /* SCToolBar.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SCToolBar.h; sourceTree = "<group>"; };
 		4D0806712AEAB6DC007BB9BF /* SCToolBar.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SCToolBar.m; sourceTree = "<group>"; };
 		4D368C642AED777500700B2C /* ConfigManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ConfigManager.h; sourceTree = "<group>"; };
@@ -500,6 +504,8 @@
 			children = (
 				4D8A654C27AB75ED0082C1A3 /* HomeViewController.h */,
 				4D8A654D27AB75ED0082C1A3 /* HomeViewController.m */,
+				4BDCFF112F701E13006D2539 /* qiantaowangye.png */,
+				4BDCFF0D2F701DA7006D2539 /* tianjia1.png */,
 				4BCDB8822F65A0B000181DBE /* HomeCell.h */,
 				4BCDB8832F65A0B000181DBE /* HomeCell.m */,
 				4D8E69A02AEE894E00458818 /* RecordManager.h */,
@@ -692,6 +698,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4BDCFF0E2F701DA7006D2539 /* tianjia1.png in Resources */,
 				4DC4EC1A27B2462400049E8B /* welcome@2x.png in Resources */,
 				4DC4EC1B27B2462400049E8B /* welcome@3x.png in Resources */,
 				4D84F00327A38ACC0094558F /* Assets.xcassets in Resources */,
@@ -700,6 +707,7 @@
 				4BADE9982C5E4376008D67EC /* CareerCell.xib in Resources */,
 				4D4FA14A2AED696800D2C2AF /* ConfigCell.xib in Resources */,
 				4D84F07627A3BC200094558F /* LaunchScreen.storyboard in Resources */,
+				4BDCFF122F701E13006D2539 /* qiantaowangye.png in Resources */,
 				4BD3A8672C628F3600BB146C /* ColumnAddViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

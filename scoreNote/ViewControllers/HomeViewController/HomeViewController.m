@@ -10,10 +10,14 @@
 #import "RecordManager.h"
 #import "TagSelectView.h"
 #import "RecordDetailViewController.h"
+#import "TestViewController.h"
+#import <WebKit/WebKit.h>
 
 @interface HomeViewController () <UITableViewDelegate, UITableViewDataSource, HomeCellDelegate>
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, weak) NSMutableArray <RecordModel *> *records;
+@property (nonatomic, assign) BOOL isWebMode; //嵌套网页模式
+@property (nonatomic, strong) WKWebView *webView;
 
 @end
 
@@ -23,7 +27,12 @@
     [super viewDidLoad];
     
     //ui
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addClick)];
+    UIBarButtonItem *addItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"tianjia1"] style:UIBarButtonItemStylePlain target:self action:@selector(addClick)];
+    UIBarButtonItem *webItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"qiantaowangye"] style:UIBarButtonItemStylePlain target:self action:@selector(webClick)];
+//    self.navigationItem.rightBarButtonItems = @[addItem,webItem];
+    self.navigationItem.rightBarButtonItem = addItem;
+    self.navigationItem.leftBarButtonItem = webItem;
+    
     [self refreshUI];
 
 }
@@ -194,6 +203,15 @@
     }];
 }
 
+- (void)webClick //嵌套网页模式
+{
+    _isWebMode ^= 1;
+    
+    self.webView.hidden = !_isWebMode;
+    
+    self.tableView.height = _isWebMode ? self.webView.top + 110 : SCREEN_HEIGHT;
+}
+
 #pragma mark -UI
 - (UITableView *)tableView
 {
@@ -221,6 +239,26 @@
         [self.view addSubview:_tableView];
     }
     return _tableView;
+}
+
+- (WKWebView *)webView
+{
+    if (!_webView) {
+        WKWebViewConfiguration *config = [WKWebViewConfiguration new];
+        config.websiteDataStore = [WKWebsiteDataStore defaultDataStore]; //使用默认的持久化数据储存（自动存Cooki、登录状态等）
+        
+        CGFloat y = kHomeCellH*1.5;
+        _webView = [[WKWebView alloc] initWithFrame:CGRectMake(0, y, SCREEN_WIDTH, SCREEN_HEIGHT-y) configuration:config];
+        _webView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleWidth;
+        _webView.scrollView.bounces = NO; //取消回弹
+        [self.view addSubview:_webView];
+        [self.view sendSubviewToBack:_webView];
+        
+        NSURL *url = [NSURL URLWithString:@"https://m.sporttery.cn/mjc/jsq/zqspf/"];
+        NSURLRequest *request = [NSURLRequest requestWithURL:url];
+        [_webView loadRequest:request];
+    }
+    return _webView;
 }
 
 
