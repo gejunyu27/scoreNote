@@ -98,11 +98,6 @@
     return mulArr;
 }
 
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    return 60;
-}
-
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     NSString *cellId = @"cellId";
@@ -194,6 +189,7 @@
         _tableView.dataSource = self;
         //        _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
         _tableView.showsVerticalScrollIndicator = YES;
+        _tableView.rowHeight = 60;
         
         if (@available(iOS 15.0, *)) {
             _tableView.sectionHeaderTopPadding = 0;

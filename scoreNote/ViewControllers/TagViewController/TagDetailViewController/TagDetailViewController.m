@@ -64,11 +64,6 @@
     return _recordList.count;
 }
 
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    return kTDCellH;
-}
-
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     TagDetailCell *cell = [tableView dequeueReusableCellWithIdentifier:kTDCellId];
@@ -105,6 +100,7 @@
         _tableView.delegate = self;
         _tableView.tableHeaderView = self.topView;
         _tableView.backgroundColor = DEFAULT_BG_COLOR;
+        _tableView.rowHeight = kTDCellH;
         [_tableView registerClass:TagDetailCell.class forCellReuseIdentifier:kTDCellId];
         if (@available(iOS 15.0, *)) {
             _tableView.sectionHeaderTopPadding = 0;

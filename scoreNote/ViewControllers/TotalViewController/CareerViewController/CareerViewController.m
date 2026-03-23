@@ -40,11 +40,6 @@
     return self.viewModel.careerList.count;
 }
 
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    return 50;
-}
-
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     CareerCell *cell = [tableView dequeueReusableCellWithIdentifier:kCareerCell];
@@ -89,6 +84,7 @@
         _tableView.dataSource = self;
 //        _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
         _tableView.showsVerticalScrollIndicator = YES;
+        _tableView.rowHeight = 50;
         [_tableView registerNib:[UINib nibWithNibName:kCareerCell bundle:nil] forCellReuseIdentifier:kCareerCell];
 
         if (@available(iOS 15.0, *)) {

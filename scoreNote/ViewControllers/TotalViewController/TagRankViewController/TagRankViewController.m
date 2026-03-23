@@ -37,11 +37,6 @@
     return self.viewModel.rankList.count;
 }
 
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    return kTRCellH;
-}
-
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     TagRankCell *cell = [tableView dequeueReusableCellWithIdentifier:kTagRankCellId];
@@ -85,6 +80,7 @@
 //        _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
         _tableView.showsVerticalScrollIndicator = YES;
         [_tableView registerClass:TagRankCell.class forCellReuseIdentifier:kTagRankCellId];
+        _tableView.rowHeight = kTRCellH;
         if (@available(iOS 15.0, *)) {
             _tableView.sectionHeaderTopPadding = 0;
         }
