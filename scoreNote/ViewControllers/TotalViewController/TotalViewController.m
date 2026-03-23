@@ -270,7 +270,7 @@
         _tableView.delegate = self;
         _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
         _tableView.tableHeaderView = self.topView;
-        _tableView.backgroundColor = HEX_RGB(@"#F8F9FE");
+        _tableView.backgroundColor = DEFAULT_BG_COLOR;
         [_tableView registerClass:TotalCell.class forCellReuseIdentifier:kTotalCellId];
         _tableView.rowHeight = kTotalCellH;
         if (@available(iOS 15.0, *)) {

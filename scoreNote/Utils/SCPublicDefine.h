@@ -29,8 +29,8 @@
 #define IS_LARGE_SCREEN       (SCREEN_HEIGHT > 667)
 
 #pragma mark - 常用
-//默认图片
-#define  IMG_PLACE_HOLDER   SCIMAGE(@"home_localLife_newsDefault")
+//默认背景色
+#define DEFAULT_BG_COLOR    HEX_RGB(@"#F8F9FE")
 
 //单例
 #undef  AS_SINGLETON

@@ -253,7 +253,7 @@ NS_ASSUME_NONNULL_BEGIN
         _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
         _tableView.rowHeight = kRDCellH;
         [_tableView registerClass:RecordDetailCell.class forCellReuseIdentifier:kRDCellId];
-        _tableView.backgroundColor = HEX_RGB(@"#F8F9FE");
+        _tableView.backgroundColor = DEFAULT_BG_COLOR;
         _tableView.tableHeaderView = self.topView;
         if (@available(iOS 15.0, *)) {
             _tableView.sectionHeaderTopPadding = 0;

@@ -104,7 +104,7 @@
         _tableView.dataSource = self;
         _tableView.delegate = self;
         _tableView.tableHeaderView = self.topView;
-        _tableView.backgroundColor = HEX_RGB(@"#F8F9FE");
+        _tableView.backgroundColor = DEFAULT_BG_COLOR;
         [_tableView registerClass:TagDetailCell.class forCellReuseIdentifier:kTDCellId];
         if (@available(iOS 15.0, *)) {
             _tableView.sectionHeaderTopPadding = 0;

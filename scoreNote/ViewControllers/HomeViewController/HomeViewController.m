@@ -228,7 +228,7 @@
         _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
         _tableView.rowHeight = kHomeCellH;
         [_tableView registerClass:HomeCell.class forCellReuseIdentifier:kHomeCellId];
-        _tableView.backgroundColor = HEX_RGB(@"#F8F9FE");
+        _tableView.backgroundColor = DEFAULT_BG_COLOR;
         if (@available(iOS 15.0, *)) {
             _tableView.sectionHeaderTopPadding = 0;
         }
