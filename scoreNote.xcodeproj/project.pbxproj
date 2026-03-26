@@ -39,6 +39,7 @@
 		4BCF8EA72F6F291C00229CCB /* TotalCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BCF8EA62F6F291C00229CCB /* TotalCell.m */; };
 		4BD3A8672C628F3600BB146C /* ColumnAddViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4BD3A8662C628F3600BB146C /* ColumnAddViewController.xib */; };
 		4BD3A8682C628F3600BB146C /* ColumnAddViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BD3A8652C628F3600BB146C /* ColumnAddViewController.m */; };
+		4BDCFF192F718A46006D2539 /* TestCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BDCFF182F718A46006D2539 /* TestCell.m */; };
 		4D0806722AEAB6DC007BB9BF /* SCToolBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D0806712AEAB6DC007BB9BF /* SCToolBar.m */; };
 		4D368C662AED777500700B2C /* ConfigManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D368C652AED777500700B2C /* ConfigManager.m */; };
 		4D4FA1492AED696800D2C2AF /* ConfigCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D4FA1472AED696800D2C2AF /* ConfigCell.m */; };
@@ -73,8 +74,6 @@
 		4DBBF52627A4F6F900EFCD8F /* RecordModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DBBF52527A4F6F900EFCD8F /* RecordModel.m */; };
 		4DC4EC1A27B2462400049E8B /* welcome@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4DC4EC1827B2462400049E8B /* welcome@2x.png */; };
 		4DC4EC1B27B2462400049E8B /* welcome@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4DC4EC1927B2462400049E8B /* welcome@3x.png */; };
-		4DC9255429FF5AF9004556ED /* TagCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DC9255229FF5AF9004556ED /* TagCell.m */; };
-		4DC9255529FF5AF9004556ED /* TagCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4DC9255329FF5AF9004556ED /* TagCell.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -157,6 +156,8 @@
 		4BD3A8642C628F3600BB146C /* ColumnAddViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ColumnAddViewController.h; sourceTree = "<group>"; };
 		4BD3A8652C628F3600BB146C /* ColumnAddViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ColumnAddViewController.m; sourceTree = "<group>"; };
 		4BD3A8662C628F3600BB146C /* ColumnAddViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ColumnAddViewController.xib; sourceTree = "<group>"; };
+		4BDCFF172F718A46006D2539 /* TestCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TestCell.h; sourceTree = "<group>"; };
+		4BDCFF182F718A46006D2539 /* TestCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TestCell.m; sourceTree = "<group>"; };
 		4D0806702AEAB6DC007BB9BF /* SCToolBar.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SCToolBar.h; sourceTree = "<group>"; };
 		4D0806712AEAB6DC007BB9BF /* SCToolBar.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SCToolBar.m; sourceTree = "<group>"; };
 		4D368C642AED777500700B2C /* ConfigManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ConfigManager.h; sourceTree = "<group>"; };
@@ -224,9 +225,6 @@
 		4DBBF52527A4F6F900EFCD8F /* RecordModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RecordModel.m; sourceTree = "<group>"; };
 		4DC4EC1827B2462400049E8B /* welcome@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "welcome@2x.png"; sourceTree = "<group>"; };
 		4DC4EC1927B2462400049E8B /* welcome@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "welcome@3x.png"; sourceTree = "<group>"; };
-		4DC9255129FF5AF9004556ED /* TagCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TagCell.h; sourceTree = "<group>"; };
-		4DC9255229FF5AF9004556ED /* TagCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TagCell.m; sourceTree = "<group>"; };
-		4DC9255329FF5AF9004556ED /* TagCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TagCell.xib; sourceTree = "<group>"; };
 		A904947A77A6B2DC53742DFD /* Pods-scoreNote.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-scoreNote.release.xcconfig"; path = "Target Support Files/Pods-scoreNote/Pods-scoreNote.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -537,9 +535,8 @@
 			children = (
 				4D8E69BE2AF15A8500458818 /* TagViewController.h */,
 				4D8E69BF2AF15A8500458818 /* TagViewController.m */,
-				4DC9255129FF5AF9004556ED /* TagCell.h */,
-				4DC9255229FF5AF9004556ED /* TagCell.m */,
-				4DC9255329FF5AF9004556ED /* TagCell.xib */,
+				4BDCFF172F718A46006D2539 /* TestCell.h */,
+				4BDCFF182F718A46006D2539 /* TestCell.m */,
 				4B0B1F1C2C5F819D0008C94C /* TagModel.h */,
 				4B0B1F1D2C5F819D0008C94C /* TagModel.m */,
 				4B0B1F262C5FBE800008C94C /* TagManager */,
@@ -695,7 +692,6 @@
 				4DC4EC1A27B2462400049E8B /* welcome@2x.png in Resources */,
 				4DC4EC1B27B2462400049E8B /* welcome@3x.png in Resources */,
 				4D84F00327A38ACC0094558F /* Assets.xcassets in Resources */,
-				4DC9255529FF5AF9004556ED /* TagCell.xib in Resources */,
 				4D84F09C27A3C2790094558F /* ConfigViewController.xib in Resources */,
 				4BADE9982C5E4376008D67EC /* CareerCell.xib in Resources */,
 				4D4FA14A2AED696800D2C2AF /* ConfigCell.xib in Resources */,
@@ -815,6 +811,7 @@
 				4D6EFC162AEE3F7700A446FF /* TotalViewModel.m in Sources */,
 				4D84F09B27A3C2790094558F /* ConfigViewController.m in Sources */,
 				4D84EFF527A38AC80094558F /* AppDelegate.m in Sources */,
+				4BDCFF192F718A46006D2539 /* TestCell.m in Sources */,
 				4BADE9972C5E4376008D67EC /* CareerCell.m in Sources */,
 				4B9C1BF12C5F3C9200D4D77F /* LineModel.m in Sources */,
 				4D8E69C12AF15A8500458818 /* TagViewController.m in Sources */,
@@ -828,7 +825,6 @@
 				4D8A654E27AB75EE0082C1A3 /* HomeViewController.m in Sources */,
 				4BCF8EA42F6F21C500229CCB /* TagDetailCell.m in Sources */,
 				4D4FA1492AED696800D2C2AF /* ConfigCell.m in Sources */,
-				4DC9255429FF5AF9004556ED /* TagCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

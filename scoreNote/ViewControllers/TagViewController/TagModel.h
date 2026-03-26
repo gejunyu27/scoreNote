@@ -8,6 +8,7 @@
 #import <Foundation/Foundation.h>
 
 NS_ASSUME_NONNULL_BEGIN
+@class TagPinyinModel;
 
 @interface TagModel : NSObject
 //id
@@ -20,6 +21,7 @@ NS_ASSUME_NONNULL_BEGIN
 //非数据库属性
 @property (nonatomic, copy, readonly) NSString *pinyinFirstChar;  //拼音首字母
 @property (nonatomic, assign) BOOL isEdit;                        //是否在编辑中
+@property (nonatomic, weak) TagPinyinModel *pinyin;               //方便向上查找
 
 
 @end

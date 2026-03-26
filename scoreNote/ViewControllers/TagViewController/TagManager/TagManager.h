@@ -24,7 +24,7 @@ AS_SINGLETON(TagManager)
 //改变最大期
 + (BOOL)editMaxCount:(NSInteger)maxCount tag:(TagModel *)tag;
 //删除标签
-+ (BOOL)deleteTag:(TagModel *)tag pinyin:(TagPinyinModel *)pinyin;
++ (NSString *)deleteTag:(TagModel *)tag;
 //新增一个标签
 + (BOOL)insertNewTag:(NSString *)tagName;
 //检测结束投注的真实期数，是否大于当前最大期

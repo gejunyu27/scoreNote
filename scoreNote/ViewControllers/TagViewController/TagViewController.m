@@ -6,7 +6,7 @@
 //
 
 #import "TagViewController.h"
-#import "TagCell.h"
+#import "TestCell.h"
 #import "TagDetailViewController.h"
 #import "TagManager.h"
 
@@ -133,14 +133,9 @@
     return 0;
 }
 
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    return 40;
-}
-
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    TagCell *cell = [tableView dequeueReusableCellWithIdentifier:kTagCell];
+    TestCell *cell = [tableView dequeueReusableCellWithIdentifier:kTagCellId forIndexPath:indexPath];
     
     if (indexPath.section < [TagManager pinyinList].count) {
         TagPinyinModel *pinyin = [TagManager pinyinList][indexPath.section];
@@ -173,51 +168,56 @@
     }
 }
 
-//删除功能暂时取消
-//- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
-//{
-//    
-//    if (editingStyle != UITableViewCellEditingStyleDelete){
-//        return;
-//    }
-//    
-//    if (indexPath.section >= [TagManager pinyinList].count) {
-//        return;
-//    }
-//    
-//    TagPinyinModel *pinyin = [TagManager pinyinList][indexPath.section];
-//    
-//    if (indexPath.row >= pinyin.tagList.count) {
-//        return;
-//    }
-//    
-//    TagModel *tag = pinyin.tagList[indexPath.row];
-//    
-//    [SCUtilities alertWithTitle:@"确认删除该标签？" message:tag.name textFieldBlock:nil sureBlock:^(NSString * _Nullable text) {
-//        BOOL result = [TagManager deleteTag:tag pinyin:pinyin];
-//        
-//        if (result) {
-//            [tableView reloadData];
-//            
-//        }
-//    }];
-//    
-//    
-//
-//}
-
 #pragma mark -TagCellDelegate
 //编辑名称
 - (void)tagCellEditName:(NSString *)name model:(TagModel *)model
 {
-    [TagManager editName:name tag:model];
+    BOOL result = [TagManager editName:name tag:model];
+    if (!result) {
+        [self showWithStatus:@"修改失败"];
+    }
+    
 }
 
 //编辑最大期
-- (void)tagCellEditMaxCount:(NSInteger)maxCount model:(TagModel *)model
+- (void)tagCellEditMaxCount:(TagModel *)model clickView:(UIView *)clickView
 {
-    [TagManager editMaxCount:maxCount tag:model];
+    NSInteger oldMaxCount = model.maxCount;
+    NSString *text = oldMaxCount <= 0 ? @"" : [NSString stringWithFormat:@"%li",oldMaxCount];
+    
+    @weakify(self)
+    [NumberInputView showWithText:text title:@"最大期" clickView:clickView type:InputTypeNoDot block:^(NSString * _Nonnull outputText) {
+        @strongify(self)
+        NSInteger maxCount = [outputText integerValue];
+        if (maxCount != oldMaxCount) {
+            BOOL result = [TagManager editMaxCount:maxCount tag:model];
+            if (result) {
+                [self.tableView reloadData];
+            }else {
+                [self showWithStatus:@"修改失败"];
+            }
+        }
+    }];
+    
 }
+
+//删除
+- (void)tagCellDelete:(TagModel *)model
+{
+    
+    [SCUtilities alertWithTitle:[NSString stringWithFormat:@"确定要删除%@吗", model.name] message:nil textFieldBlock:nil sureBlock:^(NSString * _Nullable text) {
+        NSString *error = [TagManager deleteTag:model];
+        if (error.length > 0) {
+            [self showWithStatus:error];
+            
+        }else {
+            [self.tableView reloadData];
+        }
+        
+        
+    }];
+}
+
 
 #pragma mark -UI
 - (UITableView *)tableView
@@ -240,7 +240,8 @@
             _tableView.sectionHeaderTopPadding = 0;
         }
         
-        [_tableView registerNib:[UINib nibWithNibName:kTagCell bundle:nil] forCellReuseIdentifier:kTagCell];
+        [_tableView registerClass:TestCell.class forCellReuseIdentifier:kTagCellId];
+        _tableView.rowHeight = kTagCellH;
         [self.view addSubview:_tableView];
         
     }
