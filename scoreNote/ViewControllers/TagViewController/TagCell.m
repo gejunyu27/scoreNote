@@ -1,14 +1,13 @@
 //
-//  TestCell.m
+//  TagCell.m
 //  scoreNote
 //
-//  Created by Zhuanz密码0000 on 2026/3/23.
+//  Created by Zhuanz密码0000 on 2026/3/26.
 //
 
-#import "TestCell.h"
-#import "SCToolBar.h"
+#import "TagCell.h"
 
-@interface TestCell () <UITextFieldDelegate>
+@interface TagCell () <UITextFieldDelegate>
 @property (nonatomic, strong) UITextField *nameField;
 @property (nonatomic, strong) UILabel *numLabel;
 @property (nonatomic, strong) UIButton *maxNumButton;
@@ -17,7 +16,7 @@
 
 @end
 
-@implementation TestCell
+@implementation TagCell
 
 - (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
@@ -156,6 +155,7 @@
         CGFloat x = 20;
         _nameField = [[UITextField alloc] initWithFrame:CGRectMake(x, y, 0, kTagCellH-y*2)];
         _nameField.returnKeyType = UIReturnKeyDone;
+        _nameField.clearButtonMode = UITextFieldViewModeWhileEditing;
         _nameField.font = SCFONT_SIZED(16);
         _nameField.borderStyle = UITextBorderStyleRoundedRect;
         _nameField.delegate = self;
@@ -164,8 +164,6 @@
     }
     return _nameField;
 }
-
-
 
 
 

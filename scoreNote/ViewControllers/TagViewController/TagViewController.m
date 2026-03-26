@@ -6,7 +6,7 @@
 //
 
 #import "TagViewController.h"
-#import "TestCell.h"
+#import "TagCell.h"
 #import "TagDetailViewController.h"
 #import "TagManager.h"
 
@@ -135,7 +135,7 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    TestCell *cell = [tableView dequeueReusableCellWithIdentifier:kTagCellId forIndexPath:indexPath];
+    TagCell *cell = [tableView dequeueReusableCellWithIdentifier:kTagCellId forIndexPath:indexPath];
     
     if (indexPath.section < [TagManager pinyinList].count) {
         TagPinyinModel *pinyin = [TagManager pinyinList][indexPath.section];
@@ -240,7 +240,7 @@
             _tableView.sectionHeaderTopPadding = 0;
         }
         
-        [_tableView registerClass:TestCell.class forCellReuseIdentifier:kTagCellId];
+        [_tableView registerClass:TagCell.class forCellReuseIdentifier:kTagCellId];
         _tableView.rowHeight = kTagCellH;
         [self.view addSubview:_tableView];
         
