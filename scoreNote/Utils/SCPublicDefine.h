@@ -117,6 +117,5 @@
 #pragma mark - 通知
 #define NOTI_RECORD_UPDATE   @"NOTI_RECORD_UPDATE"  //记录更新
 #define NOTI_SQLITE_UPDATE   @"NOTI_SQLITE_UPDATE"  //数据库更新
-#define NOTI_CONFIG_UPDATE   @"NOTI_CONFIG_UPDATE"  //设置更新
 
 #endif /* SCPublicDefine_h */

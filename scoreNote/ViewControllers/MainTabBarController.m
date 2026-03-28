@@ -8,10 +8,9 @@
 #import "MainTabBarController.h"
 #import "HomeViewController.h"
 #import "BaseNavigationController.h"
-#import "ConfigViewController.h"
 #import "TagViewController.h"
 #import "TotalViewController.h"
-#import "TestViewController.h"
+#import "ConfigViewController.h"
 
 
 #define kTabImg(P)    [[UIImage imageNamed:P] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]
@@ -71,19 +70,7 @@
     BaseNavigationController *tagNav = [[BaseNavigationController alloc] initWithRootViewController:tagVc];
     [temp addObject:tagNav];
     
-    ConfigViewController *orderVc = [ConfigViewController new];
-    orderVc.isMainTabVC = YES;
-    orderVc.title = @"设置";
-    UITabBarItem *orderItem = orderVc.tabBarItem;
-    orderItem.image = kTabImg(@"Tab_Config");
-    orderItem.selectedImage = kTabImg(@"Tab_Config_selected");
-    if (@available(iOS 26.0, *)) { //ios26必须在这儿设置，否则文字错位 另外普通状态文字颜色无法改变，原因未知
-        [orderItem setTitleTextAttributes:kSelectedTextAttributes forState:UIControlStateSelected];
-    }
-    BaseNavigationController *orderNav = [[BaseNavigationController alloc] initWithRootViewController:orderVc];
-    [temp addObject:orderNav];
-    
-    TestViewController *configVc = [TestViewController new];
+    ConfigViewController *configVc = [ConfigViewController new];
     configVc.isMainTabVC = YES;
     configVc.title = @"设置";
     UITabBarItem *configItem = configVc.tabBarItem;

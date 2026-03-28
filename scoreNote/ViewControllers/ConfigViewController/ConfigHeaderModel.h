@@ -2,33 +2,27 @@
 //  ConfigHeaderModel.h
 //  scoreNote
 //
-//  Created by Zhuanz密码0000 on 2026/3/27.
+//  Created by Zhuanz密码0000 on 2026/3/28.
 //
 
 #import <Foundation/Foundation.h>
+#import "ConfigModel.h"
 
 typedef NS_ENUM(NSInteger, ConfigHeaderType) {
-    ConfigHeaderTypeCalculate,     //双平计算
-    ConfigHeaderTypeCommon,        //常用设置
-    ConfigHeaderTypeWeb,           //嵌入式网页设置
-    ConfigHeaderTypeOther          //其它
+    ConfigHeaderTypeCalcalte,   //双平计算
+    ConfigHeaderTypeCommon,     //常用设置
+    ConfigHeaderTypeFuction,    //其它功能
+    ConfigHeaderTypeCount       //计数用  无实际意义 必须放最后一个
 };
 
 NS_ASSUME_NONNULL_BEGIN
-@class ConfigModel;
 
 @interface ConfigHeaderModel : NSObject
-@property (nonatomic, copy, readonly) NSString *name;
-@property (nonatomic, assign) ConfigHeaderType type;
-@property (nonatomic ,strong, readonly) NSArray <ConfigModel *> *configList;
-@property (nonatomic, assign) BOOL isOn; //是否展开
+@property (nonatomic, assign, readonly) ConfigHeaderType type;
+@property (nonatomic, copy, readonly) NSString *title;
+@property (nonatomic, strong, readonly) NSArray <ConfigModel *> *list;
 
-@end
-
-
-@interface ConfigModel : NSObject
-@property (nonatomic, assign, readonly) ConfigHeaderType headerType; //父类属性
-
+- (instancetype)initWithType:(ConfigHeaderType)type list:(NSArray <ConfigModel *> *)list;
 
 @end
 

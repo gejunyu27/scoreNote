@@ -17,6 +17,12 @@
 		4B529F6B2C4B75EA0044736F /* TagRankViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B529F6A2C4B75EA0044736F /* TagRankViewController.m */; };
 		4B529F6F2C4BB8F00044736F /* TagRankModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B529F6E2C4BB8F00044736F /* TagRankModel.m */; };
 		4B529F752C4BCF0B0044736F /* TagRankViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B529F742C4BCF0B0044736F /* TagRankViewModel.m */; };
+		4B52C5C32F77AE0A0003F90A /* ConfigCalculateCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B52C5C22F77AE0A0003F90A /* ConfigCalculateCell.m */; };
+		4B52C5C62F77AE1C0003F90A /* ConfigFunctionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B52C5C52F77AE1C0003F90A /* ConfigFunctionCell.m */; };
+		4B52C5C92F77B22D0003F90A /* ConfigCommonCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B52C5C82F77B22D0003F90A /* ConfigCommonCell.m */; };
+		4B52C5CF2F77CC280003F90A /* ConfigModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B52C5CE2F77CC280003F90A /* ConfigModel.m */; };
+		4B52C5D42F77F8770003F90A /* ConfigHeaderModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B52C5D32F77F8770003F90A /* ConfigHeaderModel.m */; };
+		4B52C5E72F783AA70003F90A /* ConfigViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B52C5E62F783AA70003F90A /* ConfigViewController.m */; };
 		4B7A333D2C4EC4DF00F91B34 /* TagDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B7A333C2C4EC4DF00F91B34 /* TagDetailViewController.m */; };
 		4B7A33482C4ED7FE00F91B34 /* TagRankCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B7A33472C4ED7FE00F91B34 /* TagRankCell.m */; };
 		4B9370F62BEA866200DCA1DF /* NumberInputView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B9370F52BEA866200DCA1DF /* NumberInputView.m */; };
@@ -40,14 +46,8 @@
 		4BD3A8672C628F3600BB146C /* ColumnAddViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4BD3A8662C628F3600BB146C /* ColumnAddViewController.xib */; };
 		4BD3A8682C628F3600BB146C /* ColumnAddViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BD3A8652C628F3600BB146C /* ColumnAddViewController.m */; };
 		4BDCFF2A2F7586D4006D2539 /* TagCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BDCFF292F7586D4006D2539 /* TagCell.m */; };
-		4BEE488B2F758F0E0040F02F /* TestViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BEE488A2F758F0E0040F02F /* TestViewController.m */; };
-		4BEE488E2F758FDD0040F02F /* TestCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BEE488D2F758FDD0040F02F /* TestCell.m */; };
-		4BEE48912F75902D0040F02F /* ConfigHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BEE48902F75902D0040F02F /* ConfigHeaderView.m */; };
-		4BEE48942F7590AE0040F02F /* ConfigHeaderModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BEE48932F7590AE0040F02F /* ConfigHeaderModel.m */; };
 		4D0806722AEAB6DC007BB9BF /* SCToolBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D0806712AEAB6DC007BB9BF /* SCToolBar.m */; };
 		4D368C662AED777500700B2C /* ConfigManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D368C652AED777500700B2C /* ConfigManager.m */; };
-		4D4FA1492AED696800D2C2AF /* ConfigCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D4FA1472AED696800D2C2AF /* ConfigCell.m */; };
-		4D4FA14A2AED696800D2C2AF /* ConfigCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4D4FA1482AED696800D2C2AF /* ConfigCell.xib */; };
 		4D6EFC162AEE3F7700A446FF /* TotalViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D6EFC152AEE3F7700A446FF /* TotalViewModel.m */; };
 		4D7FCE4D27AEA30600BF3009 /* DataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D7FCE4C27AEA30600BF3009 /* DataManager.m */; };
 		4D84EFF527A38AC80094558F /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D84EFF427A38AC80094558F /* AppDelegate.m */; };
@@ -67,8 +67,6 @@
 		4D84F07627A3BC200094558F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4D84F07527A3BC200094558F /* LaunchScreen.storyboard */; };
 		4D84F07A27A3BD8A0094558F /* NSDictionary+log.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D84F07827A3BD8A0094558F /* NSDictionary+log.m */; };
 		4D84F09227A3C0020094558F /* BaseNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D84F09127A3C0020094558F /* BaseNavigationController.m */; };
-		4D84F09B27A3C2790094558F /* ConfigViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D84F09927A3C2790094558F /* ConfigViewController.m */; };
-		4D84F09C27A3C2790094558F /* ConfigViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4D84F09A27A3C2790094558F /* ConfigViewController.xib */; };
 		4D8A654E27AB75EE0082C1A3 /* HomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D8A654D27AB75ED0082C1A3 /* HomeViewController.m */; };
 		4D8E69A22AEE894E00458818 /* RecordManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D8E69A12AEE894E00458818 /* RecordManager.m */; };
 		4D8E69A52AEE8BCA00458818 /* TagManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D8E69A42AEE8BCA00458818 /* TagManager.m */; };
@@ -118,6 +116,18 @@
 		4B529F6E2C4BB8F00044736F /* TagRankModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TagRankModel.m; sourceTree = "<group>"; };
 		4B529F732C4BCF0B0044736F /* TagRankViewModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TagRankViewModel.h; sourceTree = "<group>"; };
 		4B529F742C4BCF0B0044736F /* TagRankViewModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TagRankViewModel.m; sourceTree = "<group>"; };
+		4B52C5C12F77AE0A0003F90A /* ConfigCalculateCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ConfigCalculateCell.h; sourceTree = "<group>"; };
+		4B52C5C22F77AE0A0003F90A /* ConfigCalculateCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ConfigCalculateCell.m; sourceTree = "<group>"; };
+		4B52C5C42F77AE1C0003F90A /* ConfigFunctionCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ConfigFunctionCell.h; sourceTree = "<group>"; };
+		4B52C5C52F77AE1C0003F90A /* ConfigFunctionCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ConfigFunctionCell.m; sourceTree = "<group>"; };
+		4B52C5C72F77B22D0003F90A /* ConfigCommonCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ConfigCommonCell.h; sourceTree = "<group>"; };
+		4B52C5C82F77B22D0003F90A /* ConfigCommonCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ConfigCommonCell.m; sourceTree = "<group>"; };
+		4B52C5CD2F77CC280003F90A /* ConfigModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ConfigModel.h; sourceTree = "<group>"; };
+		4B52C5CE2F77CC280003F90A /* ConfigModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ConfigModel.m; sourceTree = "<group>"; };
+		4B52C5D22F77F8770003F90A /* ConfigHeaderModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ConfigHeaderModel.h; sourceTree = "<group>"; };
+		4B52C5D32F77F8770003F90A /* ConfigHeaderModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ConfigHeaderModel.m; sourceTree = "<group>"; };
+		4B52C5E52F783AA70003F90A /* ConfigViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ConfigViewController.h; sourceTree = "<group>"; };
+		4B52C5E62F783AA70003F90A /* ConfigViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ConfigViewController.m; sourceTree = "<group>"; };
 		4B7A333B2C4EC4DF00F91B34 /* TagDetailViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TagDetailViewController.h; sourceTree = "<group>"; };
 		4B7A333C2C4EC4DF00F91B34 /* TagDetailViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TagDetailViewController.m; sourceTree = "<group>"; };
 		4B7A33462C4ED7FE00F91B34 /* TagRankCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TagRankCell.h; sourceTree = "<group>"; };
@@ -162,21 +172,10 @@
 		4BD3A8662C628F3600BB146C /* ColumnAddViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ColumnAddViewController.xib; sourceTree = "<group>"; };
 		4BDCFF282F7586D4006D2539 /* TagCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TagCell.h; sourceTree = "<group>"; };
 		4BDCFF292F7586D4006D2539 /* TagCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TagCell.m; sourceTree = "<group>"; };
-		4BEE48892F758F0E0040F02F /* TestViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TestViewController.h; sourceTree = "<group>"; };
-		4BEE488A2F758F0E0040F02F /* TestViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TestViewController.m; sourceTree = "<group>"; };
-		4BEE488C2F758FDD0040F02F /* TestCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TestCell.h; sourceTree = "<group>"; };
-		4BEE488D2F758FDD0040F02F /* TestCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TestCell.m; sourceTree = "<group>"; };
-		4BEE488F2F75902D0040F02F /* ConfigHeaderView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ConfigHeaderView.h; sourceTree = "<group>"; };
-		4BEE48902F75902D0040F02F /* ConfigHeaderView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ConfigHeaderView.m; sourceTree = "<group>"; };
-		4BEE48922F7590AE0040F02F /* ConfigHeaderModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ConfigHeaderModel.h; sourceTree = "<group>"; };
-		4BEE48932F7590AE0040F02F /* ConfigHeaderModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ConfigHeaderModel.m; sourceTree = "<group>"; };
 		4D0806702AEAB6DC007BB9BF /* SCToolBar.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SCToolBar.h; sourceTree = "<group>"; };
 		4D0806712AEAB6DC007BB9BF /* SCToolBar.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SCToolBar.m; sourceTree = "<group>"; };
 		4D368C642AED777500700B2C /* ConfigManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ConfigManager.h; sourceTree = "<group>"; };
 		4D368C652AED777500700B2C /* ConfigManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ConfigManager.m; sourceTree = "<group>"; };
-		4D4FA1462AED696800D2C2AF /* ConfigCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ConfigCell.h; sourceTree = "<group>"; };
-		4D4FA1472AED696800D2C2AF /* ConfigCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ConfigCell.m; sourceTree = "<group>"; };
-		4D4FA1482AED696800D2C2AF /* ConfigCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ConfigCell.xib; sourceTree = "<group>"; };
 		4D6EFC142AEE3F7700A446FF /* TotalViewModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TotalViewModel.h; sourceTree = "<group>"; };
 		4D6EFC152AEE3F7700A446FF /* TotalViewModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TotalViewModel.m; sourceTree = "<group>"; };
 		4D7FCE4B27AEA30600BF3009 /* DataManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DataManager.h; sourceTree = "<group>"; };
@@ -218,9 +217,6 @@
 		4D84F07927A3BD8A0094558F /* NSDictionary+log.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDictionary+log.h"; sourceTree = "<group>"; };
 		4D84F09027A3C0020094558F /* BaseNavigationController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BaseNavigationController.h; sourceTree = "<group>"; };
 		4D84F09127A3C0020094558F /* BaseNavigationController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BaseNavigationController.m; sourceTree = "<group>"; };
-		4D84F09827A3C2790094558F /* ConfigViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ConfigViewController.h; sourceTree = "<group>"; };
-		4D84F09927A3C2790094558F /* ConfigViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ConfigViewController.m; sourceTree = "<group>"; };
-		4D84F09A27A3C2790094558F /* ConfigViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ConfigViewController.xib; sourceTree = "<group>"; };
 		4D8A654C27AB75ED0082C1A3 /* HomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeViewController.h; sourceTree = "<group>"; };
 		4D8A654D27AB75ED0082C1A3 /* HomeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeViewController.m; sourceTree = "<group>"; };
 		4D8E69A02AEE894E00458818 /* RecordManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RecordManager.h; sourceTree = "<group>"; };
@@ -571,20 +567,18 @@
 		4DD39AE627AC03B100E529C4 /* ConfigViewController */ = {
 			isa = PBXGroup;
 			children = (
-				4BEE48892F758F0E0040F02F /* TestViewController.h */,
-				4BEE488A2F758F0E0040F02F /* TestViewController.m */,
-				4BEE488F2F75902D0040F02F /* ConfigHeaderView.h */,
-				4BEE48902F75902D0040F02F /* ConfigHeaderView.m */,
-				4BEE48922F7590AE0040F02F /* ConfigHeaderModel.h */,
-				4BEE48932F7590AE0040F02F /* ConfigHeaderModel.m */,
-				4BEE488C2F758FDD0040F02F /* TestCell.h */,
-				4BEE488D2F758FDD0040F02F /* TestCell.m */,
-				4D84F09827A3C2790094558F /* ConfigViewController.h */,
-				4D84F09927A3C2790094558F /* ConfigViewController.m */,
-				4D84F09A27A3C2790094558F /* ConfigViewController.xib */,
-				4D4FA1462AED696800D2C2AF /* ConfigCell.h */,
-				4D4FA1472AED696800D2C2AF /* ConfigCell.m */,
-				4D4FA1482AED696800D2C2AF /* ConfigCell.xib */,
+				4B52C5E52F783AA70003F90A /* ConfigViewController.h */,
+				4B52C5E62F783AA70003F90A /* ConfigViewController.m */,
+				4B52C5C12F77AE0A0003F90A /* ConfigCalculateCell.h */,
+				4B52C5C22F77AE0A0003F90A /* ConfigCalculateCell.m */,
+				4B52C5C72F77B22D0003F90A /* ConfigCommonCell.h */,
+				4B52C5C82F77B22D0003F90A /* ConfigCommonCell.m */,
+				4B52C5C42F77AE1C0003F90A /* ConfigFunctionCell.h */,
+				4B52C5C52F77AE1C0003F90A /* ConfigFunctionCell.m */,
+				4B52C5D22F77F8770003F90A /* ConfigHeaderModel.h */,
+				4B52C5D32F77F8770003F90A /* ConfigHeaderModel.m */,
+				4B52C5CD2F77CC280003F90A /* ConfigModel.h */,
+				4B52C5CE2F77CC280003F90A /* ConfigModel.m */,
 				4D368C642AED777500700B2C /* ConfigManager.h */,
 				4D368C652AED777500700B2C /* ConfigManager.m */,
 				4B2DC7D32C14845300D23CE8 /* BitCoinViewController.h */,
@@ -712,9 +706,7 @@
 				4DC4EC1A27B2462400049E8B /* welcome@2x.png in Resources */,
 				4DC4EC1B27B2462400049E8B /* welcome@3x.png in Resources */,
 				4D84F00327A38ACC0094558F /* Assets.xcassets in Resources */,
-				4D84F09C27A3C2790094558F /* ConfigViewController.xib in Resources */,
 				4BADE9982C5E4376008D67EC /* CareerCell.xib in Resources */,
-				4D4FA14A2AED696800D2C2AF /* ConfigCell.xib in Resources */,
 				4D84F07627A3BC200094558F /* LaunchScreen.storyboard in Resources */,
 				4BD3A8672C628F3600BB146C /* ColumnAddViewController.xib in Resources */,
 			);
@@ -796,8 +788,8 @@
 				4B9C1BFC2C5F426200D4D77F /* CommonHeaderView.m in Sources */,
 				4D84F04027A3965E0094558F /* SCUtilities.m in Sources */,
 				4D84F05F27A396AF0094558F /* UIControl+SCExtension.m in Sources */,
-				4BEE48912F75902D0040F02F /* ConfigHeaderView.m in Sources */,
 				4DBBF52627A4F6F900EFCD8F /* RecordModel.m in Sources */,
+				4B52C5C62F77AE1C0003F90A /* ConfigFunctionCell.m in Sources */,
 				4BDCFF2A2F7586D4006D2539 /* TagCell.m in Sources */,
 				4B7A333D2C4EC4DF00F91B34 /* TagDetailViewController.m in Sources */,
 				4BCDB8842F65A0B000181DBE /* HomeCell.m in Sources */,
@@ -806,7 +798,9 @@
 				4D84F05C27A396AF0094558F /* NSDate+SCExtension.m in Sources */,
 				4BCF8E9D2F6EBA3300229CCB /* RecordDetailCell.m in Sources */,
 				4B03922D2BECAC5900E6E7C4 /* InputButton.m in Sources */,
+				4B52C5E72F783AA70003F90A /* ConfigViewController.m in Sources */,
 				4B0B1F1E2C5F819D0008C94C /* TagModel.m in Sources */,
+				4B52C5C32F77AE0A0003F90A /* ConfigCalculateCell.m in Sources */,
 				4BD3A8682C628F3600BB146C /* ColumnAddViewController.m in Sources */,
 				4D84F05B27A396AF0094558F /* NSObject+SCHUD.m in Sources */,
 				4B0B1F242C5F9A6E0008C94C /* SqlEditUtil.m in Sources */,
@@ -825,21 +819,19 @@
 				4B94AAFE2C62620000E33F5D /* ColumnModel.m in Sources */,
 				4D8E69AF2AF1431700458818 /* TotalViewController.m in Sources */,
 				4D84F07A27A3BD8A0094558F /* NSDictionary+log.m in Sources */,
-				4BEE488E2F758FDD0040F02F /* TestCell.m in Sources */,
 				4B529F6F2C4BB8F00044736F /* TagRankModel.m in Sources */,
 				4BCF8EA02F6F14D300229CCB /* TotalHeaderView.m in Sources */,
 				4D84F09227A3C0020094558F /* BaseNavigationController.m in Sources */,
+				4B52C5C92F77B22D0003F90A /* ConfigCommonCell.m in Sources */,
 				4D84F06427A396AF0094558F /* UIColor+SCHex.m in Sources */,
 				4B7A33482C4ED7FE00F91B34 /* TagRankCell.m in Sources */,
 				4D6EFC162AEE3F7700A446FF /* TotalViewModel.m in Sources */,
-				4D84F09B27A3C2790094558F /* ConfigViewController.m in Sources */,
-				4BEE48942F7590AE0040F02F /* ConfigHeaderModel.m in Sources */,
+				4B52C5CF2F77CC280003F90A /* ConfigModel.m in Sources */,
 				4D84EFF527A38AC80094558F /* AppDelegate.m in Sources */,
 				4BADE9972C5E4376008D67EC /* CareerCell.m in Sources */,
 				4B9C1BF12C5F3C9200D4D77F /* LineModel.m in Sources */,
 				4D8E69C12AF15A8500458818 /* TagViewController.m in Sources */,
 				4B0B1F212C5F86330008C94C /* TagSelectView.m in Sources */,
-				4BEE488B2F758F0E0040F02F /* TestViewController.m in Sources */,
 				4B529F752C4BCF0B0044736F /* TagRankViewModel.m in Sources */,
 				4D8E69A22AEE894E00458818 /* RecordManager.m in Sources */,
 				4B9370F62BEA866200DCA1DF /* NumberInputView.m in Sources */,
@@ -848,7 +840,7 @@
 				4B94AAFB2C62537000E33F5D /* ColumnManager.m in Sources */,
 				4D8A654E27AB75EE0082C1A3 /* HomeViewController.m in Sources */,
 				4BCF8EA42F6F21C500229CCB /* TagDetailCell.m in Sources */,
-				4D4FA1492AED696800D2C2AF /* ConfigCell.m in Sources */,
+				4B52C5D42F77F8770003F90A /* ConfigHeaderModel.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

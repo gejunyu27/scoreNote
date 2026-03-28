@@ -36,9 +36,6 @@ NS_ASSUME_NONNULL_BEGIN
 #pragma mark -修改记录
 + (BOOL)updateRecord:(RecordModel *)record;
 
-#pragma mark -新增多条记录
-+ (NSMutableArray <RecordModel *> *)insertNewRecords:(NSInteger)num; //旧版功能
-
 #pragma mark -新增一条记录
 + (RecordModel *)insertNewRecord:(NSInteger)tagId;
 

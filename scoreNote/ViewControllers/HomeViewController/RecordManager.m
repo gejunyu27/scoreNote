@@ -24,10 +24,6 @@ DEF_SINGLETON(RecordManager)
             self.homeRecords = nil;
             self.needUpdate = YES;
         }];
-        
-        [[NSNotificationCenter defaultCenter] addObserverForName:NOTI_CONFIG_UPDATE object:nil queue:nil usingBlock:^(NSNotification * _Nonnull note) {
-            self.needUpdate = YES;
-        }];
     }
     return self;
 }
@@ -35,31 +31,6 @@ DEF_SINGLETON(RecordManager)
 #pragma mark -获取首页展示的记录
 + (NSMutableArray <RecordModel *> *)homeRecords
 {
-    //旧版
-//    //首页默认显示数量
-//    NSInteger homeNum = 15;
-//    
-//    //如果有直接返回
-//    if ([self sharedInstance].homeRecords.count >= homeNum) {
-//        return [self sharedInstance].homeRecords;
-//    }
-//    
-//    //没有从数据库获取
-//    //先获取所有在跟的
-//    NSMutableArray <RecordModel *> *homeRecords = [DataManager queryFollowingRecords];
-//    
-//    //不足数量，新建空白记录补齐
-//    if (homeRecords.count < homeNum) {
-//        NSInteger addNum = homeNum - homeRecords.count; //缺的数量
-//        
-//        NSMutableArray <RecordModel *> *newRecords = [DataManager insertNewRecords:addNum];
-//    
-//        if (newRecords.count > 0) {
-//            [homeRecords addObjectsFromArray:newRecords];
-//        }
-//    }
-    
-    //新版
     if ([self sharedInstance].homeRecords.count > 0) {
         return [self sharedInstance].homeRecords;
     }
@@ -308,7 +279,14 @@ DEF_SINGLETON(RecordManager)
     
     LineModel *currentLine = record.lineList.lastObject;
     
-    currentLine.getMoney = isWin ? (currentLine.outMoney + profit) : 0;
+    if (isWin) {
+        BOOL isCasino = [ConfigManager getValue:ConfigTypeIsCasino]; //是否是外围模式
+        currentLine.getMoney = isCasino ? (currentLine.outMoney + profit) : profit;
+        
+    }else {
+        currentLine.getMoney = 0;
+    }
+    
     currentLine.isOver = YES;
     
     BOOL result = [DataManager updateLine:currentLine];

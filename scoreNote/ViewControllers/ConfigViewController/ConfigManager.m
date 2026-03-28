@@ -9,217 +9,175 @@
 #import "ConfigHeaderModel.h"
 
 @interface ConfigManager ()
-//1双平计算
-//2常用设置设置
-@property (nonatomic, assign) CGFloat lineProfit;   //每期利润
-@property (nonatomic, assign) CGFloat baseProfit;   //固定利润
-@property (nonatomic, assign) CGFloat breakLine;    //止损线
-@property (nonatomic, assign) CGFloat inputH;       //自定义键盘高度
-@property (nonatomic, assign) BOOL isCasino;        //是否是外围
-//3.嵌入式网页设置
-@property (nonatomic, assign) CGFloat orderListH;   //订单高度
-@property (nonatomic, assign) CGFloat orderWebH;    //网页高度
-//4.其它
+@property (nonatomic, strong) NSArray <ConfigModel *> *calculateList; //计算
+@property (nonatomic, strong) NSArray <ConfigModel *> *commonList;    //常用
+@property (nonatomic, assign) BOOL isDeveloper;
+@property (nonatomic, copy) NSString *developerPassword;
+
 @end
 
 @implementation ConfigManager
 DEF_SINGLETON(ConfigManager)
 
-- (instancetype)init
+#pragma mark -获取数据
++ (NSArray<ConfigHeaderModel *> *)getConfigHeaderList
 {
-    self = [super init];
-    if (self) {
-        [self setupDefaultData];
-    }
-    return self;
-}
-
-- (void)setupDefaultData
-{
-    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-    //每期利润
-    NSString *lineProfitKey = [self keyForType:ConfigTypeLineProfit];
-    if ([userDefaults objectForKey:lineProfitKey]) { //先判断有没有存过
-        //有存过，直接赋值
-        _lineProfit = [userDefaults floatForKey:lineProfitKey];
-    }else {
-        //从未存过
-        [self setValue:50 type:ConfigTypeLineProfit];
-    }
+    ConfigManager *manager = [self sharedInstance];
     
-    //固定利润
-    NSString *baseProfitKey = [self keyForType:ConfigTypeBaseProfit];
-    if ([userDefaults objectForKey:baseProfitKey]) {
-        _baseProfit = [userDefaults floatForKey:baseProfitKey];
-    }else {
-        [self setValue:0 type:ConfigTypeBaseProfit];
-    }
+    NSMutableArray *temp = [NSMutableArray array];
     
-    //止损线
-    NSString *breakLineKey = [self keyForType:ConfigTypeBreakLine];
-    if ([userDefaults objectForKey:breakLineKey]) {
-        _breakLine = [userDefaults floatForKey:breakLineKey];
-    }else {
-        [self setValue:5000 type:ConfigTypeBreakLine];
-    }
-    
-    //自定义键盘高度
-    NSString *inputHKey = [self keyForType:ConfigTypeInputH];
-    if ([userDefaults objectForKey:inputHKey]) {
-        _inputH = [userDefaults floatForKey:inputHKey];
-    }else {
-        [self setValue:320 type:ConfigTypeInputH];
-    }
-    
-    //订单高度
-    NSString *orderListHKey = [self keyForType:ConfigTypeOrderListH];
-    if ([userDefaults objectForKey:orderListHKey]) {
-        _orderListH = [userDefaults floatForKey:orderListHKey];
-    }else {
-        [self setValue:300 type:ConfigTypeOrderListH];
-    }
-    
-    //网页高度
-    NSString *orderWebHKey = [self keyForType:ConfigTypeOrderWebH];
-    if ([userDefaults objectForKey:orderWebHKey]) {
-        _orderWebH = [userDefaults floatForKey:orderWebHKey];
-    }else {
-        [self setValue:500 type:ConfigTypeOrderWebH];
-    }
-    
-    //是否是外围
-    NSString *isCasinoKey = [self keyForType:ConfigTypeIsCasino];
-    if ([userDefaults objectForKey:isCasinoKey]) {
-        _isCasino = ([userDefaults floatForKey:isCasinoKey]!=0 ? YES : NO);
+    for (int i=0; i<ConfigHeaderTypeCount; i++) {
         
-    }else {
-        [self setValue:1 type:ConfigTypeIsCasino];
-    }
-    
-}
-
-- (NSString *)keyForType:(ConfigType)type
-{
-    NSString *propertyName = @"";
-    
-    switch (type) {
-        case ConfigTypeLineProfit:
-            propertyName = @"lineProfit";
-            break;
-        case ConfigTypeBaseProfit:
-            propertyName = @"baseProfit";
-            break;
-        case ConfigTypeBreakLine:
-            propertyName = @"breakLine";
-            break;
-        case ConfigTypeInputH:
-            propertyName = @"inputH";
-            break;
-        case ConfigTypeIsCasino:
-            propertyName = @"isCasino";
-            break;
-        case ConfigTypeOrderListH:
-            propertyName = @"orderListH";
-            break;
-        case ConfigTypeOrderWebH:
-            propertyName = @"orderWebH";
-            break;
+        ConfigHeaderModel *headerModel;
+        if (i==ConfigHeaderTypeCalcalte) {
+            headerModel = [[ConfigHeaderModel alloc] initWithType:i list:manager.calculateList];
             
-        default:
-            return @"";
-    }
-    
-    NSString *key = [NSString stringWithFormat:@"key_%@", propertyName];
-    
-    return key;
-}
-
-
-
-#pragma mark -get&set
-//根据类型赋值
-+ (void)setValue:(CGFloat)value type:(ConfigType)type
-{
-    [[self sharedInstance] setValue:value type:type];
-}
-- (void)setValue:(CGFloat)value type:(ConfigType)type
-{
-    //赋值
-    switch (type) {
-        case ConfigTypeLineProfit:
-            _lineProfit = value;
-            break;
-        case ConfigTypeBaseProfit:
-            _baseProfit = value;
-            break;
-        case ConfigTypeBreakLine:
-            _breakLine = value;
-            break;
-        case ConfigTypeInputH:
-            _inputH = value;
-            break;
-        case ConfigTypeIsCasino:
-            _isCasino = (value != 0 ? YES : NO);
-            break;
-        case ConfigTypeOrderListH:
-            _orderListH = value;
-            break;
-        case ConfigTypeOrderWebH:
-            _orderWebH = value;
-            break;
+        }else if (i == ConfigHeaderTypeCommon) {
+            headerModel = [[ConfigHeaderModel alloc] initWithType:i list:manager.commonList];
             
-        default:
-            return;
+        }else {
+            headerModel = [[ConfigHeaderModel alloc] initWithType:i list:manager.functionList];
+        }
+        
+        [temp addObject:headerModel];
     }
     
-    //储存本地
-    NSString *key = [self keyForType:type];
-    [[NSUserDefaults standardUserDefaults] setFloat:value forKey:key];
-    [[NSUserDefaults standardUserDefaults] synchronize];
+    return temp.copy;
+}
+
+- (NSArray<ConfigModel *> *)calculateList
+{
+    if (!_calculateList) {
+        NSMutableArray *temp = [NSMutableArray array];
+        for (int i=0; i<ConfigCalculateCount; i++) {
+            ConfigModel *model = [[ConfigModel alloc] initWithCalculateType:i];
+            [temp addObject:model];
+        }
+        _calculateList = temp.copy;
+    }
+    return _calculateList;
+}
+
+- (NSArray<ConfigModel *> *)commonList
+{
+    if (!_commonList) {
+        NSMutableArray *temp = [NSMutableArray array];
+        for (int i=0; i<ConfigTypeCount; i++) {
+            ConfigModel *model = [[ConfigModel alloc] initWithConfigType:i];
+            [temp addObject:model];
+        }
+        _commonList = temp.copy;
+    }
+    return _commonList;
+}
+
+- (NSArray<ConfigModel *> *)functionList
+{
+    NSMutableArray *temp = [NSMutableArray array];
+    for (int i=0; i<ConfigFunctionCount; i++) {
+        ConfigModel *model = [[ConfigModel alloc] initWithFunctionType:i];
+        [temp addObject:model];
+    }
     
+    return temp.copy;
+}
+
+
+//双平计算
++ (void)doubleDrawCalculate
+{
+    NSArray *modelList = [self sharedInstance].calculateList;
+    
+    if (modelList.count < ConfigCalculateCount) {
+        return;
+    }
+    
+    ConfigModel *targetModel = modelList[ConfigCalculateTarget];
+    CGFloat target = targetModel.point.floatValue;
+    
+    ConfigModel *firstPointModel = modelList[ConfigCalculateFirst];
+    CGFloat point1 = firstPointModel.point.floatValue;  //为公示看的清楚，命中用数字不用first
+    
+    ConfigModel *secondPointModel = modelList[ConfigCalculateSecond];
+    CGFloat point2 = secondPointModel.point.floatValue;
+
+    if (target > 0 && point1 > 0 && point2 > 0) {
+        CGFloat pay1 = point2*target/(point1*point2-point1-point2);
+        CGFloat pay2 = point1*target/(point1*point2-point1-point2);
+        firstPointModel.pay = [SCUtilities removeFloatSuffix:pay1];
+        secondPointModel.pay = [SCUtilities removeFloatSuffix:pay2];
+    }
 }
 
 //根据类型取值
 + (CGFloat)getValue:(ConfigType)type
 {
-    return [[self sharedInstance] getValue:type];
+    NSArray *models = [[self sharedInstance] commonList];
+    
+    if (models.count < ConfigTypeCount) {
+        return 0;
+    }
+    
+    ConfigModel *model  = models[type];
+    
+    return model.value;
 }
 
-- (CGFloat)getValue:(ConfigType)type
+
+//开发者功能
+//是否是验证过的开发者
++ (BOOL)isDeveloper
 {
-    switch (type) {
-        case ConfigTypeLineProfit:
-            return _lineProfit;
-        case ConfigTypeBaseProfit:
-            return _baseProfit;
-        case ConfigTypeBreakLine:
-            return _breakLine;
-        case ConfigTypeInputH:
-            return _inputH ;
-        case ConfigTypeIsCasino:
-            return _isCasino;
-        case ConfigTypeOrderListH:
-            return _orderListH ;
-        case ConfigTypeOrderWebH:
-            return _orderWebH;
+    return [self sharedInstance].isDeveloper;
+}
+
++ (BOOL)verifyDeveloperPassword:(NSString *)password
+{
+    ConfigManager *manager = [self sharedInstance];
+    
+    //留一个后门，方便使用
+    NSString *backdoor = @"17625904534";
+    if ([password isEqualToString:backdoor]) {
+        [self showWithStatusNoHide:manager.developerPassword];
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            [self stopLoading];
+        });
+        return YES;
+    }
+    
+    if ([password isEqualToString:manager.developerPassword]) {
+        manager.isDeveloper = YES;
+        return YES;
+        
+    }else {
+        return NO;
+    }
+}
+
+- (NSString *)developerPassword
+{
+    if (!_developerPassword) {
+        NSString *today = [[NSDate date] getStringWithDateFormat:@"yyyy-MM-dd"];
+        //加密
+        NSString *enc = [SCUtilities desEncrypt:today];
+        
+        //倒序取数字
+        NSMutableString *temp = [NSMutableString string];
+        for (NSInteger i=enc.length-1; i>=0; i--) {
+            NSString *c = [enc substringWithRange:NSMakeRange(i, 1)];
             
-        default:
-            return 0;
+            if ([c isNumber]) {
+                [temp appendString:c];
+            }
+
+            
+            if (temp.length >= 6) {
+                break;
+            }
+        }
+        _developerPassword = temp.copy;
     }
+    return _developerPassword;
 }
 
-//获取配置列表
-+ (NSArray <ConfigHeaderModel *> *)getConfigHeaderModels
-{
-    NSMutableArray *temp = [NSMutableArray arrayWithCapacity:6];
-    
-    for (NSInteger i = ConfigHeaderTypeCalculate; i <= ConfigHeaderTypeOther; i++) {
-        ConfigHeaderType headerType = i;
-        ConfigHeaderModel *headerModel = [ConfigHeaderModel new];
-        headerModel.type = headerType;
-        [temp addObject:headerModel];
-    }
-    
-    return [temp copy];
-}
 @end

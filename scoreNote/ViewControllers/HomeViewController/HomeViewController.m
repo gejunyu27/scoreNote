@@ -155,8 +155,10 @@
 
 - (void)homeCellBuyWin:(RecordModel *)record
 {
+    BOOL isCasino = [ConfigManager getValue:ConfigTypeIsCasino]; //是否是外围模式
+    
     @weakify(self)
-    [NumberInputView showWithText:@"" title:@"利润" clickView:nil type:InputTypeNoSymbol block:^(NSString * _Nonnull outputText) {
+    [NumberInputView showWithText:@"" title:(isCasino?@"利润":@"收入") clickView:nil type:InputTypeNoSymbol block:^(NSString * _Nonnull outputText) {
         @strongify(self)
         if (outputText.length == 0) {
             return;
@@ -206,7 +208,13 @@
     
     self.webView.hidden = !_isWebMode;
     
-    self.tableView.height = _isWebMode ? self.webView.top + 110 : SCREEN_HEIGHT;
+    CGFloat webH = [ConfigManager getValue:ConfigTypeOrderWebH];
+    _webView.height = webH;
+    _webView.bottom = SCREEN_HEIGHT;
+    
+    CGFloat listH = [ConfigManager getValue:ConfigTypeOrderListH];
+    
+    self.tableView.height = _isWebMode ? listH : SCREEN_HEIGHT;
 }
 
 #pragma mark -UI
@@ -244,8 +252,7 @@
         WKWebViewConfiguration *config = [WKWebViewConfiguration new];
         config.websiteDataStore = [WKWebsiteDataStore defaultDataStore]; //使用默认的持久化数据储存（自动存Cooki、登录状态等）
         
-        CGFloat y = kHomeCellH*1.5;
-        _webView = [[WKWebView alloc] initWithFrame:CGRectMake(0, y, SCREEN_WIDTH, SCREEN_HEIGHT-y) configuration:config];
+        _webView = [[WKWebView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 0) configuration:config];
         _webView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleWidth;
         _webView.scrollView.bounces = NO; //取消回弹
         [self.view addSubview:_webView];

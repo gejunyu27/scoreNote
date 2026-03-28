@@ -19,6 +19,7 @@
 //db
 #define kDatabase [DataManager sharedInstance].db
 
+
 @interface DataManager ()
 @property (nonatomic, strong) FMDatabase *db;
 
@@ -159,40 +160,6 @@ DEF_SINGLETON(DataManager)
     return result;
 }
 
-#pragma mark -新增多条记录
-+ (NSMutableArray <RecordModel *> *)insertNewRecords:(NSInteger)num
-{
-    if (num <= 0) {
-        return nil;
-    }
-    
-    NSInteger failNum = 0;
-    for (NSInteger i=0; i<num; i++) {
-        NSString *sql = [NSString stringWithFormat:@"INSERT INTO %@ (profitPerLine,baseProfit,createTime,isOver,breakLine) VALUES (?,?,?,?)", t_record];
-        BOOL result =  [kDatabase executeUpdate:sql, @(LINE_PROFIT), @(BASE_PROFIT), [NSDate date], @0, @(BREAKLINE)];
-        if (!result) {
-            failNum++;
-        }
-    }
-    
-    
-    //返回刚刚新增的记录
-    NSString *backSql = [NSString stringWithFormat:@"SELECT * FROM %@ ORDER BY id DESC LIMIT 0,%li", t_record, num-failNum];
-    FMResultSet *rs = [kDatabase executeQuery:backSql];
-    
-    NSMutableArray <RecordModel *> *records = [self getRecordsFrom:rs];
-    
-    //因为是倒序取的数据，所以这里顺序要颠倒一下
-    NSMutableArray *temp = [NSMutableArray arrayWithCapacity:records.count];
-    [records enumerateObjectsWithOptions:NSEnumerationReverse usingBlock:^(RecordModel * _Nonnull model, NSUInteger idx, BOOL * _Nonnull stop) {
-        [temp addObject:model];
-    }];
-    
-    [self postRecordUpdateNoti];
-    
-    return temp;
-}
-
 #pragma mark -新增记录
 + (RecordModel *)insertNewRecord:(NSInteger)tagId
 {
@@ -200,8 +167,12 @@ DEF_SINGLETON(DataManager)
         return nil;
     }
     
-    NSString *sql = [NSString stringWithFormat:@"INSERT INTO %@ (profitPerLine,baseProfit,createTime,isOver,breakLine,tagId) VALUES (?,?,?,?,?)", t_record];
-    BOOL result =  [kDatabase executeUpdate:sql, @(LINE_PROFIT), @(BASE_PROFIT), [NSDate date], @0, @(BREAKLINE), @(tagId)];
+    CGFloat lineProfit = [ConfigManager getValue:ConfigTypeLineProfit];
+    CGFloat baseProfit = [ConfigManager getValue:ConfigTypeBaseProfit];
+    CGFloat breakLine  = [ConfigManager getValue:ConfigTypeBreakLine];
+    
+    NSString *sql = [NSString stringWithFormat:@"INSERT INTO %@ (profitPerLine,baseProfit,createTime,isOver,breakLine,tagId) VALUES (?,?,?,?,?,?)", t_record];
+    BOOL result =  [kDatabase executeUpdate:sql, @(lineProfit), @(baseProfit), [NSDate date], @0, @(breakLine), @(tagId)];
     if (!result) {
         return nil;
     }
