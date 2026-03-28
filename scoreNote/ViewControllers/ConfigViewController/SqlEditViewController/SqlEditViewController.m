@@ -23,6 +23,7 @@ typedef NS_ENUM(NSInteger, SqlRecordType) {
 @interface SqlEditViewController ()<UITableViewDelegate, UITableViewDataSource>
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) NSMutableArray <RecordModel *> *recordList;
+@property (nonatomic, strong) TagModel *searchTag;
 @end
 
 @implementation SqlEditViewController
@@ -32,31 +33,41 @@ typedef NS_ENUM(NSInteger, SqlRecordType) {
     
     self.title = @"修改数据库数据";
     
-    _recordList = [DataManager queryAllRecords];
-    
-    [self.tableView reloadData];
-    
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addAlick)];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemSearch target:self action:@selector(searchClick)];
     
     [self showWithStatus:@"该页面仅用于开发测试，建议先备份数据库"];
     
+    [self refreshUI];
+}
+
+- (void)refreshUI
+{
+    if (_searchTag) {
+        _recordList = [DataManager queryRecordsWithTagId:_searchTag.tagId];
+        
+    }else {
+        _recordList = [DataManager queryAllRecords];
+    }
+
+    [self.tableView reloadData];
 }
 
 #pragma mark -action
-- (void)addAlick
+- (void)searchClick
 {
-    [SCUtilities alertWithTitle:@"确定要新建一个记录吗？" message:nil textFieldBlock:nil sureBlock:^(NSString * _Nullable text) {
-        RecordModel *record = [DataManager insertNewRecord:0];
+    if (!_searchTag) {
+        [TagSelectView show:^(TagModel * _Nullable tag) {
+            self.searchTag = tag;
+            [self refreshUI];
+        }];
         
-        if (record) {
-            [self showWithStatus:@"新增成功"];
-            [self.recordList addObject:record];
-            [self.tableView reloadData];
-        }else {
-            [self showWithStatus:@"新增失败"];
-        }
-    }];
+    }else {
+        _searchTag = nil;
+        [self refreshUI];
+    }
+
 }
+
 
 #pragma mark -UITableViewDelegate, UITableViewDataSource
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView

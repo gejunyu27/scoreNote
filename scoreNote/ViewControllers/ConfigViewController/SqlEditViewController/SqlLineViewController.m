@@ -28,8 +28,7 @@ typedef NS_ENUM(NSInteger, SqlLineType) {
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addAlick)];
+
 }
 
 - (void)setRecord:(RecordModel *)record
@@ -39,22 +38,6 @@ typedef NS_ENUM(NSInteger, SqlLineType) {
     self.title = [NSString stringWithFormat:@"编号：%@", record.recordId];
     
     [self.tableView reloadData];
-}
-
-#pragma mark -action
-- (void)addAlick
-{
-    [SCUtilities alertWithTitle:@"确定要新建一列吗？" message:nil textFieldBlock:nil sureBlock:^(NSString * _Nullable text) {
-        LineModel *line = [DataManager insertNewLineWithRecord:self.record outMoney:0];
-        
-        if (line) {
-            [self showWithStatus:@"新增成功"];
-            [self.record.lineList addObject:line];
-            [self.tableView reloadData];
-        }else {
-            [self showWithStatus:@"新增失败"];
-        }
-    }];
 }
 
 #pragma mark -UITableViewDelegate, UITableViewDataSource
