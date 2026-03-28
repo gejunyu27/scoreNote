@@ -23,18 +23,6 @@
     [_valueButton setTitle:[SCUtilities removeFloatSuffix:[ConfigManager getValue:type]] forState:UIControlStateNormal];
     
     switch (type) {
-        case ConfigTypeLineWidth:
-            _nameLabel.text = @"格子宽度";
-            break;
-            
-        case ConfigTypeLineHeight:
-            _nameLabel.text = @"格子高度";
-            break;
-            
-        case ConfigTypeLineFont:
-            _nameLabel.text = @"字体大小";
-            break;
-            
         case ConfigTypeLineProfit:
             _nameLabel.text = @"默认每期利润";
             break;

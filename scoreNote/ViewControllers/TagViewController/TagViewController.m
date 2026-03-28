@@ -97,11 +97,6 @@
     return [TagManager pinyinList].count;
 }
 
-- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
-{
-    return 20;
-}
-
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
 {
     if (section < [TagManager pinyinList].count) {
@@ -242,6 +237,7 @@
         
         [_tableView registerClass:TagCell.class forCellReuseIdentifier:kTagCellId];
         _tableView.rowHeight = kTagCellH;
+        _tableView.sectionHeaderHeight = 20;
         [self.view addSubview:_tableView];
         
     }

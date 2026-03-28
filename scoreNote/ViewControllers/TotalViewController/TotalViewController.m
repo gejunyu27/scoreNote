@@ -98,19 +98,9 @@
     return self.viewModel.sectionList.count;
 }
 
-- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
-{
-    return kTotalHeaderH;
-}
-
-
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
-    TotalHeaderView *header = [tableView dequeueReusableHeaderFooterViewWithIdentifier:kTotalHeaderId];
-    
-    if (!header) {
-        header = [[TotalHeaderView alloc] initWithReuseIdentifier:kTotalHeaderId];
-    }
+    TotalHeaderView *header = [tableView dequeueReusableHeaderFooterViewWithIdentifier:kTotalHeaderId ];
     
     if (section < self.viewModel.sectionList.count) {
         TotalSectionModel *model = self.viewModel.sectionList[section];
@@ -272,7 +262,9 @@
         _tableView.tableHeaderView = self.topView;
         _tableView.backgroundColor = DEFAULT_BG_COLOR;
         [_tableView registerClass:TotalCell.class forCellReuseIdentifier:kTotalCellId];
+        [_tableView registerClass:TotalHeaderView.class forHeaderFooterViewReuseIdentifier:kTotalHeaderId];
         _tableView.rowHeight = kTotalCellH;
+        _tableView.sectionHeaderHeight = kTotalHeaderH;
         if (@available(iOS 15.0, *)) {
             _tableView.sectionHeaderTopPadding = 0;
         }

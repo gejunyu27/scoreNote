@@ -25,9 +25,6 @@
 #define SCREEN_SAFE_BOTTOM    (IS_BANGS_SCREEN ? 34.f : 0.f)   //[UIApplication sharedApplication].delegate.window.safeAreaInsets.bottom
 #define TAB_BAR_HEIGHT        (SCREEN_SAFE_BOTTOM + 49.f)
 
-//是否是x,12之类的大屏手机
-#define IS_LARGE_SCREEN       (SCREEN_HEIGHT > 667)
-
 #pragma mark - 常用
 //默认背景色
 #define DEFAULT_BG_COLOR    HEX_RGB(@"#F8F9FE")

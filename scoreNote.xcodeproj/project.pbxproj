@@ -40,6 +40,10 @@
 		4BD3A8672C628F3600BB146C /* ColumnAddViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4BD3A8662C628F3600BB146C /* ColumnAddViewController.xib */; };
 		4BD3A8682C628F3600BB146C /* ColumnAddViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BD3A8652C628F3600BB146C /* ColumnAddViewController.m */; };
 		4BDCFF2A2F7586D4006D2539 /* TagCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BDCFF292F7586D4006D2539 /* TagCell.m */; };
+		4BEE488B2F758F0E0040F02F /* TestViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BEE488A2F758F0E0040F02F /* TestViewController.m */; };
+		4BEE488E2F758FDD0040F02F /* TestCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BEE488D2F758FDD0040F02F /* TestCell.m */; };
+		4BEE48912F75902D0040F02F /* ConfigHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BEE48902F75902D0040F02F /* ConfigHeaderView.m */; };
+		4BEE48942F7590AE0040F02F /* ConfigHeaderModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BEE48932F7590AE0040F02F /* ConfigHeaderModel.m */; };
 		4D0806722AEAB6DC007BB9BF /* SCToolBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D0806712AEAB6DC007BB9BF /* SCToolBar.m */; };
 		4D368C662AED777500700B2C /* ConfigManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D368C652AED777500700B2C /* ConfigManager.m */; };
 		4D4FA1492AED696800D2C2AF /* ConfigCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D4FA1472AED696800D2C2AF /* ConfigCell.m */; };
@@ -158,6 +162,14 @@
 		4BD3A8662C628F3600BB146C /* ColumnAddViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ColumnAddViewController.xib; sourceTree = "<group>"; };
 		4BDCFF282F7586D4006D2539 /* TagCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TagCell.h; sourceTree = "<group>"; };
 		4BDCFF292F7586D4006D2539 /* TagCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TagCell.m; sourceTree = "<group>"; };
+		4BEE48892F758F0E0040F02F /* TestViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TestViewController.h; sourceTree = "<group>"; };
+		4BEE488A2F758F0E0040F02F /* TestViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TestViewController.m; sourceTree = "<group>"; };
+		4BEE488C2F758FDD0040F02F /* TestCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TestCell.h; sourceTree = "<group>"; };
+		4BEE488D2F758FDD0040F02F /* TestCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TestCell.m; sourceTree = "<group>"; };
+		4BEE488F2F75902D0040F02F /* ConfigHeaderView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ConfigHeaderView.h; sourceTree = "<group>"; };
+		4BEE48902F75902D0040F02F /* ConfigHeaderView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ConfigHeaderView.m; sourceTree = "<group>"; };
+		4BEE48922F7590AE0040F02F /* ConfigHeaderModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ConfigHeaderModel.h; sourceTree = "<group>"; };
+		4BEE48932F7590AE0040F02F /* ConfigHeaderModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ConfigHeaderModel.m; sourceTree = "<group>"; };
 		4D0806702AEAB6DC007BB9BF /* SCToolBar.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SCToolBar.h; sourceTree = "<group>"; };
 		4D0806712AEAB6DC007BB9BF /* SCToolBar.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SCToolBar.m; sourceTree = "<group>"; };
 		4D368C642AED777500700B2C /* ConfigManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ConfigManager.h; sourceTree = "<group>"; };
@@ -559,6 +571,14 @@
 		4DD39AE627AC03B100E529C4 /* ConfigViewController */ = {
 			isa = PBXGroup;
 			children = (
+				4BEE48892F758F0E0040F02F /* TestViewController.h */,
+				4BEE488A2F758F0E0040F02F /* TestViewController.m */,
+				4BEE488F2F75902D0040F02F /* ConfigHeaderView.h */,
+				4BEE48902F75902D0040F02F /* ConfigHeaderView.m */,
+				4BEE48922F7590AE0040F02F /* ConfigHeaderModel.h */,
+				4BEE48932F7590AE0040F02F /* ConfigHeaderModel.m */,
+				4BEE488C2F758FDD0040F02F /* TestCell.h */,
+				4BEE488D2F758FDD0040F02F /* TestCell.m */,
 				4D84F09827A3C2790094558F /* ConfigViewController.h */,
 				4D84F09927A3C2790094558F /* ConfigViewController.m */,
 				4D84F09A27A3C2790094558F /* ConfigViewController.xib */,
@@ -776,6 +796,7 @@
 				4B9C1BFC2C5F426200D4D77F /* CommonHeaderView.m in Sources */,
 				4D84F04027A3965E0094558F /* SCUtilities.m in Sources */,
 				4D84F05F27A396AF0094558F /* UIControl+SCExtension.m in Sources */,
+				4BEE48912F75902D0040F02F /* ConfigHeaderView.m in Sources */,
 				4DBBF52627A4F6F900EFCD8F /* RecordModel.m in Sources */,
 				4BDCFF2A2F7586D4006D2539 /* TagCell.m in Sources */,
 				4B7A333D2C4EC4DF00F91B34 /* TagDetailViewController.m in Sources */,
@@ -804,6 +825,7 @@
 				4B94AAFE2C62620000E33F5D /* ColumnModel.m in Sources */,
 				4D8E69AF2AF1431700458818 /* TotalViewController.m in Sources */,
 				4D84F07A27A3BD8A0094558F /* NSDictionary+log.m in Sources */,
+				4BEE488E2F758FDD0040F02F /* TestCell.m in Sources */,
 				4B529F6F2C4BB8F00044736F /* TagRankModel.m in Sources */,
 				4BCF8EA02F6F14D300229CCB /* TotalHeaderView.m in Sources */,
 				4D84F09227A3C0020094558F /* BaseNavigationController.m in Sources */,
@@ -811,11 +833,13 @@
 				4B7A33482C4ED7FE00F91B34 /* TagRankCell.m in Sources */,
 				4D6EFC162AEE3F7700A446FF /* TotalViewModel.m in Sources */,
 				4D84F09B27A3C2790094558F /* ConfigViewController.m in Sources */,
+				4BEE48942F7590AE0040F02F /* ConfigHeaderModel.m in Sources */,
 				4D84EFF527A38AC80094558F /* AppDelegate.m in Sources */,
 				4BADE9972C5E4376008D67EC /* CareerCell.m in Sources */,
 				4B9C1BF12C5F3C9200D4D77F /* LineModel.m in Sources */,
 				4D8E69C12AF15A8500458818 /* TagViewController.m in Sources */,
 				4B0B1F212C5F86330008C94C /* TagSelectView.m in Sources */,
+				4BEE488B2F758F0E0040F02F /* TestViewController.m in Sources */,
 				4B529F752C4BCF0B0044736F /* TagRankViewModel.m in Sources */,
 				4D8E69A22AEE894E00458818 /* RecordManager.m in Sources */,
 				4B9370F62BEA866200DCA1DF /* NumberInputView.m in Sources */,

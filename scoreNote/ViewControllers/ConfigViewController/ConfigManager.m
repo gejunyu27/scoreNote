@@ -6,254 +6,220 @@
 //
 
 #import "ConfigManager.h"
-
-#define kLineHeight  @"ConfigLineHeight"
-#define kLineWidth   @"ConfigLineWidth"
-#define kLineFontNum @"ConfigLineFontNum"
-#define kLineProfit  @"ConfigLineProfit"
-#define kInputH      @"ConfigInputH"
-#define kBreakLine   @"ConfigBreakLine"
+#import "ConfigHeaderModel.h"
 
 @interface ConfigManager ()
-@property (nonatomic, assign) CGFloat lineWidth;
-@property (nonatomic, assign) CGFloat lineHeight;
-@property (nonatomic, assign) CGFloat lineFontNum;
-@property (nonatomic, assign) CGFloat lineProfit;
-@property (nonatomic, assign) CGFloat inputH;
-@property (nonatomic, assign) CGFloat breakLine;
-
+//1双平计算
+//2常用设置设置
+@property (nonatomic, assign) CGFloat lineProfit;   //每期利润
+@property (nonatomic, assign) CGFloat baseProfit;   //固定利润
+@property (nonatomic, assign) CGFloat breakLine;    //止损线
+@property (nonatomic, assign) CGFloat inputH;       //自定义键盘高度
+@property (nonatomic, assign) BOOL isCasino;        //是否是外围
+//3.嵌入式网页设置
+@property (nonatomic, assign) CGFloat orderListH;   //订单高度
+@property (nonatomic, assign) CGFloat orderWebH;    //网页高度
+//4.其它
 @end
 
 @implementation ConfigManager
-@synthesize lineWidth   = _lineWidth;
-@synthesize lineHeight  = _lineHeight;
-@synthesize lineFontNum = _lineFontNum;
-@synthesize lineProfit  = _lineProfit;
-@synthesize inputH      = _inputH;
-@synthesize breakLine   = _breakLine;
-
 DEF_SINGLETON(ConfigManager)
 
-//根据类型赋值
-+ (void)setValue:(CGFloat)value type:(ConfigType)type
+- (instancetype)init
 {
-    ConfigManager *manager = [ConfigManager sharedInstance];
+    self = [super init];
+    if (self) {
+        [self setupDefaultData];
+    }
+    return self;
+}
+
+- (void)setupDefaultData
+{
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    //每期利润
+    NSString *lineProfitKey = [self keyForType:ConfigTypeLineProfit];
+    if ([userDefaults objectForKey:lineProfitKey]) { //先判断有没有存过
+        //有存过，直接赋值
+        _lineProfit = [userDefaults floatForKey:lineProfitKey];
+    }else {
+        //从未存过
+        [self setValue:50 type:ConfigTypeLineProfit];
+    }
+    
+    //固定利润
+    NSString *baseProfitKey = [self keyForType:ConfigTypeBaseProfit];
+    if ([userDefaults objectForKey:baseProfitKey]) {
+        _baseProfit = [userDefaults floatForKey:baseProfitKey];
+    }else {
+        [self setValue:0 type:ConfigTypeBaseProfit];
+    }
+    
+    //止损线
+    NSString *breakLineKey = [self keyForType:ConfigTypeBreakLine];
+    if ([userDefaults objectForKey:breakLineKey]) {
+        _breakLine = [userDefaults floatForKey:breakLineKey];
+    }else {
+        [self setValue:5000 type:ConfigTypeBreakLine];
+    }
+    
+    //自定义键盘高度
+    NSString *inputHKey = [self keyForType:ConfigTypeInputH];
+    if ([userDefaults objectForKey:inputHKey]) {
+        _inputH = [userDefaults floatForKey:inputHKey];
+    }else {
+        [self setValue:320 type:ConfigTypeInputH];
+    }
+    
+    //订单高度
+    NSString *orderListHKey = [self keyForType:ConfigTypeOrderListH];
+    if ([userDefaults objectForKey:orderListHKey]) {
+        _orderListH = [userDefaults floatForKey:orderListHKey];
+    }else {
+        [self setValue:300 type:ConfigTypeOrderListH];
+    }
+    
+    //网页高度
+    NSString *orderWebHKey = [self keyForType:ConfigTypeOrderWebH];
+    if ([userDefaults objectForKey:orderWebHKey]) {
+        _orderWebH = [userDefaults floatForKey:orderWebHKey];
+    }else {
+        [self setValue:500 type:ConfigTypeOrderWebH];
+    }
+    
+    //是否是外围
+    NSString *isCasinoKey = [self keyForType:ConfigTypeIsCasino];
+    if ([userDefaults objectForKey:isCasinoKey]) {
+        _isCasino = ([userDefaults floatForKey:isCasinoKey]!=0 ? YES : NO);
+        
+    }else {
+        [self setValue:1 type:ConfigTypeIsCasino];
+    }
+    
+}
+
+- (NSString *)keyForType:(ConfigType)type
+{
+    NSString *propertyName = @"";
+    
     switch (type) {
-        case ConfigTypeLineWidth:
-            manager.lineWidth = value;
-            break;
-            
-        case ConfigTypeLineHeight:
-            manager.lineHeight = value;
-            break;
-            
-        case ConfigTypeLineFont:
-            manager.lineFontNum = value;
-            break;
-            
         case ConfigTypeLineProfit:
-            manager.lineProfit = value;
+            propertyName = @"lineProfit";
             break;
-            
-        case ConfigTypeInputH:
-            manager.inputH = value;
+        case ConfigTypeBaseProfit:
+            propertyName = @"baseProfit";
             break;
-            
         case ConfigTypeBreakLine:
-            manager.breakLine = value;
+            propertyName = @"breakLine";
+            break;
+        case ConfigTypeInputH:
+            propertyName = @"inputH";
+            break;
+        case ConfigTypeIsCasino:
+            propertyName = @"isCasino";
+            break;
+        case ConfigTypeOrderListH:
+            propertyName = @"orderListH";
+            break;
+        case ConfigTypeOrderWebH:
+            propertyName = @"orderWebH";
             break;
             
         default:
-            break;
+            return @"";
     }
+    
+    NSString *key = [NSString stringWithFormat:@"key_%@", propertyName];
+    
+    return key;
+}
+
+
+
+#pragma mark -get&set
+//根据类型赋值
++ (void)setValue:(CGFloat)value type:(ConfigType)type
+{
+    [[self sharedInstance] setValue:value type:type];
+}
+- (void)setValue:(CGFloat)value type:(ConfigType)type
+{
+    //赋值
+    switch (type) {
+        case ConfigTypeLineProfit:
+            _lineProfit = value;
+            break;
+        case ConfigTypeBaseProfit:
+            _baseProfit = value;
+            break;
+        case ConfigTypeBreakLine:
+            _breakLine = value;
+            break;
+        case ConfigTypeInputH:
+            _inputH = value;
+            break;
+        case ConfigTypeIsCasino:
+            _isCasino = (value != 0 ? YES : NO);
+            break;
+        case ConfigTypeOrderListH:
+            _orderListH = value;
+            break;
+        case ConfigTypeOrderWebH:
+            _orderWebH = value;
+            break;
+            
+        default:
+            return;
+    }
+    
+    //储存本地
+    NSString *key = [self keyForType:type];
+    [[NSUserDefaults standardUserDefaults] setFloat:value forKey:key];
+    [[NSUserDefaults standardUserDefaults] synchronize];
     
 }
 
 //根据类型取值
 + (CGFloat)getValue:(ConfigType)type
 {
-    ConfigManager *manager = [ConfigManager sharedInstance];
+    return [[self sharedInstance] getValue:type];
+}
+
+- (CGFloat)getValue:(ConfigType)type
+{
     switch (type) {
-        case ConfigTypeLineWidth:
-            return manager.lineWidth;
-            
-        case ConfigTypeLineHeight:
-            return manager.lineHeight;
-            
-        case ConfigTypeLineFont:
-            return manager.lineFontNum;
-            
         case ConfigTypeLineProfit:
-            return manager.lineProfit;
-            
-        case ConfigTypeInputH:
-            return manager.inputH;
-            
+            return _lineProfit;
+        case ConfigTypeBaseProfit:
+            return _baseProfit;
         case ConfigTypeBreakLine:
-            return manager.breakLine;
+            return _breakLine;
+        case ConfigTypeInputH:
+            return _inputH ;
+        case ConfigTypeIsCasino:
+            return _isCasino;
+        case ConfigTypeOrderListH:
+            return _orderListH ;
+        case ConfigTypeOrderWebH:
+            return _orderWebH;
             
         default:
             return 0;
     }
 }
 
-
-- (CGFloat)lineWidth
+//获取配置列表
++ (NSArray <ConfigHeaderModel *> *)getConfigHeaderModels
 {
-    if (_lineWidth > 0) {
-        return _lineWidth;
+    NSMutableArray *temp = [NSMutableArray arrayWithCapacity:6];
+    
+    for (NSInteger i = ConfigHeaderTypeCalculate; i <= ConfigHeaderTypeOther; i++) {
+        ConfigHeaderType headerType = i;
+        ConfigHeaderModel *headerModel = [ConfigHeaderModel new];
+        headerModel.type = headerType;
+        [temp addObject:headerModel];
     }
     
-    _lineWidth = [[NSUserDefaults standardUserDefaults] floatForKey:kLineWidth];
-    
-    if (_lineWidth <= 0) {
-        self.lineWidth = 110;
-    }
-
-    return _lineWidth;
-    
+    return [temp copy];
 }
-
-- (void)setLineWidth:(CGFloat)lineWidth
-{
-    if (lineWidth == _lineWidth) {
-        return;
-    }
-    _lineWidth = lineWidth;
-    [[NSUserDefaults standardUserDefaults] setFloat:lineWidth forKey:kLineWidth];
-    [[NSUserDefaults standardUserDefaults] synchronize];
-}
-
-- (CGFloat)lineHeight
-{
-    if (_lineHeight > 0) {
-        return _lineHeight;
-    }
-    
-    _lineHeight = [[NSUserDefaults standardUserDefaults] floatForKey:kLineHeight];
-    
-    if (_lineHeight <= 0) {
-        self.lineHeight = 25;
-    }
-
-    return _lineHeight;
-    
-}
-
-- (void)setLineHeight:(CGFloat)lineHeight
-{
-    if (lineHeight == _lineHeight) {
-        return;
-    }
-    _lineHeight = lineHeight;
-    [[NSUserDefaults standardUserDefaults] setFloat:lineHeight forKey:kLineHeight];
-    [[NSUserDefaults standardUserDefaults] synchronize];
-}
-
-- (CGFloat)lineFontNum
-{
-    if (_lineFontNum > 0) {
-        return _lineFontNum;
-    }
-    
-    _lineFontNum = [[NSUserDefaults standardUserDefaults] floatForKey:kLineFontNum];
-    
-    if (_lineFontNum <= 0) {
-        self.lineFontNum = 13;
-    }
-
-    return _lineFontNum;
-    
-}
-
-- (void)setLineFontNum:(CGFloat)lineFontNum
-{
-    if (lineFontNum == _lineFontNum) {
-        return;
-    }
-    
-    _lineFontNum = lineFontNum;
-    [[NSUserDefaults standardUserDefaults] setFloat:lineFontNum forKey:kLineFontNum];
-    [[NSUserDefaults standardUserDefaults] synchronize];
-}
-
-- (CGFloat)lineProfit
-{
-    if (_lineProfit > 0) {
-        return _lineProfit;
-    }
-    
-    _lineProfit = [[NSUserDefaults standardUserDefaults] floatForKey:kLineProfit];
-    
-    if (_lineProfit <= 0) {
-        self.lineProfit = 50;
-    }
-    
-    return _lineProfit;
-}
-
-- (void)setLineProfit:(CGFloat)lineProfit
-{
-    if (lineProfit == _lineProfit) {
-        return;
-    }
-    
-    _lineProfit = lineProfit;
-    [[NSUserDefaults standardUserDefaults] setFloat:lineProfit forKey:kLineProfit];
-    [[NSUserDefaults standardUserDefaults] synchronize];
-}
-
-- (CGFloat)inputH
-{
-    if (_inputH > 0) {
-        return _inputH;
-    }
-    
-    _inputH = [[NSUserDefaults standardUserDefaults] floatForKey:kInputH];
-    
-    if (_inputH <= 0) {
-        self.inputH = IS_LARGE_SCREEN ? 300 : 250;
-    }
-    
-    return _inputH;
-}
-
-- (void)setInputH:(CGFloat)inputH
-{
-    if (inputH == _inputH) {
-        return;
-    }
-    
-    _inputH = inputH;
-    [[NSUserDefaults standardUserDefaults] setFloat:inputH forKey:kInputH];
-    [[NSUserDefaults standardUserDefaults] synchronize];
-    
-}
-
-- (CGFloat)breakLine
-{
-    if (_breakLine > 0) {
-        return _breakLine;
-    }
-    
-    _breakLine = [[NSUserDefaults standardUserDefaults] floatForKey:kBreakLine];
-    
-    if (_breakLine <= 0) {
-        self.breakLine = 5000;
-    }
-    
-    return _breakLine;
-}
-
-- (void)setBreakLine:(CGFloat)breakLine
-{
-    if (breakLine == _breakLine) {
-        return;
-    }
-    
-    _breakLine = breakLine;
-    [[NSUserDefaults standardUserDefaults] setFloat:breakLine forKey:kBreakLine];
-    [[NSUserDefaults standardUserDefaults] synchronize];
-}
-
 @end

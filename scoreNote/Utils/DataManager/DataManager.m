@@ -168,8 +168,8 @@ DEF_SINGLETON(DataManager)
     
     NSInteger failNum = 0;
     for (NSInteger i=0; i<num; i++) {
-        NSString *sql = [NSString stringWithFormat:@"INSERT INTO %@ (profitPerLine,createTime,isOver,breakLine) VALUES (?,?,?,?)", t_record];
-        BOOL result =  [kDatabase executeUpdate:sql, @(LINE_PROFIT), [NSDate date], @0, @(BREAKLINE)];
+        NSString *sql = [NSString stringWithFormat:@"INSERT INTO %@ (profitPerLine,baseProfit,createTime,isOver,breakLine) VALUES (?,?,?,?)", t_record];
+        BOOL result =  [kDatabase executeUpdate:sql, @(LINE_PROFIT), @(BASE_PROFIT), [NSDate date], @0, @(BREAKLINE)];
         if (!result) {
             failNum++;
         }
@@ -200,8 +200,8 @@ DEF_SINGLETON(DataManager)
         return nil;
     }
     
-    NSString *sql = [NSString stringWithFormat:@"INSERT INTO %@ (profitPerLine,createTime,isOver,breakLine,tagId) VALUES (?,?,?,?,?)", t_record];
-    BOOL result =  [kDatabase executeUpdate:sql, @(LINE_PROFIT), [NSDate date], @0, @(BREAKLINE), @(tagId)];
+    NSString *sql = [NSString stringWithFormat:@"INSERT INTO %@ (profitPerLine,baseProfit,createTime,isOver,breakLine,tagId) VALUES (?,?,?,?,?)", t_record];
+    BOOL result =  [kDatabase executeUpdate:sql, @(LINE_PROFIT), @(BASE_PROFIT), [NSDate date], @0, @(BREAKLINE), @(tagId)];
     if (!result) {
         return nil;
     }
