@@ -11,11 +11,12 @@
 #import "TagSelectView.h"
 #import "RecordDetailViewController.h"
 #import <WebKit/WebKit.h>
+#import "NetworkReachability.h"
 
 @interface HomeViewController () <UITableViewDelegate, UITableViewDataSource, HomeCellDelegate>
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, weak) NSMutableArray <RecordModel *> *records;
-@property (nonatomic, assign) BOOL isWebMode; //嵌套网页模式
+@property (nonatomic, assign) BOOL isWebMode; //是否是嵌入网页模式
 @property (nonatomic, strong) WKWebView *webView;
 
 @end
@@ -177,15 +178,6 @@
     }
 }
 
-//- (void)homeCellEditNote:(NSString *)note record:(RecordModel *)record
-//{
-//    BOOL result = [RecordManager editNote:note record:record];
-//    if (!result) {
-//        [self showWithStatus:@"修改失败"];
-//    }
-//}
-
-
 #pragma mark -action
 - (void)addClick
 {
@@ -198,17 +190,30 @@
 
 - (void)webClick //嵌套网页模式
 {
-    _isWebMode ^= 1;
+    if (_isWebMode) { //关闭网页
+        _isWebMode            = NO;
+        self.tableView.height = SCREEN_HEIGHT;
+        self.webView.hidden   = YES;
+        [NetworkReachability stopMontitorNetwork]; //停止监测
+        
+    }else { //打开网页
+        _isWebMode            = YES;
+        self.tableView.height = [ConfigManager getValue:ConfigTypeOrderListH];
+        self.webView.height   = [ConfigManager getValue:ConfigTypeOrderWebH];
+        self.webView.bottom   = SCREEN_HEIGHT;
+        self.webView.hidden   = NO;
+        
+        //判断有没有网
+        BOOL isNetworkOK = [NetworkReachability isReachable];
+        
+        if (!isNetworkOK) { //没网就开始监测，等用户点击使用网络
+            [NetworkReachability startMonitorNetwork:^{
+                [self.webView reload];
+            }];
+            
+        }
+    }
     
-    self.webView.hidden = !_isWebMode;
-    
-    CGFloat webH = [ConfigManager getValue:ConfigTypeOrderWebH];
-    _webView.height = webH;
-    _webView.bottom = SCREEN_HEIGHT;
-    
-    CGFloat listH = [ConfigManager getValue:ConfigTypeOrderListH];
-    
-    self.tableView.height = _isWebMode ? listH : SCREEN_HEIGHT;
 }
 
 #pragma mark -UI

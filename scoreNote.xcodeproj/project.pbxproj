@@ -75,6 +75,7 @@
 		4B0319822F79452C0041EFC7 /* ConfigCalculateCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B0318EA2F79452C0041EFC7 /* ConfigCalculateCell.m */; };
 		4B0319832F79452C0041EFC7 /* CareerModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B03191D2F79452C0041EFC7 /* CareerModel.m */; };
 		4B0319852F794C100041EFC7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4B0319842F794C100041EFC7 /* Assets.xcassets */; };
+		4B0319882F79804D0041EFC7 /* NetworkReachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B0319872F79804D0041EFC7 /* NetworkReachability.m */; };
 		F18E8098E2966C0FDCB2B440 /* Pods_scoreNote.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B9D0C68F7EED1D682F79A491 /* Pods_scoreNote.framework */; };
 /* End PBXBuildFile section */
 
@@ -215,6 +216,8 @@
 		4B0319432F79452C0041EFC7 /* TagSelectView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TagSelectView.h; sourceTree = "<group>"; };
 		4B0319442F79452C0041EFC7 /* TagSelectView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TagSelectView.m; sourceTree = "<group>"; };
 		4B0319842F794C100041EFC7 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		4B0319862F79804D0041EFC7 /* NetworkReachability.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NetworkReachability.h; sourceTree = "<group>"; };
+		4B0319872F79804D0041EFC7 /* NetworkReachability.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NetworkReachability.m; sourceTree = "<group>"; };
 		53CCB9C4E7042293F7A66D72 /* Pods-DEMO.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DEMO.debug.xcconfig"; path = "Target Support Files/Pods-DEMO/Pods-DEMO.debug.xcconfig"; sourceTree = "<group>"; };
 		9B574DC10A88E432F8AF7D1E /* Pods-DEMO.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DEMO.release.xcconfig"; path = "Target Support Files/Pods-DEMO/Pods-DEMO.release.xcconfig"; sourceTree = "<group>"; };
 		B9D0C68F7EED1D682F79A491 /* Pods_scoreNote.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_scoreNote.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -342,6 +345,8 @@
 				4B0318D82F79452C0041EFC7 /* SCPublicDefine.h */,
 				4B0318D92F79452C0041EFC7 /* SCUtilities.h */,
 				4B0318DA2F79452C0041EFC7 /* SCUtilities.m */,
+				4B0319862F79804D0041EFC7 /* NetworkReachability.h */,
+				4B0319872F79804D0041EFC7 /* NetworkReachability.m */,
 				4B0318BC2F79452C0041EFC7 /* Base */,
 				4B0318CF2F79452C0041EFC7 /* Category */,
 				4B0318D62F79452C0041EFC7 /* DataManager */,
@@ -733,6 +738,7 @@
 				4B03196E2F79452C0041EFC7 /* SqlLineViewController.m in Sources */,
 				4B03196F2F79452C0041EFC7 /* HomeCell.m in Sources */,
 				4B0319702F79452C0041EFC7 /* ConfigViewController.m in Sources */,
+				4B0319882F79804D0041EFC7 /* NetworkReachability.m in Sources */,
 				4B0319712F79452C0041EFC7 /* NSDictionary+SCExtension.m in Sources */,
 				4B0319722F79452C0041EFC7 /* BitCoinViewController.m in Sources */,
 				4B0319732F79452C0041EFC7 /* TotalHeaderView.m in Sources */,
