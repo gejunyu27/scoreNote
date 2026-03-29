@@ -275,11 +275,7 @@
         [_tableView registerClass:ConfigCalculateCell.class forCellReuseIdentifier:kCCCellId];
         [_tableView registerClass:ConfigCommonCell.class forCellReuseIdentifier:kConfigCellId];
         [_tableView registerClass:ConfigFunctionCell.class forCellReuseIdentifier:kCFCellId];
-        
-        if (@available(iOS 15.0, *)) {
-            _tableView.sectionHeaderTopPadding = 0;
-        }
-        
+        _tableView.sectionHeaderTopPadding = 0;
         [self.view addSubview:_tableView];
     }
     return _tableView;

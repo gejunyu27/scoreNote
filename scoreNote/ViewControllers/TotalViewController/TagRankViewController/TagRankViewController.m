@@ -81,9 +81,7 @@
         _tableView.showsVerticalScrollIndicator = YES;
         [_tableView registerClass:TagRankCell.class forCellReuseIdentifier:kTagRankCellId];
         _tableView.rowHeight = kTRCellH;
-        if (@available(iOS 15.0, *)) {
-            _tableView.sectionHeaderTopPadding = 0;
-        }
+        _tableView.sectionHeaderTopPadding = 0;
         [self.view addSubview:_tableView];
     }
     return _tableView;

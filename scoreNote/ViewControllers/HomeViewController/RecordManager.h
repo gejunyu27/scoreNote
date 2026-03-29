@@ -12,9 +12,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface RecordManager : NSObject
 
-AS_SINGLETON(RecordManager)
 //数据是否因外部情况产生变化 ui未能及时更新 例如接收到通知
-@property (nonatomic, assign) BOOL needUpdate;
++ (void)updateBlock:(baseBlock)updateBlock;
 
 //获取首页展示的记录
 + (NSMutableArray <RecordModel *> *)homeRecords;

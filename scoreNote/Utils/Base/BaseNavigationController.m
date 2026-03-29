@@ -28,14 +28,12 @@
         
         
     }else {
-        if (@available(iOS 15.0, *)) {
             UINavigationBarAppearance *ba = [UINavigationBarAppearance new];
             ba.backgroundEffect = [UIBlurEffect effectWithStyle:UIBlurEffectStyleRegular];
             ba.backgroundColor = [UIColor whiteColor];
             ba.titleTextAttributes = @{NSForegroundColorAttributeName: [UIColor blackColor]};
             self.navigationBar.scrollEdgeAppearance = ba;
             self.navigationBar.standardAppearance = ba;
-        }
         
             self.view.backgroundColor = [UIColor whiteColor];
             self.navigationBar.translucent = NO;

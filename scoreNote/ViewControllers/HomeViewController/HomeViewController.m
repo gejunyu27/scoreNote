@@ -31,17 +31,11 @@
 
     //刷新数据
     [self refreshUI];
-
-}
-
-- (void)viewWillAppear:(BOOL)animated
-{
-    [super viewWillAppear:animated];
     
-    if ([RecordManager sharedInstance].needUpdate) {
+    [RecordManager updateBlock:^{
         [self refreshUI];
-        [RecordManager sharedInstance].needUpdate = NO;
-    }
+    }];
+
 }
 
 - (void)refreshUI
@@ -237,9 +231,7 @@
         _tableView.rowHeight = kHomeCellH;
         [_tableView registerClass:HomeCell.class forCellReuseIdentifier:kHomeCellId];
         _tableView.backgroundColor = DEFAULT_BG_COLOR;
-        if (@available(iOS 15.0, *)) {
-            _tableView.sectionHeaderTopPadding = 0;
-        }
+        _tableView.sectionHeaderTopPadding = 0;
         
         [self.view addSubview:_tableView];
     }

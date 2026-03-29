@@ -1,38 +1,38 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Bucket
-   uuid = "3D5B16E6-3540-41C6-9F36-EDF409B2B7F7"
+   uuid = "800FB1D5-9F1D-4DFD-877B-06A5684B4FE7"
    type = "0"
    version = "2.0">
    <Breakpoints>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "301DE0F7-60DB-4EB7-B175-3C831E75EEA3"
+            uuid = "E880F520-8022-4FDD-960C-57A3793DCB62"
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "scoreNote/ViewControllers/TotalViewController/RecordDetailViewController.m"
+            filePath = "scoreNote/Supporting Files/SceneDelegate.m"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "44"
-            endingLineNumber = "44"
-            landmarkName = "-setModel:"
+            startingLineNumber = "32"
+            endingLineNumber = "32"
+            landmarkName = "-scene:openURLContexts:"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "D95F0F72-743B-42C9-9E63-A5C3682663FD"
-            shouldBeEnabled = "No"
+            uuid = "09DB6657-329B-4538-B383-A772023873FE"
+            shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "scoreNote/ViewControllers/TagViewController/TagViewController.m"
+            filePath = "scoreNote/Utils/SCUtilities.m"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "170"
-            endingLineNumber = "170"
-            landmarkName = "-tagCellEditName:model:"
+            startingLineNumber = "74"
+            endingLineNumber = "74"
+            landmarkName = "+currentTabBarController"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

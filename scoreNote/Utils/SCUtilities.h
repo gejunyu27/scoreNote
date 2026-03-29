@@ -20,6 +20,8 @@
 #undef   VALID_DATA
 #define  VALID_DATA(P)         [SCUtilities isValidData:P]
 
+typedef void(^baseBlock)(void);
+
 NS_ASSUME_NONNULL_BEGIN
 
 @interface SCUtilities : NSObject
@@ -53,6 +55,16 @@ NS_ASSUME_NONNULL_BEGIN
 
 //DES解密
 + (NSString *)desDecrypt:(NSString *)text;
+
+//引入UISecne之后的新方法
+//获取当前有效的 UIWindowScene（万能基础）
++ (UIWindowScene *)currentWindowScene;
+//获取 keyWindow（无警告）
++ (UIWindow *)keyWindow;
+//获取 rootViewController
++ (UIViewController *)rootViewController;
+//关闭键盘（无警告、不崩溃）
++ (void)endEditing;
 
 @end 
 

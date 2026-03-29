@@ -30,7 +30,7 @@
 
 + (void)showWithText:(NSString *)text title:(NSString *)title clickView:(UIView *)clickView type:(InputType)type block:(InputBlock)block
 {
-    [[UIApplication sharedApplication].delegate.window endEditing:YES];
+    [SCUtilities endEditing];
     
     UITabBarController *vc = [SCUtilities currentTabBarController];
     

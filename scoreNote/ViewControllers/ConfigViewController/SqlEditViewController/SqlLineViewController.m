@@ -331,21 +331,14 @@ typedef NS_ENUM(NSInteger, SqlLineType) {
 - (UITableView *)tableView
 {
     if (!_tableView) {
-        CGFloat h = SCREEN_HEIGHT - NAV_BAR_HEIGHT;
-        if (@available(iOS 15.0, *)) { //适配ios26
-            h = SCREEN_HEIGHT;
-        }
-        
+        CGFloat h = SCREEN_HEIGHT;
         _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, h)];
         _tableView.delegate = self;
         _tableView.dataSource = self;
         //        _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
         _tableView.showsVerticalScrollIndicator = YES;
         [_tableView registerClass:CommonHeaderView.class forHeaderFooterViewReuseIdentifier:kCommonHeaderView];
-        
-        if (@available(iOS 15.0, *)) {
-            _tableView.sectionHeaderTopPadding = 0;
-        }
+        _tableView.sectionHeaderTopPadding = 0;
         [self.view addSubview:_tableView];
     }
     return _tableView;

@@ -138,9 +138,7 @@
         _tableView.dataSource = self;
 //        _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
         _tableView.showsVerticalScrollIndicator = NO;
-        if (@available(iOS 15.0, *)) {
-            _tableView.sectionHeaderTopPadding = 0;
-        }
+        _tableView.sectionHeaderTopPadding = 0;
         _tableView.tableHeaderView = self.topView;
         [self.view addSubview:_tableView];
     }

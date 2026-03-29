@@ -1,7 +1,9 @@
 PODS:
-  - FMDB (2.7.5):
-    - FMDB/standard (= 2.7.5)
-  - FMDB/standard (2.7.5)
+  - FMDB (2.7.12):
+    - FMDB/standard (= 2.7.12)
+  - FMDB/Core (2.7.12)
+  - FMDB/standard (2.7.12):
+    - FMDB/Core
 
 DEPENDENCIES:
   - FMDB
@@ -11,7 +13,7 @@ SPEC REPOS:
     - FMDB
 
 SPEC CHECKSUMS:
-  FMDB: 2ce00b547f966261cd18927a3ddb07cb6f3db82a
+  FMDB: 728731dd336af3936ce00f91d9d8495f5718a0e6
 
 PODFILE CHECKSUM: ee77de6bbaca19929bec15bebd4a59dc38a1b8b6
 

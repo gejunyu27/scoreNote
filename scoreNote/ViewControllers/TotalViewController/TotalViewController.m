@@ -36,7 +36,7 @@
 
 - (void)viewWillAppear:(BOOL)animated
 {
-    if (self.viewModel.needUpdate) {
+    if (self.viewModel.needUpdate) { //因为订单变动频繁，所以不每次接收通知都更新数据，只在打开此页面时更新一次
         [self.viewModel update];
         [self refreshUI];
         self.viewModel.needUpdate = NO;
@@ -265,9 +265,7 @@
         [_tableView registerClass:TotalHeaderView.class forHeaderFooterViewReuseIdentifier:kTotalHeaderId];
         _tableView.rowHeight = kTotalCellH;
         _tableView.sectionHeaderHeight = kTotalHeaderH;
-        if (@available(iOS 15.0, *)) {
-            _tableView.sectionHeaderTopPadding = 0;
-        }
+        _tableView.sectionHeaderTopPadding = 0;
         
         [self.view addSubview:_tableView];
     }

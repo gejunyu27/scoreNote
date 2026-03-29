@@ -102,9 +102,7 @@
         _tableView.backgroundColor = DEFAULT_BG_COLOR;
         _tableView.rowHeight = kTDCellH;
         [_tableView registerClass:TagDetailCell.class forCellReuseIdentifier:kTDCellId];
-        if (@available(iOS 15.0, *)) {
-            _tableView.sectionHeaderTopPadding = 0;
-        }
+        _tableView.sectionHeaderTopPadding = 0;
 
         [self.view addSubview:_tableView];
     }

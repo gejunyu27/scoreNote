@@ -18,7 +18,7 @@
 @implementation TagSelectView
 + (void)show:(TagSelectBlock)selectBlock
 {
-    [[UIApplication sharedApplication].delegate.window endEditing:YES];
+    [SCUtilities endEditing];
     
     UITabBarController *vc = [SCUtilities currentTabBarController];
     
@@ -190,10 +190,7 @@
         //        _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
         _tableView.showsVerticalScrollIndicator = YES;
         _tableView.rowHeight = 60;
-        
-        if (@available(iOS 15.0, *)) {
-            _tableView.sectionHeaderTopPadding = 0;
-        }
+        _tableView.sectionHeaderTopPadding = 0;
         [self addSubview:_tableView];
     }
     return _tableView;

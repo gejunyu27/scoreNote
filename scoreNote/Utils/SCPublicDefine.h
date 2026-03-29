@@ -17,12 +17,12 @@
 //像素适配
 #define SCREEN_FIX(P)         ((float)floor((SCREEN_WIDTH * P) / 375.0))
 //状态栏 导航栏
-#define STATUS_BAR_HEIGHT     [UIApplication sharedApplication].delegate.window.windowScene.statusBarManager.statusBarFrame.size.height //如果隐藏状态栏，该取值会出错
+#define STATUS_BAR_HEIGHT     ((UIWindowScene *)[UIApplication sharedApplication].connectedScenes.anyObject).statusBarManager.statusBarFrame.size.height //如果隐藏状态栏，该取值会出错
 #define NAV_BAR_HEIGHT        (STATUS_BAR_HEIGHT + 44.f)
 
 //是否是刘海屏
 #define IS_BANGS_SCREEN       (STATUS_BAR_HEIGHT > 20)
-#define SCREEN_SAFE_BOTTOM    (IS_BANGS_SCREEN ? 34.f : 0.f)   //[UIApplication sharedApplication].delegate.window.safeAreaInsets.bottom
+#define SCREEN_SAFE_BOTTOM    (IS_BANGS_SCREEN ? 34.f : 0.f)   
 #define TAB_BAR_HEIGHT        (SCREEN_SAFE_BOTTOM + 49.f)
 
 #pragma mark - 常用

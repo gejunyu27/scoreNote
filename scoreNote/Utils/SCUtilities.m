@@ -69,9 +69,9 @@ DEF_SINGLETON(SCUtilities)
 //获取vc
 + (UITabBarController *)currentTabBarController
 {
-    UIViewController *vc = [UIApplication sharedApplication].delegate.window.rootViewController;
+    UIViewController *rootVC = [self rootViewController];
     
-    return [vc isKindOfClass:UITabBarController.class] ? (UITabBarController *)vc : nil;
+    return [rootVC isKindOfClass:UITabBarController.class] ? (UITabBarController *)rootVC : nil;
 }
 
 + (UINavigationController *)currentNavigationController
@@ -223,5 +223,39 @@ DEF_SINGLETON(SCUtilities)
     return data;
 }
 
+//引入UISecne之后的新方法
+//获取当前有效的 UIWindowScene（万能基础）
++ (UIWindowScene *)currentWindowScene
+{
+    for (UIScene *scene in [UIApplication sharedApplication].connectedScenes) {
+        if ([scene isKindOfClass:[UIWindowScene class]]) {
+            return (UIWindowScene *)scene;
+        }
+    }
+    return nil;
+}
+//获取 keyWindow（无警告）
++ (UIWindow *)keyWindow
+{
+    UIWindowScene *ws = [self currentWindowScene];
+    UIWindow *keyWindow = ws.windows.firstObject;
+    return keyWindow;
+}
+
+//获取rootViewController
++ (UIViewController *)rootViewController
+{
+    UIViewController *rootVC = [self currentWindowScene].windows.firstObject.rootViewController;
+    return rootVC;
+}
+
+//关闭键盘（无警告、不崩溃）
++ (void)endEditing
+{
+    UIWindowScene *ws = [self currentWindowScene];
+    for (UIWindow *window in ws.windows) {
+        [window endEditing:YES];
+    }
+}
 
 @end

@@ -1,4 +1,4 @@
-platform :ios, '14.0'
+platform :ios, '15.0'
 
 # Uncomment this line if you need Swift support:
 inhibit_all_warnings!

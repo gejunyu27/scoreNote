@@ -192,9 +192,12 @@ NS_ASSUME_NONNULL_BEGIN
     if (!_tagButton) {
         CGFloat w = 120;
         _tagButton = [[UIButton alloc] initWithFrame:CGRectMake(10, 5, w, w*0.5)];
-        [_tagButton setBackgroundImage:[UIImage imageNamed:@"TagIcon"] forState:UIControlStateNormal];
+//        [_tagButton setBackgroundImage:[UIImage imageNamed:@"TagIcon"] forState:UIControlStateNormal];
         _tagButton.titleLabel.font = SCFONT_BOLD_SIZED(16);
-        [_tagButton setTitleEdgeInsets:UIEdgeInsetsMake(7, 0, 0, 4)];
+        UIButtonConfiguration *config = _tagButton.configuration ?: [UIButtonConfiguration plainButtonConfiguration];
+        config.contentInsets = NSDirectionalEdgeInsetsMake(7, 0, 0, 4);
+        config.background.image = [UIImage imageNamed:@"TagIcon"];
+        _tagButton.configuration = config;
         [_tagButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
         [_tagButton addTarget:self action:@selector(tagSelectClicked:) forControlEvents:UIControlEventTouchUpInside];
         [self.bgView addSubview:_tagButton];

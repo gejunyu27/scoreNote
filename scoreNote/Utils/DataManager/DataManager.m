@@ -430,37 +430,45 @@ DEF_SINGLETON(DataManager)
 #pragma mark -导入数据库
 + (void)LeadDatabaseFrom:(NSURL *)URL
 {
-    NSString *localPath = [DataManager sqliteFilePath];
+    /**系统经常会给文件重命名为scoreNote.sqlite-1,scoreNote.sqlite-2,需要判断，否则大部分情况下无法使用**/
+    NSString *localPath = [DataManager sqliteFilePath]; //file:///var/mobile/Containers/Data/Application/3C67C015-43D9-4B77-A80D-E759595F4140/Documents/scoreNote.sqlite
+    NSString *file = localPath.lastPathComponent; //scoreNote.sqlite
+    NSArray *arr = [file componentsSeparatedByString:@"."];
+    NSString *fileName = arr.firstObject; //scoreNote
+    NSString *fileEx   = arr.lastObject;  //sqlite
     
-    BOOL hasLocal = [[NSFileManager defaultManager] fileExistsAtPath:localPath];
+    NSString *urlName = URL.lastPathComponent; //sqlite-1.sqlite
+    //1. 分享的文件名合法性判断  只要是以 scoreNote 开头、.sqlite 结尾，都认！
+    BOOL nameLegal = [urlName hasPrefix:fileName] && [urlName hasSuffix:fileEx];
     
-    BOOL needLead = !hasLocal || [URL.absoluteString.lastPathComponent isEqualToString:localPath.lastPathComponent];
-    
-    //不需要导入
-    if (!needLead) {
-        //移除文件
-        [self removeInboxFile:URL];
+    if (!nameLegal) { //不合法
+        [self removeInboxFile:URL]; //移除沙盒文件
         return;
     }
     
-    UIAlertController *ac = [UIAlertController alertControllerWithTitle:(hasLocal ? @"要替换本地数据库吗" : @"要导入数据库吗") message:nil preferredStyle:UIAlertControllerStyleAlert];
-
-    [ac addAction:[UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-        [self removeInboxFile:URL];
-    }]];
-    [ac addAction:[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+    //合法
+    NSFileManager *fm = [NSFileManager defaultManager];
+    BOOL hasLocal = [fm fileExistsAtPath:localPath];
+    NSString *title = hasLocal ? @"要替换本地数据库吗" : @"要导入数据库吗";
+    
+    //2.选择是否导入数据库
+    [SCUtilities alertWithTitle:title message:nil textFieldBlock:nil sureBlock:^(NSString * _Nullable text) {
+        //3.本地文件存在先删除
         if (hasLocal) {
             NSError *error;
-            BOOL result = [[NSFileManager defaultManager] removeItemAtPath:localPath error:&error];
+            BOOL result = [fm removeItemAtPath:localPath error:&error];
             if (!result || error) {
                 [self showWithStatus:@"本地文件清除失败"];
-                [self removeInboxFile:URL];
+                [self removeInboxFile:URL]; //移除沙盒文件
                 return;
             }
         }
         
+        // 4. ✅ 关键：从 Inbox 复制出来，不是移动！
+        // 重命名！系统给的 scoreNote-1.sqlite → 直接变成 scoreNote.sqlite
         NSError *error;
-        BOOL result = [[NSFileManager defaultManager] moveItemAtURL:URL toURL:[NSURL fileURLWithPath:localPath] error:&error];
+        BOOL result = [fm copyItemAtURL:URL toURL:[NSURL fileURLWithPath:localPath] error:&error];
+        [self removeInboxFile:URL]; //移除沙盒文件
         if (!result || error) {
             [self showWithStatus:@"导入失败"];
             
@@ -469,14 +477,8 @@ DEF_SINGLETON(DataManager)
             [DataManager clear];
             
         }
-        
-        [self removeInboxFile:URL];
 
-    }]];
-    
-    [[SCUtilities currentViewController] presentViewController:ac animated:YES completion:nil];
-
-    
+    }];
 }
 
 + (void)removeInboxFile:(NSURL *)URL

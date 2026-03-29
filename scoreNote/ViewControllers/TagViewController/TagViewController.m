@@ -27,18 +27,10 @@
     
     [self addKeyboardNotification];
     
+    [TagManager updateBlock:^{
+            [self.tableView reloadData];
+    }];
 }
-
-- (void)viewWillAppear:(BOOL)animated
-{
-    [super viewWillAppear:animated];
-    
-    if ([TagManager sharedInstance].needUpdate) {
-        [self.tableView reloadData];
-        [TagManager sharedInstance].needUpdate = NO;
-    }
-}
-
 
 #pragma mark -Action
 - (void)addClick
@@ -231,9 +223,7 @@
         _tableView.dataSource = self;
         _tableView.delegate = self;
         _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-        if (@available(iOS 15.0, *)) {
-            _tableView.sectionHeaderTopPadding = 0;
-        }
+        _tableView.sectionHeaderTopPadding = 0;
         
         [_tableView registerClass:TagCell.class forCellReuseIdentifier:kTagCellId];
         _tableView.rowHeight = kTagCellH;

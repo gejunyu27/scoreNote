@@ -10,6 +10,7 @@
 
 @interface RecordManager ()
 @property (nonatomic, strong) NSMutableArray <RecordModel *> *homeRecords;
+@property (nonatomic, copy) baseBlock updateBlock;
 @end
 
 @implementation RecordManager
@@ -22,10 +23,17 @@ DEF_SINGLETON(RecordManager)
         //接收通知
         [[NSNotificationCenter defaultCenter] addObserverForName:NOTI_SQLITE_UPDATE object:nil queue:nil usingBlock:^(NSNotification * _Nonnull note) {
             self.homeRecords = nil;
-            self.needUpdate = YES;
+            if (self.updateBlock) {
+                self.updateBlock();
+            }
         }];
     }
     return self;
+}
+
++ (void)updateBlock:(baseBlock)updateBlock
+{
+    [self sharedInstance].updateBlock = updateBlock;
 }
 
 #pragma mark -获取首页展示的记录

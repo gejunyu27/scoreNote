@@ -14,7 +14,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 AS_SINGLETON(TagManager)
 //数据是否因外部情况产生变化 ui未能及时更新 例如接收到通知
-@property (nonatomic, assign) BOOL needUpdate;
++ (void)updateBlock:(baseBlock)updateBlock;
 
 //获取拼音列表
 + (NSMutableArray <TagPinyinModel *> *)pinyinList;

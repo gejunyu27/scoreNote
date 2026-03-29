@@ -9,6 +9,7 @@
 
 @interface TagManager ()
 @property (nonatomic, copy) NSMutableArray <TagPinyinModel *> *pinyinList;
+@property (nonatomic, copy) baseBlock updateBlock;
 @end
 
 @implementation TagManager
@@ -20,10 +21,17 @@ DEF_SINGLETON(TagManager)
     if (self) {
         [[NSNotificationCenter defaultCenter] addObserverForName:NOTI_SQLITE_UPDATE object:nil queue:nil usingBlock:^(NSNotification * _Nonnull note) {
             self.pinyinList = nil;
-            self.needUpdate = YES;
+            if (self.updateBlock) {
+                self.updateBlock();
+            }
         }];
     }
     return self;
+}
+
++ (void)updateBlock:(baseBlock)updateBlock
+{
+    [self sharedInstance].updateBlock = updateBlock;
 }
 
 + (NSMutableArray<TagPinyinModel *> *)pinyinList
@@ -335,7 +343,9 @@ DEF_SINGLETON(TagManager)
     if (currentTag && currentTag.maxCount < maxCount) { //新的更大 比如原本最大期20期， 本次投注 30期才中
         BOOL result = [self editMaxCount:maxCount tag:currentTag];
         if (result) {
-            [self sharedInstance].needUpdate = YES;
+            if ([self sharedInstance].updateBlock) {
+                [self sharedInstance].updateBlock();
+            }
         }
     }
     

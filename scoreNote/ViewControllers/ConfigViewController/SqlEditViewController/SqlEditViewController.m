@@ -308,10 +308,7 @@ typedef NS_ENUM(NSInteger, SqlRecordType) {
 - (UITableView *)tableView
 {
     if (!_tableView) {
-        CGFloat h = SCREEN_HEIGHT - NAV_BAR_HEIGHT;
-        if (@available(iOS 15.0, *)) { //适配ios26
-            h = SCREEN_HEIGHT;
-        }
+        CGFloat h = SCREEN_HEIGHT;
         
         _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, h)];
         _tableView.delegate = self;
@@ -319,11 +316,7 @@ typedef NS_ENUM(NSInteger, SqlRecordType) {
         //        _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
         _tableView.showsVerticalScrollIndicator = YES;
         [_tableView registerClass:CommonHeaderView.class forHeaderFooterViewReuseIdentifier:kCommonHeaderView];
-        //        [_tableView registerNib:[UINib nibWithNibName:kCareerCell bundle:nil] forCellReuseIdentifier:kCareerCell];
-        
-        if (@available(iOS 15.0, *)) {
-            _tableView.sectionHeaderTopPadding = 0;
-        }
+        _tableView.sectionHeaderTopPadding = 0;
         [self.view addSubview:_tableView];
     }
     return _tableView;

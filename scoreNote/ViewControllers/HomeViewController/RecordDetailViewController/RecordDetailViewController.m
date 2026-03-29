@@ -255,9 +255,7 @@ NS_ASSUME_NONNULL_BEGIN
         [_tableView registerClass:RecordDetailCell.class forCellReuseIdentifier:kRDCellId];
         _tableView.backgroundColor = DEFAULT_BG_COLOR;
         _tableView.tableHeaderView = self.topView;
-        if (@available(iOS 15.0, *)) {
-            _tableView.sectionHeaderTopPadding = 0;
-        }
+        _tableView.sectionHeaderTopPadding = 0;
         
         [self.view addSubview:_tableView];
     }

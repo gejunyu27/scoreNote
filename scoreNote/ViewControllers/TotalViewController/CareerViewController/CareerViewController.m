@@ -86,10 +86,7 @@
         _tableView.showsVerticalScrollIndicator = YES;
         _tableView.rowHeight = 50;
         [_tableView registerNib:[UINib nibWithNibName:kCareerCell bundle:nil] forCellReuseIdentifier:kCareerCell];
-
-        if (@available(iOS 15.0, *)) {
-            _tableView.sectionHeaderTopPadding = 0;
-        }
+        _tableView.sectionHeaderTopPadding = 0;
         [self.view addSubview:_tableView];
     }
     return _tableView;
