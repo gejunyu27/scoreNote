@@ -29,8 +29,12 @@
 {
     _record = record;
     
-    self.profitLabel.text = [NSString stringWithFormat:@"%@",[SCUtilities removeFloatSuffix:record.allProfit]];
-    self.profitLabel.textColor = record.allProfit > 0 ? [UIColor redColor] : [UIColor blackColor];
+    
+    BOOL isWin = record.allProfit > 0;
+    
+    //🤣😘😙😎😭😀😁😄👍👎😃😩⭐️ 💣🎉
+    self.profitLabel.text = [NSString stringWithFormat:@"%@ %@", (isWin ? @"👍" : @"💣"), [SCUtilities removeFloatSuffix:record.allProfit]];
+    self.profitLabel.textColor = isWin > 0 ? [UIColor redColor] : [UIColor blackColor];
     
     NSString *tagName = record.overTagName.length > 0 ? record.overTagName : record.tagModel.name;
     tagName = tagName.length > 0 ? tagName : @"无";
@@ -45,7 +49,7 @@
 - (UILabel *)profitLabel
 {
     if (!_profitLabel) {
-        _profitLabel = [[UILabel alloc] initWithFrame:CGRectMake(kMargin, 0, 120, kTotalCellH)];
+        _profitLabel = [[UILabel alloc] initWithFrame:CGRectMake(kMargin, 0, 150, kTotalCellH)];
         _profitLabel.font = SCFONT_SIZED(24);
         [self.contentView addSubview:_profitLabel];
     }
