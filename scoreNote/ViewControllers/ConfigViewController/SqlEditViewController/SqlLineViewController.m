@@ -6,7 +6,7 @@
 //
 
 #import "SqlLineViewController.h"
-#import "CommonHeaderView.h"
+#import "SqlHeaderView.h"
 #import "SqlEditUtil.h"
 
 typedef NS_ENUM(NSInteger, SqlLineType) {
@@ -46,14 +46,9 @@ typedef NS_ENUM(NSInteger, SqlLineType) {
     return _record.lineList.count;
 }
 
-- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
-{
-    return kCommonHeaderH;
-}
-
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
-    CommonHeaderView *header = [tableView dequeueReusableHeaderFooterViewWithIdentifier:kCommonHeaderView];
+    SqlHeaderView *header = [tableView dequeueReusableHeaderFooterViewWithIdentifier:kSqlHeaderId];
     
     if (section < _record.lineList.count) {
         LineModel *line = _record.lineList[section];
@@ -337,7 +332,8 @@ typedef NS_ENUM(NSInteger, SqlLineType) {
         _tableView.dataSource = self;
         //        _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
         _tableView.showsVerticalScrollIndicator = YES;
-        [_tableView registerClass:CommonHeaderView.class forHeaderFooterViewReuseIdentifier:kCommonHeaderView];
+        [_tableView registerClass:SqlHeaderView.class forHeaderFooterViewReuseIdentifier:kSqlHeaderId];
+        _tableView.sectionHeaderHeight = kSqlHeaderH;
         _tableView.sectionHeaderTopPadding = 0;
         [self.view addSubview:_tableView];
     }

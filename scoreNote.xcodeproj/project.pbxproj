@@ -17,7 +17,7 @@
 		4B0319482F79452C0041EFC7 /* SCToolBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B0319422F79452C0041EFC7 /* SCToolBar.m */; };
 		4B0319492F79452C0041EFC7 /* ConfigCommonCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B0318EC2F79452C0041EFC7 /* ConfigCommonCell.m */; };
 		4B03194A2F79452C0041EFC7 /* RecordDetailCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B0318F92F79452C0041EFC7 /* RecordDetailCell.m */; };
-		4B03194B2F79452C0041EFC7 /* CommonHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B0319402F79452C0041EFC7 /* CommonHeaderView.m */; };
+		4B03194B2F79452C0041EFC7 /* SqlHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B0319402F79452C0041EFC7 /* SqlHeaderView.m */; };
 		4B03194C2F79452C0041EFC7 /* TagRankViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B03192A2F79452C0041EFC7 /* TagRankViewModel.m */; };
 		4B03194D2F79452C0041EFC7 /* DataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B0318D52F79452C0041EFC7 /* DataManager.m */; };
 		4B03194E2F79452C0041EFC7 /* NSDictionary+log.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B0318C02F79452C0041EFC7 /* NSDictionary+log.m */; };
@@ -208,8 +208,8 @@
 		4B03193B2F79452C0041EFC7 /* InputButton.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = InputButton.m; sourceTree = "<group>"; };
 		4B03193C2F79452C0041EFC7 /* NumberInputView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NumberInputView.h; sourceTree = "<group>"; };
 		4B03193D2F79452C0041EFC7 /* NumberInputView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NumberInputView.m; sourceTree = "<group>"; };
-		4B03193F2F79452C0041EFC7 /* CommonHeaderView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CommonHeaderView.h; sourceTree = "<group>"; };
-		4B0319402F79452C0041EFC7 /* CommonHeaderView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CommonHeaderView.m; sourceTree = "<group>"; };
+		4B03193F2F79452C0041EFC7 /* SqlHeaderView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SqlHeaderView.h; sourceTree = "<group>"; };
+		4B0319402F79452C0041EFC7 /* SqlHeaderView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SqlHeaderView.m; sourceTree = "<group>"; };
 		4B0319412F79452C0041EFC7 /* SCToolBar.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SCToolBar.h; sourceTree = "<group>"; };
 		4B0319422F79452C0041EFC7 /* SCToolBar.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SCToolBar.m; sourceTree = "<group>"; };
 		4B0319432F79452C0041EFC7 /* TagSelectView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TagSelectView.h; sourceTree = "<group>"; };
@@ -366,6 +366,8 @@
 				4B0318E32F79452C0041EFC7 /* SqlEditViewController.m */,
 				4B0318E42F79452C0041EFC7 /* SqlLineViewController.h */,
 				4B0318E52F79452C0041EFC7 /* SqlLineViewController.m */,
+				4B03193F2F79452C0041EFC7 /* SqlHeaderView.h */,
+				4B0319402F79452C0041EFC7 /* SqlHeaderView.m */,
 				4B0318E02F79452C0041EFC7 /* SqlEditUtil.h */,
 				4B0318E12F79452C0041EFC7 /* SqlEditUtil.m */,
 			);
@@ -543,8 +545,6 @@
 				4B0319442F79452C0041EFC7 /* TagSelectView.m */,
 				4B0319412F79452C0041EFC7 /* SCToolBar.h */,
 				4B0319422F79452C0041EFC7 /* SCToolBar.m */,
-				4B03193F2F79452C0041EFC7 /* CommonHeaderView.h */,
-				4B0319402F79452C0041EFC7 /* CommonHeaderView.m */,
 				4B03193E2F79452C0041EFC7 /* NumberInputView */,
 			);
 			path = Views;
@@ -695,7 +695,7 @@
 				4B0319482F79452C0041EFC7 /* SCToolBar.m in Sources */,
 				4B0319492F79452C0041EFC7 /* ConfigCommonCell.m in Sources */,
 				4B03194A2F79452C0041EFC7 /* RecordDetailCell.m in Sources */,
-				4B03194B2F79452C0041EFC7 /* CommonHeaderView.m in Sources */,
+				4B03194B2F79452C0041EFC7 /* SqlHeaderView.m in Sources */,
 				4B03194C2F79452C0041EFC7 /* TagRankViewModel.m in Sources */,
 				4B03194D2F79452C0041EFC7 /* DataManager.m in Sources */,
 				4B03194E2F79452C0041EFC7 /* NSDictionary+log.m in Sources */,

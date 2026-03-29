@@ -1,23 +1,21 @@
 //
-//  CommonHeaderView.m
+//  SqlHeaderView.m
 //  scoreNote
 //
 //  Created by Zhuanz密码0000 on 2024/8/4.
 //
 
-#import "CommonHeaderView.h"
-#import "TotalSectionModel.h"
+#import "SqlHeaderView.h"
 
 #define kBGColor HEX_RGB(@"#EFEFF2")
 
-@interface  CommonHeaderView()
+@interface  SqlHeaderView()
 @property (nonatomic, strong) UILabel *titleLabel;
 @property (nonatomic, strong) UILabel *tipLabel;
-@property (nonatomic, strong) UILabel *detailLabel;
 @property (nonatomic, strong) UIControl *control;
 @end
 
-@implementation CommonHeaderView
+@implementation SqlHeaderView
 
 - (instancetype)initWithReuseIdentifier:(NSString *)reuseIdentifier
 {
@@ -37,15 +35,6 @@
 
 
 #pragma mark -data
-- (void)setTotalSection:(TotalSectionModel *)model
-{
-    self.titleLabel.text = [NSString stringWithFormat:@"%@ %@    共%li单", (model.isOn ? @"▼" : @"▶︎"),model.name, model.recordList.count]; ;
-
-    self.detailLabel.text =[NSString stringWithFormat:@"总计：%@", [SCUtilities removeFloatSuffix:model.allProfit]];
-    
-    self.contentView.backgroundColor = model.isOn ? [UIColor clearColor] : kBGColor;
-}
-
 - (void)setSqlRecord:(RecordModel *)record section:(NSInteger)section
 {
     NSString *title = [NSString stringWithFormat:@"%li.编号：%@", section+1, record.recordId];
@@ -68,7 +57,7 @@
 - (UILabel *)titleLabel
 {
     if (!_titleLabel) {
-        _titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(15, 0, 200, kCommonHeaderH)];
+        _titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(15, 0, 200, kSqlHeaderH)];
         [self.contentView addSubview:_titleLabel];
     }
     return _titleLabel;
@@ -78,28 +67,16 @@
 {
     if (!_tipLabel) {
         CGFloat x = self.titleLabel.right;
-        _tipLabel = [[UILabel alloc] initWithFrame:CGRectMake(x, 0, SCREEN_WIDTH-x, kCommonHeaderH)];
+        _tipLabel = [[UILabel alloc] initWithFrame:CGRectMake(x, 0, SCREEN_WIDTH-x, kSqlHeaderH)];
         [self.contentView addSubview:_tipLabel];
     }
     return _tipLabel;
 }
 
-- (UILabel *)detailLabel
-{
-    if (!_detailLabel) {
-        CGFloat w = 105;
-        _detailLabel = [[UILabel alloc] initWithFrame:CGRectMake(SCREEN_WIDTH-w-10, 0, w, kCommonHeaderH)];
-        _detailLabel.font = SCFONT_SIZED(12);
-        _detailLabel.textColor = [UIColor grayColor];
-        [self.contentView addSubview:_detailLabel];
-    }
-    return _detailLabel;
-}
-
 - (UIControl *)control
 {
     if (!_control) {
-        _control = [[UIControl alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, kCommonHeaderH)];
+        _control = [[UIControl alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, kSqlHeaderH)];
         [self.contentView addSubview:_control];
     }
     return _control;
