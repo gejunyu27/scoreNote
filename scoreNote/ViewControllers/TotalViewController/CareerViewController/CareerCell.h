@@ -10,6 +10,9 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+#define kCareerCellH  50
+#define kCareerCellId @"kCareerCellId"
+
 @interface CareerCell : UITableViewCell
 - (void)setData:(CareerModel *)model row:(NSInteger)row;
 

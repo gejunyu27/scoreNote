@@ -13,7 +13,6 @@
 		4B0318B22F7944FF0041EFC7 /* SceneDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B0318AB2F7944FF0041EFC7 /* SceneDelegate.m */; };
 		4B0318B62F79451E0041EFC7 /* welcome@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4B0318B32F79451E0041EFC7 /* welcome@2x.png */; };
 		4B0318B72F79451E0041EFC7 /* welcome@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4B0318B42F79451E0041EFC7 /* welcome@3x.png */; };
-		4B0319462F79452C0041EFC7 /* CareerCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4B03191B2F79452C0041EFC7 /* CareerCell.xib */; };
 		4B0319472F79452C0041EFC7 /* ColumnAddViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4B0318DE2F79452C0041EFC7 /* ColumnAddViewController.xib */; };
 		4B0319482F79452C0041EFC7 /* SCToolBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B0319422F79452C0041EFC7 /* SCToolBar.m */; };
 		4B0319492F79452C0041EFC7 /* ConfigCommonCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B0318EC2F79452C0041EFC7 /* ConfigCommonCell.m */; };
@@ -179,7 +178,6 @@
 		4B0319172F79452C0041EFC7 /* TagViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TagViewController.m; sourceTree = "<group>"; };
 		4B0319192F79452C0041EFC7 /* CareerCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CareerCell.h; sourceTree = "<group>"; };
 		4B03191A2F79452C0041EFC7 /* CareerCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CareerCell.m; sourceTree = "<group>"; };
-		4B03191B2F79452C0041EFC7 /* CareerCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CareerCell.xib; sourceTree = "<group>"; };
 		4B03191C2F79452C0041EFC7 /* CareerModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CareerModel.h; sourceTree = "<group>"; };
 		4B03191D2F79452C0041EFC7 /* CareerModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CareerModel.m; sourceTree = "<group>"; };
 		4B03191E2F79452C0041EFC7 /* CareerViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CareerViewController.h; sourceTree = "<group>"; };
@@ -472,7 +470,6 @@
 				4B03191F2F79452C0041EFC7 /* CareerViewController.m */,
 				4B0319192F79452C0041EFC7 /* CareerCell.h */,
 				4B03191A2F79452C0041EFC7 /* CareerCell.m */,
-				4B03191B2F79452C0041EFC7 /* CareerCell.xib */,
 				4B03191C2F79452C0041EFC7 /* CareerModel.h */,
 				4B03191D2F79452C0041EFC7 /* CareerModel.m */,
 				4B0319202F79452C0041EFC7 /* CareerViewModel.h */,
@@ -634,7 +631,6 @@
 			files = (
 				4B0318B62F79451E0041EFC7 /* welcome@2x.png in Resources */,
 				4B0318B72F79451E0041EFC7 /* welcome@3x.png in Resources */,
-				4B0319462F79452C0041EFC7 /* CareerCell.xib in Resources */,
 				4B0319472F79452C0041EFC7 /* ColumnAddViewController.xib in Resources */,
 				4B0319852F794C100041EFC7 /* Assets.xcassets in Resources */,
 				4B0318AF2F7944FF0041EFC7 /* LaunchScreen.storyboard in Resources */,

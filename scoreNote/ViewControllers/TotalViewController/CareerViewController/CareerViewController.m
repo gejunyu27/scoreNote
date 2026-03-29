@@ -10,8 +10,6 @@
 #import "CareerCell.h"
 #import "RecordDetailViewController.h"
 
-#define kCareerCell @"CareerCell"
-
 @interface CareerViewController () <UITableViewDelegate, UITableViewDataSource>
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) CareerViewModel *viewModel;
@@ -42,7 +40,7 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    CareerCell *cell = [tableView dequeueReusableCellWithIdentifier:kCareerCell];
+    CareerCell *cell = [tableView dequeueReusableCellWithIdentifier:kCareerCellId forIndexPath:indexPath];
     
     NSInteger row = indexPath.row;
     NSArray *datas = self.viewModel.careerList;
@@ -84,8 +82,8 @@
         _tableView.dataSource = self;
 //        _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
         _tableView.showsVerticalScrollIndicator = YES;
-        _tableView.rowHeight = 50;
-        [_tableView registerNib:[UINib nibWithNibName:kCareerCell bundle:nil] forCellReuseIdentifier:kCareerCell];
+        _tableView.rowHeight = kCareerCellH;
+        [_tableView registerClass:CareerCell.class forCellReuseIdentifier:kCareerCellId];
         _tableView.sectionHeaderTopPadding = 0;
         [self.view addSubview:_tableView];
     }
