@@ -137,10 +137,10 @@ NS_ASSUME_NONNULL_BEGIN
             self.value = 300;
             break;
         case ConfigTypeOrderListH:
-            self.value = 300;
+            self.value = 390;
             break;
         case ConfigTypeOrderWebH:
-            self.value = 500;
+            self.value = 600;
             break;
         case ConfigTypeIsCasino:
             self.value = 1;
