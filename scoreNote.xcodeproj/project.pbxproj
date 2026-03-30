@@ -76,6 +76,7 @@
 		4B0319832F79452C0041EFC7 /* CareerModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B03191D2F79452C0041EFC7 /* CareerModel.m */; };
 		4B0319852F794C100041EFC7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4B0319842F794C100041EFC7 /* Assets.xcassets */; };
 		4B0319882F79804D0041EFC7 /* NetworkReachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B0319872F79804D0041EFC7 /* NetworkReachability.m */; };
+		4B3DE96C2F7AA9200046D9B3 /* ConfigHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B3DE96B2F7AA9200046D9B3 /* ConfigHeaderView.m */; };
 		F18E8098E2966C0FDCB2B440 /* Pods_scoreNote.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B9D0C68F7EED1D682F79A491 /* Pods_scoreNote.framework */; };
 /* End PBXBuildFile section */
 
@@ -218,6 +219,8 @@
 		4B0319842F794C100041EFC7 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		4B0319862F79804D0041EFC7 /* NetworkReachability.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NetworkReachability.h; sourceTree = "<group>"; };
 		4B0319872F79804D0041EFC7 /* NetworkReachability.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NetworkReachability.m; sourceTree = "<group>"; };
+		4B3DE96A2F7AA9200046D9B3 /* ConfigHeaderView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ConfigHeaderView.h; sourceTree = "<group>"; };
+		4B3DE96B2F7AA9200046D9B3 /* ConfigHeaderView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ConfigHeaderView.m; sourceTree = "<group>"; };
 		53CCB9C4E7042293F7A66D72 /* Pods-DEMO.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DEMO.debug.xcconfig"; path = "Target Support Files/Pods-DEMO/Pods-DEMO.debug.xcconfig"; sourceTree = "<group>"; };
 		9B574DC10A88E432F8AF7D1E /* Pods-DEMO.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DEMO.release.xcconfig"; path = "Target Support Files/Pods-DEMO/Pods-DEMO.release.xcconfig"; sourceTree = "<group>"; };
 		B9D0C68F7EED1D682F79A491 /* Pods_scoreNote.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_scoreNote.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -384,6 +387,8 @@
 			children = (
 				4B0318F52F79452C0041EFC7 /* ConfigViewController.h */,
 				4B0318F62F79452C0041EFC7 /* ConfigViewController.m */,
+				4B3DE96A2F7AA9200046D9B3 /* ConfigHeaderView.h */,
+				4B3DE96B2F7AA9200046D9B3 /* ConfigHeaderView.m */,
 				4B0318E92F79452C0041EFC7 /* ConfigCalculateCell.h */,
 				4B0318EA2F79452C0041EFC7 /* ConfigCalculateCell.m */,
 				4B0318EB2F79452C0041EFC7 /* ConfigCommonCell.h */,
@@ -748,6 +753,7 @@
 				4B0319772F79452C0041EFC7 /* TotalCell.m in Sources */,
 				4B0319782F79452C0041EFC7 /* NSError+SCExtension.m in Sources */,
 				4B0319792F79452C0041EFC7 /* TagModel.m in Sources */,
+				4B3DE96C2F7AA9200046D9B3 /* ConfigHeaderView.m in Sources */,
 				4B03197A2F79452C0041EFC7 /* ColumnModel.m in Sources */,
 				4B03197B2F79452C0041EFC7 /* LineModel.m in Sources */,
 				4B03197C2F79452C0041EFC7 /* ConfigFunctionCell.m in Sources */,

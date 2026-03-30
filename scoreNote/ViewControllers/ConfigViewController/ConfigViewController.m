@@ -13,6 +13,7 @@
 #import "BitCoinViewController.h"
 #import "SqlEditViewController.h"
 #import "ColumnAddViewController.h"
+#import "ConfigHeaderView.h"
 
 @interface ConfigViewController () <UITableViewDelegate, UITableViewDataSource, ConfigCalculateDelegate, ConfigCommonDelegate, ConfigFunctionDelegate>
 @property (nonatomic, strong) UITableView *tableView;
@@ -34,24 +35,16 @@
     return _headerList.count;
 }
 
-- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
-    if (section == ConfigHeaderTypeCalcalte) {
-        return 30;
-        
-    }else {
-        return 50;
-    }
-}
-
-- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
-{
+    ConfigHeaderView *header = [tableView dequeueReusableHeaderFooterViewWithIdentifier:kConfigHeaderId];
+    
     if (section < _headerList.count) {
         ConfigHeaderModel *model = _headerList[section];
-        return model.title;
+        header.title = model.title;
     }
     
-    return @"";
+    return header;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -266,15 +259,17 @@
             h = SCREEN_HEIGHT; //这里不减，视觉效果最好
         }
         
-        _tableView = [[UITableView alloc] initWithFrame: CGRectMake(0, 0, SCREEN_WIDTH, h)];
+        _tableView = [[UITableView alloc] initWithFrame: CGRectMake(0, 0, SCREEN_WIDTH, h) style:UITableViewStyleInsetGrouped];
         _tableView.showsVerticalScrollIndicator = NO;
         _tableView.showsHorizontalScrollIndicator = NO;
         _tableView.dataSource = self;
         _tableView.delegate = self;
-        _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+//        _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
         [_tableView registerClass:ConfigCalculateCell.class forCellReuseIdentifier:kCCCellId];
         [_tableView registerClass:ConfigCommonCell.class forCellReuseIdentifier:kConfigCellId];
         [_tableView registerClass:ConfigFunctionCell.class forCellReuseIdentifier:kCFCellId];
+        [_tableView registerClass:ConfigHeaderView.class forHeaderFooterViewReuseIdentifier:kConfigHeaderId];
+        _tableView.sectionHeaderHeight = kConfigHeaderH;
         _tableView.sectionHeaderTopPadding = 0;
         [self.view addSubview:_tableView];
     }

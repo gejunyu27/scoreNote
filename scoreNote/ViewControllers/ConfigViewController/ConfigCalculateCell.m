@@ -60,7 +60,7 @@
 - (UILabel *)titleLabel
 {
     if (!_titleLabel) {
-        _titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(kMargin, 0, 80, kCCCellH)];
+        _titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(kMargin, 0, 60, kCCCellH)];
         _titleLabel.font = kLabelFont;
         [self.contentView addSubview:_titleLabel];
     }
@@ -70,7 +70,7 @@
 - (UIButton *)inputButton
 {
     if (!_inputButton) {
-        CGFloat y = 5;
+        CGFloat y = 10;
         _inputButton = [[UIButton alloc] initWithFrame:CGRectMake(self.titleLabel.right, y, 100, kCCCellH-y*2)];
         _inputButton.layer.cornerRadius = 4;
         _inputButton.layer.borderWidth = 1;
@@ -97,7 +97,7 @@
 {
     if (!_payLabel) {
         CGFloat x = self.resultLabel.right + 10;
-        CGFloat w = self.width-x-kMargin;
+        CGFloat w = self.contentView.width-x-kMargin;
         _payLabel = [[UILabel alloc] initWithFrame:CGRectMake(x, 0, w, kCCCellH)];
         _payLabel.font = kLabelFont;
         [self.contentView addSubview:_payLabel];

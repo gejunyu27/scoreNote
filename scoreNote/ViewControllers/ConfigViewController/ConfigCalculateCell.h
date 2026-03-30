@@ -10,7 +10,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-#define kCCCellH   40
+#define kCCCellH   50
 #define kCCCellId  @"kCCCellId"
 
 @protocol ConfigCalculateDelegate <NSObject>
