@@ -76,7 +76,7 @@ NS_ASSUME_NONNULL_BEGIN
     _profitLabel.attributedText = att;
     
     //支出收入
-    _detailLabel.text = [NSString stringWithFormat:@"共%li期，投入%li单%@元，收入%@元", _record.realNum, _record.lineList.count, [SCUtilities removeFloatSuffix:allOut], [SCUtilities removeFloatSuffix:allGet]];
+    _detailLabel.text = [NSString stringWithFormat:@"%li期，%li单，投%@元，收%@元", _record.realNum, _record.lineList.count, [SCUtilities removeFloatSuffix:allOut], [SCUtilities removeFloatSuffix:allGet]];
     
     //笔记
     _noteField.text = _record.note;
@@ -276,12 +276,12 @@ NS_ASSUME_NONNULL_BEGIN
         [_topView addSubview:bgView];
         
         //利润
-        _profitLabel = [[UILabel alloc] initWithFrame:CGRectMake(margin, 5, 120, 30)];
+        _profitLabel = [[UILabel alloc] initWithFrame:CGRectMake(margin, 5, 135, 30)];
         _profitLabel.font = SCFONT_SIZED(17);
         [bgView addSubview:_profitLabel];
         
         //详情
-        CGFloat detailX = _profitLabel.right+2;
+        CGFloat detailX = _profitLabel.right;
         _detailLabel = [[UILabel alloc] initWithFrame:CGRectMake(detailX, _profitLabel.top, bgView.width-detailX-margin, _profitLabel.height)];
         _detailLabel.font = SCFONT_SIZED(10);
         _detailLabel.textAlignment = NSTextAlignmentRight;
