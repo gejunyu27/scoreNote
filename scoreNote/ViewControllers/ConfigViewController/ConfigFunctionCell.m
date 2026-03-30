@@ -64,11 +64,12 @@
 }
 
 #pragma mark -ui
+#define kMargin 40
 - (UIButton *)leftButton
 {
     if (!_leftButton) {
         _leftButton = [UIButton buttonWithType:UIButtonTypeSystem];
-        _leftButton.frame = CGRectMake(10, 0, 100, kCFCellH);
+        _leftButton.frame = CGRectMake(kMargin, 0, 100, kCFCellH);
         [_leftButton addTarget:self action:@selector(leftClicked:) forControlEvents:UIControlEventTouchUpInside];
         [self.contentView addSubview:_leftButton];
     }
@@ -80,7 +81,7 @@
     if (!_rightButton) {
         _rightButton = [UIButton buttonWithType:UIButtonTypeSystem];
         CGFloat w = self.leftButton.width;
-        _rightButton.frame = CGRectMake(SCREEN_WIDTH-40-w, 0, w, kCFCellH);
+        _rightButton.frame = CGRectMake(SCREEN_WIDTH-kMargin-w, 0, w, kCFCellH);
         [_rightButton addTarget:self action:@selector(rightClicked:) forControlEvents:UIControlEventTouchUpInside];
         [self.contentView addSubview:_rightButton];
     }

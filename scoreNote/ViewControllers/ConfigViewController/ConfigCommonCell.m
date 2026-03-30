@@ -10,7 +10,7 @@
 @interface ConfigCommonCell ()
 @property (nonatomic, strong) UILabel *titleLabel;
 @property (nonatomic, strong) UIButton *inputButton;
-@property (nonatomic, strong) UIButton *resetButton;
+@property (nonatomic, strong) UIButton *restButton;
 @property (nonatomic, strong) UIButton *casinoButton;
 @end
 
@@ -21,7 +21,7 @@
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
         self.selectionStyle = UITableViewCellSelectionStyleNone;
-        [self resetButton];
+        [self restButton];
     }
     return self;
 }
@@ -35,14 +35,14 @@
     
     if (model.configType == ConfigTypeIsCasino) {
         self.inputButton.hidden = YES;
-        self.resetButton.hidden = YES;
+        self.restButton.hidden = YES;
         self.casinoButton.hidden = NO;
         
         [self.casinoButton setImage:(model.value?[UIImage imageNamed:@"SwtichOn"]:[UIImage imageNamed:@"SwtichOff"]) forState:UIControlStateNormal];
         
     }else {
         self.inputButton.hidden = NO;
-        self.resetButton.hidden = NO;
+        self.restButton.hidden = NO;
         self.casinoButton.hidden = YES;
         
         [self.inputButton setTitle:[SCUtilities removeFloatSuffix:model.value] forState:UIControlStateNormal];
@@ -85,24 +85,24 @@
     return _titleLabel;
 }
 
-- (UIButton *)resetButton
+- (UIButton *)restButton
 {
-    if (!_resetButton) {
+    if (!_restButton) {
         CGFloat wh = 25;
-        _resetButton = [[UIButton alloc] initWithFrame:CGRectMake(SCREEN_WIDTH-50-wh, (kConfigCellH-wh)/2, wh, wh)];
-        [_resetButton setImage:[UIImage imageNamed:@"Reset"] forState:UIControlStateNormal];
-        [_resetButton addTarget:self action:@selector(resetClicked:) forControlEvents:UIControlEventTouchUpInside];
-        [self.contentView addSubview:_resetButton];
+        _restButton = [[UIButton alloc] initWithFrame:CGRectMake(SCREEN_WIDTH-30-wh, (kConfigCellH-wh)/2, wh, wh)];
+        [_restButton setImage:[UIImage imageNamed:@"Reset"] forState:UIControlStateNormal];
+        [_restButton addTarget:self action:@selector(resetClicked:) forControlEvents:UIControlEventTouchUpInside];
+        [self.contentView addSubview:_restButton];
     }
-    return _resetButton;
+    return _restButton;
 }
 
 - (UIButton *)inputButton
 {
     if (!_inputButton) {
         CGFloat y = 15;
-        CGFloat x = self.titleLabel.right+10;
-        _inputButton = [[UIButton alloc] initWithFrame:CGRectMake(x, y, self.resetButton.left-x-25, kConfigCellH-y*2)];
+        CGFloat x = self.titleLabel.right+15;
+        _inputButton = [[UIButton alloc] initWithFrame:CGRectMake(x, y, self.restButton.left-x-25, kConfigCellH-y*2)];
         _inputButton.layer.cornerRadius = 4;
         _inputButton.layer.borderWidth = 1;
         _inputButton.titleLabel.font = kLabelFont;
@@ -117,7 +117,7 @@
 {
     if (!_casinoButton) {
         CGFloat wh = 55;
-        _casinoButton = [[UIButton alloc] initWithFrame:CGRectMake(self.resetButton.right-wh, (kConfigCellH-wh)/2, wh, wh)];
+        _casinoButton = [[UIButton alloc] initWithFrame:CGRectMake(self.restButton.right-wh, (kConfigCellH-wh)/2, wh, wh)];
         [_casinoButton addTarget:self action:@selector(switchClicked:) forControlEvents:UIControlEventTouchUpInside];
         [self.contentView addSubview:_casinoButton];
     }
