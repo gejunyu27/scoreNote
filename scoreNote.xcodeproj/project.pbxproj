@@ -790,6 +790,7 @@
 				GCC_PREFIX_HEADER = "$(SRCROOT)/scoreNote/Utils/CommonPrefix.pch";
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "/Users/Zhuanz/Documents/scoreNote/scoreNote/Supporting Files/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = "得分笔记";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
@@ -826,6 +827,7 @@
 				GCC_PREFIX_HEADER = "$(SRCROOT)/scoreNote/Utils/CommonPrefix.pch";
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "/Users/Zhuanz/Documents/scoreNote/scoreNote/Supporting Files/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = "得分笔记";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
