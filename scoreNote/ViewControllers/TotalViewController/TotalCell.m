@@ -32,8 +32,8 @@
     
     BOOL isWin = record.allProfit > 0;
     
-    //🤣😘😙😎😭😀😁😄👍👎😃😩⭐️ 💣🎉
-    self.profitLabel.text = [NSString stringWithFormat:@"%@ %@", (isWin ? @"👍" : @"💣"), [SCUtilities removeFloatSuffix:record.allProfit]];
+    //🌹🌻🔥💥🎁
+    self.profitLabel.text = [NSString stringWithFormat:@"%@  %@", (isWin ? @"🎁" : @"💣"), [SCUtilities removeFloatSuffix:record.allProfit]];
     self.profitLabel.textColor = isWin > 0 ? [UIColor redColor] : [UIColor blackColor];
     
     NSString *tagName = record.overTagName.length > 0 ? record.overTagName : record.tagModel.name;
