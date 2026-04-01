@@ -51,7 +51,7 @@
 //列表操作
 - (void)addLine:(LineModel *)line
 {
-    if (line && line.class == LineModel.class) {
+    if (line) {
         [self.mutableList addObject:line];
     }
     
@@ -84,8 +84,8 @@
     //总收入
     _allGet = 0;
     for (LineModel *line in self.mutableList) {
-        _allGet += line.getMoney;
         _allOut += line.outMoney;
+        _allGet += line.getMoney;
     }
     
     //总利润

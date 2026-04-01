@@ -8,6 +8,7 @@
 #import "TotalViewModel.h"
 
 #define kLocalSectionHide @"kLocalSectionHide"
+#define kDateFormat       @"yyyy年MM月"
 
 @implementation TotalViewModel
 - (instancetype)init
@@ -33,74 +34,54 @@
     [self clearData];
     
     //1.先添加未结束的记录
-    NSMutableArray <RecordModel *> *followingRecords = [DataManager queryFollowingRecords];
+    
     TotalSectionModel *followSectionModel = [TotalSectionModel new];
     followSectionModel.isFollowing = YES;
     followSectionModel.name = @"进行中";
-    //移除空白的
-    for (RecordModel *record in followingRecords) {
-        if (record.lineList.count > 0) {
-            [followSectionModel.recordList addObject:record];
-            followSectionModel.allProfit += record.allProfit;
-            followSectionModel.allGet += record.allGet;
-            followSectionModel.allOut += record.allOut;
-            
-            NSTimeInterval rt = [record.startTime timeIntervalSince1970];
-            NSTimeInterval srt = [_startRecord.startTime timeIntervalSince1970];
-            if (!_startRecord || rt < srt) {
-                _startRecord = record;
-            }
-        }
-    }
     [_sectionList addObject:followSectionModel];
     
+    NSMutableArray <RecordModel *> *followingRecords = [DataManager queryFollowingRecords];
+    for (RecordModel *record in followingRecords) {
+        if (record.lineList.count > 0) {
+            [followSectionModel addRecord:record];
+            [self getStartRecord:record]; //获取起始单
+            
+        }
+    }
+
+    //计算总利润
     _totalProfit += followSectionModel.allProfit;
     
-    if (followSectionModel.recordList.count > 0) {
-//        firstModel = followSectionModel.recordList.firstObject;
-//        startDate = firstModel.startTime;
-        
-        _allRecordsNum += followSectionModel.recordList.count;
-    }
+    //计算总单数
+    _allRecordsNum += followSectionModel.recordList.count;
     
-    //3.获取根据时间倒序的已完成记录
+    //2.获取根据时间倒序的已完成记录
     NSMutableArray <RecordModel *> *finishRecords = [DataManager queryFinishRecords];
 
-    _allRecordsNum += finishRecords.count;
-    
-//    if (finishRecords.count > 0) {
-//        firstModel = finishRecords.lastObject;
-//        startDate = firstModel.endTime;
-//    }
-    
+    _allRecordsNum += finishRecords.count; //总单数补充上
+
     //遍历
     for (RecordModel *record in finishRecords) {
-        NSTimeInterval rt = [record.startTime timeIntervalSince1970];
-        NSTimeInterval srt = [_startRecord.startTime timeIntervalSince1970];
-        if (!_startRecord || rt < srt) {
-            _startRecord = record;
-        }
+        [self getStartRecord:record]; //起始单
         
         //获取年份
-        NSString *endTime = [record.endTime getStringWithDateFormat:@"yyyy年MM月"];
+        NSString *endTime = [record.endTime getStringWithDateFormat:kDateFormat];
         
         TotalSectionModel *sModel;
-        for (TotalSectionModel *model in _sectionList) {
+        for (TotalSectionModel *model in _sectionList) { //已有月份直接取
             if ([model.name isEqualToString:endTime]) {
                 sModel = model;
                 break;;
             }
         }
         
-        if (!sModel) {
+        if (!sModel) { //没有就新建
             sModel = [TotalSectionModel new];
             sModel.name = endTime;
             [_sectionList addObject:sModel];
         }
-        [sModel.recordList addObject:record];
-        sModel.allProfit += record.allProfit;
-        sModel.allGet += record.allGet;
-        sModel.allOut += record.allOut;
+        
+        [sModel addRecord:record];
         _totalProfit += record.allProfit;
         
     }
@@ -129,7 +110,7 @@
     _perMonthProfit = _totalProfit/totalMonths;
     
     //起投日期
-    _startDateString = [startDate getStringWithDateFormat:@"yyyy年MM月"];
+    _startDateString = [startDate getStringWithDateFormat:kDateFormat];
     
     //投注时长
     NSInteger year = totalMonths/12;
@@ -144,6 +125,15 @@
     }
     
     _periodString = temp.copy;
+}
+
+- (void)getStartRecord:(RecordModel *)record
+{
+    NSTimeInterval rt = [record.startTime timeIntervalSince1970];
+    NSTimeInterval srt = [_startRecord.startTime timeIntervalSince1970];
+    if (!_startRecord || rt < srt) {
+        _startRecord = record;
+    }
 }
 
 - (void)clearData
