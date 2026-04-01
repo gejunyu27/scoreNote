@@ -23,57 +23,57 @@
     CareerModel *startModel = [[CareerModel alloc] initWithTitle:@"起投时间" content:[startRecord.startTime getStringWithDateFormat:dateFormat] record:startRecord];
     [temp addObject:startModel];
     
-    //投注天数
+    //2.投注天数
     NSInteger totalDays = [startRecord.startTime daysBetweenDate:[NSDate date]] + 1; //相差日子
     CareerModel *daysModel = [[CareerModel alloc] initWithTitle:@"投注天数" content:[NSString stringWithFormat:@"%li天", totalDays]];
     [temp addObject:daysModel];
     
-    //最高总利润
+    //3.最高总利润
     CGFloat highAllProfit = [[NSUserDefaults standardUserDefaults] floatForKey:KEY_HIGH_PROFIT];
     CareerModel *highAllModel = [[CareerModel alloc] initWithTitle:@"最高总利润" content:[SCUtilities removeFloatSuffix:highAllProfit]];
     [temp addObject:highAllModel];
     
-    //最低总利润
+    //4.最低总利润
     CGFloat lowAllProfit = [[NSUserDefaults standardUserDefaults] floatForKey:KEY_LOW_PROFIT];
     CareerModel *lowAllModel = [[CareerModel alloc] initWithTitle:@"最低总利润" content:[SCUtilities removeFloatSuffix:lowAllProfit]];
     [temp addObject:lowAllModel];
     
-    //总投注
-    CGFloat allOut;
-    //总收入
-    CGFloat allGet;
+    //5.总投注
+    CGFloat allOut = 0;
+    //6.总收入
+    CGFloat allGet = 0;
     
-    //第一次红单
+    //7.第一次红单
     RecordModel *firstRedRecord;
-    //第一次黑单
+    //8.第一次黑单
     RecordModel *firstBlackRecord;
-    //2.最红单(已结束)
+    //9.最红单(已结束)
     RecordModel *highOverRecord;
-    //3.最黑单(已结束)
+    //10.最黑单(已结束)
     RecordModel *lowOverRecord;
-    //4.最红月(已结束)
+    //11.最红月(已结束)
     TotalSectionModel *highOverSection;
-    //5.最黑月(已结束)
+    //12.最黑月(已结束)
     TotalSectionModel *lowOverSection;
-    //6.盈期比(已结束)
+    //13.盈期比(已结束)xz
     RecordModel *ratioOverRecord;
     CGFloat highOverRatio = 0.0;
-    //7.最高期数
-    RecordModel *highLineRecord;
-    //7.5最低期数(已结束)
+    //14最低期数(已结束)
     RecordModel *lowLineOverRecord;
-    //8.最高实际期
+    //15.最高期数
+    RecordModel *highLineRecord;
+    //16.最高实际期
     RecordModel *highRealNumRecord;
-    //9.红月数(已结束)
+    //17.红月数(已结束)
     NSInteger redOverMonths = 0;
-    //10.黑月数(已结束)
+    //18.黑月数(已结束)
     NSInteger blackOverMonths = 0;
-    //11.红单数(已结束)
+    //19.红单数(已结束)
     NSInteger redOverRecords = 0;
-    //12.黑单数(已结束)
+    //20.黑单数(已结束)
     NSInteger blackOverRecords = 0;
     
-    //13.连红数量 14.连黑数量
+    //21.最长连红数量 22.最长连黑数量
     NSInteger continuousRed = 0;
     NSInteger continuousBlack = 0;
     NSInteger maxRedNum = 0;
@@ -148,7 +148,7 @@
                 }
                 
                 //盈期比
-                if (record.lineList.count > 0) {
+                if (record.lineList.count > 0 && ![record.overTagName hasPrefix:@"#"]) {
                     CGFloat ratio = record.allProfit/record.lineList.count;
                     if (ratio >= highOverRatio) {
                         highOverRatio = ratio;
@@ -157,7 +157,7 @@
                 }
                 
                 //最低期数
-                if (!lowLineOverRecord || record.lineList.count <= lowLineOverRecord.lineList.count) {
+                if ((!lowLineOverRecord || record.lineList.count <= lowLineOverRecord.lineList.count) && ![record.overTagName hasPrefix:@"#"]) {
                     lowLineOverRecord = record;
                 }
                 
