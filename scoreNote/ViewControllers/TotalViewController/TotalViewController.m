@@ -258,7 +258,7 @@
         _tableView.showsHorizontalScrollIndicator = NO;
         _tableView.dataSource = self;
         _tableView.delegate = self;
-        _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+//        _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
         _tableView.tableHeaderView = self.topView;
         _tableView.backgroundColor = DEFAULT_BG_COLOR;
         [_tableView registerClass:TotalCell.class forCellReuseIdentifier:kTotalCellId];
