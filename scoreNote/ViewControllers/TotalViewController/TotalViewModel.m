@@ -42,6 +42,8 @@
         if (record.lineList.count > 0) {
             [followSectionModel.recordList addObject:record];
             followSectionModel.allProfit += record.allProfit;
+            followSectionModel.allGet += record.allGet;
+            followSectionModel.allOut += record.allOut;
             
             NSTimeInterval rt = [record.startTime timeIntervalSince1970];
             NSTimeInterval srt = [_startRecord.startTime timeIntervalSince1970];
@@ -97,6 +99,8 @@
         }
         [sModel.recordList addObject:record];
         sModel.allProfit += record.allProfit;
+        sModel.allGet += record.allGet;
+        sModel.allOut += record.allOut;
         _totalProfit += record.allProfit;
         
     }

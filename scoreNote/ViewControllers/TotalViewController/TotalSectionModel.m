@@ -8,6 +8,7 @@
 #import "TotalSectionModel.h"
 
 @implementation TotalSectionModel
+
 - (NSMutableArray<RecordModel *> *)recordList
 {
     if (!_recordList) {

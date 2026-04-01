@@ -38,6 +38,10 @@
     CareerModel *lowAllModel = [[CareerModel alloc] initWithTitle:@"最低总利润" content:[SCUtilities removeFloatSuffix:lowAllProfit]];
     [temp addObject:lowAllModel];
     
+    //总投注
+    CGFloat allOut;
+    //总收入
+    CGFloat allGet;
     
     //第一次红单
     RecordModel *firstRedRecord;
@@ -107,6 +111,9 @@
             
             
         }
+        
+        allOut += sectionModel.allOut;
+        allGet += sectionModel.allGet;
         
         
         for (RecordModel *record in sectionModel.recordList) {
@@ -199,6 +206,12 @@
             
         }
     }
+    
+    CareerModel *allOutModel = [[CareerModel alloc] initWithTitle:@"总投入" content:[SCUtilities removeFloatSuffix:allOut]];
+    [temp addObject:allOutModel];
+    
+    CareerModel *allGetModel = [[CareerModel alloc] initWithTitle:@"总收入" content:[SCUtilities removeFloatSuffix:allGet]];
+    [temp addObject:allGetModel];
     
     CareerModel *firstRedModel = [[CareerModel alloc] initWithTitle:@"首红" content:[firstRedRecord.endTime getStringWithDateFormat:dateFormat] record:firstRedRecord];
     [temp addObject:firstRedModel];
