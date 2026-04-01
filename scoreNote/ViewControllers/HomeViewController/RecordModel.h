@@ -55,6 +55,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, assign, readonly) BOOL isBreaking;
 
 //列表操作
+- (void)refreshData;
 - (void)addLine:(LineModel *)line;    //添加列
 - (void)deleteLine:(LineModel *)line; //减少列
 - (void)addLines:(NSArray <LineModel *> *)lines; //批量添加列

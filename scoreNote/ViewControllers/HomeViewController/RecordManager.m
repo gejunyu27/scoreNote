@@ -305,6 +305,8 @@ DEF_SINGLETON(RecordManager)
             record.realNum++; //失败实际期数自动+1，减少手动操作
         }
         [DataManager updateRecord:record]; //这里成功与否不影响最新一单结束，所以不做返回
+        
+        [record refreshData];
     }else {
         currentLine.getMoney = 0;
         currentLine.isOver = NO;
@@ -336,6 +338,9 @@ DEF_SINGLETON(RecordManager)
     
     if (!result) {
         line.outMoney = oldOut;
+        
+    }else {
+        [line.record refreshData];
     }
     
     return result;
@@ -350,6 +355,9 @@ DEF_SINGLETON(RecordManager)
     
     if (!result) {
         line.getMoney = oldGet;
+        
+    }else {
+        [line.record refreshData];
     }
     
     return result;
