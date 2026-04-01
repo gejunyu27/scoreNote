@@ -312,7 +312,7 @@ typedef NS_ENUM(NSInteger, SqlLineType) {
         
         if (success) {
             [self showWithStatus:@"删除成功"];
-            [self.record.lineList removeObject:line];
+            [self.record deleteLine:line];
             [self.tableView reloadData];
             
         }else {

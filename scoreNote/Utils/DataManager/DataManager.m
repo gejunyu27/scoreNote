@@ -103,7 +103,7 @@ DEF_SINGLETON(DataManager)
         
         //获取列
         NSMutableArray <LineModel *> *lines = [self queryLinesWithRecord:record];
-        record.lineList = lines;
+        [record addLines:lines];
         
         [temp addObject:record];
     }

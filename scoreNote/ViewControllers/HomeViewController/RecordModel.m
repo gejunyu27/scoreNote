@@ -8,41 +8,15 @@
 #import "RecordModel.h"
 #import "TagManager.h"
 
+@interface RecordModel ()
+@property (nonatomic, strong) NSMutableArray *mutableList;
+@end
+
 @implementation RecordModel
 
-- (CGFloat)allGet
+- (NSArray<LineModel *> *)lineList
 {
-    CGFloat num = 0;
-    for (LineModel *line in _lineList) {
-        num+=line.getMoney;
-    }
-    return num;
-}
-
-- (CGFloat)allOut
-{
-    CGFloat num = 0;
-    for (LineModel *line in _lineList) {
-        num+=line.outMoney;
-    }
-    return num;
-}
-
-- (CGFloat)allProfit
-{
-    CGFloat num = 0;
-    for (LineModel *line in _lineList) {
-        num+=(line.getMoney - line.outMoney);
-    }
-    return num;
-}
-
-- (NSMutableArray<LineModel *> *)lineList
-{
-    if (!_lineList) {
-        _lineList = [NSMutableArray array];
-    }
-    return _lineList;
+    return self.mutableList.copy;
 }
 
 - (void)setIsOver:(BOOL)isOver
@@ -59,36 +33,72 @@
 {
     _tagId = tagId;
     
-//    _tagModel = [DataManager queryTag:tagId];
-    
     _tagModel = [TagManager getTag:tagId];
 }
 
-- (NSDate *)startTime
+
+
+
+- (NSMutableArray *)mutableList
 {
-    if (!_startTime) {
-        if (self.lineList.count > 0) {
-            LineModel *firstLine = self.lineList.firstObject;
-            _startTime = firstLine.beginTime;
-        }
+    if (!_mutableList) {
+        _mutableList = [NSMutableArray array];
     }
-    
-    return _startTime;
+    return _mutableList;
 }
 
-- (BOOL)isBreaking
+
+//列表操作
+- (void)addLine:(LineModel *)line
 {
-    //旧版
-//    BOOL result = self.lineList.lastObject.isOver && self.allProfit <= -self.breakLine;
-//    
-//    if (result) {
-//        self.profitPerLine = 0;
-//        self.baseProfit = 0;
-//    }
+    if (line && line.class == LineModel.class) {
+        [self.mutableList addObject:line];
+    }
     
-    //新版
-    BOOL result = self.allProfit <= -self.breakLine;
-    return result;
+    [self refreshData];
+
+}
+
+- (void)deleteLine:(LineModel *)line
+{
+    if (line && [self.mutableList containsObject:line]) {
+        [self.mutableList removeObject:line];
+    }
+    
+    [self refreshData];
+}
+
+- (void)addLines:(NSArray <LineModel *> *)lines
+{
+    if (lines.count > 0) {
+        [self.mutableList addObjectsFromArray:lines];
+    }
+    
+    [self refreshData];
+}
+
+- (void)refreshData
+{
+    //总支出
+    _allOut = 0;
+    //总收入
+    _allGet = 0;
+    for (LineModel *line in self.mutableList) {
+        _allGet += line.getMoney;
+        _allOut += line.outMoney;
+    }
+    
+    //总利润
+    _allProfit = _allGet - _allOut;
+    
+    //开始时间
+    if (self.mutableList.count > 0) {
+        LineModel *firstLine = self.mutableList.firstObject;
+        _startTime = firstLine.beginTime;
+    }
+    
+    //是否止损中
+    _isBreaking = _allProfit <= -_breakLine;
 }
 
 @end

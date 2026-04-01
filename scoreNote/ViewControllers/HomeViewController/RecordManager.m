@@ -133,7 +133,7 @@ DEF_SINGLETON(RecordManager)
     LineModel *newLine = [DataManager insertNewLineWithRecord:record outMoney:outMoney];
     
     if (newLine) {
-        [record.lineList addObject:newLine];
+        [record addLine:newLine];
         return YES;
         
     }else {
@@ -169,7 +169,7 @@ DEF_SINGLETON(RecordManager)
     BOOL result = [DataManager deleteLine:line];
     
     if (result) {
-        [record.lineList removeObject:line];
+        [record deleteLine:line];
     }
     return result;
 }

@@ -33,7 +33,7 @@ NS_ASSUME_NONNULL_BEGIN
 //是否结束 方便数据库查询用
 @property (nonatomic, assign) BOOL isOver;
 //开始时间 非数据库属性
-@property (nonatomic, strong) NSDate *startTime;
+@property (nonatomic, strong, readonly) NSDate *startTime;
 //当期买法
 @property (nonatomic, copy) NSString *currentScore;
 //结束时的标签名
@@ -41,8 +41,8 @@ NS_ASSUME_NONNULL_BEGIN
 //止损线
 @property (nonatomic, assign) CGFloat breakLine;
 
-//列表
-@property (nonatomic, strong) NSMutableArray <LineModel *> *lineList;
+//列表 只读，不可变
+@property (nonatomic, strong, readonly) NSArray <LineModel *> *lineList;
 
 //动态属性
 //总计收入
@@ -53,6 +53,11 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, assign, readonly) CGFloat allProfit;
 //是否止损中
 @property (nonatomic, assign, readonly) BOOL isBreaking;
+
+//列表操作
+- (void)addLine:(LineModel *)line;    //添加列
+- (void)deleteLine:(LineModel *)line; //减少列
+- (void)addLines:(NSArray <LineModel *> *)lines; //批量添加列
 
 @end
 
