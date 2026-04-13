@@ -38,11 +38,12 @@
     BOOL isEdit = model.isEdit;
     
     [self.editButton setImage:(isEdit ? [UIImage imageNamed:@"TagEditSelected"] : [UIImage imageNamed:@"TagEdit"]) forState:UIControlStateNormal];
-    self.deleteButton.hidden = !isEdit;
-    self.maxNumButton.right = (isEdit ? self.deleteButton.left : self.editButton.left) - 15;
+    
     self.maxNumButton.userInteractionEnabled = isEdit;
     
-    self.numLabel.right = self.maxNumButton.left;
+    self.deleteButton.hidden = !isEdit;
+    
+    self.nameField.left = isEdit ? self.deleteButton.right + 5 : self.deleteButton.left;
     self.nameField.width = self.numLabel.left - 20 - self.nameField.left;
     self.nameField.userInteractionEnabled = isEdit;
     
@@ -112,7 +113,7 @@
 {
     if (!_deleteButton) {
         CGFloat wh = self.editButton.width;
-        _deleteButton = [[UIButton alloc] initWithFrame:CGRectMake(self.editButton.left-15-wh, (kTagCellH-wh)/2, wh, wh)];
+        _deleteButton = [[UIButton alloc] initWithFrame:CGRectMake(20, (kTagCellH-wh)/2, wh, wh)];
         [_deleteButton addTarget:self action:@selector(deleteClicked:) forControlEvents:UIControlEventTouchUpInside];
         [_deleteButton setImage:[UIImage imageNamed:@"TagDelete"] forState:UIControlStateNormal];
         [self.contentView addSubview:_deleteButton];
@@ -124,7 +125,8 @@
 {
     if (!_maxNumButton) {
         CGFloat y = 5;
-        _maxNumButton = [[UIButton alloc] initWithFrame:CGRectMake(0, y, 35, kTagCellH-y*2)];
+        CGFloat w = 35;
+        _maxNumButton = [[UIButton alloc] initWithFrame:CGRectMake(self.editButton.left-15-w, y, w, kTagCellH-y*2)];
         _maxNumButton.titleLabel.font = SCFONT_SIZED(13);
         _maxNumButton.layer.cornerRadius = 4;
         _maxNumButton.layer.borderWidth = 1;
@@ -139,7 +141,8 @@
 - (UILabel *)numLabel
 {
     if (!_numLabel) {
-        _numLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 45, kTagCellH)];
+        CGFloat w = 45;
+        _numLabel = [[UILabel alloc] initWithFrame:CGRectMake(self.maxNumButton.left-w, 0, w, kTagCellH)];
         _numLabel.font = SCFONT_SIZED(11);
         _numLabel.text = @"最大期：";
         [self.contentView addSubview:_numLabel];
@@ -152,8 +155,7 @@
 {
     if (!_nameField) {
         CGFloat y = self.maxNumButton.top;
-        CGFloat x = 20;
-        _nameField = [[UITextField alloc] initWithFrame:CGRectMake(x, y, 0, kTagCellH-y*2)];
+        _nameField = [[UITextField alloc] initWithFrame:CGRectMake(0, y, 0, kTagCellH-y*2)];
         _nameField.returnKeyType = UIReturnKeyDone;
         _nameField.clearButtonMode = UITextFieldViewModeWhileEditing;
         _nameField.font = SCFONT_SIZED(16);
