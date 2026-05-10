@@ -23,6 +23,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) UIButton *perProfitButton;
 @property (nonatomic, strong) UIButton *baseProfitButton;
 @property (nonatomic, strong) UIButton *breakLineButton;
+@property (nonatomic, strong) UIButton *casinoButton;
 
 @property (nonatomic, assign) BOOL hasUpdated;
 @end
@@ -85,13 +86,16 @@ NS_ASSUME_NONNULL_BEGIN
     }
     
     //每期利润
-    [_perProfitButton setTitle:[NSString stringWithFormat:@"每期利润%@元", [SCUtilities removeFloatSuffix:_record.profitPerLine]] forState: UIControlStateNormal];
+    [_perProfitButton setTitle:[NSString stringWithFormat:@"每期%@", [SCUtilities removeFloatSuffix:_record.profitPerLine]] forState: UIControlStateNormal];
     
     //固定利润
-    [_baseProfitButton setTitle:[NSString stringWithFormat:@"固定利润%@元", [SCUtilities removeFloatSuffix:_record.baseProfit]] forState: UIControlStateNormal];
+    [_baseProfitButton setTitle:[NSString stringWithFormat:@"固定%@", [SCUtilities removeFloatSuffix:_record.baseProfit]] forState: UIControlStateNormal];
     
     //止损线
-    [_breakLineButton setTitle:[NSString stringWithFormat:@"止损线%@元", [SCUtilities removeFloatSuffix:_record.breakLine]] forState: UIControlStateNormal];
+    [_breakLineButton setTitle:[NSString stringWithFormat:@"止损线%@", [SCUtilities removeFloatSuffix:_record.breakLine]] forState: UIControlStateNormal];
+    
+    //外围模式
+    [_casinoButton setTitle:(_record.isCasino?@"外围模式":@"竞彩模式") forState:UIControlStateNormal];
 }
 
 #pragma mark -UITableViewDelegate, UITableViewDataSource
@@ -181,11 +185,6 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 #pragma mark -action
-- (void)selectClicked
-{
-    
-}
-
 - (void)perProfitClicked:(UIButton *)sender
 {
     NSString *text = _record.profitPerLine ? [SCUtilities removeFloatSuffix:_record.profitPerLine] : @"";
@@ -220,6 +219,13 @@ NS_ASSUME_NONNULL_BEGIN
         BOOL result = [RecordManager editBreakLine:outputText.floatValue record:self.record];
         [self handleEditResult:result refreshTable:NO];
     }];
+}
+
+- (void)casinoClicked:(UIButton *)sender
+{
+    BOOL result = [RecordManager editCasino:_record];
+    
+    [self handleEditResult:result refreshTable:NO];
 }
 
 - (void)handleEditResult:(BOOL)result refreshTable:(BOOL)refreshTable
@@ -303,11 +309,11 @@ NS_ASSUME_NONNULL_BEGIN
         [SCToolBar addNoteBarInTextField:_noteField];
         [bgView addSubview:_noteField];
         
-        CGFloat btnW = (bgView.width - margin*4)/3;
+        CGFloat btnW = (bgView.width - margin*5)/4;
         CGFloat btnY = noteLabel.bottom+15;
         CGFloat btnH = bgView.height - btnY - 10;
         
-        for (int i=0; i<3; i++) {
+        for (int i=0; i<4; i++) {
             UIButton *btn = [[UIButton alloc] initWithFrame:CGRectMake(margin+(btnW+margin)*i, btnY, btnW, btnH)];
             btn.backgroundColor = HEX_RGB(@"#4792F7");
             [btn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
@@ -326,6 +332,10 @@ NS_ASSUME_NONNULL_BEGIN
             }else if (i==2) {
                 _breakLineButton = btn;
                 [_breakLineButton addTarget:self action:@selector(breakLineClicked:) forControlEvents:UIControlEventTouchUpInside];
+                
+            }else if (i==3) {
+                _casinoButton = btn;
+                [_casinoButton addTarget:self action:@selector(casinoClicked:) forControlEvents:UIControlEventTouchUpInside];
             }
         }
     }

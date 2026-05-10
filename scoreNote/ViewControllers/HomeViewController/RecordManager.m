@@ -222,6 +222,24 @@ DEF_SINGLETON(RecordManager)
     return result;
 }
 
+#pragma mark -修改投注模式
++ (BOOL)editCasino:(RecordModel *)record
+{
+    BOOL oldCasino = record.isCasino;
+    
+    record.isCasino = !oldCasino;
+    
+    BOOL result = [DataManager updateRecord:record];
+    
+    if (!result) {
+        record.isCasino = oldCasino;
+    }
+    
+    return result;
+    
+    
+}
+
 #pragma mark -修改标签
 + (BOOL)editTag:(NSInteger)tagId record:(RecordModel *)record
 {
@@ -288,8 +306,7 @@ DEF_SINGLETON(RecordManager)
     LineModel *currentLine = record.lineList.lastObject;
     
     if (isWin) {
-        BOOL isCasino = [ConfigManager getValue:ConfigTypeIsCasino]; //是否是外围模式
-        currentLine.getMoney = isCasino ? (currentLine.outMoney + profit) : profit;
+        currentLine.getMoney = record.isCasino ? (currentLine.outMoney + profit) : profit;
         
     }else {
         currentLine.getMoney = 0;

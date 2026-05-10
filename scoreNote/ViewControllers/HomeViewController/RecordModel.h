@@ -40,6 +40,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, copy) NSString *overTagName; //大部分情况用不到，只有旧标签删了才会用到(标签删除功能也暂时移除)
 //止损线
 @property (nonatomic, assign) CGFloat breakLine;
+//外围模式
+@property (nonatomic, assign) BOOL isCasino;
 
 //列表 只读，不可变
 @property (nonatomic, strong, readonly) NSArray <LineModel *> *lineList;

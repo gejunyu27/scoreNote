@@ -150,10 +150,8 @@
 
 - (void)homeCellBuyWin:(RecordModel *)record
 {
-    BOOL isCasino = [ConfigManager getValue:ConfigTypeIsCasino]; //是否是外围模式
-    
     @weakify(self)
-    [NumberInputView showWithText:@"" title:(isCasino?@"利润":@"收入") clickView:nil type:InputTypeNoSymbol block:^(NSString * _Nonnull outputText) {
+    [NumberInputView showWithText:@"" title:(record.isCasino?@"利润":@"收入") clickView:nil type:InputTypeNoSymbol block:^(NSString * _Nonnull outputText) {
         @strongify(self)
         if (outputText.length == 0) {
             return;
