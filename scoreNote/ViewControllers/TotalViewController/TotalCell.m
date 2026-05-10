@@ -59,7 +59,7 @@
 - (UILabel *)numLabel
 {
     if (!_numLabel) {
-        CGFloat w = 30;
+        CGFloat w = 33;
         _numLabel = [[UILabel alloc] initWithFrame:CGRectMake(SCREEN_WIDTH-kMargin-w, 0, w, kTotalCellH)];
         _numLabel.font = SCFONT_SIZED(10);
         _numLabel.textAlignment = NSTextAlignmentRight;

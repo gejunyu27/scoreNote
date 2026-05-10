@@ -160,7 +160,7 @@ NS_ASSUME_NONNULL_BEGIN
             _title = @"默认固定利润";
             break;
         case ConfigTypeBreakLine:
-            _title = @"止损线";
+            _title = @"默认止损线";
             break;
         case ConfigTypeInputH:
             _title = @"自定义键盘高度";
@@ -172,7 +172,7 @@ NS_ASSUME_NONNULL_BEGIN
             _title = @"嵌网模式网页高度";
             break;
         case ConfigTypeIsCasino:
-            _title = @"外围模式";
+            _title = @"默认外围模式";
             break;
             
         default:

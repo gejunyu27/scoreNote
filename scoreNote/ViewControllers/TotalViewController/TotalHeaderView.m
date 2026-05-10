@@ -82,7 +82,7 @@
 - (UILabel *)profitLabel
 {
     if (!_profitLabel) {
-        CGFloat w = 60;
+        CGFloat w = 70;
         _profitLabel = [[UILabel alloc] initWithFrame:CGRectMake(self.bgView.width-w-15, 0, w, self.bgView.height)];
         _profitLabel.font = SCFONT_SIZED(13);
         _profitLabel.textColor = [UIColor grayColor];
