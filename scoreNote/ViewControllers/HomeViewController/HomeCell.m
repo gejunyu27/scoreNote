@@ -26,6 +26,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) UIButton *overButton;     //结束
 @property (nonatomic, strong) UILabel *boughtLabel;     //本期购买
 
+@property (nonatomic, strong) UIImageView *caiIcon;     //体彩标识
+
 @end
 
 @implementation HomeCell
@@ -111,6 +113,8 @@ NS_ASSUME_NONNULL_BEGIN
 
         
     }
+    
+    self.caiIcon.hidden = self.record.isCasino;
 
 }
 
@@ -338,6 +342,17 @@ NS_ASSUME_NONNULL_BEGIN
     [_buyButton addTarget:self action:@selector(buyClicked:) forControlEvents:UIControlEventTouchUpInside];
     [self.bgView addSubview:_buyButton];
     
+}
+
+- (UIImageView *)caiIcon
+{
+    if (!_caiIcon) {
+        CGFloat wh = 25;
+        _caiIcon = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, wh, wh)];
+        _caiIcon.image = [UIImage imageNamed:@"CaiIcon"];
+        [self.bgView addSubview:_caiIcon];
+    }
+    return _caiIcon;
 }
 
 @end
