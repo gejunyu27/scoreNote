@@ -62,7 +62,9 @@ NS_ASSUME_NONNULL_BEGIN
     self.noteLabel.text = record.note;
 //
     //本期买法
-    [self.scoreButton setTitle:(record.currentScore.length == 0 ? @"编辑" : record.currentScore) forState:UIControlStateNormal];
+    NSString *scoreText = record.currentScore.length == 0 ? @"编辑" : record.currentScore;
+    [self.scoreButton setTitle:scoreText forState:UIControlStateNormal];
+    self.scoreButton.titleLabel.font = scoreText.length > 7 ? SCFONT_SIZED(15) : SCFONT_SIZED(16);
 
     //备注
     NSInteger num = record.lineList.count+1; //下一期期数
@@ -197,7 +199,7 @@ NS_ASSUME_NONNULL_BEGIN
         CGFloat w = 120;
         _tagButton = [[UIButton alloc] initWithFrame:CGRectMake(10, 5, w, w*0.5)];
 //        [_tagButton setBackgroundImage:[UIImage imageNamed:@"TagIcon"] forState:UIControlStateNormal];
-        _tagButton.titleLabel.font = SCFONT_BOLD_SIZED(16);
+//        _tagButton.titleLabel.font = SCFONT_BOLD_SIZED(16); //没作用
         UIButtonConfiguration *config = _tagButton.configuration ?: [UIButtonConfiguration plainButtonConfiguration];
         config.contentInsets = NSDirectionalEdgeInsetsMake(7, 0, 0, 4);
         config.background.image = [UIImage imageNamed:@"TagIcon"];
@@ -253,7 +255,6 @@ NS_ASSUME_NONNULL_BEGIN
     if (!_scoreButton) {
         _scoreButton = [[UIButton alloc] initWithFrame:CGRectMake(14, self.tagButton.bottom+2, 107, 30)];
         [_scoreButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-        _scoreButton.titleLabel.font = SCFONT_SIZED(16);
         _scoreButton.layer.cornerRadius = 8;
         _scoreButton.layer.borderWidth = 2;
         _scoreButton.layer.borderColor = HEX_RGB(@"#CACACA").CGColor;
