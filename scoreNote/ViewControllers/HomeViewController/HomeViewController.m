@@ -13,6 +13,8 @@
 #import <WebKit/WebKit.h>
 #import "NetworkReachability.h"
 
+#define KEY_WEB_DATE @"KEY_WEB_DATE"
+
 @interface HomeViewController () <UITableViewDelegate, UITableViewDataSource, HomeCellDelegate>
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, weak) NSMutableArray <RecordModel *> *records;
@@ -201,13 +203,22 @@
         self.webView.bottom   = SCREEN_HEIGHT;
         self.webView.hidden   = NO;
         
+        NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
         //判断有没有网
         BOOL isNetworkOK = [NetworkReachability isReachable];
         
         if (!isNetworkOK) { //没网就开始监测，等用户点击使用网络
             [NetworkReachability startMonitorNetwork:^{
                 [self.webView reload];
+                [ud setObject:[NSDate date] forKey:KEY_WEB_DATE]; //存储加载时间
             }];
+            
+        }else { //检测上次什么时候打开的网页，有可能出现这种情况：昨天打开过网页，但是app一直没杀掉，今天再打开显示的还是昨天网页
+            NSDate *lastDate = [ud objectForKey:KEY_WEB_DATE];
+            if (![lastDate isToday]) {
+                [self.webView reload];
+                [ud setObject:[NSDate date] forKey:KEY_WEB_DATE];
+            }
             
         }
     }
@@ -256,6 +267,10 @@
         NSURL *url = [NSURL URLWithString:@"https://m.sporttery.cn/mjc/jsq/zqspf/"];
         NSURLRequest *request = [NSURLRequest requestWithURL:url];
         [_webView loadRequest:request];
+        
+        //存储加载时间
+        [[NSUserDefaults standardUserDefaults] setObject:[NSDate date] forKey:KEY_WEB_DATE];
+        [[NSUserDefaults standardUserDefaults] synchronize];
     }
     return _webView;
 }
