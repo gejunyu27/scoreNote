@@ -10,8 +10,6 @@
 #import "RecordManager.h"
 #import "SCToolBar.h"
 
-NS_ASSUME_NONNULL_BEGIN
-
 @interface RecordDetailViewController () <UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate, RecordDetailCellDelegate>
 @property (nonatomic, strong) RecordModel *record;
 @property (nonatomic, assign) BOOL canEdit;
@@ -122,6 +120,11 @@ NS_ASSUME_NONNULL_BEGIN
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
 {
     return _canEdit;
+}
+
+- (NSString *)tableView:(UITableView *)tableView titleForDeleteConfirmationButtonForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return @"删除";
 }
 
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -343,5 +346,3 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 @end
-
-NS_ASSUME_NONNULL_END
