@@ -76,6 +76,8 @@
 		4B0319832F79452C0041EFC7 /* CareerModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B03191D2F79452C0041EFC7 /* CareerModel.m */; };
 		4B0319852F794C100041EFC7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4B0319842F794C100041EFC7 /* Assets.xcassets */; };
 		4B0319882F79804D0041EFC7 /* NetworkReachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B0319872F79804D0041EFC7 /* NetworkReachability.m */; };
+		4B0CD2D92FC498AF00B45BA6 /* BitCoinCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B0CD2D82FC498AF00B45BA6 /* BitCoinCell.m */; };
+		4B0CD2DC2FC498B800B45BA6 /* BitCoinModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B0CD2DB2FC498B800B45BA6 /* BitCoinModel.m */; };
 		F18E8098E2966C0FDCB2B440 /* Pods_scoreNote.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B9D0C68F7EED1D682F79A491 /* Pods_scoreNote.framework */; };
 /* End PBXBuildFile section */
 
@@ -218,6 +220,10 @@
 		4B0319842F794C100041EFC7 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		4B0319862F79804D0041EFC7 /* NetworkReachability.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NetworkReachability.h; sourceTree = "<group>"; };
 		4B0319872F79804D0041EFC7 /* NetworkReachability.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NetworkReachability.m; sourceTree = "<group>"; };
+		4B0CD2D72FC498AF00B45BA6 /* BitCoinCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BitCoinCell.h; sourceTree = "<group>"; };
+		4B0CD2D82FC498AF00B45BA6 /* BitCoinCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BitCoinCell.m; sourceTree = "<group>"; };
+		4B0CD2DA2FC498B800B45BA6 /* BitCoinModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BitCoinModel.h; sourceTree = "<group>"; };
+		4B0CD2DB2FC498B800B45BA6 /* BitCoinModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BitCoinModel.m; sourceTree = "<group>"; };
 		53CCB9C4E7042293F7A66D72 /* Pods-DEMO.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DEMO.debug.xcconfig"; path = "Target Support Files/Pods-DEMO/Pods-DEMO.debug.xcconfig"; sourceTree = "<group>"; };
 		9B574DC10A88E432F8AF7D1E /* Pods-DEMO.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DEMO.release.xcconfig"; path = "Target Support Files/Pods-DEMO/Pods-DEMO.release.xcconfig"; sourceTree = "<group>"; };
 		B9D0C68F7EED1D682F79A491 /* Pods_scoreNote.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_scoreNote.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -396,8 +402,7 @@
 				4B0318F42F79452C0041EFC7 /* ConfigModel.m */,
 				4B0318F12F79452C0041EFC7 /* ConfigManager.h */,
 				4B0318F22F79452C0041EFC7 /* ConfigManager.m */,
-				4B0318E72F79452C0041EFC7 /* BitCoinViewController.h */,
-				4B0318E82F79452C0041EFC7 /* BitCoinViewController.m */,
+				4B0CD2D62FC4989D00B45BA6 /* BitCoinViewController */,
 				4B0318DF2F79452C0041EFC7 /* ColumnAddViewController */,
 				4B0318E62F79452C0041EFC7 /* SqlEditViewController */,
 			);
@@ -553,6 +558,19 @@
 				4B03193E2F79452C0041EFC7 /* NumberInputView */,
 			);
 			path = Views;
+			sourceTree = "<group>";
+		};
+		4B0CD2D62FC4989D00B45BA6 /* BitCoinViewController */ = {
+			isa = PBXGroup;
+			children = (
+				4B0318E72F79452C0041EFC7 /* BitCoinViewController.h */,
+				4B0318E82F79452C0041EFC7 /* BitCoinViewController.m */,
+				4B0CD2D72FC498AF00B45BA6 /* BitCoinCell.h */,
+				4B0CD2D82FC498AF00B45BA6 /* BitCoinCell.m */,
+				4B0CD2DA2FC498B800B45BA6 /* BitCoinModel.h */,
+				4B0CD2DB2FC498B800B45BA6 /* BitCoinModel.m */,
+			);
+			path = BitCoinViewController;
 			sourceTree = "<group>";
 		};
 		7D2D062AB0DD7C7EBD2808E1 /* Frameworks */ = {
@@ -717,6 +735,7 @@
 				4B0319592F79452C0041EFC7 /* ColumnAddViewController.m in Sources */,
 				4B03195A2F79452C0041EFC7 /* NumberInputView.m in Sources */,
 				4B03195B2F79452C0041EFC7 /* TagViewController.m in Sources */,
+				4B0CD2DC2FC498B800B45BA6 /* BitCoinModel.m in Sources */,
 				4B03195C2F79452C0041EFC7 /* UIColor+SCHex.m in Sources */,
 				4B03195D2F79452C0041EFC7 /* TagDetailViewController.m in Sources */,
 				4B03195E2F79452C0041EFC7 /* SCUtilities.m in Sources */,
@@ -728,6 +747,7 @@
 				4B0319642F79452C0041EFC7 /* TotalViewController.m in Sources */,
 				4B0319652F79452C0041EFC7 /* ConfigHeaderModel.m in Sources */,
 				4B0319662F79452C0041EFC7 /* NSString+SCExtension.m in Sources */,
+				4B0CD2D92FC498AF00B45BA6 /* BitCoinCell.m in Sources */,
 				4B0319672F79452C0041EFC7 /* RecordModel.m in Sources */,
 				4B0319682F79452C0041EFC7 /* TagDetailCell.m in Sources */,
 				4B0319692F79452C0041EFC7 /* TagRankViewController.m in Sources */,

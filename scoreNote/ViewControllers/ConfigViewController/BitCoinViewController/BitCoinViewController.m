@@ -6,14 +6,14 @@
 //
 
 #import "BitCoinViewController.h"
-
-#define KEY_BITCOIN @"KEY_BITCOIN"
+#import "BitCoinModel.h"
+#import "BitCoinCell.h"
 
 @interface BitCoinViewController () <UITableViewDelegate, UITableViewDataSource>
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) UIView *topView;
 @property (nonatomic, strong) UILabel *resultLabel;
-@property (nonatomic, strong) NSMutableArray <NSString *>*list;
+@property (nonatomic, strong) NSMutableArray <BitCoinModel *>*models;
 @end
 
 @implementation BitCoinViewController
@@ -22,7 +22,7 @@
     [super viewDidLoad];
     self.title = @"比特币账本";
     
-    _list = [NSMutableArray arrayWithArray:[[NSUserDefaults standardUserDefaults] arrayForKey:KEY_BITCOIN]];
+    [self initData];
     
     [self reload];
 }
@@ -31,8 +31,8 @@
 {
     [super viewWillDisappear:animated];
     
-    [[NSUserDefaults standardUserDefaults] setObject:(_list?:@[]) forKey:KEY_BITCOIN];
-    [[NSUserDefaults standardUserDefaults] synchronize];
+    //归档
+    [self saveData];
 }
 
 - (void)reload
@@ -40,33 +40,67 @@
     [self.tableView reloadData];
     
     CGFloat all = 0;
-    for (NSString *text in _list) {
-        all += text.floatValue;
+    for (BitCoinModel *model in _models) {
+        all += model.money.floatValue;
     }
     
     _resultLabel.text = [NSString stringWithFormat:@"总计：  %@",[SCUtilities removeFloatSuffix:all]];
 }
 
+#pragma mark -data
+- (void)initData
+{
+    _models = [NSMutableArray array];
+    
+    NSData *data = [NSData dataWithContentsOfFile:[self filePath]];
+    if (!data) {
+        return;
+    }
+    
+    NSError *error = nil;
+    
+    NSArray *readArr = [NSKeyedUnarchiver  unarchivedObjectOfClasses:[NSSet setWithArray:@[NSArray.class, BitCoinModel.class, NSDate.class]] fromData:data error:&error];
+    
+    if (!error && readArr.count > 0) {
+        _models = readArr.mutableCopy;
+    }
+    
+}
+
+- (void)saveData
+{
+
+    NSError *error = nil;
+    
+    NSData *archiveData = [NSKeyedArchiver archivedDataWithRootObject:_models requiringSecureCoding:NO error:&error];
+    
+    if (!error) {
+        [archiveData writeToFile:[self filePath] atomically:YES];
+    }
+}
+
+- (NSString *)filePath
+{
+    NSString *filePath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES).firstObject stringByAppendingPathComponent:@"BitCoinArray.archive"];
+    
+    return filePath;
+}
+
 #pragma mark -UICollectionViewDelegate, UICollectionViewDataSource
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return _list.count;
+    return _models.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSString *cellId = @"cellId";
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellId];
-    if (!cell) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellId];
-        cell.selectionStyle = UITableViewCellSelectionStyleNone;
-    }
-    
+    BitCoinCell *cell = [tableView dequeueReusableCellWithIdentifier:kBCCellId forIndexPath:indexPath];
+
     NSInteger row = indexPath.row;
     
-    if (row < _list.count) {
-        NSString *text = _list[row];
-        cell.textLabel.text = [NSString stringWithFormat:@"%li.   %@", indexPath.row+1, text];
+    if (row < _models.count) {
+        BitCoinModel *model = _models[row];
+        [cell setModel:model row:row];
     }
     
     return cell;
@@ -76,12 +110,13 @@
 {
     NSInteger row = indexPath.row;
     
-    if (row < _list.count) {
-        NSString *text = _list[row];
+    if (row < _models.count) {
+        BitCoinModel *model = _models[row];
+        NSString *text = model.money;
         
         [NumberInputView showWithText:text title:nil clickView:nil type:InputTypeReduce block:^(NSString * _Nonnull outputText) {
             if (outputText.length > 0) {
-                [self.list replaceObjectAtIndex:row withObject:outputText];
+                model.money = outputText;
                 [self reload];
             }
         }];
@@ -96,12 +131,12 @@
     
     NSInteger row = indexPath.row;
 
-    if (row >= _list.count) {
+    if (row >= _models.count) {
         return;
     }
     
     [SCUtilities alertWithTitle:@"确认删除？" message:nil textFieldBlock:nil sureBlock:^(NSString * _Nullable text) {
-        [self.list removeObjectAtIndex:row];
+        [self.models removeObjectAtIndex:row];
         [self reload];
         
     }];
@@ -115,7 +150,10 @@
 {
     [NumberInputView showWithText:nil title:nil clickView:nil type:InputTypeReduce block:^(NSString * _Nonnull outputText) {
         if (outputText.length > 0) {
-            [self.list insertObject:outputText atIndex:0];
+            BitCoinModel *model = [BitCoinModel new];
+            model.money = outputText;
+            model.date = [NSDate date];
+            [self.models insertObject:model atIndex:0];
             [self reload];
         }
     }];
@@ -124,7 +162,7 @@
 - (void)clearClicked
 {
     [SCUtilities alertWithTitle:@"确定清除所有数据吗？" message:nil textFieldBlock:nil sureBlock:^(NSString * _Nullable text) {
-        [self.list removeAllObjects];
+        [self.models removeAllObjects];
         [self reload];
     }];
 }
@@ -140,6 +178,8 @@
         _tableView.showsVerticalScrollIndicator = NO;
         _tableView.sectionHeaderTopPadding = 0;
         _tableView.tableHeaderView = self.topView;
+        _tableView.rowHeight = kBCCellH;
+        [_tableView registerClass:BitCoinCell.class forCellReuseIdentifier:kBCCellId];
         [self.view addSubview:_tableView];
     }
     return _tableView;
