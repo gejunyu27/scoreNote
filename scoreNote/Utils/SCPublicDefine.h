@@ -114,6 +114,10 @@
 #define KEY_LOW_PROFIT       @"KEY_LOW_PROFIT"      //最低利润  -790000
 #define KEY_DB_VERSION       @"KEY_DB_VERSION"      //数据库版本
 
+#pragma mark -名称
+#define NAME_CASH_BACK       @"#返水福利"
+#define NAME_HANDLING_FEE    @"#提现抽水"
+
 #pragma mark - 通知
 #define NOTI_RECORD_UPDATE   @"NOTI_RECORD_UPDATE"  //记录更新
 #define NOTI_SQLITE_UPDATE   @"NOTI_SQLITE_UPDATE"  //数据库更新

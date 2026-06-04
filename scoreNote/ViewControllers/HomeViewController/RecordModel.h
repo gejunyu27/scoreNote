@@ -55,6 +55,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, assign, readonly) CGFloat allProfit;
 //是否止损中
 @property (nonatomic, assign, readonly) BOOL isBreaking;
+//是否是常规投注单
+@property (nonatomic, assign, readonly) BOOL isBetTag;
 
 //列表操作
 - (void)refreshData;

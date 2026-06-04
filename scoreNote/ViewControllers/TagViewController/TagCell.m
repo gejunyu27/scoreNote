@@ -34,6 +34,11 @@
     self.nameField.text = model.name;
     [self.maxNumButton setTitle:[NSString stringWithFormat:@"%li",model.maxCount] forState:UIControlStateNormal];
     
+    //编辑按钮
+    BOOL isBetTag = ![model.name isEqualToString:NAME_CASH_BACK] && ![model.name isEqualToString:NAME_HANDLING_FEE]; //是否是常规投注标签
+    self.editButton.hidden = !isBetTag;
+    self.nameField.textColor = isBetTag ? [UIColor blackColor] : [UIColor grayColor];
+    
     //编辑状态
     BOOL isEdit = model.isEdit;
     

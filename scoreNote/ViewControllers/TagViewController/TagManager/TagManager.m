@@ -110,7 +110,7 @@ DEF_SINGLETON(TagManager)
         //C
         @{name:@"成功高赔",maxCount:@145},
         @{name:@"彩中中10倍",maxCount:@57},
-        @{name:@"CC高赔",maxCount:@50},
+        @{name:@"CC高赔",maxCount:@77},
         
         //D
         @{name:@"多宝10.0",maxCount:@56},
@@ -149,6 +149,7 @@ DEF_SINGLETON(TagManager)
         @{name:@"凯歌高赔",maxCount:@56},
         @{name:@"狂人10倍",maxCount:@57},
         @{name:@"凯旋高赔",maxCount:@54},
+        @{name:@"课代表高赔",maxCount:@32},
         
         //L
         @{name:@"老班长10.0",maxCount:@74},
@@ -165,14 +166,14 @@ DEF_SINGLETON(TagManager)
         @{name:@"梅西进球",maxCount:@103},
         @{name:@"梅西半全场",maxCount:@57},
         @{name:@"米奇十倍",maxCount:@64},
-        @{name:@"梅西比分",maxCount:@98},
-        @{name:@"MISS张高赔",maxCount:@46},
+        @{name:@"梅西比分",maxCount:@234},
+        @{name:@"MISS张高赔",maxCount:@65},
         @{name:@"码头高赔",maxCount:@61},
         
         //N
         @{name:@"牛牛高赔",maxCount:@62},
         @{name:@"牛总10倍",maxCount:@50},
-        @{name:@"暖姐高赔",maxCount:@57},
+        @{name:@"暖姐高赔",maxCount:@58},
         @{name:@"牛肉面10倍",maxCount:@64},
         
         //Q
@@ -180,7 +181,7 @@ DEF_SINGLETON(TagManager)
         @{name:@"麒麟解盘10倍",maxCount:@42},
         
         //R
-        @{name:@"任性小小余10.0",maxCount:@55},
+        @{name:@"任性小小余10.0",maxCount:@70},
         @{name:@"热浪10倍",maxCount:@107},
         
         //S
@@ -205,7 +206,7 @@ DEF_SINGLETON(TagManager)
         @{name:@"向阳10倍",maxCount:@67},
         @{name:@"XG足球10倍",maxCount:@47},
         @{name:@"小公主10倍",maxCount:@41},
-        @{name:@"小牛10倍",maxCount:@38},
+        @{name:@"小牛10倍",maxCount:@41},
         @{name:@"小公主20倍",maxCount:@141},
         @{name:@"小玉10倍",maxCount:@66},
         @{name:@"小姐姐高赔",maxCount:@49},
@@ -217,15 +218,14 @@ DEF_SINGLETON(TagManager)
         @{name:@"阳光里10.0",maxCount:@51},
         @{name:@"一触即发",maxCount:@54},
         @{name:@"鹰眼10倍",maxCount:@73},
-        @{name:@"阳哥10倍",maxCount:@40},
+        @{name:@"阳哥10倍",maxCount:@74},
         
         //Z
         @{name:@"自研10.0",maxCount:@57},
 
         //#
-        @{name:@"#平台返水",maxCount:@0},
-        @{name:@"#体彩返水",maxCount:@0},
-        @{name:@"#比特币流转",maxCount:@0},
+        @{name:NAME_CASH_BACK,maxCount:@0},    //返水福利
+        @{name:NAME_HANDLING_FEE,maxCount:@0}, //提现抽水
     ];
     
     NSMutableArray *temp = [NSMutableArray arrayWithCapacity:list.count];

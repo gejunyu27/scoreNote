@@ -101,5 +101,12 @@
     _isBreaking = _allProfit <= -_breakLine;
 }
 
+- (BOOL)isBetTag
+{
+    NSString *tagName = self.isOver ? self.overTagName : self.tagModel.name;
+    
+    return ![tagName isEqualToString:NAME_CASH_BACK] && ![tagName isEqualToString:NAME_HANDLING_FEE];
+}
+
 @end
 

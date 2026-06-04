@@ -148,7 +148,7 @@
                 }
                 
                 //盈期比
-                if (record.lineList.count > 0 && ![record.overTagName hasPrefix:@"#"]) {
+                if (record.lineList.count > 0 && record.isBetTag) {
                     CGFloat ratio = record.allProfit/record.lineList.count;
                     if (ratio >= highOverRatio) {
                         highOverRatio = ratio;
@@ -157,7 +157,7 @@
                 }
                 
                 //最低期数
-                if ((!lowLineOverRecord || record.lineList.count <= lowLineOverRecord.lineList.count) && ![record.overTagName hasPrefix:@"#"]) {
+                if ((!lowLineOverRecord || record.lineList.count <= lowLineOverRecord.lineList.count) && record.isBetTag) {
                     lowLineOverRecord = record;
                 }
                 
