@@ -78,6 +78,12 @@
 		4B0319882F79804D0041EFC7 /* NetworkReachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B0319872F79804D0041EFC7 /* NetworkReachability.m */; };
 		4B0CD2D92FC498AF00B45BA6 /* BitCoinCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B0CD2D82FC498AF00B45BA6 /* BitCoinCell.m */; };
 		4B0CD2DC2FC498B800B45BA6 /* BitCoinModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B0CD2DB2FC498B800B45BA6 /* BitCoinModel.m */; };
+		4B42D1122FD1B63000816442 /* FinanceView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B42D1112FD1B63000816442 /* FinanceView.m */; };
+		4B42D1152FD1B65300816442 /* FinanceButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B42D1142FD1B65300816442 /* FinanceButton.m */; };
+		4B42D1182FD1B6F300816442 /* FinanceModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B42D1172FD1B6F300816442 /* FinanceModel.m */; };
+		4B42D11A2FD1D10F00816442 /* rank.png in Resources */ = {isa = PBXBuildFile; fileRef = 4B42D1192FD1D10F00816442 /* rank.png */; };
+		4B42D11C2FD1D21E00816442 /* shujuzonglan.png in Resources */ = {isa = PBXBuildFile; fileRef = 4B42D11B2FD1D21E00816442 /* shujuzonglan.png */; };
+		4B42D11E2FD1D22500816442 /* genjinjilu.png in Resources */ = {isa = PBXBuildFile; fileRef = 4B42D11D2FD1D22500816442 /* genjinjilu.png */; };
 		F18E8098E2966C0FDCB2B440 /* Pods_scoreNote.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B9D0C68F7EED1D682F79A491 /* Pods_scoreNote.framework */; };
 /* End PBXBuildFile section */
 
@@ -224,6 +230,15 @@
 		4B0CD2D82FC498AF00B45BA6 /* BitCoinCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BitCoinCell.m; sourceTree = "<group>"; };
 		4B0CD2DA2FC498B800B45BA6 /* BitCoinModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BitCoinModel.h; sourceTree = "<group>"; };
 		4B0CD2DB2FC498B800B45BA6 /* BitCoinModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BitCoinModel.m; sourceTree = "<group>"; };
+		4B42D1102FD1B63000816442 /* FinanceView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FinanceView.h; sourceTree = "<group>"; };
+		4B42D1112FD1B63000816442 /* FinanceView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FinanceView.m; sourceTree = "<group>"; };
+		4B42D1132FD1B65300816442 /* FinanceButton.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FinanceButton.h; sourceTree = "<group>"; };
+		4B42D1142FD1B65300816442 /* FinanceButton.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FinanceButton.m; sourceTree = "<group>"; };
+		4B42D1162FD1B6F300816442 /* FinanceModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FinanceModel.h; sourceTree = "<group>"; };
+		4B42D1172FD1B6F300816442 /* FinanceModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FinanceModel.m; sourceTree = "<group>"; };
+		4B42D1192FD1D10F00816442 /* rank.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = rank.png; sourceTree = "<group>"; };
+		4B42D11B2FD1D21E00816442 /* shujuzonglan.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = shujuzonglan.png; sourceTree = "<group>"; };
+		4B42D11D2FD1D22500816442 /* genjinjilu.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = genjinjilu.png; sourceTree = "<group>"; };
 		53CCB9C4E7042293F7A66D72 /* Pods-DEMO.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DEMO.debug.xcconfig"; path = "Target Support Files/Pods-DEMO/Pods-DEMO.debug.xcconfig"; sourceTree = "<group>"; };
 		9B574DC10A88E432F8AF7D1E /* Pods-DEMO.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DEMO.release.xcconfig"; path = "Target Support Files/Pods-DEMO/Pods-DEMO.release.xcconfig"; sourceTree = "<group>"; };
 		B9D0C68F7EED1D682F79A491 /* Pods_scoreNote.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_scoreNote.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -510,6 +525,9 @@
 			children = (
 				4B0319322F79452C0041EFC7 /* TotalViewController.h */,
 				4B0319332F79452C0041EFC7 /* TotalViewController.m */,
+				4B42D11B2FD1D21E00816442 /* shujuzonglan.png */,
+				4B42D11D2FD1D22500816442 /* genjinjilu.png */,
+				4B42D1192FD1D10F00816442 /* rank.png */,
 				4B03192E2F79452C0041EFC7 /* TotalHeaderView.h */,
 				4B03192F2F79452C0041EFC7 /* TotalHeaderView.m */,
 				4B03192C2F79452C0041EFC7 /* TotalCell.h */,
@@ -555,6 +573,7 @@
 				4B0319442F79452C0041EFC7 /* TagSelectView.m */,
 				4B0319412F79452C0041EFC7 /* SCToolBar.h */,
 				4B0319422F79452C0041EFC7 /* SCToolBar.m */,
+				4B42D10F2FD1B5E200816442 /* FinanceView */,
 				4B03193E2F79452C0041EFC7 /* NumberInputView */,
 			);
 			path = Views;
@@ -571,6 +590,19 @@
 				4B0CD2DB2FC498B800B45BA6 /* BitCoinModel.m */,
 			);
 			path = BitCoinViewController;
+			sourceTree = "<group>";
+		};
+		4B42D10F2FD1B5E200816442 /* FinanceView */ = {
+			isa = PBXGroup;
+			children = (
+				4B42D1102FD1B63000816442 /* FinanceView.h */,
+				4B42D1112FD1B63000816442 /* FinanceView.m */,
+				4B42D1132FD1B65300816442 /* FinanceButton.h */,
+				4B42D1142FD1B65300816442 /* FinanceButton.m */,
+				4B42D1162FD1B6F300816442 /* FinanceModel.h */,
+				4B42D1172FD1B6F300816442 /* FinanceModel.m */,
+			);
+			path = FinanceView;
 			sourceTree = "<group>";
 		};
 		7D2D062AB0DD7C7EBD2808E1 /* Frameworks */ = {
@@ -652,10 +684,13 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4B42D11E2FD1D22500816442 /* genjinjilu.png in Resources */,
 				4B0318B62F79451E0041EFC7 /* welcome@2x.png in Resources */,
 				4B0318B72F79451E0041EFC7 /* welcome@3x.png in Resources */,
+				4B42D11C2FD1D21E00816442 /* shujuzonglan.png in Resources */,
 				4B0319472F79452C0041EFC7 /* ColumnAddViewController.xib in Resources */,
 				4B0319852F794C100041EFC7 /* Assets.xcassets in Resources */,
+				4B42D11A2FD1D10F00816442 /* rank.png in Resources */,
 				4B0318AF2F7944FF0041EFC7 /* LaunchScreen.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -737,11 +772,13 @@
 				4B03195B2F79452C0041EFC7 /* TagViewController.m in Sources */,
 				4B0CD2DC2FC498B800B45BA6 /* BitCoinModel.m in Sources */,
 				4B03195C2F79452C0041EFC7 /* UIColor+SCHex.m in Sources */,
+				4B42D1122FD1B63000816442 /* FinanceView.m in Sources */,
 				4B03195D2F79452C0041EFC7 /* TagDetailViewController.m in Sources */,
 				4B03195E2F79452C0041EFC7 /* SCUtilities.m in Sources */,
 				4B03195F2F79452C0041EFC7 /* TagRankCell.m in Sources */,
 				4B0319602F79452C0041EFC7 /* CareerViewModel.m in Sources */,
 				4B0319612F79452C0041EFC7 /* ColumnManager.m in Sources */,
+				4B42D1182FD1B6F300816442 /* FinanceModel.m in Sources */,
 				4B0319622F79452C0041EFC7 /* SqlEditUtil.m in Sources */,
 				4B0319632F79452C0041EFC7 /* TagManager.m in Sources */,
 				4B0319642F79452C0041EFC7 /* TotalViewController.m in Sources */,
@@ -774,6 +811,7 @@
 				4B03197D2F79452C0041EFC7 /* SqlEditViewController.m in Sources */,
 				4B03197E2F79452C0041EFC7 /* BaseNavigationController.m in Sources */,
 				4B03197F2F79452C0041EFC7 /* NSDate+SCExtension.m in Sources */,
+				4B42D1152FD1B65300816442 /* FinanceButton.m in Sources */,
 				4B0319802F79452C0041EFC7 /* TagCell.m in Sources */,
 				4B0319812F79452C0041EFC7 /* RecordDetailViewController.m in Sources */,
 				4B0319822F79452C0041EFC7 /* ConfigCalculateCell.m in Sources */,

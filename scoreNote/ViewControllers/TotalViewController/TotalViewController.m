@@ -12,11 +12,11 @@
 #import "TagRankViewController.h"
 #import "CareerViewController.h"
 #import "TotalCell.h"
+#import "FinanceView.h"
 
 @interface TotalViewController () <UITableViewDelegate, UITableViewDataSource>
 @property (nonatomic, strong) UIView *topView;
-@property (nonatomic, strong) UILabel *startDateLabel;
-@property (nonatomic, strong) UILabel *totalLabel;
+@property (nonatomic, strong) FinanceView *financeView;
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) TotalViewModel *viewModel;
 
@@ -45,16 +45,7 @@
 
 - (void)refreshUI
 {
-    //总利润 //历史黑-738997.96
-    NSString *totalText = [NSString stringWithFormat:@"总计：%@     共%li单",[SCUtilities removeFloatSuffix:self.viewModel.totalProfit], self.viewModel.allRecordsNum];
-    self.totalLabel.text = totalText;
-    
-    //起投时间 (2023年9月)
-    if (!self.viewModel.startRecord) {
-        self.startDateLabel.text = @"还未起投";
-    }else {
-        self.startDateLabel.text = [NSString stringWithFormat:@"%@起投   时长%@   月均：%@", self.viewModel.startDateString, self.viewModel.periodString, [SCUtilities removeFloatSuffix:self.viewModel.perMonthProfit]];
-    }
+    self.financeView.models = self.viewModel.financeModels;
     
     //记录
     [self.tableView reloadData];
@@ -62,13 +53,6 @@
 }
 
 #pragma mark -action
-- (void)switchChange:(UISwitch *)sender
-{
-    self.viewModel.isOn = sender.isOn;
-    [self.tableView reloadData];
-    
-}
-
 - (void)tagRankClicked:(UIButton *)sender
 {
     if (!self.viewModel.startRecord) {
@@ -78,7 +62,7 @@
     [self.navigationController pushViewController:[TagRankViewController new] animated:YES];
 }
 
-- (void)CareerClicked:(UIButton *)sender
+- (void)careerClicked:(UIButton *)sender
 {
     if (!self.viewModel.startRecord) {
         [self showWithStatus:@"还未起投"];
@@ -187,56 +171,29 @@
         //            y = self.navigationController.navigationBar.bottom;
         //        }
         
-        _topView = [[UIView alloc] initWithFrame:CGRectMake(0, y, SCREEN_WIDTH, 80)];
+        _topView = [[UIView alloc] initWithFrame:CGRectMake(0, y, SCREEN_WIDTH, 180)];
         //        [self.view addSubview:_topView]; //新版改为tableview的headerview
         
-        //topview ui
-        //背景框
-        CGFloat margin = 15;
-        UIView *bgView = [[UIView alloc] initWithFrame:CGRectMake(margin, 0, _topView.width-margin*2, _topView.height-5)];
-        bgView.backgroundColor = [UIColor whiteColor];
-        bgView.layer.cornerRadius = 10;
-        [bgView setCommonShadow];
-        [_topView addSubview:bgView];
+        CGFloat edge = 15;
+        _financeView = [[FinanceView alloc] initWithFrame:CGRectMake(edge, 0, _topView.width-edge*2, _topView.height-5)];
+        [_topView addSubview:_financeView];
+
+        CGFloat btnWH   = 30;
+        CGFloat btnY    = 25;
+        CGFloat btnEdge = 20;
         
         //标签排行
-        CGFloat btnH = 20;
-        CGFloat btnW = 50;
-        CGFloat btnY = 10;
-        UIFont *btnFont = SCFONT_SIZED(12);
-        UIButton *tagRankButton = [UIButton buttonWithType:UIButtonTypeSystem];
-        tagRankButton.frame = CGRectMake(bgView.width-btnW-5, btnY, btnW, btnH);
-        tagRankButton.titleLabel.font = btnFont;
-        [tagRankButton setTitle:@"标签排行" forState:UIControlStateNormal];
+        UIButton *tagRankButton = [[UIButton alloc] initWithFrame:CGRectMake(_financeView.width - btnWH - btnEdge, btnY, btnWH, btnWH)];
+        [tagRankButton setImage:[UIImage imageNamed:@"TagRank"] forState:UIControlStateNormal];
         [tagRankButton addTarget:self action:@selector(tagRankClicked:) forControlEvents:UIControlEventTouchUpInside];
-        [bgView addSubview:tagRankButton];
+        [_financeView addSubview:tagRankButton];
         
         //生涯统计
-        UIButton *careerButton = [UIButton buttonWithType:UIButtonTypeSystem];
-        careerButton.frame = CGRectMake(tagRankButton.left-btnW-5, btnY, btnW, btnH);
-        careerButton.titleLabel.font = btnFont;
-        [careerButton setTitle:@"生涯统计" forState:UIControlStateNormal];
-        [careerButton addTarget:self action:@selector(CareerClicked:) forControlEvents:UIControlEventTouchUpInside];
-        [bgView addSubview:careerButton];
-        
-        //总计
-        CGFloat labelX = 15;
-        _totalLabel = [[UILabel alloc] initWithFrame:CGRectMake(labelX, btnY, careerButton.left - 15 - labelX, btnH)];
-        _totalLabel.font = SCFONT_SIZED(18);
-        [bgView addSubview:_totalLabel];
-        
-        //切换
-        UISwitch *onSwitch = [UISwitch new];
-        onSwitch.right = bgView.width - 10;
-        onSwitch.centerY = tagRankButton.bottom + 25;
-        [onSwitch addTarget:self action:@selector(switchChange:) forControlEvents:UIControlEventValueChanged];
-        [bgView addSubview:onSwitch];
-        
-        //起投
-        _startDateLabel = [[UILabel alloc] initWithFrame:CGRectMake(labelX, _totalLabel.bottom+20, onSwitch.left-15-labelX, SCREEN_FIX(12))];
-        _startDateLabel.width = onSwitch.left - 15 - _startDateLabel.left;
-        _startDateLabel.font = SCFONT_SIZED(11);
-        [bgView addSubview:_startDateLabel];
+        UIButton *careerButton = [[UIButton alloc] initWithFrame:CGRectMake(tagRankButton.left-btnWH-btnEdge, btnY, btnWH, btnWH)];
+        [careerButton setImage:[UIImage imageNamed:@"Carrer"] forState:UIControlStateNormal];
+        [careerButton addTarget:self action:@selector(careerClicked:) forControlEvents:UIControlEventTouchUpInside];
+        [_financeView addSubview:careerButton];
+
         
     }
     return _topView;

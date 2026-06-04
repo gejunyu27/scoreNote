@@ -10,11 +10,27 @@
 #define kLocalSectionHide @"kLocalSectionHide"
 #define kDateFormat       @"yyyy年MM月"
 
+@interface TotalViewModel ()
+//总利润
+//@property (nonatomic, assign) CGFloat totalProfit;
+////起投日期
+//@property (nonatomic, copy) NSString *startDateString;
+////投注总月份
+//@property (nonatomic, assign) NSInteger totalMonths;
+//@property (nonatomic, copy) NSString *periodString;
+////月均利润
+//@property (nonatomic, assign) CGFloat perMonthProfit;
+////总单数
+//@property (nonatomic, assign) NSInteger allRecordsNum;
+
+@end
+
 @implementation TotalViewModel
 - (instancetype)init
 {
     self = [super init];
     if (self) {
+        _sectionList = [NSMutableArray array];
         self.needUpdate = YES;
         
         [[NSNotificationCenter defaultCenter] addObserverForName:NOTI_SQLITE_UPDATE object:nil queue:nil usingBlock:^(NSNotification * _Nonnull note) {
@@ -50,15 +66,15 @@
     }
 
     //计算总利润
-    _totalProfit += followSectionModel.allProfit;
+    CGFloat totalProfit = followSectionModel.allProfit;
     
     //计算总单数
-    _allRecordsNum += followSectionModel.recordList.count;
+    NSInteger allRecordsNum = followSectionModel.recordList.count;
     
     //2.获取根据时间倒序的已完成记录
     NSMutableArray <RecordModel *> *finishRecords = [DataManager queryFinishRecords];
 
-    _allRecordsNum += finishRecords.count; //总单数补充上
+    allRecordsNum += finishRecords.count; //总单数补充上
 
     //遍历
     for (RecordModel *record in finishRecords) {
@@ -82,21 +98,21 @@
         }
         
         [sModel addRecord:record];
-        _totalProfit += record.allProfit;
+        totalProfit += record.allProfit;
         
     }
     
     //历史最高总利润
     CGFloat highAllProfit = [[NSUserDefaults standardUserDefaults] floatForKey:KEY_HIGH_PROFIT];
-    if (_totalProfit > highAllProfit) {
-        [[NSUserDefaults standardUserDefaults] setFloat:_totalProfit forKey:KEY_HIGH_PROFIT];
+    if (totalProfit > highAllProfit) {
+        [[NSUserDefaults standardUserDefaults] setFloat:totalProfit forKey:KEY_HIGH_PROFIT];
         [[NSUserDefaults standardUserDefaults] synchronize];
     }
     
     //历史最低总利润
     CGFloat lowAllProfit = [[NSUserDefaults standardUserDefaults] floatForKey:KEY_LOW_PROFIT];
-    if (_totalProfit < lowAllProfit) {
-        [[NSUserDefaults standardUserDefaults] setFloat:_totalProfit forKey:KEY_LOW_PROFIT];
+    if (totalProfit < lowAllProfit) {
+        [[NSUserDefaults standardUserDefaults] setFloat:totalProfit forKey:KEY_LOW_PROFIT];
         [[NSUserDefaults standardUserDefaults] synchronize];
     }
     
@@ -107,10 +123,10 @@
     NSDate *startDate = _startRecord.startTime;
     NSInteger totalMonths = [startDate monthsBetweenDate:[NSDate date]] + 1; //相差月数 原相差月数不算上当月，所以要+1
     //每月利润
-    _perMonthProfit = _totalProfit/totalMonths;
+    CGFloat perMonthProfit = totalProfit/totalMonths;
     
     //起投日期
-    _startDateString = [startDate getStringWithDateFormat:kDateFormat];
+    NSString *startDateString = startDate ? [startDate getStringWithDateFormat:kDateFormat] : @"还未起投";
     
     //投注时长
     NSInteger year = totalMonths/12;
@@ -124,7 +140,18 @@
         [temp appendFormat:@"%li个月", month];
     }
     
-    _periodString = temp.copy;
+    NSString *periodString = temp.copy;
+    
+    //生成数据
+    FinanceModel *totalProfitModel = [[FinanceModel alloc] initWithTitle:@"总收益" content:[SCUtilities removeFloatSuffix:totalProfit]];
+    FinanceModel *allRecordsNumModel = [[FinanceModel alloc] initWithTitle:@"总单数" content:[NSString stringWithFormat:@"%li单", allRecordsNum]];
+    FinanceModel *startDateModel = [[FinanceModel alloc] initWithTitle:@"起投日期" content:startDateString];
+    FinanceModel *periodModel = [[FinanceModel alloc] initWithTitle:@"投注时长" content:periodString];
+    FinanceModel *perMonthProfitModel = [[FinanceModel alloc] initWithTitle:@"月均收益" content:[SCUtilities removeFloatSuffix:perMonthProfit]];
+    
+    _financeModels = @[totalProfitModel, allRecordsNumModel, startDateModel, periodModel, perMonthProfitModel];
+    
+    
 }
 
 - (void)getStartRecord:(RecordModel *)record
@@ -139,29 +166,18 @@
 - (void)clearData
 {
     //清除旧数据
-    if (_sectionList) {
-        [_sectionList removeAllObjects];
-    }else {
-        _sectionList = [NSMutableArray array];
-    }
+    [_sectionList removeAllObjects];
     
-    _totalProfit   = 0;
-    _perMonthProfit = 0;
-    _allRecordsNum = 0;
+//    _totalProfit   = 0;
+//    _perMonthProfit = 0;
+//    _allRecordsNum = 0;
+//    
+//    _startRecord = nil;
+//    _startDateString = nil;
+//    _periodString = nil;
     
-    _startRecord = nil;
-    _startDateString = nil;
-    _periodString = nil;
+    _financeModels = nil;
     
-}
-
-- (void)setIsOn:(BOOL)isOn
-{
-    _isOn = isOn;
-    
-    for (TotalSectionModel *section in _sectionList) {
-        section.isOn = isOn;
-    }
 }
 
 - (void)dealloc
