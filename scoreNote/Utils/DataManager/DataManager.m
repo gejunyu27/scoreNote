@@ -490,6 +490,30 @@ DEF_SINGLETON(DataManager)
     }
 }
 
+#pragma mark -从比特币账本迁移数据
++ (BOOL)migrationData:(RecordModel *)record
+{
+    //新增记录
+    RecordModel *newRecord = [self insertNewRecord:record.tagId];
+    if (!newRecord) {
+        return NO;
+    }
+    
+    //修改数据
+    record.recordId = newRecord.recordId;
+    [self updateRecord:record];
+    
+    //新增line
+    for (LineModel *line in record.lineList) {
+        LineModel *newLine = [self insertNewLineWithRecord:record outMoney:0];
+        line.lineId = newLine.lineId;
+        line.recordId = newLine.recordId;
+        [self updateLine:line];
+    }
+    
+    return YES;
+}
+
 #pragma mark -init
 - (FMDatabase *)db
 {

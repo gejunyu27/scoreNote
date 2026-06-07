@@ -33,7 +33,7 @@
 {
     _tagId = tagId;
     
-    _tagModel = [TagManager getTag:tagId];
+    _tagModel = [TagManager getTagWithId:tagId];
 }
 
 

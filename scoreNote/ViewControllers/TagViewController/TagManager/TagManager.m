@@ -386,11 +386,29 @@ DEF_SINGLETON(TagManager)
 }
 
 //根据id搜索标签
-+ (nullable TagModel *)getTag:(NSInteger)tagId
++ (nullable TagModel *)getTagWithId:(NSInteger)tagId
 {
     for (TagPinyinModel *pinyin in [self pinyinList]) {
         for (TagModel *tagModel in pinyin.tagList) {
             if (tagModel.tagId == tagId) {
+                return tagModel;
+            }
+        }
+    }
+    
+    return nil;
+}
+
+//根据标签名搜索标签
++ (nullable TagModel *)getTagWithName:(NSString *)tagName
+{
+    if (!VALID_STRING(tagName)) {
+        return nil;
+    }
+    
+    for (TagPinyinModel *pinyin in [self pinyinList]) {
+        for (TagModel *tagModel in pinyin.tagList) {
+            if ([tagModel.name isEqualToString:tagName]) {
                 return tagModel;
             }
         }

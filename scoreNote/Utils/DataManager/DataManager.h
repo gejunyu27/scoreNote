@@ -75,6 +75,9 @@ NS_ASSUME_NONNULL_BEGIN
 #pragma mark -导入数据库
 + (void)LeadDatabaseFrom:(NSURL *)URL;
 
+#pragma mark -从比特币账本迁移数据
++ (BOOL)migrationData:(RecordModel *)record;
+
 
 #pragma mark -更新字段
 + (NSString *)recordTableName;

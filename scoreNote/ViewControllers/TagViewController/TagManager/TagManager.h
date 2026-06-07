@@ -34,7 +34,10 @@ AS_SINGLETON(TagManager)
 + (nullable TagModel *)checkNewTagNameValid:(NSString *)name;
 
 //根据id搜索标签
-+ (nullable TagModel *)getTag:(NSInteger)tagId;
++ (nullable TagModel *)getTagWithId:(NSInteger)tagId;
+
+//根据标签名搜索标签
++ (nullable TagModel *)getTagWithName:(NSString *)tagName;
 
 @end
 

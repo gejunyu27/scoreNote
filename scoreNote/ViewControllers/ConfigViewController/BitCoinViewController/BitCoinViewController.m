@@ -31,7 +31,7 @@
     [super viewWillDisappear:animated];
     
     //归档
-    [self.viewModel saveData];
+    [self.viewModel archiveData];
 }
 
 - (void)reload
@@ -125,10 +125,22 @@
 
 - (void)clearClicked
 {
-    [SCUtilities alertWithTitle:@"确定清除所有数据吗？" message:nil textFieldBlock:nil sureBlock:^(NSString * _Nullable text) {
+    UIAlertController *ac = [UIAlertController alertControllerWithTitle:@"确认要清除数据？" message:nil preferredStyle:UIAlertControllerStyleActionSheet];
+    
+    [ac addAction:[UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil]];
+    [ac addAction:[UIAlertAction actionWithTitle:@"清除并将数据迁移至统计页" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        BOOL success = [self.viewModel migrationData];//迁移数据
+        [self showWithStatus:(success?@"迁移成功":@"迁移失败")];
+        [self reload];
+    }]];
+    
+    [ac addAction:[UIAlertAction actionWithTitle:@"直接清除" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         [self.viewModel.dataList removeAllObjects];
         [self reload];
-    }];
+    }]];
+    
+    [self presentViewController:ac animated:YES completion:nil];
+
 }
 
 #pragma mark -ui

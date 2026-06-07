@@ -15,7 +15,11 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong, readonly) NSMutableArray <BitCoinModel *> *dataList;
 @property (nonatomic, weak, readonly) NSArray <FinanceModel *> *financeList;
 
-- (void)saveData;
+//本地化储存数据
+- (void)archiveData;
+
+//迁移数据至数据库
+- (BOOL)migrationData;
 
 @end
 

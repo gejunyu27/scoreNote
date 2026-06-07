@@ -6,6 +6,8 @@
 //
 
 #import "BitCoinViewModel.h"
+#import "TagManager.h"
+#import "RecordManager.h"
 
 @implementation BitCoinViewModel
 
@@ -44,7 +46,7 @@
 }
 
 
-- (void)saveData
+- (void)archiveData
 {
     NSError *error = nil;
     
@@ -80,6 +82,46 @@
     FinanceModel *withdrawModel = [[FinanceModel alloc] initWithTitle:@"累计提现" content:[SCUtilities removeFloatSuffix:withdrawMoney]];
     
     return @[flowModel, rechargeModel, withdrawModel];
+}
+
+- (BOOL)migrationData
+{
+    //获取比特币标签
+    TagModel *bitcoinTag = [TagManager getTagWithName:NAME_BIT_COIN];
+    
+    if (!bitcoinTag) {
+        return NO;
+    }
+    
+    RecordModel *record = [RecordModel new];
+    record.tagId = bitcoinTag.tagId;
+    record.isOver = YES;
+    
+    //倒序插入列
+    [_dataList enumerateObjectsWithOptions:NSEnumerationReverse usingBlock:^(BitCoinModel * _Nonnull model, NSUInteger idx, BOOL * _Nonnull stop) {
+        LineModel *line = [LineModel new];
+        if (model.isRecharge) {
+            line.outMoney = model.money.floatValue;
+            line.getMoney = 0;
+
+        }else {
+            line.outMoney = 0;
+            line.getMoney = model.money.floatValue;
+        }
+        line.isOver = YES;
+        line.beginTime = model.date;
+        line.endTime   = model.date;
+        [record addLine:line];
+        
+    }];
+    
+    BOOL success = [DataManager migrationData:record];
+    
+    if (success) {
+        [_dataList removeAllObjects];
+    }
+    
+    return success;
 }
 
 @end
