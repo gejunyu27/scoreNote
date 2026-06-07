@@ -116,6 +116,7 @@
 
 #pragma mark -名称
 #define NAME_CASH_BACK       @"#返水福利"
+#define NAME_BIT_COIN        @"#比特币"
 
 #pragma mark - 通知
 #define NOTI_RECORD_UPDATE   @"NOTI_RECORD_UPDATE"  //记录更新

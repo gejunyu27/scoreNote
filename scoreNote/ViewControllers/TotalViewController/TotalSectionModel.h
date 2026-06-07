@@ -18,6 +18,11 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, assign) BOOL isOn; //是否展开
 @property (nonatomic, assign) BOOL isFollowing; //是否正在进行中
 
+//新增比特币数据
+@property (nonatomic, assign, readonly) CGFloat bitcoinOut;
+@property (nonatomic, assign, readonly) CGFloat bitcoinGet;
+@property (nonatomic, assign, readonly) CGFloat bitcoinProfit;
+
 //单子操作
 - (void)addRecord:(RecordModel *)record;
 

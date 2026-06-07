@@ -79,6 +79,9 @@
 		4B42D1122FD1B63000816442 /* FinanceView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B42D1112FD1B63000816442 /* FinanceView.m */; };
 		4B42D1152FD1B65300816442 /* FinanceButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B42D1142FD1B65300816442 /* FinanceButton.m */; };
 		4B42D1182FD1B6F300816442 /* FinanceModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B42D1172FD1B6F300816442 /* FinanceModel.m */; };
+		4B42D1412FD587A400816442 /* BitCoinViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B42D1402FD587A400816442 /* BitCoinViewModel.m */; };
+		4B42D1442FD5885600816442 /* BitCoinModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B42D1432FD5885600816442 /* BitCoinModel.m */; };
+		4B42D1472FD58BD000816442 /* BitCoinCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B42D1462FD58BD000816442 /* BitCoinCell.m */; };
 		F18E8098E2966C0FDCB2B440 /* Pods_scoreNote.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B9D0C68F7EED1D682F79A491 /* Pods_scoreNote.framework */; };
 /* End PBXBuildFile section */
 
@@ -227,6 +230,12 @@
 		4B42D1142FD1B65300816442 /* FinanceButton.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FinanceButton.m; sourceTree = "<group>"; };
 		4B42D1162FD1B6F300816442 /* FinanceModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FinanceModel.h; sourceTree = "<group>"; };
 		4B42D1172FD1B6F300816442 /* FinanceModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FinanceModel.m; sourceTree = "<group>"; };
+		4B42D13F2FD587A400816442 /* BitCoinViewModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BitCoinViewModel.h; sourceTree = "<group>"; };
+		4B42D1402FD587A400816442 /* BitCoinViewModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BitCoinViewModel.m; sourceTree = "<group>"; };
+		4B42D1422FD5885600816442 /* BitCoinModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BitCoinModel.h; sourceTree = "<group>"; };
+		4B42D1432FD5885600816442 /* BitCoinModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BitCoinModel.m; sourceTree = "<group>"; };
+		4B42D1452FD58BD000816442 /* BitCoinCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BitCoinCell.h; sourceTree = "<group>"; };
+		4B42D1462FD58BD000816442 /* BitCoinCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BitCoinCell.m; sourceTree = "<group>"; };
 		53CCB9C4E7042293F7A66D72 /* Pods-DEMO.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DEMO.debug.xcconfig"; path = "Target Support Files/Pods-DEMO/Pods-DEMO.debug.xcconfig"; sourceTree = "<group>"; };
 		9B574DC10A88E432F8AF7D1E /* Pods-DEMO.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DEMO.release.xcconfig"; path = "Target Support Files/Pods-DEMO/Pods-DEMO.release.xcconfig"; sourceTree = "<group>"; };
 		B9D0C68F7EED1D682F79A491 /* Pods_scoreNote.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_scoreNote.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -569,6 +578,12 @@
 			children = (
 				4B0318E72F79452C0041EFC7 /* BitCoinViewController.h */,
 				4B0318E82F79452C0041EFC7 /* BitCoinViewController.m */,
+				4B42D1452FD58BD000816442 /* BitCoinCell.h */,
+				4B42D1462FD58BD000816442 /* BitCoinCell.m */,
+				4B42D13F2FD587A400816442 /* BitCoinViewModel.h */,
+				4B42D1402FD587A400816442 /* BitCoinViewModel.m */,
+				4B42D1422FD5885600816442 /* BitCoinModel.h */,
+				4B42D1432FD5885600816442 /* BitCoinModel.m */,
 			);
 			path = BitCoinViewController;
 			sourceTree = "<group>";
@@ -751,6 +766,8 @@
 				4B03195C2F79452C0041EFC7 /* UIColor+SCHex.m in Sources */,
 				4B42D1122FD1B63000816442 /* FinanceView.m in Sources */,
 				4B03195D2F79452C0041EFC7 /* TagDetailViewController.m in Sources */,
+				4B42D1442FD5885600816442 /* BitCoinModel.m in Sources */,
+				4B42D1412FD587A400816442 /* BitCoinViewModel.m in Sources */,
 				4B03195E2F79452C0041EFC7 /* SCUtilities.m in Sources */,
 				4B03195F2F79452C0041EFC7 /* TagRankCell.m in Sources */,
 				4B0319602F79452C0041EFC7 /* CareerViewModel.m in Sources */,
@@ -782,6 +799,7 @@
 				4B0319782F79452C0041EFC7 /* NSError+SCExtension.m in Sources */,
 				4B0319792F79452C0041EFC7 /* TagModel.m in Sources */,
 				4B03197A2F79452C0041EFC7 /* ColumnModel.m in Sources */,
+				4B42D1472FD58BD000816442 /* BitCoinCell.m in Sources */,
 				4B03197B2F79452C0041EFC7 /* LineModel.m in Sources */,
 				4B03197C2F79452C0041EFC7 /* ConfigFunctionCell.m in Sources */,
 				4B03197D2F79452C0041EFC7 /* SqlEditViewController.m in Sources */,

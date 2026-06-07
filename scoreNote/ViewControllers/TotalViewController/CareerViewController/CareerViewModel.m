@@ -28,52 +28,44 @@
     CareerModel *daysModel = [[CareerModel alloc] initWithTitle:@"投注天数" content:[NSString stringWithFormat:@"%li天", totalDays]];
     [temp addObject:daysModel];
     
-    //3.最高总利润
-    CGFloat highAllProfit = [[NSUserDefaults standardUserDefaults] floatForKey:KEY_HIGH_PROFIT];
-    CareerModel *highAllModel = [[CareerModel alloc] initWithTitle:@"最高总利润" content:[SCUtilities removeFloatSuffix:highAllProfit]];
-    [temp addObject:highAllModel];
-    
-    //4.最低总利润
-    CGFloat lowAllProfit = [[NSUserDefaults standardUserDefaults] floatForKey:KEY_LOW_PROFIT];
-    CareerModel *lowAllModel = [[CareerModel alloc] initWithTitle:@"最低总利润" content:[SCUtilities removeFloatSuffix:lowAllProfit]];
-    [temp addObject:lowAllModel];
-    
-    //5.总投注
+    //6.总投注
     CGFloat allOut = 0;
-    //6.总收入
+    CGFloat bitcoinOut = 0;
+    //7.总收入
     CGFloat allGet = 0;
+    CGFloat bitcoinGet = 0;
     
-    //7.第一次红单
+    //8.第一次红单
     RecordModel *firstRedRecord;
-    //8.第一次黑单
+    //9.第一次黑单
     RecordModel *firstBlackRecord;
-    //9.最红单(已结束)
+    //10.最红单(已结束)
     RecordModel *highOverRecord;
-    //10.最黑单(已结束)
+    //11.最黑单(已结束)
     RecordModel *lowOverRecord;
-    //11.最红月(已结束)
+    //12.最红月(已结束)
     TotalSectionModel *highOverSection;
-    //12.最黑月(已结束)
+    //13.最黑月(已结束)
     TotalSectionModel *lowOverSection;
-    //13.盈期比(已结束)xz
+    //14.盈期比(已结束)xz
     RecordModel *ratioOverRecord;
     CGFloat highOverRatio = 0.0;
-    //14最低期数(已结束)
+    //15.最低期数(已结束)
     RecordModel *lowLineOverRecord;
-    //15.最高期数
+    //16.最高期数
     RecordModel *highLineRecord;
-    //16.最高实际期
+    //17.最高实际期
     RecordModel *highRealNumRecord;
-    //17.红月数(已结束)
+    //18.红月数(已结束)
     NSInteger redOverMonths = 0;
-    //18.黑月数(已结束)
+    //19.黑月数(已结束)
     NSInteger blackOverMonths = 0;
-    //19.红单数(已结束)
+    //20.红单数(已结束)
     NSInteger redOverRecords = 0;
-    //20.黑单数(已结束)
+    //21.黑单数(已结束)
     NSInteger blackOverRecords = 0;
     
-    //21.最长连红数量 22.最长连黑数量
+    //22.最长连红数量 23.最长连黑数量
     NSInteger continuousRed = 0;
     NSInteger continuousBlack = 0;
     NSInteger maxRedNum = 0;
@@ -113,8 +105,9 @@
         }
         
         allOut += sectionModel.allOut;
+        bitcoinOut += sectionModel.bitcoinOut;
         allGet += sectionModel.allGet;
-        
+        bitcoinGet += sectionModel.bitcoinGet;
         
         for (RecordModel *record in sectionModel.recordList) {
             if (record.isOver) { //只统计结束的数据
@@ -207,10 +200,25 @@
         }
     }
     
-    CareerModel *allOutModel = [[CareerModel alloc] initWithTitle:@"总投入" content:[SCUtilities removeFloatSuffix:allOut]];
+    //3.总利润
+    CareerModel *allProfitModel = [[CareerModel alloc] initWithTitle:@"总利润" content:[SCUtilities removeFloatSuffix:allGet-allOut] tip:[NSString stringWithFormat:@"其中比特币%@", [SCUtilities removeFloatSuffix:bitcoinGet-bitcoinOut]]];
+    [temp addObject:allProfitModel];
+    
+    //4.最高总利润
+    CGFloat highAllProfit = [[NSUserDefaults standardUserDefaults] floatForKey:KEY_HIGH_PROFIT];
+    CareerModel *highAllModel = [[CareerModel alloc] initWithTitle:@"最高总利润" content:[SCUtilities removeFloatSuffix:highAllProfit]];
+    [temp addObject:highAllModel];
+    
+    //5.最低总利润
+    CGFloat lowAllProfit = [[NSUserDefaults standardUserDefaults] floatForKey:KEY_LOW_PROFIT];
+    CareerModel *lowAllModel = [[CareerModel alloc] initWithTitle:@"最低总利润" content:[SCUtilities removeFloatSuffix:lowAllProfit]];
+    [temp addObject:lowAllModel];
+    
+    
+    CareerModel *allOutModel = [[CareerModel alloc] initWithTitle:@"总投入" content:[SCUtilities removeFloatSuffix:allOut] tip:[NSString stringWithFormat:@"其中比特币%@", [SCUtilities removeFloatSuffix:bitcoinOut]]];
     [temp addObject:allOutModel];
     
-    CareerModel *allGetModel = [[CareerModel alloc] initWithTitle:@"总收入" content:[SCUtilities removeFloatSuffix:allGet]];
+    CareerModel *allGetModel = [[CareerModel alloc] initWithTitle:@"总收入" content:[SCUtilities removeFloatSuffix:allGet] tip:[NSString stringWithFormat:@"其中比特币%@", [SCUtilities removeFloatSuffix:bitcoinGet]]];
     [temp addObject:allGetModel];
     
     CareerModel *firstRedModel = [[CareerModel alloc] initWithTitle:@"首红" content:[firstRedRecord.endTime getStringWithDateFormat:dateFormat] record:firstRedRecord];

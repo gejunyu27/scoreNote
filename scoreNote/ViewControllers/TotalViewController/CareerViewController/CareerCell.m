@@ -51,7 +51,7 @@
 - (UILabel *)titleLabel
 {
     if (!_titleLabel) {
-        _titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, 0, 230, kCareerCellH)];
+        _titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, 0, 220, kCareerCellH)];
         _titleLabel.font = SCFONT_SIZED(16);
         [self.contentView addSubview:_titleLabel];
     }
@@ -61,7 +61,7 @@
 - (UILabel *)tipLabel
 {
     if (!_tipLabel) {
-        CGFloat w = 100;
+        CGFloat w = 120;
         _tipLabel = [[UILabel alloc] initWithFrame:CGRectMake(SCREEN_WIDTH-15-w, 0, w, kCareerCellH)];
         _tipLabel.textColor = [UIColor grayColor];
         _tipLabel.font = SCFONT_SIZED(11);

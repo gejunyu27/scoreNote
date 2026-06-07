@@ -105,7 +105,7 @@
 {
     NSString *tagName = self.isOver ? self.overTagName : self.tagModel.name;
     
-    return ![tagName isEqualToString:NAME_CASH_BACK];
+    return ![tagName isEqualToString:NAME_CASH_BACK] && ![tagName isEqualToString:NAME_BIT_COIN];
 }
 
 @end

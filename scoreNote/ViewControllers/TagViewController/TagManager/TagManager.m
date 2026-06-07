@@ -225,6 +225,7 @@ DEF_SINGLETON(TagManager)
 
         //#
         @{name:NAME_CASH_BACK,maxCount:@0},    //返水福利
+        @{name:NAME_BIT_COIN,maxCount:@0},     //比特币
     ];
     
     NSMutableArray *temp = [NSMutableArray arrayWithCapacity:list.count];

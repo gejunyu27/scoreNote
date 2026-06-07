@@ -115,9 +115,6 @@
         [[NSUserDefaults standardUserDefaults] setFloat:totalProfit forKey:KEY_LOW_PROFIT];
         [[NSUserDefaults standardUserDefaults] synchronize];
     }
-    
-//    _historyProfit = -644735.28;
-//    NSDate *nineDate = [NSDate getDateWithYear:2023 month:9 day:2]; //9月2日
 
     //投注总月份
     NSDate *startDate = _startRecord.startTime;

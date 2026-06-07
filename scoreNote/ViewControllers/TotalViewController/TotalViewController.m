@@ -15,7 +15,6 @@
 #import "FinanceView.h"
 
 @interface TotalViewController () <UITableViewDelegate, UITableViewDataSource>
-@property (nonatomic, strong) UIView *topView;
 @property (nonatomic, strong) FinanceView *financeView;
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) TotalViewModel *viewModel;
@@ -155,50 +154,6 @@
 }
 
 #pragma mark -UI
-- (UIView *)topView
-{
-    if (!_topView) {
-        CGFloat y = 0;
-        //        if (@available(iOS 26.0, *)) { //老版放顶部，新版不用了
-        //            /**
-        //             ios适配这里有个奇怪地方
-        //             NAV_BAR_HEIGHT 是98
-        //             self.navigationController.navigationBar.height是54
-        //             self.navigationController.navigationBar.bottom是116
-        //             STATUS_BAR_HEIGHT是54
-        //                如果一个页面只有tableview可以y写0，固定的写0就被盖在导航栏下。但这里导航栏高度不知道是怎么算的，先用116
-        //             */
-        //            y = self.navigationController.navigationBar.bottom;
-        //        }
-        
-        _topView = [[UIView alloc] initWithFrame:CGRectMake(0, y, SCREEN_WIDTH, 180)];
-        //        [self.view addSubview:_topView]; //新版改为tableview的headerview
-        
-        CGFloat edge = 15;
-        _financeView = [[FinanceView alloc] initWithFrame:CGRectMake(edge, 0, _topView.width-edge*2, _topView.height-5)];
-        [_topView addSubview:_financeView];
-
-        CGFloat btnWH   = 30;
-        CGFloat btnY    = 25;
-        CGFloat btnEdge = 20;
-        
-        //标签排行
-        UIButton *tagRankButton = [[UIButton alloc] initWithFrame:CGRectMake(_financeView.width - btnWH - btnEdge, btnY, btnWH, btnWH)];
-        [tagRankButton setImage:[UIImage imageNamed:@"TagRank"] forState:UIControlStateNormal];
-        [tagRankButton addTarget:self action:@selector(tagRankClicked:) forControlEvents:UIControlEventTouchUpInside];
-        [_financeView addSubview:tagRankButton];
-        
-        //生涯统计
-        UIButton *careerButton = [[UIButton alloc] initWithFrame:CGRectMake(tagRankButton.left-btnWH-btnEdge, btnY, btnWH, btnWH)];
-        [careerButton setImage:[UIImage imageNamed:@"Carrer"] forState:UIControlStateNormal];
-        [careerButton addTarget:self action:@selector(careerClicked:) forControlEvents:UIControlEventTouchUpInside];
-        [_financeView addSubview:careerButton];
-
-        
-    }
-    return _topView;
-}
-
 - (UITableView *)tableView
 {
     if (!_tableView) {
@@ -216,7 +171,6 @@
         _tableView.dataSource = self;
         _tableView.delegate = self;
 //        _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-        _tableView.tableHeaderView = self.topView;
         _tableView.backgroundColor = DEFAULT_BG_COLOR;
         [_tableView registerClass:TotalCell.class forCellReuseIdentifier:kTotalCellId];
         [_tableView registerClass:TotalHeaderView.class forHeaderFooterViewReuseIdentifier:kTotalHeaderId];
@@ -225,6 +179,15 @@
         _tableView.sectionHeaderTopPadding = 0;
         
         [self.view addSubview:_tableView];
+        
+        //topview
+        UIView *topView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 180)];
+        CGFloat edge = 15;
+        _financeView = [[FinanceView alloc] initWithFrame:CGRectMake(edge, 0, topView.width-edge*2, topView.height-5)];
+        [_financeView addFunctionButtonWithImage:@"TagRank" target:self action:@selector(tagRankClicked:) forControlEvents:UIControlEventTouchUpInside];
+        [_financeView addFunctionButtonWithImage:@"Carrer" target:self action:@selector(careerClicked:) forControlEvents:UIControlEventTouchUpInside];
+        [topView addSubview:_financeView];
+        _tableView.tableHeaderView = topView;
     }
     return _tableView;
 }

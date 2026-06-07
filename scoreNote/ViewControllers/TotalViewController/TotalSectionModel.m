@@ -34,6 +34,12 @@
         _allOut += record.allOut;
         _allGet += record.allGet;
         _allProfit += record.allProfit;
+        
+        if ([record.tagModel.name isEqualToString:NAME_BIT_COIN]) {
+            _bitcoinOut += record.allOut;
+            _bitcoinGet += record.allGet;
+            _bitcoinProfit += record.allProfit;
+        }
     }
 }
 
