@@ -79,9 +79,6 @@
 		4B42D1122FD1B63000816442 /* FinanceView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B42D1112FD1B63000816442 /* FinanceView.m */; };
 		4B42D1152FD1B65300816442 /* FinanceButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B42D1142FD1B65300816442 /* FinanceButton.m */; };
 		4B42D1182FD1B6F300816442 /* FinanceModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B42D1172FD1B6F300816442 /* FinanceModel.m */; };
-		4B42D11A2FD1D10F00816442 /* rank.png in Resources */ = {isa = PBXBuildFile; fileRef = 4B42D1192FD1D10F00816442 /* rank.png */; };
-		4B42D11C2FD1D21E00816442 /* shujuzonglan.png in Resources */ = {isa = PBXBuildFile; fileRef = 4B42D11B2FD1D21E00816442 /* shujuzonglan.png */; };
-		4B42D11E2FD1D22500816442 /* genjinjilu.png in Resources */ = {isa = PBXBuildFile; fileRef = 4B42D11D2FD1D22500816442 /* genjinjilu.png */; };
 		F18E8098E2966C0FDCB2B440 /* Pods_scoreNote.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B9D0C68F7EED1D682F79A491 /* Pods_scoreNote.framework */; };
 /* End PBXBuildFile section */
 
@@ -230,9 +227,6 @@
 		4B42D1142FD1B65300816442 /* FinanceButton.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FinanceButton.m; sourceTree = "<group>"; };
 		4B42D1162FD1B6F300816442 /* FinanceModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FinanceModel.h; sourceTree = "<group>"; };
 		4B42D1172FD1B6F300816442 /* FinanceModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FinanceModel.m; sourceTree = "<group>"; };
-		4B42D1192FD1D10F00816442 /* rank.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = rank.png; sourceTree = "<group>"; };
-		4B42D11B2FD1D21E00816442 /* shujuzonglan.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = shujuzonglan.png; sourceTree = "<group>"; };
-		4B42D11D2FD1D22500816442 /* genjinjilu.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = genjinjilu.png; sourceTree = "<group>"; };
 		53CCB9C4E7042293F7A66D72 /* Pods-DEMO.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DEMO.debug.xcconfig"; path = "Target Support Files/Pods-DEMO/Pods-DEMO.debug.xcconfig"; sourceTree = "<group>"; };
 		9B574DC10A88E432F8AF7D1E /* Pods-DEMO.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DEMO.release.xcconfig"; path = "Target Support Files/Pods-DEMO/Pods-DEMO.release.xcconfig"; sourceTree = "<group>"; };
 		B9D0C68F7EED1D682F79A491 /* Pods_scoreNote.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_scoreNote.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -519,9 +513,6 @@
 			children = (
 				4B0319322F79452C0041EFC7 /* TotalViewController.h */,
 				4B0319332F79452C0041EFC7 /* TotalViewController.m */,
-				4B42D11B2FD1D21E00816442 /* shujuzonglan.png */,
-				4B42D11D2FD1D22500816442 /* genjinjilu.png */,
-				4B42D1192FD1D10F00816442 /* rank.png */,
 				4B03192E2F79452C0041EFC7 /* TotalHeaderView.h */,
 				4B03192F2F79452C0041EFC7 /* TotalHeaderView.m */,
 				4B03192C2F79452C0041EFC7 /* TotalCell.h */,
@@ -674,13 +665,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4B42D11E2FD1D22500816442 /* genjinjilu.png in Resources */,
 				4B0318B62F79451E0041EFC7 /* welcome@2x.png in Resources */,
 				4B0318B72F79451E0041EFC7 /* welcome@3x.png in Resources */,
-				4B42D11C2FD1D21E00816442 /* shujuzonglan.png in Resources */,
 				4B0319472F79452C0041EFC7 /* ColumnAddViewController.xib in Resources */,
 				4B0319852F794C100041EFC7 /* Assets.xcassets in Resources */,
-				4B42D11A2FD1D10F00816442 /* rank.png in Resources */,
 				4B0318AF2F7944FF0041EFC7 /* LaunchScreen.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
