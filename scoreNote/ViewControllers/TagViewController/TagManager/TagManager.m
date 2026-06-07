@@ -225,7 +225,6 @@ DEF_SINGLETON(TagManager)
 
         //#
         @{name:NAME_CASH_BACK,maxCount:@0},    //返水福利
-        @{name:NAME_HANDLING_FEE,maxCount:@0}, //提现抽水
     ];
     
     NSMutableArray *temp = [NSMutableArray arrayWithCapacity:list.count];

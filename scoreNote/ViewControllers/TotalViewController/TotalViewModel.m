@@ -143,7 +143,7 @@
     NSString *periodString = temp.copy;
     
     //生成数据
-    FinanceModel *totalProfitModel = [[FinanceModel alloc] initWithTitle:@"总收益" content:[SCUtilities removeFloatSuffix:totalProfit]];
+    FinanceModel *totalProfitModel = [[FinanceModel alloc] initWithTitle:@"总收益（非现金流）" content:[SCUtilities removeFloatSuffix:totalProfit]];
     FinanceModel *allRecordsNumModel = [[FinanceModel alloc] initWithTitle:@"总单数" content:[NSString stringWithFormat:@"%li单", allRecordsNum]];
     FinanceModel *startDateModel = [[FinanceModel alloc] initWithTitle:@"起投日期" content:startDateString];
     FinanceModel *periodModel = [[FinanceModel alloc] initWithTitle:@"投注时长" content:periodString];
