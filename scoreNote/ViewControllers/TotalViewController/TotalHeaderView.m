@@ -40,7 +40,7 @@
 {
     if (!_bgView) {
         CGFloat x = 15;
-        CGFloat y = 3;
+        CGFloat y = 5;
         _bgView = [[UIButton alloc] initWithFrame:CGRectMake(x, y, SCREEN_WIDTH-x*2, kTotalHeaderH-y*2)];
         _bgView.backgroundColor = [UIColor whiteColor];
         _bgView.layer.cornerRadius = 10;

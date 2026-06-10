@@ -10,7 +10,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-#define kTotalHeaderH 55
+#define kTotalHeaderH 50
 #define kTotalHeaderId @"kTotalHeaderId"
 
 @interface TotalHeaderView : UITableViewHeaderFooterView
