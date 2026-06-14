@@ -13,6 +13,8 @@
 @property (nonatomic, strong) UILabel *transactionLabel;
 @property (nonatomic, strong) UILabel *moneyLabel;
 @property (nonatomic, strong) UILabel *dateLabel;
+@property (nonatomic, strong) UIDatePicker *datePicker;
+@property (nonatomic, strong) BitCoinModel *model;
 @end
 
 @implementation BitCoinCell
@@ -29,6 +31,8 @@
 #pragma mark -data
 - (void)setModel:(BitCoinModel *)model index:(NSInteger)index
 {
+    _model = model;
+    
     self.indexLabel.text = [NSString stringWithFormat:@"%li.", index];
     
     self.moneyLabel.text = model.money;
@@ -44,7 +48,16 @@
         self.transactionLabel.text = @"提现";
     }
     
+    self.datePicker.date = model.date;
+}
+
+#pragma mark -action
+- (void)datePickerValueChanged:(UIDatePicker *)sender
+{
+    NSDate *pickDate = sender.date;
     
+    self.dateLabel.text = [pickDate getStringWithDateFormat:@"yyyy-MM-dd"];
+    self.model.date     = pickDate;
 }
 
 #pragma mark -ui
@@ -75,7 +88,7 @@
 - (UILabel *)moneyLabel
 {
     if (!_moneyLabel) {
-        _moneyLabel = [[UILabel alloc] initWithFrame:CGRectMake(self.transactionLabel.right+10, 0, 150, kBCCellH)];
+        _moneyLabel = [[UILabel alloc] initWithFrame:CGRectMake(self.transactionLabel.right+10, 0, 120, kBCCellH)];
         _moneyLabel.font = SCFONT_SIZED(20);
         [self.contentView addSubview:_moneyLabel];
     }
@@ -85,14 +98,40 @@
 - (UILabel *)dateLabel
 {
     if (!_dateLabel) {
-        CGFloat w = 200;
+        CGFloat w = 180;
         _dateLabel = [[UILabel alloc] initWithFrame:CGRectMake(SCREEN_WIDTH-20-w, 0, w, kBCCellH)];
         _dateLabel.textColor = [UIColor grayColor];
         _dateLabel.font = SCFONT_SIZED(13);
+        _dateLabel.backgroundColor = [UIColor whiteColor];
         _dateLabel.textAlignment = NSTextAlignmentRight;
         [self.contentView addSubview:_dateLabel];
     }
     return _dateLabel;
+}
+
+- (UIDatePicker *)datePicker
+{
+    if (!_datePicker) {
+        CGFloat w = 200;
+        CGFloat h = 40;
+        _datePicker = [[UIDatePicker alloc] initWithFrame:CGRectMake(SCREEN_WIDTH-w-20, (kBCCellH-h)/2, w, h)];
+        _datePicker.datePickerMode = UIDatePickerModeDate;
+        _datePicker.locale = [[NSLocale alloc] initWithLocaleIdentifier:@"zh_CN"];
+        _datePicker.calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
+        
+        // ========== 可选：限制选择时间范围 ==========
+        // 最小可选时间：当前时间
+        // self.datePicker.minimumDate = [NSDate date];
+        // 最大可选时间：当前时间往后30天
+//         self.datePicker.maximumDate = [NSDate dateWithTimeIntervalSinceNow:30 * 24 * 60 * 60];
+        self.datePicker.maximumDate = [NSDate dateWithTimeIntervalSinceNow:0];
+        // 4. 添加值改变监听
+        [_datePicker addTarget:self action:@selector(datePickerValueChanged:) forControlEvents:UIControlEventValueChanged];
+        
+        [self.contentView addSubview:_datePicker];
+        [self.contentView insertSubview:_datePicker belowSubview:self.dateLabel];
+    }
+    return _datePicker;
 }
 
 @end
