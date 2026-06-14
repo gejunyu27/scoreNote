@@ -219,9 +219,6 @@ DEF_SINGLETON(TagManager)
         @{name:@"一触即发",maxCount:@54},
         @{name:@"鹰眼10倍",maxCount:@73},
         @{name:@"阳哥10倍",maxCount:@74},
-        
-        //Z
-        @{name:@"自研10.0",maxCount:@57},
 
         //#
         @{name:NAME_CASH_BACK,maxCount:@0},    //返水福利

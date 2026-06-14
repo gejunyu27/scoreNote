@@ -12,7 +12,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface RecordDetailCell ()
 @property (nonatomic, strong) LineModel *line;
 @property (nonatomic, strong) UIView *bgView;
-@property (nonatomic, strong) UILabel *rowLabel;
+@property (nonatomic, strong) UILabel *indexLabel;
 @property (nonatomic, strong) UIButton *outButton;
 @property (nonatomic, strong) UIButton *getButton;
 @property (nonatomic, strong) UILabel *tipsLabel;
@@ -33,12 +33,12 @@ NS_ASSUME_NONNULL_BEGIN
     return self;
 }
 
-- (void)setLine:(LineModel *)line row:(NSInteger)row canEdit:(BOOL)canEdit
+- (void)setLine:(LineModel *)line index:(NSInteger)index canEdit:(BOOL)canEdit
 {
     _line = line;
     self.userInteractionEnabled = canEdit;
     
-    self.rowLabel.text = [NSString stringWithFormat:@"%li", row+1];
+    self.indexLabel.text = [NSString stringWithFormat:@"%li", index];
     
     [self.outButton setTitle:[SCUtilities removeFloatSuffix:line.outMoney] forState:UIControlStateNormal];
     
@@ -91,22 +91,22 @@ NS_ASSUME_NONNULL_BEGIN
     return _bgView;
 }
 
-- (UILabel *)rowLabel
+- (UILabel *)indexLabel
 {
-    if (!_rowLabel) {
-        _rowLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 0, 30, self.bgView.height)];
-        _rowLabel.textAlignment = NSTextAlignmentLeft;
-        _rowLabel.font = SCFONT_SIZED(12);
-        [self.bgView addSubview:_rowLabel];
+    if (!_indexLabel) {
+        _indexLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 0, 30, self.bgView.height)];
+        _indexLabel.textAlignment = NSTextAlignmentLeft;
+        _indexLabel.font = SCFONT_SIZED(12);
+        [self.bgView addSubview:_indexLabel];
     }
-    return _rowLabel;
+    return _indexLabel;
 }
 
 - (UIButton *)outButton
 {
     if (!_outButton) {
         CGFloat y = 12;
-        _outButton = [[UIButton alloc] initWithFrame:CGRectMake(self.rowLabel.right, y, 70, self.bgView.height-y*2)];
+        _outButton = [[UIButton alloc] initWithFrame:CGRectMake(self.indexLabel.right, y, 70, self.bgView.height-y*2)];
         [_outButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
         _outButton.layer.cornerRadius = 5;
         _outButton.layer.borderWidth = 0.5;
@@ -138,10 +138,11 @@ NS_ASSUME_NONNULL_BEGIN
 {
     if (!_tipsLabel) {
         CGFloat edge = 10;
-        CGFloat x = self.getButton.right + 10;
+        CGFloat x = self.getButton.right + 5;
         _tipsLabel = [[UILabel alloc] initWithFrame:CGRectMake(x,0, self.bgView.width-edge-x, self.bgView.height)];
         _tipsLabel.textColor = [UIColor grayColor];
         _tipsLabel.textAlignment = NSTextAlignmentRight;
+        _tipsLabel.lineBreakMode = NSLineBreakByTruncatingHead;
         _tipsLabel.font = SCFONT_SIZED(12);
         [self.bgView addSubview:_tipsLabel];
     }

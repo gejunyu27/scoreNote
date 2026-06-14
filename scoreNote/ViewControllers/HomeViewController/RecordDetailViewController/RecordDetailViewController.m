@@ -109,7 +109,7 @@
     NSInteger row = indexPath.row;
     if (row < _record.lineList.count) {
         LineModel *line = _record.lineList[row];
-        [cell setLine:line row:row canEdit:_canEdit];
+        [cell setLine:line index:row+1 canEdit:_canEdit];
         cell.delegate = self;
     }
     

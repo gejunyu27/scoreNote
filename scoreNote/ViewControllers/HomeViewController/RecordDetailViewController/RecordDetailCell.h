@@ -21,7 +21,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface RecordDetailCell : UITableViewCell
 @property (nonatomic, weak) id <RecordDetailCellDelegate> delegate;
-- (void)setLine:(LineModel *)line row:(NSInteger)row canEdit:(BOOL)canEdit;
+- (void)setLine:(LineModel *)line index:(NSInteger)index canEdit:(BOOL)canEdit;
 
 @end
 

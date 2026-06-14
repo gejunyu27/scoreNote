@@ -34,6 +34,8 @@
     [_tableSegment setTitle:[DataManager tagTableName] forSegmentAtIndex:2];
     
     [self tableSegmentValueChanged:_tableSegment];
+    
+    [self showWithStatus:@"该页面仅用于开发测试，建议先备份数据库"];
 }
 
 #pragma mark -action

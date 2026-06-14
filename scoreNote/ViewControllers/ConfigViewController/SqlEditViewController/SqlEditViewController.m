@@ -93,7 +93,7 @@ typedef NS_ENUM(NSInteger, SqlRecordType) {
 }
 
 //索引
-#define kIndexRatio 20 //索引倍数
+#define kIndexRatio 10 //索引倍数
 - (NSArray<NSString *> *)sectionIndexTitlesForTableView:(UITableView *)tableView
 {
     NSMutableArray *mulArr = [NSMutableArray array];
@@ -212,7 +212,7 @@ typedef NS_ENUM(NSInteger, SqlRecordType) {
     NSString *title = [NSString stringWithFormat:@"确定修改编号%@结束时间吗", record.recordId];
     NSString *dateStr = [SqlEditUtil getDateString:record.endTime prefix:nil placeholder:nil];
     
-    [SCUtilities alertWithTitle:title message:@"请按照2024-10-1格式填写，小时、分钟可以省略" textFieldBlock:^(UITextField * _Nonnull textField) {
+    [SCUtilities alertWithTitle:title message:@"请按照2024-10-01 15:30格式填写，小时、分钟可以省略" textFieldBlock:^(UITextField * _Nonnull textField) {
         textField.text = dateStr;
             
         } sureBlock:^(NSString * _Nullable text) {

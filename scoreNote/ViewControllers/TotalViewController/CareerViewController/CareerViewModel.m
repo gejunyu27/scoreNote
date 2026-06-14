@@ -28,10 +28,10 @@
     CareerModel *daysModel = [[CareerModel alloc] initWithTitle:@"投注天数" content:[NSString stringWithFormat:@"%li天", totalDays]];
     [temp addObject:daysModel];
     
-    //6.总投注
+    //3.总投注
     CGFloat allOut = 0;
     CGFloat bitcoinOut = 0;
-    //7.总收入
+    //4.总收入
     CGFloat allGet = 0;
     CGFloat bitcoinGet = 0;
     
@@ -200,26 +200,25 @@
         }
     }
     
-    //3.总利润
-    CareerModel *allProfitModel = [[CareerModel alloc] initWithTitle:@"总利润" content:[SCUtilities removeFloatSuffix:allGet-allOut] tip:[NSString stringWithFormat:@"其中比特币%@", [SCUtilities removeFloatSuffix:bitcoinGet-bitcoinOut]]];
-    [temp addObject:allProfitModel];
-    
-    //4.最高总利润
-    CGFloat highAllProfit = [[NSUserDefaults standardUserDefaults] floatForKey:KEY_HIGH_PROFIT];
-    CareerModel *highAllModel = [[CareerModel alloc] initWithTitle:@"最高总利润" content:[SCUtilities removeFloatSuffix:highAllProfit]];
-    [temp addObject:highAllModel];
-    
-    //5.最低总利润
-    CGFloat lowAllProfit = [[NSUserDefaults standardUserDefaults] floatForKey:KEY_LOW_PROFIT];
-    CareerModel *lowAllModel = [[CareerModel alloc] initWithTitle:@"最低总利润" content:[SCUtilities removeFloatSuffix:lowAllProfit]];
-    [temp addObject:lowAllModel];
-    
-    
     CareerModel *allOutModel = [[CareerModel alloc] initWithTitle:@"总投入" content:[SCUtilities removeFloatSuffix:allOut] tip:[NSString stringWithFormat:@"其中比特币%@", [SCUtilities removeFloatSuffix:bitcoinOut]]];
     [temp addObject:allOutModel];
     
     CareerModel *allGetModel = [[CareerModel alloc] initWithTitle:@"总收入" content:[SCUtilities removeFloatSuffix:allGet] tip:[NSString stringWithFormat:@"其中比特币%@", [SCUtilities removeFloatSuffix:bitcoinGet]]];
     [temp addObject:allGetModel];
+    
+    //5.净利润
+    CareerModel *allProfitModel = [[CareerModel alloc] initWithTitle:@"净利润" content:[SCUtilities removeFloatSuffix:allGet-allOut] tip:[NSString stringWithFormat:@"其中比特币%@", [SCUtilities removeFloatSuffix:bitcoinGet-bitcoinOut]]];
+    [temp addObject:allProfitModel];
+    
+    //6.最高净利润
+    CGFloat highAllProfit = [[NSUserDefaults standardUserDefaults] floatForKey:KEY_HIGH_PROFIT];
+    CareerModel *highAllModel = [[CareerModel alloc] initWithTitle:@"最高净利润" content:[SCUtilities removeFloatSuffix:highAllProfit]];
+    [temp addObject:highAllModel];
+    
+    //7.最低净利润
+    CGFloat lowAllProfit = [[NSUserDefaults standardUserDefaults] floatForKey:KEY_LOW_PROFIT];
+    CareerModel *lowAllModel = [[CareerModel alloc] initWithTitle:@"最低净利润" content:[SCUtilities removeFloatSuffix:lowAllProfit]];
+    [temp addObject:lowAllModel];
     
     CareerModel *firstRedModel = [[CareerModel alloc] initWithTitle:@"首红" content:[firstRedRecord.endTime getStringWithDateFormat:dateFormat] record:firstRedRecord];
     [temp addObject:firstRedModel];

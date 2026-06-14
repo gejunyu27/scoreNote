@@ -70,7 +70,7 @@
         BitCoinModel *model = self.viewModel.dataList[row];
         NSString *text = model.money;
         
-        [NumberInputView showWithText:text title:nil clickView:nil type:InputTypeReduce block:^(NSString * _Nonnull outputText) {
+        [NumberInputView showWithText:text title:nil clickView:nil type:InputTypeNoSymbol block:^(NSString * _Nonnull outputText) {
             if (outputText.length > 0) {
                 model.money = outputText;
                 [self reload];
