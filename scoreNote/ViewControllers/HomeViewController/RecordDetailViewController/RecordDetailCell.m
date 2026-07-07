@@ -144,6 +144,8 @@ NS_ASSUME_NONNULL_BEGIN
         _tipsLabel.textAlignment = NSTextAlignmentRight;
         _tipsLabel.lineBreakMode = NSLineBreakByTruncatingHead;
         _tipsLabel.font = SCFONT_SIZED(12);
+        _tipsLabel.adjustsFontSizeToFitWidth = YES;
+        _tipsLabel.minimumScaleFactor = 0.3;
         [self.bgView addSubview:_tipsLabel];
     }
     return _tipsLabel;

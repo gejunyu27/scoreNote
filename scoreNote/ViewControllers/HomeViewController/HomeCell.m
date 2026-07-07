@@ -64,7 +64,7 @@ NS_ASSUME_NONNULL_BEGIN
     //本期买法
     NSString *scoreText = record.currentScore.length == 0 ? @"编辑" : record.currentScore;
     [self.scoreButton setTitle:scoreText forState:UIControlStateNormal];
-    self.scoreButton.titleLabel.font = scoreText.length > 7 ? SCFONT_SIZED(15) : SCFONT_SIZED(16);
+    
 
     //备注
     NSInteger num = record.lineList.count+1; //下一期期数
@@ -259,6 +259,9 @@ NS_ASSUME_NONNULL_BEGIN
         _scoreButton.layer.borderWidth = 2;
         _scoreButton.layer.borderColor = HEX_RGB(@"#CACACA").CGColor;
         [_scoreButton addTarget:self action:@selector(scoreClicked:) forControlEvents:UIControlEventTouchUpInside];
+        _scoreButton.titleLabel.font = SCFONT_SIZED(16);
+        _scoreButton.titleLabel.adjustsFontSizeToFitWidth = YES;
+        _scoreButton.titleLabel.minimumScaleFactor = 0.3;
         [self.bgView addSubview:_scoreButton];
     }
     return _scoreButton;

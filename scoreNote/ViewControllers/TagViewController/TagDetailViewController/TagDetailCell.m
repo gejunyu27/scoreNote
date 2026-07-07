@@ -95,7 +95,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (UILabel *)numLabel
 {
     if (!_numLabel) {
-        CGFloat w = 50;
+        CGFloat w = 55;
         _numLabel = [[UILabel alloc] initWithFrame:CGRectMake(self.bgView.width-kMargin-w, 0, w, self.bgView.height)];
         _numLabel.textAlignment = NSTextAlignmentRight;
         _numLabel.font = SCFONT_SIZED(14);
@@ -108,7 +108,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (UILabel *)endDateLabel
 {
     if (!_endDateLabel) {
-        CGFloat x = self.profitLabel.right+30;
+        CGFloat x = self.profitLabel.right+20;
         _endDateLabel = [[UILabel alloc] initWithFrame:CGRectMake(x, 0, self.numLabel.left-10-x, self.bgView.height)];
         _endDateLabel.textAlignment = NSTextAlignmentRight;
         _endDateLabel.font = _numLabel.font;
