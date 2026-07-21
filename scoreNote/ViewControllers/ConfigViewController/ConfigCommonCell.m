@@ -100,7 +100,7 @@
 - (UIButton *)inputButton
 {
     if (!_inputButton) {
-        CGFloat y = 15;
+        CGFloat y = 12;
         CGFloat x = self.titleLabel.right+15;
         _inputButton = [[UIButton alloc] initWithFrame:CGRectMake(x, y, self.restButton.left-x-25, kConfigCellH-y*2)];
         _inputButton.layer.cornerRadius = 4;

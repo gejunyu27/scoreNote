@@ -8,7 +8,7 @@
 #import <Foundation/Foundation.h>
 #import "ConfigModel.h"
 
-#define kCFCellH   50
+#define kCFCellH   45
 #define kCFCellId  @"kCFCellId"
 
 NS_ASSUME_NONNULL_BEGIN

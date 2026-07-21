@@ -20,8 +20,8 @@ typedef NS_ENUM(NSInteger, ConfigType) {
     ConfigTypeBaseProfit,  //固定利润
     ConfigTypeBreakLine,   //止损线
     ConfigTypeInputH,      //自定义键盘高度
-    ConfigTypeOrderListH,  //网页嵌入模式下订单高度
-    ConfigTypeOrderWebH,   //网页嵌入模式下网页高度
+//    ConfigTypeOrderListH,  //网页嵌入模式下订单高度 移除
+    ConfigTypeOrderWebH,   //竞彩网页面高度   原 网页嵌入模式下网页高度
     ConfigTypeIsCasino,    //是否是外围
     ConfigTypeCount        //计数用  无实际意义 必须放最后一个
 };

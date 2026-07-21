@@ -195,12 +195,21 @@
         self.tableView.height = SCREEN_HEIGHT;
         self.webView.hidden   = YES;
         [NetworkReachability stopMontitorNetwork]; //停止监测
-        
+//        self.tabBarController.tabBarHidden = NO;
+        self.tabBarController.tabBar.hidden = NO;
     }else { //打开网页
         _isWebMode            = YES;
-        self.tableView.height = [ConfigManager getValue:ConfigTypeOrderListH];
-        self.webView.height   = [ConfigManager getValue:ConfigTypeOrderWebH];
-        self.webView.bottom   = SCREEN_HEIGHT;
+//        self.tableView.height = [ConfigManager getValue:ConfigTypeOrderListH];
+//        self.webView.height   = [ConfigManager getValue:ConfigTypeOrderWebH];
+//        self.webView.bottom   = SCREEN_HEIGHT - TAB_BAR_HEIGHT;
+        
+        self.webView.height = [ConfigManager getValue:ConfigTypeOrderWebH];
+        self.webView.bottom = SCREEN_HEIGHT - SCREEN_SAFE_BOTTOM;
+        
+        self.tableView.height = self.webView.top;
+
+//        self.tabBarController.tabBarHidden = YES;
+        self.tabBarController.tabBar.hidden = YES;
         self.webView.hidden   = NO;
         
         NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
@@ -261,10 +270,11 @@
         _webView = [[WKWebView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 0) configuration:config];
         _webView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleWidth;
         _webView.scrollView.bounces = NO; //取消回弹
+        _webView.pageZoom = 0.8; //缩放
         [self.view addSubview:_webView];
         [self.view sendSubviewToBack:_webView];
         
-        NSURL *url = [NSURL URLWithString:@"https://m.sporttery.cn/mjc/jsq/zqspf/"];
+        NSURL *url = [NSURL URLWithString:@"https://m.sporttery.cn/mjc/jsq/zqhhgg/"];
         NSURLRequest *request = [NSURLRequest requestWithURL:url];
         [_webView loadRequest:request];
         

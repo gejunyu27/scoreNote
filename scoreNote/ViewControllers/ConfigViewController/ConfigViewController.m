@@ -276,6 +276,7 @@
         [_tableView registerClass:ConfigCommonCell.class forCellReuseIdentifier:kConfigCellId];
         [_tableView registerClass:ConfigFunctionCell.class forCellReuseIdentifier:kCFCellId];
         _tableView.sectionHeaderTopPadding = 0;
+        _tableView.scrollEnabled = NO;
         [self.view addSubview:_tableView];
     }
     return _tableView;

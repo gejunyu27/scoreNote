@@ -8,7 +8,7 @@
 #import <Foundation/Foundation.h>
 #import "ConfigModel.h"
 
-#define kConfigCellH 60
+#define kConfigCellH 55
 #define kConfigCellId @"kConfigCellId"
 
 NS_ASSUME_NONNULL_BEGIN
