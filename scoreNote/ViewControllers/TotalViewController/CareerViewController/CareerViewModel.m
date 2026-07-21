@@ -56,16 +56,20 @@
     RecordModel *highLineRecord;
     //17.最高实际期
     RecordModel *highRealNumRecord;
-    //18.红月数(已结束)
+    //18.最大投入单
+    RecordModel *highOutRecord;
+    //19.最大收入单
+    RecordModel *highGetRecord;
+    //20.红月数(已结束)
     NSInteger redOverMonths = 0;
-    //19.黑月数(已结束)
+    //21.黑月数(已结束)
     NSInteger blackOverMonths = 0;
-    //20.红单数(已结束)
+    //22.红单数(已结束)
     NSInteger redOverRecords = 0;
-    //21.黑单数(已结束)
+    //23.黑单数(已结束)
     NSInteger blackOverRecords = 0;
     
-    //22.最长连红数量 23.最长连黑数量
+    //24.最长连红数量 25.最长连黑数量
     NSInteger continuousRed = 0;
     NSInteger continuousBlack = 0;
     NSInteger maxRedNum = 0;
@@ -193,9 +197,15 @@
                 highRealNumRecord = record;
             }
             
+            //最大投入单
+            if (!highOutRecord || record.allOut >= highOutRecord.allOut) {
+                highOutRecord = record;
+            }
             
-            
-            
+            //最大收入单
+            if (!highGetRecord || record.allGet >= highGetRecord.allGet) {
+                highGetRecord = record;
+            }
             
         }
     }
@@ -251,6 +261,12 @@
     CareerModel *highRNModel = [[CareerModel alloc] initWithTitle:@"最高实际期数" content:[NSString stringWithFormat:@"%li", highRealNumRecord.realNum] record:highRealNumRecord];
     highRNModel.isCanFollowing = YES;
     [temp addObject:highRNModel];
+    
+    CareerModel *highORModel = [[CareerModel alloc] initWithTitle:@"最大投入单" content:[SCUtilities removeFloatSuffix:highOutRecord.allOut] record:highOutRecord];
+    [temp addObject:highORModel];
+    
+    CareerModel *highGRModel = [[CareerModel alloc] initWithTitle:@"最大收入单" content:[SCUtilities removeFloatSuffix:highGetRecord.allGet] record:highGetRecord];
+    [temp addObject:highGRModel];
     
     CareerModel *redMModel = [[CareerModel alloc] initWithTitle:@"红月数" content:[NSString stringWithFormat:@"%li", redOverMonths]];
     [temp addObject:redMModel];
