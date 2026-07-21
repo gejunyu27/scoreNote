@@ -217,6 +217,7 @@ NS_ASSUME_NONNULL_BEGIN
         _profitLabel = [[UILabel alloc] initWithFrame:CGRectMake(self.tagButton.right+5, 0, 90, 30)];
         _profitLabel.centerY = self.tagButton.centerY;
         _profitLabel.font = SCFONT_SIZED(23);
+        _profitLabel.adjustsFontSizeToFitWidth = YES;
         [self.bgView addSubview:_profitLabel];
     }
     return _profitLabel;
