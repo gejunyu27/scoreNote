@@ -274,7 +274,8 @@
         [self.view addSubview:_webView];
         [self.view sendSubviewToBack:_webView];
         
-        NSURL *url = [NSURL URLWithString:@"https://m.sporttery.cn/mjc/jsq/zqhhgg/"];
+//        NSURL *url = [NSURL URLWithString:@"https://m.sporttery.cn/mjc/jsq/zqhhgg/"]; //混合过关
+        NSURL *url = [NSURL URLWithString:@"https://m.sporttery.cn/mjc/jsq/zqspf/"]; //胜平负
         NSURLRequest *request = [NSURLRequest requestWithURL:url];
         [_webView loadRequest:request];
         
