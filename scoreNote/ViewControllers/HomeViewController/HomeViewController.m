@@ -10,16 +10,12 @@
 #import "RecordManager.h"
 #import "TagSelectView.h"
 #import "RecordDetailViewController.h"
-#import <WebKit/WebKit.h>
-#import "NetworkReachability.h"
-
-#define KEY_WEB_DATE @"KEY_WEB_DATE"
+#import "SportteryView.h"
 
 @interface HomeViewController () <UITableViewDelegate, UITableViewDataSource, HomeCellDelegate>
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, weak) NSMutableArray <RecordModel *> *records;
-@property (nonatomic, assign) BOOL isWebMode; //是否是嵌入网页模式
-@property (nonatomic, strong) WKWebView *webView;
+@property (nonatomic, strong) SportteryView *sporttertView;
 
 @end
 
@@ -188,51 +184,23 @@
     }];
 }
 
-- (void)webClick //嵌套网页模式
+- (void)webClick //中国竞彩网
 {
-    if (_isWebMode) { //关闭网页
-        _isWebMode            = NO;
+    if (_sporttertView.isShow) { //关闭网页
+        self.sporttertView.isShow = NO;
         self.tableView.height = SCREEN_HEIGHT;
-        self.webView.hidden   = YES;
-        [NetworkReachability stopMontitorNetwork]; //停止监测
-//        self.tabBarController.tabBarHidden = NO;
         self.tabBarController.tabBar.hidden = NO;
+        
     }else { //打开网页
-        _isWebMode            = YES;
-//        self.tableView.height = [ConfigManager getValue:ConfigTypeOrderListH];
-//        self.webView.height   = [ConfigManager getValue:ConfigTypeOrderWebH];
-//        self.webView.bottom   = SCREEN_HEIGHT - TAB_BAR_HEIGHT;
-        
-        self.webView.height = [ConfigManager getValue:ConfigTypeOrderWebH];
-        self.webView.bottom = SCREEN_HEIGHT - SCREEN_SAFE_BOTTOM;
-        
-        self.tableView.height = self.webView.top;
-
-//        self.tabBarController.tabBarHidden = YES;
+        self.sporttertView.isShow = YES;
+        self.sporttertView.height = [ConfigManager getValue:ConfigTypeOrderWebH];
+        self.sporttertView.bottom = SCREEN_HEIGHT;
+        self.tableView.height = self.sporttertView.top;
         self.tabBarController.tabBar.hidden = YES;
-        self.webView.hidden   = NO;
-        
-        NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
-        //判断有没有网
-        BOOL isNetworkOK = [NetworkReachability isReachable];
-        
-        if (!isNetworkOK) { //没网就开始监测，等用户点击使用网络
-            [NetworkReachability startMonitorNetwork:^{
-                [self.webView reload];
-                [ud setObject:[NSDate date] forKey:KEY_WEB_DATE]; //存储加载时间
-            }];
-            
-        }else { //检测上次什么时候打开的网页，有可能出现这种情况：昨天打开过网页，但是app一直没杀掉，今天再打开显示的还是昨天网页
-            NSDate *lastDate = [ud objectForKey:KEY_WEB_DATE];
-            if (![lastDate isToday]) {
-                [self.webView reload];
-                [ud setObject:[NSDate date] forKey:KEY_WEB_DATE];
-            }
-            
-        }
     }
     
 }
+
 
 #pragma mark -UI
 - (UITableView *)tableView
@@ -261,30 +229,15 @@
     return _tableView;
 }
 
-- (WKWebView *)webView
+- (SportteryView *)sporttertView
 {
-    if (!_webView) {
-        WKWebViewConfiguration *config = [WKWebViewConfiguration new];
-        config.websiteDataStore = [WKWebsiteDataStore defaultDataStore]; //使用默认的持久化数据储存（自动存Cooki、登录状态等）
-        
-        _webView = [[WKWebView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 0) configuration:config];
-        _webView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleWidth;
-        _webView.scrollView.bounces = NO; //取消回弹
-        _webView.pageZoom = 0.8; //缩放
-        [self.view addSubview:_webView];
-        [self.view sendSubviewToBack:_webView];
-        
-//        NSURL *url = [NSURL URLWithString:@"https://m.sporttery.cn/mjc/jsq/zqhhgg/"]; //混合过关
-        NSURL *url = [NSURL URLWithString:@"https://m.sporttery.cn/mjc/jsq/zqspf/"]; //胜平负
-        NSURLRequest *request = [NSURLRequest requestWithURL:url];
-        [_webView loadRequest:request];
-        
-        //存储加载时间
-        [[NSUserDefaults standardUserDefaults] setObject:[NSDate date] forKey:KEY_WEB_DATE];
-        [[NSUserDefaults standardUserDefaults] synchronize];
+    if (!_sporttertView) {
+        _sporttertView = [[SportteryView alloc] initWithFrame:self.view.bounds];
+        [self.view addSubview:_sporttertView];
     }
-    return _webView;
+    return _sporttertView;
 }
+
 
 
 @end

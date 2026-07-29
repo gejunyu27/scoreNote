@@ -82,6 +82,7 @@
 		4B42D1412FD587A400816442 /* BitCoinViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B42D1402FD587A400816442 /* BitCoinViewModel.m */; };
 		4B42D1442FD5885600816442 /* BitCoinModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B42D1432FD5885600816442 /* BitCoinModel.m */; };
 		4B42D1472FD58BD000816442 /* BitCoinCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B42D1462FD58BD000816442 /* BitCoinCell.m */; };
+		4BBB9E79301A56A500B5FB7C /* SportteryView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BBB9E78301A56A500B5FB7C /* SportteryView.m */; };
 		F18E8098E2966C0FDCB2B440 /* Pods_scoreNote.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B9D0C68F7EED1D682F79A491 /* Pods_scoreNote.framework */; };
 /* End PBXBuildFile section */
 
@@ -236,6 +237,8 @@
 		4B42D1432FD5885600816442 /* BitCoinModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BitCoinModel.m; sourceTree = "<group>"; };
 		4B42D1452FD58BD000816442 /* BitCoinCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BitCoinCell.h; sourceTree = "<group>"; };
 		4B42D1462FD58BD000816442 /* BitCoinCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BitCoinCell.m; sourceTree = "<group>"; };
+		4BBB9E77301A56A500B5FB7C /* SportteryView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SportteryView.h; sourceTree = "<group>"; };
+		4BBB9E78301A56A500B5FB7C /* SportteryView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SportteryView.m; sourceTree = "<group>"; };
 		53CCB9C4E7042293F7A66D72 /* Pods-DEMO.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DEMO.debug.xcconfig"; path = "Target Support Files/Pods-DEMO/Pods-DEMO.debug.xcconfig"; sourceTree = "<group>"; };
 		9B574DC10A88E432F8AF7D1E /* Pods-DEMO.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DEMO.release.xcconfig"; path = "Target Support Files/Pods-DEMO/Pods-DEMO.release.xcconfig"; sourceTree = "<group>"; };
 		B9D0C68F7EED1D682F79A491 /* Pods_scoreNote.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_scoreNote.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -437,6 +440,8 @@
 			children = (
 				4B0318FF2F79452C0041EFC7 /* HomeViewController.h */,
 				4B0319002F79452C0041EFC7 /* HomeViewController.m */,
+				4BBB9E77301A56A500B5FB7C /* SportteryView.h */,
+				4BBB9E78301A56A500B5FB7C /* SportteryView.m */,
 				4B0318FD2F79452C0041EFC7 /* HomeCell.h */,
 				4B0318FE2F79452C0041EFC7 /* HomeCell.m */,
 				4B0319052F79452C0041EFC7 /* RecordModel.h */,
@@ -799,6 +804,7 @@
 				4B0319782F79452C0041EFC7 /* NSError+SCExtension.m in Sources */,
 				4B0319792F79452C0041EFC7 /* TagModel.m in Sources */,
 				4B03197A2F79452C0041EFC7 /* ColumnModel.m in Sources */,
+				4BBB9E79301A56A500B5FB7C /* SportteryView.m in Sources */,
 				4B42D1472FD58BD000816442 /* BitCoinCell.m in Sources */,
 				4B03197B2F79452C0041EFC7 /* LineModel.m in Sources */,
 				4B03197C2F79452C0041EFC7 /* ConfigFunctionCell.m in Sources */,
