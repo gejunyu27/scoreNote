@@ -96,8 +96,11 @@ NS_ASSUME_NONNULL_BEGIN
 //        case ConfigTypeOrderListH:
 //            propertyName = @"orderListH";
 //            break;
-        case ConfigTypeOrderWebH:
-            propertyName = @"orderWebH";
+//        case ConfigTypeOrderWebH:
+//            propertyName = @"orderWebH";
+//            break;
+        case ConfigTypeSportteryH:
+            propertyName = @"sportteryH";
             break;
         case ConfigTypeIsCasino:
             propertyName = @"isCasino";
@@ -139,8 +142,11 @@ NS_ASSUME_NONNULL_BEGIN
 //        case ConfigTypeOrderListH:
 //            self.value = 390;
 //            break;
-        case ConfigTypeOrderWebH:
-            self.value = 450;
+//        case ConfigTypeOrderWebH:
+//            self.value = 450;
+//            break;
+        case ConfigTypeSportteryH:
+            self.value = 460;
             break;
         case ConfigTypeIsCasino:
             self.value = 1;
@@ -168,8 +174,10 @@ NS_ASSUME_NONNULL_BEGIN
 //        case ConfigTypeOrderListH:
 //            _title = @"嵌网模式订单高度";
 //            break;
-        case ConfigTypeOrderWebH:
+//        case ConfigTypeOrderWebH:
 //            _title = @"嵌网模式网页高度";
+//            break;
+        case ConfigTypeSportteryH:
             _title = @"竞彩网页面高度";
             break;
         case ConfigTypeIsCasino:

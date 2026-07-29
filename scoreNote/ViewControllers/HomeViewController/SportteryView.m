@@ -19,6 +19,12 @@
 
 @interface SportteryView () <WKNavigationDelegate>
 @property (nonatomic, strong) WKWebView *webView;
+@property (nonatomic, strong) UIView *naviBar;  //计算用
+@property (nonatomic, strong) UIButton *outMoneyButton;   //投注金额
+@property (nonatomic, strong) UIButton *getMoneyButton;   //理论最高奖金
+@property (nonatomic, strong) UIButton *oddsButton;       //计算出赔率
+@property (nonatomic, strong) UIButton *planProfitButton; //预期利润
+@property (nonatomic, strong) UIButton *planOutButton;    //计算所需投注
 @end
 
 @implementation SportteryView
@@ -52,6 +58,12 @@
     }else {
         self.hidden = YES;
         [NetworkReachability stopMontitorNetwork]; //停止监测
+        
+        [_outMoneyButton setTitle:@"2" forState:UIControlStateNormal];
+        [_getMoneyButton setTitle:@"" forState:UIControlStateNormal];
+        [_oddsButton setTitle:@"" forState:UIControlStateNormal];
+        [_planProfitButton setTitle:@"" forState:UIControlStateNormal];
+        [_planOutButton setTitle:@"" forState:UIControlStateNormal];
     }
 
 }
@@ -60,7 +72,9 @@
 {
     [super setFrame:frame];
     
-    self.webView.frame = self.bounds;
+    self.webView.height = self.height;
+    
+    
 }
 
 #pragma mark - WKNavigationDelegate 核心跳转拦截（监测点击按钮/链接跳转）
@@ -89,6 +103,40 @@
 
 }
 
+#pragma mark -action
+- (void)naviBtnClicked:(UIButton *)sender
+{
+    if (sender == _oddsButton || sender == _planOutButton) {
+        return;
+    }
+    
+    [NumberInputView showWithText:sender.currentTitle title:nil clickView:sender type:InputTypeNoSymbol block:^(NSString * _Nonnull outputText) {
+        [sender setTitle:outputText forState:UIControlStateNormal];
+        
+        //投注金额和理论最高奖金都有输入，则计算赔率
+        CGFloat outMoney = [self.outMoneyButton.currentTitle floatValue];
+        CGFloat getMoney = [self.getMoneyButton.currentTitle floatValue];
+        CGFloat odds = 0;
+        if (outMoney > 0 && getMoney > 0) {
+            odds = getMoney/outMoney;
+            [self.oddsButton setTitle:[SCUtilities removeFloatSuffix:odds] forState:UIControlStateNormal];
+        }else {
+            [self.oddsButton setTitle:@"" forState:UIControlStateNormal];
+        }
+        
+        //赔率和预期利润都有输入，则计算所需投注
+        CGFloat planProfit = [self.planProfitButton.currentTitle floatValue];
+        CGFloat planOut = 0;
+        if (odds > 1 && planProfit > 0) {
+            planOut = planProfit/(odds-1);
+            [self.planOutButton setTitle:[SCUtilities removeFloatSuffix:planOut] forState:UIControlStateNormal];
+        }else {
+            [self.planOutButton setTitle:@"" forState:UIControlStateNormal];
+        }
+        
+    }];
+    
+}
 
 #pragma mark -UI
 - (WKWebView *)webView
@@ -97,12 +145,13 @@
         WKWebViewConfiguration *config = [WKWebViewConfiguration new];
         config.websiteDataStore = [WKWebsiteDataStore defaultDataStore]; //使用默认的持久化数据储存（自动存Cooki、登录状态等）
         
-        _webView = [[WKWebView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 0) configuration:config];
+        _webView = [[WKWebView alloc] initWithFrame:CGRectMake(0, 0, self.width, 0) configuration:config];
         _webView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleWidth;
         _webView.scrollView.bounces = NO; //取消回弹
         _webView.pageZoom = 0.9; //缩放
         _webView.navigationDelegate = self;
         [self addSubview:_webView];
+        [self insertSubview:self.naviBar aboveSubview:_webView];
         
         NSURL *url = [NSURL URLWithString:url_spf]; //胜平负
         NSURLRequest *request = [NSURLRequest requestWithURL:url];
@@ -113,6 +162,61 @@
         [[NSUserDefaults standardUserDefaults] synchronize];
     }
     return _webView;
+}
+
+- (UIView *)naviBar
+{
+    if (!_naviBar) {
+        CGFloat h = 45;
+        
+        _naviBar = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.width, h)];
+        _naviBar.backgroundColor = HEX_RGB(@"#E55851");
+        [self addSubview:_naviBar];
+        
+        for (int i=0; i<5; i++) {
+            CGFloat labelW = _naviBar.width/5;
+            UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(labelW*i, 3, labelW, 11)];
+            label.textAlignment = NSTextAlignmentCenter;
+            label.textColor = [UIColor whiteColor];
+            label.font = SCFONT_SIZED(label.height-1);
+            [_naviBar addSubview:label];
+            
+            UIButton *btn = [[UIButton alloc] initWithFrame:CGRectMake(0, label.bottom+3, 50, 22)];
+            btn.titleLabel.font = SCFONT_SIZED(15);
+            btn.centerX = label.centerX;
+            [btn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+            btn.backgroundColor = [UIColor whiteColor];
+            btn.layer.cornerRadius = 5;
+            btn.titleLabel.adjustsFontSizeToFitWidth = YES;
+            [btn addTarget:self action:@selector(naviBtnClicked:) forControlEvents:UIControlEventTouchUpInside];
+            [_naviBar addSubview:btn];
+            
+            if (i==0) {
+                label.text = @"投注金额";
+                [btn setTitle:@"2" forState:UIControlStateNormal];
+                _outMoneyButton = btn;
+                
+            }else if (i==1) {
+                label.text = @"理论最高奖金";
+                _getMoneyButton = btn;
+                
+            }else if (i==2) {
+                label.text = @"计算出赔率";
+                btn.userInteractionEnabled = NO;
+                _oddsButton = btn;
+                
+            }else if (i==3) {
+                label.text = @"预期利润";
+                _planProfitButton = btn;
+                
+            }else if (i==4) {
+                label.text = @"计算所需投注";
+                btn.userInteractionEnabled = NO;
+                _planOutButton = btn;
+            }
+        }
+    }
+    return _naviBar;
 }
 
 @end

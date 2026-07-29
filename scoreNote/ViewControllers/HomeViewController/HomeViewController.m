@@ -193,7 +193,7 @@
         
     }else { //打开网页
         self.sporttertView.isShow = YES;
-        self.sporttertView.height = [ConfigManager getValue:ConfigTypeOrderWebH];
+        self.sporttertView.height = [ConfigManager getValue:ConfigTypeSportteryH];
         self.sporttertView.bottom = SCREEN_HEIGHT;
         self.tableView.height = self.sporttertView.top;
         self.tabBarController.tabBar.hidden = YES;
