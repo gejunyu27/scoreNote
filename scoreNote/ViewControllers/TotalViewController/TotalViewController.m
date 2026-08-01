@@ -13,6 +13,7 @@
 #import "CareerViewController.h"
 #import "TotalCell.h"
 #import "FinanceView.h"
+#import "ConfigViewController.h"
 
 @interface TotalViewController () <UITableViewDelegate, UITableViewDataSource>
 @property (nonatomic, strong) FinanceView *financeView;
@@ -29,7 +30,7 @@
     [super viewDidLoad];
     
     self.title = @"统计";
-    
+
     [self tableView];
 }
 
@@ -73,7 +74,11 @@
     [self.navigationController pushViewController:vc animated:YES];
 }
 
-
+- (void)configClick
+{
+    ConfigViewController *vc = [ConfigViewController new];
+    [self.navigationController pushViewController:vc animated:YES];
+}
 
 #pragma mark -UITableViewDelegate, UITableViewDataSource
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -184,6 +189,7 @@
         UIView *topView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 180)];
         CGFloat edge = 15;
         _financeView = [[FinanceView alloc] initWithFrame:CGRectMake(edge, 0, topView.width-edge*2, topView.height-5)];
+        [_financeView addFunctionButtonWithImage:@"Config" target:self action:@selector(configClick) forControlEvents:UIControlEventTouchUpInside];
         [_financeView addFunctionButtonWithImage:@"TagRank" target:self action:@selector(tagRankClicked:) forControlEvents:UIControlEventTouchUpInside];
         [_financeView addFunctionButtonWithImage:@"Carrer" target:self action:@selector(careerClicked:) forControlEvents:UIControlEventTouchUpInside];
         [topView addSubview:_financeView];

@@ -12,9 +12,6 @@
 //竞彩网相关参数
 #define KEY_WEB_DATE @"KEY_WEB_DATE"
 #define url_spf  @"https://m.sporttery.cn/mjc/jsq/zqspf/"    //胜平负
-#define url_bf   @"https://m.sporttery.cn/mjc/jsq/zqbf/"     //比分
-#define url_zjq  @"https://m.sporttery.cn/mjc/jsq/zqzjq/"    //总进球
-#define url_bqc  @"https://m.sporttery.cn/mjc/jsq/zqbqc/"    //半全场
 #define url_hhgg @"https://m.sporttery.cn/mjc/jsq/zqhhgg/"   //混合过关
 
 @interface SportteryView () <WKNavigationDelegate, UIScrollViewDelegate>
@@ -97,7 +94,7 @@
     NSString *urlStr = targetURL.absoluteString;
 
     //只允许跳转的几个页面
-    if ([urlStr containsString:url_spf] || [urlStr containsString:url_bf] || [urlStr containsString:url_zjq] || [urlStr containsString:url_bqc] || [urlStr containsString:url_hhgg]) {
+    if ([urlStr containsString:url_spf] || [urlStr containsString:url_hhgg]) {
         decisionHandler(WKNavigationActionPolicyAllow);
         
     }else { //拦截

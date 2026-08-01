@@ -83,6 +83,7 @@
 		4B42D1442FD5885600816442 /* BitCoinModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B42D1432FD5885600816442 /* BitCoinModel.m */; };
 		4B42D1472FD58BD000816442 /* BitCoinCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B42D1462FD58BD000816442 /* BitCoinCell.m */; };
 		4BBB9E79301A56A500B5FB7C /* SportteryView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BBB9E78301A56A500B5FB7C /* SportteryView.m */; };
+		4BBB9EA0301E682700B5FB7C /* ScoreViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BBB9E9F301E682700B5FB7C /* ScoreViewController.m */; };
 		F18E8098E2966C0FDCB2B440 /* Pods_scoreNote.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B9D0C68F7EED1D682F79A491 /* Pods_scoreNote.framework */; };
 /* End PBXBuildFile section */
 
@@ -239,6 +240,8 @@
 		4B42D1462FD58BD000816442 /* BitCoinCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BitCoinCell.m; sourceTree = "<group>"; };
 		4BBB9E77301A56A500B5FB7C /* SportteryView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SportteryView.h; sourceTree = "<group>"; };
 		4BBB9E78301A56A500B5FB7C /* SportteryView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SportteryView.m; sourceTree = "<group>"; };
+		4BBB9E9E301E682700B5FB7C /* ScoreViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ScoreViewController.h; sourceTree = "<group>"; };
+		4BBB9E9F301E682700B5FB7C /* ScoreViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ScoreViewController.m; sourceTree = "<group>"; };
 		53CCB9C4E7042293F7A66D72 /* Pods-DEMO.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DEMO.debug.xcconfig"; path = "Target Support Files/Pods-DEMO/Pods-DEMO.debug.xcconfig"; sourceTree = "<group>"; };
 		9B574DC10A88E432F8AF7D1E /* Pods-DEMO.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DEMO.release.xcconfig"; path = "Target Support Files/Pods-DEMO/Pods-DEMO.release.xcconfig"; sourceTree = "<group>"; };
 		B9D0C68F7EED1D682F79A491 /* Pods_scoreNote.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_scoreNote.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -548,6 +551,7 @@
 				4B0319382F79452C0041EFC7 /* MainTabBarController.m */,
 				4B0319072F79452C0041EFC7 /* HomeViewController */,
 				4B0319362F79452C0041EFC7 /* TotalViewController */,
+				4BBB9E9D301E67F100B5FB7C /* ScoreViewController */,
 				4B0319182F79452C0041EFC7 /* TagViewController */,
 				4B0318F72F79452C0041EFC7 /* ConfigViewController */,
 			);
@@ -604,6 +608,15 @@
 				4B42D1172FD1B6F300816442 /* FinanceModel.m */,
 			);
 			path = FinanceView;
+			sourceTree = "<group>";
+		};
+		4BBB9E9D301E67F100B5FB7C /* ScoreViewController */ = {
+			isa = PBXGroup;
+			children = (
+				4BBB9E9E301E682700B5FB7C /* ScoreViewController.h */,
+				4BBB9E9F301E682700B5FB7C /* ScoreViewController.m */,
+			);
+			path = ScoreViewController;
 			sourceTree = "<group>";
 		};
 		7D2D062AB0DD7C7EBD2808E1 /* Frameworks */ = {
@@ -749,6 +762,7 @@
 				4B0318B02F7944FF0041EFC7 /* AppDelegate.m in Sources */,
 				4B0318B12F7944FF0041EFC7 /* main.m in Sources */,
 				4B0319482F79452C0041EFC7 /* SCToolBar.m in Sources */,
+				4BBB9EA0301E682700B5FB7C /* ScoreViewController.m in Sources */,
 				4B0319492F79452C0041EFC7 /* ConfigCommonCell.m in Sources */,
 				4B03194A2F79452C0041EFC7 /* RecordDetailCell.m in Sources */,
 				4B03194B2F79452C0041EFC7 /* SqlHeaderView.m in Sources */,

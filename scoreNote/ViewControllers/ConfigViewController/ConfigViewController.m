@@ -23,6 +23,8 @@
 @implementation ConfigViewController
 - (void)viewDidLoad{
     [super viewDidLoad];
+    
+    self.title = @"设置";
     _headerList = [ConfigManager getConfigHeaderList];
     [self.tableView reloadData];
 }
