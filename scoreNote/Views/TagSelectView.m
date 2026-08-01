@@ -12,35 +12,75 @@
 @property (nonatomic, copy) TagSelectBlock selectBlock;
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) UIButton *cancelButton;
+@property (nonatomic, assign) NSInteger selectedTagId;
 @end
 
 
 @implementation TagSelectView
 + (void)show:(TagSelectBlock)selectBlock
 {
+    [self show:selectBlock selectedTagId:-1];
+}
+
++ (void)show:(TagSelectBlock)selectBlock selectedTagId:(NSInteger)selectedTagId
+{
     [SCUtilities endEditing];
     
     UITabBarController *vc = [SCUtilities currentTabBarController];
     
-    TagSelectView *selectView = [[TagSelectView alloc] initWithFrame:vc.view.bounds selectBlock:selectBlock];
+    TagSelectView *selectView = [[TagSelectView alloc] initWithFrame:vc.view.bounds selectBlock:selectBlock selectedTagId:selectedTagId];
     
     [vc.view addSubview:selectView];
-    
 }
 
-- (instancetype)initWithFrame:(CGRect)frame selectBlock:(TagSelectBlock)selectBlock
+- (instancetype)initWithFrame:(CGRect)frame selectBlock:(TagSelectBlock)selectBlock selectedTagId:(NSInteger)selectedTagId
 {
     self = [super initWithFrame:frame];
     if (self) {
         _selectBlock = selectBlock;
+        _selectedTagId = selectedTagId;
         
         //背景色
         self.backgroundColor = [UIColor colorWithWhite:0 alpha:0.3];
         
         //刷新
         [self.tableView reloadData];
+        
+        //跳转
+        [self scrollToSelectedTagId];
     }
     return self;
+}
+
+- (void)scrollToSelectedTagId
+{
+    if (_selectedTagId <= 0) {
+        return;
+    }
+    
+    __block NSInteger section=-1;
+    __block NSInteger row=-1;
+    
+    [[TagManager pinyinList] enumerateObjectsUsingBlock:^(TagPinyinModel * _Nonnull pinyin, NSUInteger ids, BOOL * _Nonnull stop) {
+        [pinyin.tagList enumerateObjectsUsingBlock:^(TagModel * _Nonnull tag, NSUInteger idr, BOOL * _Nonnull stop) {
+            if (tag.tagId == self.selectedTagId) {
+                section = ids+1;
+                row = idr;
+                *stop = YES;
+            }
+        }];
+        
+        if (section > 0 && row >=0) {
+            *stop = YES;
+        }
+    }];
+    
+    if (section > 0 && row >=0) {
+        NSIndexPath *indexPath = [NSIndexPath indexPathForRow:row inSection:section];
+        
+        [self.tableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionMiddle animated:NO];
+    }
+
 }
 
 
@@ -126,6 +166,13 @@
             NSString *title = [NSString stringWithFormat:@"%@-- %@    最大%li期", pinyin.pinyin, tag.name, tag.maxCount];
             
             cell.textLabel.text = title;
+            
+            if (_selectedTagId > 0 && tag.tagId == _selectedTagId) {
+                cell.textLabel.textColor = [UIColor redColor];
+                
+            }else {
+                cell.textLabel.textColor = [UIColor blackColor];
+            }
         }
         
     }

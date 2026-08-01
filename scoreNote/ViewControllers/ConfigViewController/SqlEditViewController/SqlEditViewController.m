@@ -278,7 +278,7 @@ typedef NS_ENUM(NSInteger, SqlRecordType) {
             [self showWithStatus:@"修改失败"];
             record.tagId = oldTagId;
         }
-    }];
+    } selectedTagId:record.tagId];
 }
 
 - (void)deleteRecord:(RecordModel *)record

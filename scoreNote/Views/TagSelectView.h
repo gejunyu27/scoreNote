@@ -15,6 +15,8 @@ typedef void(^TagSelectBlock)(TagModel * _Nullable tag);
 
 + (void)show:(TagSelectBlock)selectBlock;
 
++ (void)show:(TagSelectBlock)selectBlock selectedTagId:(NSInteger)selectedTagId;
+
 @end
 
 NS_ASSUME_NONNULL_END

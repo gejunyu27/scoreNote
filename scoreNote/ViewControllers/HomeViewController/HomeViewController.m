@@ -71,7 +71,7 @@
     [TagSelectView show:^(TagModel * _Nullable tag) {
         BOOL result = [RecordManager editTag:(tag ? tag.tagId : 0) record:record];
         [self refreshTableViewWithResult:result];
-    }];
+    } selectedTagId:record.tagId];
 }
 
 - (void)homeCellEditRealNum:(RecordModel *)record
