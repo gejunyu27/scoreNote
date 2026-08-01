@@ -50,8 +50,8 @@
     totalVc.isMainTabVC = YES;
     totalVc.title = @"统计";
     UITabBarItem *totalItem = totalVc.tabBarItem;
-    totalItem.image = kTabImg(@"Tab_Cart");
-    totalItem.selectedImage = kTabImg(@"Tab_Cart_selected");
+    totalItem.image = kTabImg(@"Tab_Total");
+    totalItem.selectedImage = kTabImg(@"Tab_Total_selected");
     if (@available(iOS 26.0, *)) { //ios26必须在这儿设置，否则文字错位 另外普通状态文字颜色无法改变，原因未知
         [totalItem setTitleTextAttributes:kSelectedTextAttributes forState:UIControlStateSelected];
     }
