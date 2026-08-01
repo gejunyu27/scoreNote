@@ -12,7 +12,7 @@
 #import "RecordDetailViewController.h"
 #import "SportteryView.h"
 
-@interface HomeViewController () <UITableViewDelegate, UITableViewDataSource, HomeCellDelegate>
+@interface HomeViewController () <UITableViewDelegate, UITableViewDataSource, HomeCellDelegate, SportteryDelegate>
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, weak) NSMutableArray <RecordModel *> *records;
 @property (nonatomic, strong) SportteryView *sporttertView;
@@ -201,6 +201,12 @@
     
 }
 
+#pragma mark -SportteryDelegate
+- (void)sportteryCloseClicked
+{
+    [self webClick];
+}
+
 
 #pragma mark -UI
 - (UITableView *)tableView
@@ -233,6 +239,7 @@
 {
     if (!_sporttertView) {
         _sporttertView = [[SportteryView alloc] initWithFrame:self.view.bounds];
+        _sporttertView.delegate = self;
         [self.view addSubview:_sporttertView];
     }
     return _sporttertView;

@@ -17,9 +17,10 @@
 #define url_bqc  @"https://m.sporttery.cn/mjc/jsq/zqbqc/"    //半全场
 #define url_hhgg @"https://m.sporttery.cn/mjc/jsq/zqhhgg/"   //混合过关
 
-@interface SportteryView () <WKNavigationDelegate>
+@interface SportteryView () <WKNavigationDelegate, UIScrollViewDelegate>
 @property (nonatomic, strong) WKWebView *webView;
 @property (nonatomic, strong) UIView *naviBar;  //计算用
+@property (nonatomic, strong) UIView *calculateView; //计算
 @property (nonatomic, strong) UIButton *outMoneyButton;   //投注金额
 @property (nonatomic, strong) UIButton *getMoneyButton;   //理论最高奖金
 @property (nonatomic, strong) UIButton *oddsButton;       //计算出赔率
@@ -58,14 +59,18 @@
     }else {
         self.hidden = YES;
         [NetworkReachability stopMontitorNetwork]; //停止监测
-        
-        [_outMoneyButton setTitle:@"2" forState:UIControlStateNormal];
-        [_getMoneyButton setTitle:@"" forState:UIControlStateNormal];
-        [_oddsButton setTitle:@"" forState:UIControlStateNormal];
-        [_planProfitButton setTitle:@"" forState:UIControlStateNormal];
-        [_planOutButton setTitle:@"" forState:UIControlStateNormal];
+        [self clearData];
     }
 
+}
+
+- (void)clearData
+{
+    [_outMoneyButton setTitle:@"2" forState:UIControlStateNormal];
+    [_getMoneyButton setTitle:@"" forState:UIControlStateNormal];
+    [_oddsButton setTitle:@"" forState:UIControlStateNormal];
+    [_planProfitButton setTitle:@"" forState:UIControlStateNormal];
+    [_planOutButton setTitle:@"" forState:UIControlStateNormal];
 }
 
 - (void)setFrame:(CGRect)frame
@@ -103,6 +108,21 @@
 
 }
 
+#pragma mark - webview scrollview代理
+#define kWebOffset 63
+// 页面加载完成后，直接向下偏移63
+- (void)webView:(WKWebView *)webView didFinishNavigation:(WKNavigation *)navigation {
+    CGPoint initOffset = CGPointMake(0, kWebOffset);
+    webView.scrollView.contentOffset = initOffset;
+}
+
+// 核心滚动拦截：禁止向上滑动（offsetY < 20直接锁定在20）
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+    if (scrollView.contentOffset.y < kWebOffset) {
+        scrollView.contentOffset = CGPointMake(0, kWebOffset);
+    }
+}
+
 #pragma mark -action
 - (void)naviBtnClicked:(UIButton *)sender
 {
@@ -138,18 +158,59 @@
     
 }
 
+- (void)closeClicked
+{
+    if ([self.delegate respondsToSelector:@selector(sportteryCloseClicked)]) {
+        [self.delegate sportteryCloseClicked];
+    }
+}
+
+- (void)refershClicked
+{
+    [self.webView reload];
+}
+
+- (void)calculateClicked
+{
+    [UIView animateWithDuration:0.3 animations:^{
+        self.calculateView.left = 0;
+    } completion:nil];
+}
+
+- (void)switchClicked
+{
+    NSString *currentUrl = self.webView.URL.absoluteString;
+    
+    if ([currentUrl isEqualToString:url_spf]) {
+        [self.webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:url_hhgg]]];
+        
+    }else {
+        [self.webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:url_spf]]];
+    }
+}
+
+- (void)calculteOutClicked
+{
+    [UIView animateWithDuration:0.3 animations:^{
+        self.calculateView.left = self.naviBar.width;
+    } completion:^(BOOL finished) {
+        [self clearData];
+    }];
+}
+
 #pragma mark -UI
 - (WKWebView *)webView
 {
     if (!_webView) {
         WKWebViewConfiguration *config = [WKWebViewConfiguration new];
         config.websiteDataStore = [WKWebsiteDataStore defaultDataStore]; //使用默认的持久化数据储存（自动存Cooki、登录状态等）
-        
+  
         _webView = [[WKWebView alloc] initWithFrame:CGRectMake(0, 0, self.width, 0) configuration:config];
         _webView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleWidth;
         _webView.scrollView.bounces = NO; //取消回弹
         _webView.pageZoom = 0.9; //缩放
         _webView.navigationDelegate = self;
+        _webView.scrollView.delegate = self;
         [self addSubview:_webView];
         [self insertSubview:self.naviBar aboveSubview:_webView];
         
@@ -167,29 +228,92 @@
 - (UIView *)naviBar
 {
     if (!_naviBar) {
+        CGFloat w = self.width;
         CGFloat h = 45;
         
-        _naviBar = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.width, h)];
+        _naviBar = [[UIView alloc] initWithFrame:CGRectMake(0, 0, w, h)];
         _naviBar.backgroundColor = HEX_RGB(@"#E55851");
+    
+        
         [self addSubview:_naviBar];
         
+        CGFloat btnWH = 22;
+        
+        //关闭
+        UIButton *closebtn = [[UIButton alloc] initWithFrame:CGRectMake(15, (h-btnWH)/2, btnWH, btnWH)];
+        [closebtn setImage:[UIImage imageNamed:@"WebClose"] forState:UIControlStateNormal];
+        [closebtn addTarget:self action:@selector(closeClicked) forControlEvents:UIControlEventTouchUpInside];
+        [_naviBar addSubview:closebtn];
+        
+        //刷新
+        UIButton *refreshBtn = [[UIButton alloc] initWithFrame:CGRectMake(closebtn.right+25, closebtn.top, btnWH, btnWH)];
+        [refreshBtn setImage:[UIImage imageNamed:@"WebRefresh"] forState:UIControlStateNormal];
+        [refreshBtn addTarget:self action:@selector(refershClicked) forControlEvents:UIControlEventTouchUpInside];
+        [_naviBar addSubview:refreshBtn];
+        
+        //标题
+        UILabel *titleLabel = [UILabel new];
+        titleLabel.textColor = [UIColor whiteColor];
+        titleLabel.font = SCFONT_SIZED(22);
+        titleLabel.text = @"中国竞彩网";
+        [titleLabel sizeToFit];
+        titleLabel.centerX = w/2;
+        titleLabel.centerY = h/2;
+        [_naviBar addSubview:titleLabel];
+        
+        //计算器
+        UIButton *calculateBtn = [[UIButton alloc] initWithFrame:CGRectMake(w-15-btnWH, closebtn.top, btnWH, btnWH)];
+        [calculateBtn setImage:[UIImage imageNamed:@"WebCalculate"] forState:UIControlStateNormal];
+        [calculateBtn addTarget:self action:@selector(calculateClicked) forControlEvents:UIControlEventTouchUpInside];
+        [_naviBar addSubview:calculateBtn];
+        
+        //切换
+        UIButton *switchBtn = [[UIButton alloc] initWithFrame:CGRectMake(calculateBtn.left-25-btnWH, closebtn.top, btnWH, btnWH)];
+        [switchBtn setImage:[UIImage imageNamed:@"WebSwitch"] forState:UIControlStateNormal];
+        [switchBtn addTarget:self action:@selector(switchClicked) forControlEvents:UIControlEventTouchUpInside];
+        [_naviBar addSubview:switchBtn];
+        
+    }
+    return _naviBar;
+}
+
+- (UIView *)calculateView
+{
+    if (!_calculateView) {
+        CGFloat w = self.naviBar.width;
+        CGFloat h = self.naviBar.height;
+        _calculateView = [[UIView alloc] initWithFrame:CGRectMake(w, 0, w, h)];
+        _calculateView.backgroundColor = self.naviBar.backgroundColor;
+        [_naviBar addSubview:_calculateView];
+        
+        //收回按钮
+        CGFloat outWH = 22;
+        UIButton *outBtn = [[UIButton alloc] initWithFrame:CGRectMake(w-outWH-10, (h-outWH)/2, outWH, outWH)];
+        [outBtn setImage:[UIImage imageNamed:@"WebOut"] forState:UIControlStateNormal];
+        [outBtn addTarget:self action:@selector(calculteOutClicked) forControlEvents:UIControlEventTouchUpInside];
+        [_calculateView addSubview:outBtn];
+        
+        CGFloat labelW = (outBtn.left-5)/5;
+        
         for (int i=0; i<5; i++) {
-            CGFloat labelW = _naviBar.width/5;
             UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(labelW*i, 3, labelW, 11)];
             label.textAlignment = NSTextAlignmentCenter;
             label.textColor = [UIColor whiteColor];
             label.font = SCFONT_SIZED(label.height-1);
-            [_naviBar addSubview:label];
+            [_calculateView addSubview:label];
             
             UIButton *btn = [[UIButton alloc] initWithFrame:CGRectMake(0, label.bottom+3, 50, 22)];
             btn.titleLabel.font = SCFONT_SIZED(15);
             btn.centerX = label.centerX;
-            [btn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-            btn.backgroundColor = [UIColor whiteColor];
             btn.layer.cornerRadius = 5;
             btn.titleLabel.adjustsFontSizeToFitWidth = YES;
             [btn addTarget:self action:@selector(naviBtnClicked:) forControlEvents:UIControlEventTouchUpInside];
-            [_naviBar addSubview:btn];
+            [_calculateView addSubview:btn];
+            
+            if (i!=2 && i!=4) {
+                [btn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+                btn.backgroundColor = [UIColor whiteColor];
+            }
             
             if (i==0) {
                 label.text = @"投注金额";
@@ -216,7 +340,7 @@
             }
         }
     }
-    return _naviBar;
+    return _calculateView;
 }
 
 @end
