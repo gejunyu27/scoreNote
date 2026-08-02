@@ -76,15 +76,21 @@
 }
 
 #pragma mark - webview scrollview代理
-#define kWebOffset -NAV_BAR_HEIGHT+10
 - (void)webView:(WKWebView *)webView didFinishNavigation:(WKNavigation *)navigation {
     //注入js
-    [self cleanAdOnce]; //初始化webview时就注入无效，只能放加载完成注入
+    [self evaluateJavaScript]; //初始化webview时就注入无效，只能放加载完成注入
     //停止刷新
     [self endRefresh];
 }
 
-- (void)cleanAdOnce {
+- (void)webView:(WKWebView *)webView didFailNavigation:(null_unspecified WKNavigation *)navigation withError:(nonnull NSError *)error
+{
+    //停止刷新
+    [self endRefresh];
+}
+
+- (void)evaluateJavaScript
+{
     NSString *jsScript =
     @"// 1.topdiv是顶部绿色标题栏，不能删除，会导致布局错乱，压缩隐藏，保留DOM防止布局错乱\n"
     @"var topDiv = document.querySelector('.topdiv');\n"
@@ -126,6 +132,14 @@
     // 清理底部留白
     @"document.body.style.paddingBottom = '0px';";
     [self.webView evaluateJavaScript:jsScript completionHandler:nil];
+}
+
+- (void)endRefresh
+{
+    // 结束下拉刷新动画
+    if (self.refreshControl.refreshing) {
+        [self.refreshControl endRefreshing];
+    }
 }
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
@@ -202,16 +216,6 @@
     // 网页重载
     [self.webView reload];
 }
-
-- (void)endRefresh
-{
-    // 结束下拉刷新动画
-    if (self.refreshControl.refreshing) {
-        [self.refreshControl endRefreshing];
-    }
-}
-
-
 
 #pragma mark -UI
 - (WKWebView *)webView
