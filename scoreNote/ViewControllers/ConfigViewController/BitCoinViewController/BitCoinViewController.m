@@ -165,16 +165,16 @@
         _financeView = [[FinanceView alloc] initWithFrame:CGRectMake(edge, 0, topView.width-edge*2, topView.height-5)];
         
         @weakify(self)
-        [_financeView addFunctionButtonWithImage:@"AddIcon" eventHandler:^(id  _Nonnull sender) {
+        [_financeView addFunctionButtonWithImage:@"BitCoinBuy" eventHandler:^(id  _Nonnull sender) {
             @strongify(self)
             [self transactionClicked:YES];
         }];
-        [_financeView addFunctionButtonWithImage:@"ReduceIcon" eventHandler:^(id  _Nonnull sender) {
+        [_financeView addFunctionButtonWithImage:@"BitCoinSale" eventHandler:^(id  _Nonnull sender) {
             @strongify(self)
             [self transactionClicked:NO];
         }];
         
-        [_financeView addFunctionButtonWithImage:@"ClearIcon" target:self action:@selector(clearClicked) forControlEvents:UIControlEventTouchUpInside];
+        [_financeView addFunctionButtonWithImage:@"BitCoinClear" target:self action:@selector(clearClicked) forControlEvents:UIControlEventTouchUpInside];
         
         
         [topView addSubview:_financeView];
