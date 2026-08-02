@@ -36,7 +36,7 @@ NS_ASSUME_NONNULL_BEGIN
 //修改止损线
 + (BOOL)editBreakLine:(CGFloat)breakLine record:(RecordModel *)record;
 //修改投注模式
-+ (BOOL)editCasino:(RecordModel *)record;
++ (BOOL)editSporttery:(RecordModel *)record;
 
 //修改标签
 + (BOOL)editTag:(NSInteger)tagId record:(RecordModel *)record;

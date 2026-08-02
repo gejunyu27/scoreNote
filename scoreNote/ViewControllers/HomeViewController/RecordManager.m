@@ -223,16 +223,16 @@ DEF_SINGLETON(RecordManager)
 }
 
 #pragma mark -修改投注模式
-+ (BOOL)editCasino:(RecordModel *)record
++ (BOOL)editSporttery:(RecordModel *)record;
 {
-    BOOL oldCasino = record.isCasino;
+    BOOL oldSporttery = record.isSporttery;
     
-    record.isCasino = !oldCasino;
+    record.isSporttery = !oldSporttery;
     
     BOOL result = [DataManager updateRecord:record];
     
     if (!result) {
-        record.isCasino = oldCasino;
+        record.isSporttery = oldSporttery;
     }
     
     return result;
@@ -306,7 +306,7 @@ DEF_SINGLETON(RecordManager)
     LineModel *currentLine = record.lineList.lastObject;
     
     if (isWin) {
-        currentLine.getMoney = record.isCasino ? (currentLine.outMoney + profit) : profit;
+        currentLine.getMoney = record.isSporttery ? profit : (currentLine.outMoney + profit);
         
     }else {
         currentLine.getMoney = 0;

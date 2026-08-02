@@ -21,7 +21,7 @@
 @property (nonatomic, strong) UIButton *perProfitButton;
 @property (nonatomic, strong) UIButton *baseProfitButton;
 @property (nonatomic, strong) UIButton *breakLineButton;
-@property (nonatomic, strong) UIButton *casinoButton;
+@property (nonatomic, strong) UIButton *sportteryButton;
 
 @property (nonatomic, assign) BOOL hasUpdated;
 @end
@@ -93,7 +93,7 @@
     [_breakLineButton setTitle:[NSString stringWithFormat:@"止损线%@", [SCUtilities removeFloatSuffix:_record.breakLine]] forState: UIControlStateNormal];
     
     //外围模式
-    [_casinoButton setTitle:(_record.isCasino?@"外围模式":@"竞彩模式") forState:UIControlStateNormal];
+    [_sportteryButton setTitle:(_record.isSporttery?@"竞彩模式":@"外围模式") forState:UIControlStateNormal];
 }
 
 #pragma mark -UITableViewDelegate, UITableViewDataSource
@@ -224,9 +224,9 @@
     }];
 }
 
-- (void)casinoClicked:(UIButton *)sender
+- (void)sportteryClicked:(UIButton *)sender
 {
-    BOOL result = [RecordManager editCasino:_record];
+    BOOL result = [RecordManager editSporttery:_record];
     
     [self handleEditResult:result refreshTable:NO];
 }
@@ -337,8 +337,8 @@
                 [_breakLineButton addTarget:self action:@selector(breakLineClicked:) forControlEvents:UIControlEventTouchUpInside];
                 
             }else if (i==3) {
-                _casinoButton = btn;
-                [_casinoButton addTarget:self action:@selector(casinoClicked:) forControlEvents:UIControlEventTouchUpInside];
+                _sportteryButton = btn;
+                [_sportteryButton addTarget:self action:@selector(sportteryClicked:) forControlEvents:UIControlEventTouchUpInside];
             }
         }
     }

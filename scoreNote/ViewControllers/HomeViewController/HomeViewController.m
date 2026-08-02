@@ -10,12 +10,10 @@
 #import "RecordManager.h"
 #import "TagSelectView.h"
 #import "RecordDetailViewController.h"
-#import "SportteryView.h"
 
-@interface HomeViewController () <UITableViewDelegate, UITableViewDataSource, HomeCellDelegate, SportteryDelegate>
+@interface HomeViewController () <UITableViewDelegate, UITableViewDataSource, HomeCellDelegate>
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, weak) NSMutableArray <RecordModel *> *records;
-@property (nonatomic, strong) SportteryView *sporttertView;
 
 @end
 
@@ -26,7 +24,6 @@
     
     //ui 嵌套网页 和 添加单子
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addClick)];
-    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"WebItem"] style:UIBarButtonItemStylePlain target:self action:@selector(webClick)];
 
     //刷新数据
     [self refreshUI];
@@ -149,7 +146,7 @@
 - (void)homeCellBuyWin:(RecordModel *)record
 {
     @weakify(self)
-    [NumberInputView showWithText:@"" title:(record.isCasino?@"利润":@"收入") clickView:nil type:InputTypeNoSymbol block:^(NSString * _Nonnull outputText) {
+    [NumberInputView showWithText:@"" title:(record.isSporttery?@"收入":@"利润") clickView:nil type:InputTypeNoSymbol block:^(NSString * _Nonnull outputText) {
         @strongify(self)
         if (outputText.length == 0) {
             return;
@@ -184,30 +181,6 @@
     }];
 }
 
-- (void)webClick //中国竞彩网
-{
-    if (_sporttertView.isShow) { //关闭网页
-        self.sporttertView.isShow = NO;
-        self.tableView.height = SCREEN_HEIGHT;
-        self.tabBarController.tabBar.hidden = NO;
-        
-    }else { //打开网页
-        self.sporttertView.isShow = YES;
-        self.sporttertView.height = [ConfigManager getValue:ConfigTypeSportteryH];
-        self.sporttertView.bottom = SCREEN_HEIGHT;
-        self.tableView.height = self.sporttertView.top;
-        self.tabBarController.tabBar.hidden = YES;
-    }
-    
-}
-
-#pragma mark -SportteryDelegate
-- (void)sportteryCloseClicked
-{
-    [self webClick];
-}
-
-
 #pragma mark -UI
 - (UITableView *)tableView
 {
@@ -234,17 +207,5 @@
     }
     return _tableView;
 }
-
-- (SportteryView *)sporttertView
-{
-    if (!_sporttertView) {
-        _sporttertView = [[SportteryView alloc] initWithFrame:self.view.bounds];
-        _sporttertView.delegate = self;
-        [self.view addSubview:_sporttertView];
-    }
-    return _sporttertView;
-}
-
-
 
 @end

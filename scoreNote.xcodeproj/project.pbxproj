@@ -83,7 +83,6 @@
 		4B42D1442FD5885600816442 /* BitCoinModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B42D1432FD5885600816442 /* BitCoinModel.m */; };
 		4B42D1472FD58BD000816442 /* BitCoinCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B42D1462FD58BD000816442 /* BitCoinCell.m */; };
 		4B5890DA301F7F3C0026300A /* SportteryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B5890D9301F7F3C0026300A /* SportteryViewController.m */; };
-		4BBB9E79301A56A500B5FB7C /* SportteryView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BBB9E78301A56A500B5FB7C /* SportteryView.m */; };
 		4BBB9EA0301E682700B5FB7C /* ScoreViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BBB9E9F301E682700B5FB7C /* ScoreViewController.m */; };
 		61F0C5ABAEDAF0B802CBEBEE /* Pods_scoreNote.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 27964327C396DCC0BA9E34FE /* Pods_scoreNote.framework */; };
 /* End PBXBuildFile section */
@@ -240,8 +239,6 @@
 		4B42D1462FD58BD000816442 /* BitCoinCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BitCoinCell.m; sourceTree = "<group>"; };
 		4B5890D8301F7F3C0026300A /* SportteryViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SportteryViewController.h; sourceTree = "<group>"; };
 		4B5890D9301F7F3C0026300A /* SportteryViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SportteryViewController.m; sourceTree = "<group>"; };
-		4BBB9E77301A56A500B5FB7C /* SportteryView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SportteryView.h; sourceTree = "<group>"; };
-		4BBB9E78301A56A500B5FB7C /* SportteryView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SportteryView.m; sourceTree = "<group>"; };
 		4BBB9E9E301E682700B5FB7C /* ScoreViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ScoreViewController.h; sourceTree = "<group>"; };
 		4BBB9E9F301E682700B5FB7C /* ScoreViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ScoreViewController.m; sourceTree = "<group>"; };
 		65518CD01B2FD616C51EE0BD /* Pods-scoreNote.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-scoreNote.release.xcconfig"; path = "Target Support Files/Pods-scoreNote/Pods-scoreNote.release.xcconfig"; sourceTree = "<group>"; };
@@ -452,8 +449,6 @@
 			children = (
 				4B0318FF2F79452C0041EFC7 /* HomeViewController.h */,
 				4B0319002F79452C0041EFC7 /* HomeViewController.m */,
-				4BBB9E77301A56A500B5FB7C /* SportteryView.h */,
-				4BBB9E78301A56A500B5FB7C /* SportteryView.m */,
 				4B0318FD2F79452C0041EFC7 /* HomeCell.h */,
 				4B0318FE2F79452C0041EFC7 /* HomeCell.m */,
 				4B0319052F79452C0041EFC7 /* RecordModel.h */,
@@ -820,7 +815,6 @@
 				4B0319782F79452C0041EFC7 /* NSError+SCExtension.m in Sources */,
 				4B0319792F79452C0041EFC7 /* TagModel.m in Sources */,
 				4B03197A2F79452C0041EFC7 /* ColumnModel.m in Sources */,
-				4BBB9E79301A56A500B5FB7C /* SportteryView.m in Sources */,
 				4B42D1472FD58BD000816442 /* BitCoinCell.m in Sources */,
 				4B03197B2F79452C0041EFC7 /* LineModel.m in Sources */,
 				4B03197C2F79452C0041EFC7 /* ConfigFunctionCell.m in Sources */,

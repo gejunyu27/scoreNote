@@ -116,7 +116,7 @@ NS_ASSUME_NONNULL_BEGIN
         
     }
     
-    self.caiIcon.hidden = self.record.isCasino;
+    self.caiIcon.hidden = !self.record.isSporttery;
 
 }
 

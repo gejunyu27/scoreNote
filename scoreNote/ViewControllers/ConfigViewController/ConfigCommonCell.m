@@ -11,7 +11,7 @@
 @property (nonatomic, strong) UILabel *titleLabel;
 @property (nonatomic, strong) UIButton *inputButton;
 @property (nonatomic, strong) UIButton *restButton;
-@property (nonatomic, strong) UIButton *casinoButton;
+@property (nonatomic, strong) UIButton *sportteryButton;
 @end
 
 @implementation ConfigCommonCell
@@ -33,17 +33,17 @@
     
     self.titleLabel.text = model.title;
     
-    if (model.configType == ConfigTypeIsCasino) {
+    if (model.configType == ConfigTypeIsSporttery) {
         self.inputButton.hidden = YES;
         self.restButton.hidden = YES;
-        self.casinoButton.hidden = NO;
+        self.sportteryButton.hidden = NO;
         
-        [self.casinoButton setImage:(model.value?[UIImage imageNamed:@"SwtichOn"]:[UIImage imageNamed:@"SwtichOff"]) forState:UIControlStateNormal];
+        [self.sportteryButton setImage:(model.value?[UIImage imageNamed:@"SwtichOn"]:[UIImage imageNamed:@"SwtichOff"]) forState:UIControlStateNormal];
         
     }else {
         self.inputButton.hidden = NO;
         self.restButton.hidden = NO;
-        self.casinoButton.hidden = YES;
+        self.sportteryButton.hidden = YES;
         
         [self.inputButton setTitle:[SCUtilities removeFloatSuffix:model.value] forState:UIControlStateNormal];
     }
@@ -113,15 +113,15 @@
     return _inputButton;
 }
 
-- (UIButton *)casinoButton
+- (UIButton *)sportteryButton
 {
-    if (!_casinoButton) {
+    if (!_sportteryButton) {
         CGFloat wh = 55;
-        _casinoButton = [[UIButton alloc] initWithFrame:CGRectMake(self.restButton.right-wh, (kConfigCellH-wh)/2, wh, wh)];
-        [_casinoButton addTarget:self action:@selector(switchClicked:) forControlEvents:UIControlEventTouchUpInside];
-        [self.contentView addSubview:_casinoButton];
+        _sportteryButton = [[UIButton alloc] initWithFrame:CGRectMake(self.restButton.right-wh, (kConfigCellH-wh)/2, wh, wh)];
+        [_sportteryButton addTarget:self action:@selector(switchClicked:) forControlEvents:UIControlEventTouchUpInside];
+        [self.contentView addSubview:_sportteryButton];
     }
-    return _casinoButton;
+    return _sportteryButton;
 }
 
 @end

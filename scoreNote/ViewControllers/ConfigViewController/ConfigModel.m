@@ -93,17 +93,8 @@ NS_ASSUME_NONNULL_BEGIN
         case ConfigTypeInputH:
             propertyName = @"inputH";
             break;
-//        case ConfigTypeOrderListH:
-//            propertyName = @"orderListH";
-//            break;
-//        case ConfigTypeOrderWebH:
-//            propertyName = @"orderWebH";
-//            break;
-        case ConfigTypeSportteryH:
-            propertyName = @"sportteryH";
-            break;
-        case ConfigTypeIsCasino:
-            propertyName = @"isCasino";
+        case ConfigTypeIsSporttery:
+            propertyName = @"isSporttery";
             break;
             
         default:
@@ -139,16 +130,7 @@ NS_ASSUME_NONNULL_BEGIN
         case ConfigTypeInputH:
             self.value = 300;
             break;
-//        case ConfigTypeOrderListH:
-//            self.value = 390;
-//            break;
-//        case ConfigTypeOrderWebH:
-//            self.value = 450;
-//            break;
-        case ConfigTypeSportteryH:
-            self.value = 460;
-            break;
-        case ConfigTypeIsCasino:
+        case ConfigTypeIsSporttery:
             self.value = 1;
             break;
         default:
@@ -171,17 +153,8 @@ NS_ASSUME_NONNULL_BEGIN
         case ConfigTypeInputH:
             _title = @"自定义键盘高度";
             break;
-//        case ConfigTypeOrderListH:
-//            _title = @"嵌网模式订单高度";
-//            break;
-//        case ConfigTypeOrderWebH:
-//            _title = @"嵌网模式网页高度";
-//            break;
-        case ConfigTypeSportteryH:
-            _title = @"竞彩网页面高度";
-            break;
-        case ConfigTypeIsCasino:
-            _title = @"默认外围模式";
+        case ConfigTypeIsSporttery:
+            _title = @"默认竞彩模式";
             break;
             
         default:
