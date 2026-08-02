@@ -19,7 +19,7 @@
 @property (nonatomic, strong) UIButton *playingButton; //进行中
 @property (nonatomic, strong) UIButton *overButton;   //结束
 @property (nonatomic, strong) UIView *sepLine; //滑块
-@property (nonatomic, strong) UIButton *refreshButton;
+@property (nonatomic, strong) UIRefreshControl *refreshControl;
 @end
 
 @implementation ScoreViewController
@@ -62,7 +62,7 @@
     // 1. 获取即将跳转的URL
     NSURL *targetURL = navigationAction.request.URL;
     NSString *urlStr = targetURL.absoluteString;
-
+    
     //只允许跳转的几个页面
     if ([urlStr containsString:url_score]) {
         decisionHandler(WKNavigationActionPolicyAllow);
@@ -72,26 +72,28 @@
     }
     
     
-
+    
 }
 
 #pragma mark - webview scrollview代理
 #define kWebOffset -NAV_BAR_HEIGHT+10
 - (void)webView:(WKWebView *)webView didFinishNavigation:(WKNavigation *)navigation {
     //注入js
-   [self cleanAdOnce]; //初始化webview时就注入无效，只能放加载完成注入
+    [self cleanAdOnce]; //初始化webview时就注入无效，只能放加载完成注入
+    //停止刷新
+    [self endRefresh];
 }
 
 - (void)cleanAdOnce {
-   NSString *jsScript =
+    NSString *jsScript =
     @"// 1.topdiv是顶部绿色标题栏，不能删除，会导致布局错乱，压缩隐藏，保留DOM防止布局错乱\n"
-        @"var topDiv = document.querySelector('.topdiv');\n"
-        @"if(topDiv){\n"
-        @"    topDiv.style.height = '0px';\n"
-        @"    topDiv.style.overflow = 'hidden';\n"
-        @"    topDiv.style.padding = '0';\n"
-        @"    topDiv.style.margin = '0';\n"
-        @"}\n"
+    @"var topDiv = document.querySelector('.topdiv');\n"
+    @"if(topDiv){\n"
+    @"    topDiv.style.height = '0px';\n"
+    @"    topDiv.style.overflow = 'hidden';\n"
+    @"    topDiv.style.padding = '0';\n"
+    @"    topDiv.style.margin = '0';\n"
+    @"}\n"
     //顶部导航栏不置顶，可以滑动
     @"var tabUl = document.querySelector('ul.ui-tab-nav');\n"
     @"if(tabUl){\n"
@@ -100,30 +102,30 @@
     @"    tabUl.style.padding = '0';\n"
     @"    tabUl.style.margin = '0';\n"
     @"};\n"
-        // 3.删除 buttondiv广告容器 底部的黑色tabbar
-        @"document.querySelectorAll('.buttondiv').forEach(function(item){\n"
-        @"    if(item) item.remove();\n"
-        @"});\n"
-        // 4.删除两个点击事件广告按钮  下载APP按钮和客服按钮
-        @"document.querySelectorAll('*').forEach(function(el){\n"
-        @"    var clickFn = el.getAttribute('onclick');\n"
-        @"    if(clickFn){\n"
-        @"        if(clickFn.indexOf('showdown()') > -1 || clickFn.indexOf('goq()') > -1){\n"
-        @"            el.remove();\n"
-        @"        }\n"
-        @"    }\n"
-        @"});\n"
-        // ========== 重点：消除顶部大块空白 ==========
-        @"document.body.style.paddingTop = '0px';\n"
-        @"document.documentElement.style.paddingTop = '0px';\n"
-        // 给页面所有主要容器取消上边距，内容顶到最顶部
-        @"document.querySelectorAll('div,section,.content,.main').forEach(function(box){\n"
-        @"    box.style.marginTop = '0px';\n"
-        @"    box.style.paddingTop = '0px';\n"
-        @"});\n"
-        // 清理底部留白
-        @"document.body.style.paddingBottom = '0px';";
-   [self.webView evaluateJavaScript:jsScript completionHandler:nil];
+    // 3.删除 buttondiv广告容器 底部的黑色tabbar
+    @"document.querySelectorAll('.buttondiv').forEach(function(item){\n"
+    @"    if(item) item.remove();\n"
+    @"});\n"
+    // 4.删除两个点击事件广告按钮  下载APP按钮和客服按钮
+    @"document.querySelectorAll('*').forEach(function(el){\n"
+    @"    var clickFn = el.getAttribute('onclick');\n"
+    @"    if(clickFn){\n"
+    @"        if(clickFn.indexOf('showdown()') > -1 || clickFn.indexOf('goq()') > -1){\n"
+    @"            el.remove();\n"
+    @"        }\n"
+    @"    }\n"
+    @"});\n"
+    // ========== 重点：消除顶部大块空白 ==========
+    @"document.body.style.paddingTop = '0px';\n"
+    @"document.documentElement.style.paddingTop = '0px';\n"
+    // 给页面所有主要容器取消上边距，内容顶到最顶部
+    @"document.querySelectorAll('div,section,.content,.main').forEach(function(box){\n"
+    @"    box.style.marginTop = '0px';\n"
+    @"    box.style.paddingTop = '0px';\n"
+    @"});\n"
+    // 清理底部留白
+    @"document.body.style.paddingBottom = '0px';";
+    [self.webView evaluateJavaScript:jsScript completionHandler:nil];
 }
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
@@ -135,11 +137,11 @@
     
     
     //导航栏透明度
-//    CGFloat fadeDistance = 50; //透明度变化完的最大滑动距离
-//    CGFloat alpha = 1.0 - (offsetY / fadeDistance);
-//    if (alpha < 0) alpha = 0;
-//    if (alpha > 1) alpha = 1;
-//    _naviBar.alpha = alpha;
+    //    CGFloat fadeDistance = 50; //透明度变化完的最大滑动距离
+    //    CGFloat alpha = 1.0 - (offsetY / fadeDistance);
+    //    if (alpha < 0) alpha = 0;
+    //    if (alpha > 1) alpha = 1;
+    //    _naviBar.alpha = alpha;
     //透明度简化 滑了就透明
     self.naviBar.alpha = offsetY > 0 ? 0.2 : 1;
 }
@@ -181,19 +183,35 @@
     NSInteger index = isPlaying ? 0 : 1;
     
     NSString *js = [NSString stringWithFormat:
-    @"var x = %ld;\n"
-    @"for (var j = 0; j < 5; j++) {\n"
-    @"    if (x == j) {\n"
-    @"        $('#li' + j).addClass('current');\n"
-    @"        $('#lis' + j).show();\n"
-    @"        window.scrollTo(0,0);\n"
-    @"    } else {\n"
-    @"        $('#li' + j).removeClass('current');\n"
-    @"        $('#lis' + j).hide();\n"
-    @"    }\n"
-    @"}",(long)index];
+                    @"var x = %ld;\n"
+                    @"for (var j = 0; j < 5; j++) {\n"
+                    @"    if (x == j) {\n"
+                    @"        $('#li' + j).addClass('current');\n"
+                    @"        $('#lis' + j).show();\n"
+                    @"        window.scrollTo(0,0);\n"
+                    @"    } else {\n"
+                    @"        $('#li' + j).removeClass('current');\n"
+                    @"        $('#lis' + j).hide();\n"
+                    @"    }\n"
+                    @"}",(long)index];
     [self.webView evaluateJavaScript:js completionHandler:nil];
 }
+
+- (void)webRefreshAction
+{
+    // 网页重载
+    [self.webView reload];
+}
+
+- (void)endRefresh
+{
+    // 结束下拉刷新动画
+    if (self.refreshControl.refreshing) {
+        [self.refreshControl endRefreshing];
+    }
+}
+
+
 
 #pragma mark -UI
 - (WKWebView *)webView
@@ -201,10 +219,10 @@
     if (!_webView) {
         WKWebViewConfiguration *config = [WKWebViewConfiguration new];
         config.websiteDataStore = [WKWebsiteDataStore defaultDataStore]; //使用默认的持久化数据储存（自动存Cooki、登录状态等）
-
+        
         _webView = [[WKWebView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT) configuration:config];
         _webView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleWidth;
-        _webView.scrollView.bounces = NO; //取消回弹
+//        _webView.scrollView.bounces = NO; //取消回弹
         _webView.navigationDelegate = self;
         _webView.scrollView.delegate = self;
         [self.view addSubview:_webView];
@@ -213,7 +231,14 @@
         UIPanGestureRecognizer *panGes = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(panScrollHandle:)];
         panGes.cancelsTouchesInView = NO;
         [_webView addGestureRecognizer:panGes];
-
+        
+        //下拉刷新
+        _refreshControl = [[UIRefreshControl alloc] init];
+        _refreshControl.tintColor = [UIColor grayColor];
+        [_refreshControl addTarget:self action:@selector(webRefreshAction) forControlEvents:UIControlEventValueChanged];
+        // 挂载到webview滚动视图
+        self.webView.scrollView.refreshControl = self.refreshControl;
+        
     }
     return _webView;
 }
@@ -234,7 +259,7 @@
         for (int i=0; i<2; i++) {
             UIButton *btn = [[UIButton alloc] initWithFrame:CGRectMake(w*i, 0, w, _sepLine.top)];
             [btn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-            [btn setTitleColor:HEX_RGB(@"#87BF3B") forState:UIControlStateSelected];
+            [btn setTitleColor:_sepLine.backgroundColor forState:UIControlStateSelected];
             [btn addTarget:self action:@selector(naviClicked:) forControlEvents:UIControlEventTouchUpInside];
             if (i==0) {
                 [btn setTitle:@"即时" forState:UIControlStateNormal];
