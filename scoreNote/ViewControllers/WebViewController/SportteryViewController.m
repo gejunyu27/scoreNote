@@ -12,12 +12,12 @@
 
 #define url_spf  @"https://m.sporttery.cn/mjc/jsq/zqspf/"    //胜平负
 #define url_hhgg @"https://m.sporttery.cn/mjc/jsq/zqhhgg/"   //混合过关
-
-//#define naviY (NAV_BAR_HEIGHT+15)
+#define activityY NAV_BAR_HEIGHT - 40
 
 @interface SportteryViewController ()<WKNavigationDelegate, UIScrollViewDelegate>
 @property (nonatomic, strong) WKWebView *webView;
 @property (nonatomic, strong) UIRefreshControl *refreshControl;
+@property (nonatomic, strong) UIImageView *activityView; //注入js后刷新组件的菊花消失，原因未知，先用这个代替
 
 @end
 
@@ -57,9 +57,6 @@
  */
 - (void)webView:(WKWebView *)webView decidePolicyForNavigationAction:(WKNavigationAction *)navigationAction decisionHandler:(void (^)(WKNavigationActionPolicy))decisionHandler
 {
-    
-    decisionHandler(WKNavigationActionPolicyAllow);
-    return;
     /**加入拦截。**/
     // 1. 获取即将跳转的url
     NSString *urlStr = navigationAction.request.URL.absoluteString;
@@ -120,9 +117,30 @@
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
+    //起始位置是0，上滑增大，下拉减小
     CGFloat offsetY = scrollView.contentOffset.y;
+    //菊花位置
+    CGFloat newY = activityY - offsetY;
+    self.activityView.top = newY;
     
-    NSLog(@"%f", offsetY);
+    //菊花透明度
+    if (offsetY >-40) {  //偏移量40之前不显示
+        _activityView.alpha = 0;
+        
+    }else { //超过40后逐渐显示，滑动测试了下，大概170左右开始刷新
+//        CGFloat alpha = (-offsetY-40)/(280-40); //170看的不明显，数值设大一点，280
+//            if (alpha < 0) alpha = 0;
+//            if (alpha > 1) alpha = 1;
+//        _activityView.alpha = alpha;
+        //代码简化
+        if (offsetY < -170) {
+            _activityView.alpha = 1;
+            
+        }else {
+            _activityView.alpha = 0.2;
+        }
+    }
+
 }
 
 #pragma mark -action
@@ -155,6 +173,17 @@
         
     }
     return _webView;
+}
+
+- (UIImageView *)activityView
+{
+    if (!_activityView) {
+        CGFloat wh = 30;
+        _activityView = [[UIImageView alloc] initWithFrame:CGRectMake((SCREEN_WIDTH-wh)/2, activityY, wh, wh)];
+        _activityView.image = [UIImage imageNamed:@"WebRefresh"];
+        [self.view addSubview:_activityView];
+    }
+    return _activityView;
 }
 
 @end
