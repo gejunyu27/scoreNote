@@ -14,11 +14,3 @@ NS_ASSUME_NONNULL_BEGIN
 @end
 
 NS_ASSUME_NONNULL_END
-
-
-/**
- 计划
- 2.竞彩页面加计算器
- 4.设置页重写
- 
- */

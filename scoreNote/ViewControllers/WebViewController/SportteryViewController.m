@@ -18,6 +18,11 @@
 @property (nonatomic, strong) WKWebView *webView;
 @property (nonatomic, strong) UIRefreshControl *refreshControl;
 @property (nonatomic, strong) UIImageView *activityView; //注入js后刷新组件的菊花消失，原因未知，先用这个代替
+@property (nonatomic, strong) UIView *calculatorView; //计算器视图
+@property (nonatomic, strong) UIButton *oddsOneButton;
+@property (nonatomic, strong) UIButton *oddsTwoButton;
+@property (nonatomic, strong) UIButton *planButton;
+@property (nonatomic, strong) UIButton *resultButton;
 
 @end
 
@@ -25,7 +30,12 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+    
+    //切换
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"SwitchItem"] style:UIBarButtonItemStylePlain target:self action:@selector(switchClick)];
+    //计算器
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"CalculatorItem"] style:UIBarButtonItemStylePlain target:self action:@selector(calculatorClick)];
+
 }
 
 - (instancetype)init
@@ -150,6 +160,49 @@
     [self.webView reload];
 }
 
+- (void)switchClick
+{
+    NSString *currentUrl = self.webView.URL.absoluteString;
+    
+    if ([currentUrl isEqualToString:url_spf]) {
+        [self.webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:url_hhgg]]];
+        
+    }else {
+        [self.webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:url_spf]]];
+    }
+
+}
+
+- (void)calculatorClick
+{
+    self.calculatorView.hidden ^= 1;
+}
+
+- (void)calculateClicked:(UIButton *)sender title:(NSString *)title
+{
+    [NumberInputView showWithText:sender.currentTitle title:title clickView:sender type:InputTypeNoSymbol block:^(NSString * _Nonnull outputText) {
+        [sender setTitle:outputText forState:UIControlStateNormal];
+        [self startCalculteResult];
+    }];
+}
+
+- (void)startCalculteResult
+{
+    //检查完整性
+    CGFloat oddsOne = _oddsOneButton.currentTitle.floatValue;
+    CGFloat oddsTwo = _oddsTwoButton.currentTitle.floatValue;
+    CGFloat plan    = _planButton.currentTitle.floatValue;
+    
+    if (oddsOne > 1 && oddsTwo > 1 && plan > 0) {
+        CGFloat odds = oddsOne*oddsTwo; //3*4=12 标识1块钱中了能收回12
+        CGFloat result = plan/(odds-1);
+        [_resultButton setTitle:[SCUtilities removeFloatSuffix:result] forState:UIControlStateNormal];
+        
+    }else {
+        [_resultButton setTitle:@"" forState:UIControlStateNormal];
+    }
+}
+
 #pragma mark -UI
 - (WKWebView *)webView
 {
@@ -184,6 +237,65 @@
         [self.view addSubview:_activityView];
     }
     return _activityView;
+}
+
+- (UIView *)calculatorView
+{
+    if (!_calculatorView) {
+        CGFloat x = 20;
+        CGFloat h = 65;
+        _calculatorView = [[UIView alloc] initWithFrame:CGRectMake(x, SCREEN_HEIGHT-TAB_BAR_HEIGHT-10-h, SCREEN_WIDTH-x*2, h)];
+        _calculatorView.hidden = YES;
+        _calculatorView.backgroundColor = [UIColor blackColor];
+        _calculatorView.layer.cornerRadius = 8;
+        [self.view addSubview:_calculatorView];
+        
+        CGFloat labelW = _calculatorView.width/4;
+        NSArray *labelArr = @[@"赔率1", @"赔率2", @"计划利润", @"所需投注"];
+        
+        [labelArr enumerateObjectsUsingBlock:^(NSString *_Nonnull name, NSUInteger idx, BOOL * _Nonnull stop) {
+            UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(labelW*idx, 0, labelW, 30)];
+            label.textAlignment = NSTextAlignmentCenter;
+            label.textColor = [UIColor whiteColor];
+            label.font = SCFONT_SIZED(14);
+            label.text = name;
+            [_calculatorView addSubview:label];
+            
+            CGFloat btnY = label.bottom;
+            UIButton *btn = [[UIButton alloc] initWithFrame:CGRectMake(0, btnY, labelW-25, _calculatorView.height-btnY-10)];
+            btn.centerX = label.centerX;
+            [_calculatorView addSubview:btn];
+            
+            if (idx==labelArr.count-1) {
+                btn.titleLabel.font = SCFONT_SIZED(18);
+                btn.userInteractionEnabled = NO;
+                _resultButton = btn;
+                
+            }else {
+                btn.backgroundColor = [UIColor whiteColor];
+                btn.titleLabel.font = SCFONT_SIZED(14);
+                [btn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+                
+                @weakify(self)
+                [btn sc_addEventTouchUpInsideHandle:^(id  _Nonnull sender) {
+                    @strongify(self)
+                    [self calculateClicked:btn title:name];
+                }];
+                
+                if (idx==0) {
+                    _oddsOneButton = btn;
+                }else if (idx==1) {
+                    _oddsTwoButton = btn;
+                }else if (idx==2) {
+                    _planButton = btn;
+                }
+                 
+            }
+            
+        }];
+        
+    }
+    return _calculatorView;
 }
 
 @end

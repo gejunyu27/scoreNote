@@ -156,7 +156,7 @@
     //    if (alpha < 0) alpha = 0;
     //    if (alpha > 1) alpha = 1;
     //    _naviBar.alpha = alpha;
-    //透明度简化 滑了就透明
+    //代码简化 滑了就透明
     self.naviBar.alpha = offsetY > 0 ? 0.2 : 1;
 }
 
@@ -251,19 +251,24 @@
 {
     if (!_naviBar) {
         _naviBar = [[UIView alloc] initWithFrame:CGRectMake(0, naviY, SCREEN_WIDTH, 38)];
-        _naviBar.backgroundColor = [UIColor blackColor];
         [self.view addSubview:_naviBar];
         
-        CGFloat lineH = 2;
-        _sepLine = [[UIView alloc] initWithFrame:CGRectMake(0, _naviBar.height-lineH, _naviBar.width/2, lineH)];
-        _sepLine.backgroundColor = HEX_RGB(@"#87BF3B");
+        UIView *topLine = [[UIView alloc] initWithFrame:CGRectMake(0, 0, _naviBar.width, 1)];
+        topLine.backgroundColor = HEX_RGB(@"#ECECEC");
+        [_naviBar addSubview:topLine];
+        
+        CGFloat sepH = 2;
+        UIColor *selectedColor = HEX_RGB(@"#87BF3B");
+        _sepLine = [[UIView alloc] initWithFrame:CGRectMake(0, _naviBar.height-sepH, _naviBar.width/2, sepH)];
+        _sepLine.backgroundColor = selectedColor;
         [_naviBar addSubview:_sepLine];
         
         CGFloat w = _naviBar.width/2;
         for (int i=0; i<2; i++) {
-            UIButton *btn = [[UIButton alloc] initWithFrame:CGRectMake(w*i, 0, w, _sepLine.top)];
-            [btn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+            UIButton *btn = [[UIButton alloc] initWithFrame:CGRectMake(w*i, topLine.bottom, w, _sepLine.top-topLine.bottom)];
+            [btn setTitleColor:HEX_RGB(@"#6E6E6E") forState:UIControlStateNormal];
             [btn setTitleColor:_sepLine.backgroundColor forState:UIControlStateSelected];
+            btn.titleLabel.font = SCFONT_SIZED(18);
             [btn addTarget:self action:@selector(naviClicked:) forControlEvents:UIControlEventTouchUpInside];
             if (i==0) {
                 [btn setTitle:@"即时" forState:UIControlStateNormal];
