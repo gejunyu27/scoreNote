@@ -82,6 +82,7 @@
 		4B42D1412FD587A400816442 /* BitCoinViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B42D1402FD587A400816442 /* BitCoinViewModel.m */; };
 		4B42D1442FD5885600816442 /* BitCoinModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B42D1432FD5885600816442 /* BitCoinModel.m */; };
 		4B42D1472FD58BD000816442 /* BitCoinCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B42D1462FD58BD000816442 /* BitCoinCell.m */; };
+		4B5890DA301F7F3C0026300A /* SportteryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B5890D9301F7F3C0026300A /* SportteryViewController.m */; };
 		4BBB9E79301A56A500B5FB7C /* SportteryView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BBB9E78301A56A500B5FB7C /* SportteryView.m */; };
 		4BBB9EA0301E682700B5FB7C /* ScoreViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BBB9E9F301E682700B5FB7C /* ScoreViewController.m */; };
 		61F0C5ABAEDAF0B802CBEBEE /* Pods_scoreNote.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 27964327C396DCC0BA9E34FE /* Pods_scoreNote.framework */; };
@@ -237,6 +238,8 @@
 		4B42D1432FD5885600816442 /* BitCoinModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BitCoinModel.m; sourceTree = "<group>"; };
 		4B42D1452FD58BD000816442 /* BitCoinCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BitCoinCell.h; sourceTree = "<group>"; };
 		4B42D1462FD58BD000816442 /* BitCoinCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BitCoinCell.m; sourceTree = "<group>"; };
+		4B5890D8301F7F3C0026300A /* SportteryViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SportteryViewController.h; sourceTree = "<group>"; };
+		4B5890D9301F7F3C0026300A /* SportteryViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SportteryViewController.m; sourceTree = "<group>"; };
 		4BBB9E77301A56A500B5FB7C /* SportteryView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SportteryView.h; sourceTree = "<group>"; };
 		4BBB9E78301A56A500B5FB7C /* SportteryView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SportteryView.m; sourceTree = "<group>"; };
 		4BBB9E9E301E682700B5FB7C /* ScoreViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ScoreViewController.h; sourceTree = "<group>"; };
@@ -557,7 +560,7 @@
 				4B0319382F79452C0041EFC7 /* MainTabBarController.m */,
 				4B0319072F79452C0041EFC7 /* HomeViewController */,
 				4B0319362F79452C0041EFC7 /* TotalViewController */,
-				4BBB9E9D301E67F100B5FB7C /* ScoreViewController */,
+				4BBB9E9D301E67F100B5FB7C /* WebViewController */,
 				4B0319182F79452C0041EFC7 /* TagViewController */,
 				4B0318F72F79452C0041EFC7 /* ConfigViewController */,
 			);
@@ -616,13 +619,15 @@
 			path = FinanceView;
 			sourceTree = "<group>";
 		};
-		4BBB9E9D301E67F100B5FB7C /* ScoreViewController */ = {
+		4BBB9E9D301E67F100B5FB7C /* WebViewController */ = {
 			isa = PBXGroup;
 			children = (
 				4BBB9E9E301E682700B5FB7C /* ScoreViewController.h */,
 				4BBB9E9F301E682700B5FB7C /* ScoreViewController.m */,
+				4B5890D8301F7F3C0026300A /* SportteryViewController.h */,
+				4B5890D9301F7F3C0026300A /* SportteryViewController.m */,
 			);
-			path = ScoreViewController;
+			path = WebViewController;
 			sourceTree = "<group>";
 		};
 		F4C1EE76CCF14FFF58A5AEFB /* Pods */ = {
@@ -713,9 +718,13 @@
 			inputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-scoreNote/Pods-scoreNote-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
+			inputPaths = (
+			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-scoreNote/Pods-scoreNote-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -751,6 +760,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4B5890DA301F7F3C0026300A /* SportteryViewController.m in Sources */,
 				4B0318B02F7944FF0041EFC7 /* AppDelegate.m in Sources */,
 				4B0318B12F7944FF0041EFC7 /* main.m in Sources */,
 				4B0319482F79452C0041EFC7 /* SCToolBar.m in Sources */,

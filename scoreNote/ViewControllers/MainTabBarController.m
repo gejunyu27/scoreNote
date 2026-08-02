@@ -10,9 +10,7 @@
 #import "BaseNavigationController.h"
 #import "TotalViewController.h"
 #import "ScoreViewController.h"
-
-
-#define kTabImg(P)    [[UIImage imageNamed:P] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]
+#import "SportteryViewController.h"
 
 #define kNormalTextAttributes   @{NSForegroundColorAttributeName: HEX_RGB(@"#999999")}
 #define kSelectedTextAttributes @{NSForegroundColorAttributeName: HEX_RGB(@"#F2270C")}
@@ -33,68 +31,33 @@
 {
     NSMutableArray *temp = [NSMutableArray array];
     
-    HomeViewController *homeVc = [HomeViewController new];
-    homeVc.isMainTabVC = YES;
-    homeVc.title = @"首页";
-    UITabBarItem *homeItem = homeVc.tabBarItem;
-    homeItem.image = kTabImg(@"Tab_Home");
-    homeItem.selectedImage = kTabImg(@"Tab_Home_selected");
-    if (@available(iOS 26.0, *)) { //ios26必须在这儿设置，否则文字错位 另外普通状态文字颜色无法改变，原因未知
-        [homeItem setTitleTextAttributes:kSelectedTextAttributes forState:UIControlStateSelected];
-    }
-    BaseNavigationController *homeNav = [[BaseNavigationController alloc] initWithRootViewController:homeVc];
-    [temp addObject:homeNav];
+    [temp addObject:[self getNavVcFrom:[HomeViewController new] title:@"首页" tabImage:@"Tab_Home" tabSelectedImage:@"Tab_Home_selected"]];
     
-    ScoreViewController *scoreVc = [ScoreViewController new];
-    scoreVc.isMainTabVC = YES;
-    scoreVc.title = @"比分";
-    UITabBarItem *scoreItem = scoreVc.tabBarItem;
-    scoreItem.image = kTabImg(@"Tab_Score");
-    scoreItem.selectedImage = kTabImg(@"Tab_Score_selected");
-    if (@available(iOS 26.0, *)) { //ios26必须在这儿设置，否则文字错位 另外普通状态文字颜色无法改变，原因未知
-        [scoreItem setTitleTextAttributes:kSelectedTextAttributes forState:UIControlStateSelected];
-    }
-    BaseNavigationController *scoreNav = [[BaseNavigationController alloc] initWithRootViewController:scoreVc];
-    [temp addObject:scoreNav];
+    [temp addObject:[self getNavVcFrom:[ScoreViewController new] title:@"比分" tabImage:@"Tab_Score" tabSelectedImage:@"Tab_Score_selected"]];
     
-//    TagViewController *tagVc = [TagViewController new];
-//    tagVc.isMainTabVC = YES;
-//    tagVc.title = @"标签";
-//    UITabBarItem *tagItem = tagVc.tabBarItem;
-//    tagItem.image = kTabImg(@"Tab_Tag");
-//    tagItem.selectedImage = kTabImg(@"Tab_Tag_selected");
-//    if (@available(iOS 26.0, *)) { //ios26必须在这儿设置，否则文字错位 另外普通状态文字颜色无法改变，原因未知
-//        [tagItem setTitleTextAttributes:kSelectedTextAttributes forState:UIControlStateSelected];
-//    }
-//    BaseNavigationController *tagNav = [[BaseNavigationController alloc] initWithRootViewController:tagVc];
-//    [temp addObject:tagNav];
+    [temp addObject:[self getNavVcFrom:[SportteryViewController new] title:@"竞彩" tabImage:@"Tab_Score" tabSelectedImage:@"Tab_Score_selected"]];
     
-    TotalViewController *totalVc = [TotalViewController new];
-    totalVc.isMainTabVC = YES;
-    totalVc.title = @"统计";
-    UITabBarItem *totalItem = totalVc.tabBarItem;
-    totalItem.image = kTabImg(@"Tab_Total");
-    totalItem.selectedImage = kTabImg(@"Tab_Total_selected");
-    if (@available(iOS 26.0, *)) { //ios26必须在这儿设置，否则文字错位 另外普通状态文字颜色无法改变，原因未知
-        [totalItem setTitleTextAttributes:kSelectedTextAttributes forState:UIControlStateSelected];
-    }
-    BaseNavigationController *totalNav = [[BaseNavigationController alloc] initWithRootViewController:totalVc];
-    [temp addObject:totalNav];
-    
-//    ConfigViewController *configVc = [ConfigViewController new];
-//    configVc.isMainTabVC = YES;
-//    configVc.title = @"设置";
-//    UITabBarItem *configItem = configVc.tabBarItem;
-//    configItem.image = kTabImg(@"Tab_Config");
-//    configItem.selectedImage = kTabImg(@"Tab_Config_selected");
-//    if (@available(iOS 26.0, *)) { //ios26必须在这儿设置，否则文字错位 另外普通状态文字颜色无法改变，原因未知
-//        [configItem setTitleTextAttributes:kSelectedTextAttributes forState:UIControlStateSelected];
-//    }
-//    BaseNavigationController *configNav = [[BaseNavigationController alloc] initWithRootViewController:configVc];
-//    [temp addObject:configNav];
+    [temp addObject:[self getNavVcFrom:[TotalViewController new] title:@"统计" tabImage:@"Tab_Total" tabSelectedImage:@"Tab_Total_selected"]];
     
     self.viewControllers = temp.copy;
     
+}
+
+- (BaseNavigationController *)getNavVcFrom:(BaseViewController *)vc title:(NSString *)title tabImage:(NSString *)tabImage tabSelectedImage:(NSString *)tabSelectedImage
+{
+    BaseViewController *tabVc = vc;
+    vc.isMainTabVC = YES;
+    vc.title = title;
+    UITabBarItem *tabItem = tabVc.tabBarItem;
+    tabItem.image = [[UIImage imageNamed:tabImage] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+    tabItem.selectedImage = [[UIImage imageNamed:tabSelectedImage] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+    
+    if (@available(iOS 26.0, *)) { //ios26必须在这儿设置，否则文字错位 另外普通状态文字颜色无法改变，原因未知
+        [tabItem setTitleTextAttributes:kSelectedTextAttributes forState:UIControlStateSelected];
+    }
+    
+    BaseNavigationController *nav = [[BaseNavigationController alloc] initWithRootViewController:tabVc];
+    return nav;
 }
 
 - (void)setupTabBar
