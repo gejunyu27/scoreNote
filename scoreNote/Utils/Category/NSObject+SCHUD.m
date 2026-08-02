@@ -8,8 +8,6 @@
 
 #import "NSObject+SCHUD.h"
 
-static CGFloat kDelay = 1;
-
 @interface SCHUD : UILabel
 AS_SINGLETON(SCHUD)
 @property (nonatomic, strong) UIActivityIndicatorView *actView;
@@ -61,7 +59,7 @@ DEF_SINGLETON(SCHUD)
 {
     UITabBarController *tabVc = [SCUtilities currentTabBarController];
     
-    tabVc.view.userInteractionEnabled = NO;
+//    tabVc.view.userInteractionEnabled = NO;
 
     [tabVc.view addSubview:self];
 }
@@ -71,9 +69,8 @@ DEF_SINGLETON(SCHUD)
     [self.actView stopAnimating];
     [self removeFromSuperview];
     
-    UITabBarController *tabVc = [SCUtilities currentTabBarController];
-    
-    tabVc.view.userInteractionEnabled = YES;
+//    UITabBarController *tabVc = [SCUtilities currentTabBarController];
+//    tabVc.view.userInteractionEnabled = YES;
 }
 
 - (void)showWithStatus:(NSString *)status
@@ -117,25 +114,6 @@ DEF_SINGLETON(SCHUD)
     [hudView showLoading];
 }
 
-//只显示文字
-- (void)showWithStatus:(NSString *)status //1.5秒后自动隐藏
-{
-    SCHUD *hudView = [SCHUD sharedInstance];
-    
-    [hudView showWithStatus:status];
-    
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(kDelay * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        [hudView hide];
-    });
-}
-
-- (void)showWithStatusNoHide:(NSString *)status //不自动隐藏
-{
-    SCHUD *hudView = [SCHUD sharedInstance];
-    
-    [hudView showWithStatus:status];
-}
-
 //隐藏
 - (void)stopLoading
 {
@@ -143,6 +121,30 @@ DEF_SINGLETON(SCHUD)
     
     [hudView hide];
 }
+
+//只显示文字
+- (void)showWithStatus:(NSString *)status //1秒后自动隐藏
+{
+    [self showWithStatus:status delay:1];
+}
+
+- (void)showWithStatus:(NSString *)status delay:(CGFloat)delay
+{
+    SCHUD *hudView = [SCHUD sharedInstance];
+    
+    [hudView showWithStatus:status];
+    
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delay * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [hudView hide];
+    });
+}
+
+//- (void)showWithStatusNoHide:(NSString *)status //不自动隐藏
+//{
+//    SCHUD *hudView = [SCHUD sharedInstance];
+//    
+//    [hudView showWithStatus:status];
+//}
 
 @end
 

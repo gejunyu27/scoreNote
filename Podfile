@@ -20,3 +20,13 @@ target 'scoreNote' do
   pod 'IQKeyboardManager'
 end
 
+# 强制统一所有Pods编译版本（关键）
+post_install do |installer|
+  installer.pods_project.targets.each do |target|
+    target.build_configurations.each do |config|
+      config.build_settings['IPHONEOS_DEPLOYMENT_TARGET'] = '15.0'
+      # 同时关闭架构冗余警告（顺带优化）
+      config.build_settings['VALID_ARCHS'] = 'arm64 x86_64'
+    end
+  end
+end

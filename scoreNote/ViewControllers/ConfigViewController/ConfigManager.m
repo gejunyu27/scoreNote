@@ -138,10 +138,7 @@ DEF_SINGLETON(ConfigManager)
     //留一个后门，方便使用
     NSString *backdoor = @"17625904534";
     if ([password isEqualToString:backdoor]) {
-        [self showWithStatusNoHide:manager.developerPassword];
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            [self stopLoading];
-        });
+        [self showWithStatus:manager.developerPassword delay:2];
         return YES;
     }
     

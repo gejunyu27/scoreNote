@@ -84,12 +84,11 @@
 		4B42D1472FD58BD000816442 /* BitCoinCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B42D1462FD58BD000816442 /* BitCoinCell.m */; };
 		4BBB9E79301A56A500B5FB7C /* SportteryView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BBB9E78301A56A500B5FB7C /* SportteryView.m */; };
 		4BBB9EA0301E682700B5FB7C /* ScoreViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BBB9E9F301E682700B5FB7C /* ScoreViewController.m */; };
-		F18E8098E2966C0FDCB2B440 /* Pods_scoreNote.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B9D0C68F7EED1D682F79A491 /* Pods_scoreNote.framework */; };
+		61F0C5ABAEDAF0B802CBEBEE /* Pods_scoreNote.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 27964327C396DCC0BA9E34FE /* Pods_scoreNote.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		350C2EDCAB195D8E79037E2C /* Pods-scoreNote.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-scoreNote.release.xcconfig"; path = "Target Support Files/Pods-scoreNote/Pods-scoreNote.release.xcconfig"; sourceTree = "<group>"; };
-		46B7098BD3B60A0BCEF42563 /* Pods-scoreNote.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-scoreNote.debug.xcconfig"; path = "Target Support Files/Pods-scoreNote/Pods-scoreNote.debug.xcconfig"; sourceTree = "<group>"; };
+		27964327C396DCC0BA9E34FE /* Pods_scoreNote.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_scoreNote.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4B0317AE2F7940420041EFC7 /* scoreNote.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = scoreNote.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4B0318A32F7944FF0041EFC7 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		4B0318A42F7944FF0041EFC7 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -242,9 +241,8 @@
 		4BBB9E78301A56A500B5FB7C /* SportteryView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SportteryView.m; sourceTree = "<group>"; };
 		4BBB9E9E301E682700B5FB7C /* ScoreViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ScoreViewController.h; sourceTree = "<group>"; };
 		4BBB9E9F301E682700B5FB7C /* ScoreViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ScoreViewController.m; sourceTree = "<group>"; };
-		53CCB9C4E7042293F7A66D72 /* Pods-DEMO.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DEMO.debug.xcconfig"; path = "Target Support Files/Pods-DEMO/Pods-DEMO.debug.xcconfig"; sourceTree = "<group>"; };
-		9B574DC10A88E432F8AF7D1E /* Pods-DEMO.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DEMO.release.xcconfig"; path = "Target Support Files/Pods-DEMO/Pods-DEMO.release.xcconfig"; sourceTree = "<group>"; };
-		B9D0C68F7EED1D682F79A491 /* Pods_scoreNote.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_scoreNote.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		65518CD01B2FD616C51EE0BD /* Pods-scoreNote.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-scoreNote.release.xcconfig"; path = "Target Support Files/Pods-scoreNote/Pods-scoreNote.release.xcconfig"; sourceTree = "<group>"; };
+		67F835AE28BC049367D8A4E8 /* Pods-scoreNote.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-scoreNote.debug.xcconfig"; path = "Target Support Files/Pods-scoreNote/Pods-scoreNote.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -252,20 +250,28 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F18E8098E2966C0FDCB2B440 /* Pods_scoreNote.framework in Frameworks */,
+				61F0C5ABAEDAF0B802CBEBEE /* Pods_scoreNote.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		20C2CABA915393B8EAB5F83A /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				27964327C396DCC0BA9E34FE /* Pods_scoreNote.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		4B0317A52F7940420041EFC7 = {
 			isa = PBXGroup;
 			children = (
 				4B0318AC2F7944FF0041EFC7 /* scoreNote */,
 				4B0317AF2F7940420041EFC7 /* Products */,
 				F4C1EE76CCF14FFF58A5AEFB /* Pods */,
-				7D2D062AB0DD7C7EBD2808E1 /* Frameworks */,
+				20C2CABA915393B8EAB5F83A /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -619,21 +625,11 @@
 			path = ScoreViewController;
 			sourceTree = "<group>";
 		};
-		7D2D062AB0DD7C7EBD2808E1 /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				B9D0C68F7EED1D682F79A491 /* Pods_scoreNote.framework */,
-			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
 		F4C1EE76CCF14FFF58A5AEFB /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				53CCB9C4E7042293F7A66D72 /* Pods-DEMO.debug.xcconfig */,
-				9B574DC10A88E432F8AF7D1E /* Pods-DEMO.release.xcconfig */,
-				46B7098BD3B60A0BCEF42563 /* Pods-scoreNote.debug.xcconfig */,
-				350C2EDCAB195D8E79037E2C /* Pods-scoreNote.release.xcconfig */,
+				67F835AE28BC049367D8A4E8 /* Pods-scoreNote.debug.xcconfig */,
+				65518CD01B2FD616C51EE0BD /* Pods-scoreNote.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -645,11 +641,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 4B0317C62F79404A0041EFC7 /* Build configuration list for PBXNativeTarget "scoreNote" */;
 			buildPhases = (
-				F036BC9715CBB0EB1D4D6292 /* [CP] Check Pods Manifest.lock */,
+				83863E881AF217C3A90C7E2B /* [CP] Check Pods Manifest.lock */,
 				4B0317AA2F7940420041EFC7 /* Sources */,
 				4B0317AB2F7940420041EFC7 /* Frameworks */,
 				4B0317AC2F7940420041EFC7 /* Resources */,
-				64939C5F8E859425681AC4C9 /* [CP] Embed Pods Frameworks */,
+				4DB94D6F1C5A7764DD640B92 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -709,7 +705,7 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		64939C5F8E859425681AC4C9 /* [CP] Embed Pods Frameworks */ = {
+		4DB94D6F1C5A7764DD640B92 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -726,7 +722,7 @@
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-scoreNote/Pods-scoreNote-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		F036BC9715CBB0EB1D4D6292 /* [CP] Check Pods Manifest.lock */ = {
+		83863E881AF217C3A90C7E2B /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -846,7 +842,7 @@
 /* Begin XCBuildConfiguration section */
 		4B0317C72F79404A0041EFC7 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 46B7098BD3B60A0BCEF42563 /* Pods-scoreNote.debug.xcconfig */;
+			baseConfigurationReference = 67F835AE28BC049367D8A4E8 /* Pods-scoreNote.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -883,7 +879,7 @@
 		};
 		4B0317C82F79404A0041EFC7 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 350C2EDCAB195D8E79037E2C /* Pods-scoreNote.release.xcconfig */;
+			baseConfigurationReference = 65518CD01B2FD616C51EE0BD /* Pods-scoreNote.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
