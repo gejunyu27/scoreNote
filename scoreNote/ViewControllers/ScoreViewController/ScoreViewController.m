@@ -19,18 +19,13 @@
 @property (nonatomic, strong) UIButton *playingButton; //进行中
 @property (nonatomic, strong) UIButton *overButton;   //结束
 @property (nonatomic, strong) UIView *sepLine; //滑块
+@property (nonatomic, strong) UIButton *refreshButton;
 @end
 
 @implementation ScoreViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"AddItem"] style:UIBarButtonItemStylePlain target:self action:@selector(addClick)];
-}
-
-- (void)addClick
-{
-
 }
 
 - (instancetype)init

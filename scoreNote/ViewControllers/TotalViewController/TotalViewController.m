@@ -9,7 +9,7 @@
 #import "TotalViewModel.h"
 #import "TotalHeaderView.h"
 #import "RecordDetailViewController.h"
-#import "TagRankViewController.h"
+#import "TagViewController.h"
 #import "CareerViewController.h"
 #import "TotalCell.h"
 #import "FinanceView.h"
@@ -53,13 +53,9 @@
 }
 
 #pragma mark -action
-- (void)tagRankClicked:(UIButton *)sender
+- (void)tagClicked:(UIButton *)sender
 {
-    if (!self.viewModel.startRecord) {
-        [self showWithStatus:@"还未起投"];
-        return;
-    }
-    [self.navigationController pushViewController:[TagRankViewController new] animated:YES];
+    [self.navigationController pushViewController:[TagViewController new] animated:YES];
 }
 
 - (void)careerClicked:(UIButton *)sender
@@ -190,7 +186,7 @@
         CGFloat edge = 15;
         _financeView = [[FinanceView alloc] initWithFrame:CGRectMake(edge, 0, topView.width-edge*2, topView.height-5)];
         [_financeView addFunctionButtonWithImage:@"Config" target:self action:@selector(configClick) forControlEvents:UIControlEventTouchUpInside];
-        [_financeView addFunctionButtonWithImage:@"TagRank" target:self action:@selector(tagRankClicked:) forControlEvents:UIControlEventTouchUpInside];
+        [_financeView addFunctionButtonWithImage:@"Tag" target:self action:@selector(tagClicked:) forControlEvents:UIControlEventTouchUpInside];
         [_financeView addFunctionButtonWithImage:@"Carrer" target:self action:@selector(careerClicked:) forControlEvents:UIControlEventTouchUpInside];
         [topView addSubview:_financeView];
         _tableView.tableHeaderView = topView;

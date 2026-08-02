@@ -8,9 +8,7 @@
 #import "MainTabBarController.h"
 #import "HomeViewController.h"
 #import "BaseNavigationController.h"
-#import "TagViewController.h"
 #import "TotalViewController.h"
-#import "ConfigViewController.h"
 #import "ScoreViewController.h"
 
 
@@ -59,17 +57,17 @@
     BaseNavigationController *scoreNav = [[BaseNavigationController alloc] initWithRootViewController:scoreVc];
     [temp addObject:scoreNav];
     
-    TagViewController *tagVc = [TagViewController new];
-    tagVc.isMainTabVC = YES;
-    tagVc.title = @"标签";
-    UITabBarItem *tagItem = tagVc.tabBarItem;
-    tagItem.image = kTabImg(@"Tab_Tag");
-    tagItem.selectedImage = kTabImg(@"Tab_Tag_selected");
-    if (@available(iOS 26.0, *)) { //ios26必须在这儿设置，否则文字错位 另外普通状态文字颜色无法改变，原因未知
-        [tagItem setTitleTextAttributes:kSelectedTextAttributes forState:UIControlStateSelected];
-    }
-    BaseNavigationController *tagNav = [[BaseNavigationController alloc] initWithRootViewController:tagVc];
-    [temp addObject:tagNav];
+//    TagViewController *tagVc = [TagViewController new];
+//    tagVc.isMainTabVC = YES;
+//    tagVc.title = @"标签";
+//    UITabBarItem *tagItem = tagVc.tabBarItem;
+//    tagItem.image = kTabImg(@"Tab_Tag");
+//    tagItem.selectedImage = kTabImg(@"Tab_Tag_selected");
+//    if (@available(iOS 26.0, *)) { //ios26必须在这儿设置，否则文字错位 另外普通状态文字颜色无法改变，原因未知
+//        [tagItem setTitleTextAttributes:kSelectedTextAttributes forState:UIControlStateSelected];
+//    }
+//    BaseNavigationController *tagNav = [[BaseNavigationController alloc] initWithRootViewController:tagVc];
+//    [temp addObject:tagNav];
     
     TotalViewController *totalVc = [TotalViewController new];
     totalVc.isMainTabVC = YES;

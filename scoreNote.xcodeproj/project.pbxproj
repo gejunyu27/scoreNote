@@ -489,6 +489,7 @@
 				4B0319132F79452C0041EFC7 /* TagCell.m */,
 				4B0319142F79452C0041EFC7 /* TagModel.h */,
 				4B0319152F79452C0041EFC7 /* TagModel.m */,
+				4B03192B2F79452C0041EFC7 /* TagRankViewController */,
 				4B03190C2F79452C0041EFC7 /* TagDetailViewController */,
 				4B0319112F79452C0041EFC7 /* TagManager */,
 			);
@@ -539,7 +540,6 @@
 				4B0319342F79452C0041EFC7 /* TotalViewModel.h */,
 				4B0319352F79452C0041EFC7 /* TotalViewModel.m */,
 				4B0319222F79452C0041EFC7 /* CareerViewController */,
-				4B03192B2F79452C0041EFC7 /* TagRankViewController */,
 			);
 			path = TotalViewController;
 			sourceTree = "<group>";
@@ -872,7 +872,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.3.0;
+				MARKETING_VERSION = 2.3.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.junyu.scoreNote5;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				STRING_CATALOG_GENERATE_SYMBOLS = YES;
@@ -909,7 +909,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.3.0;
+				MARKETING_VERSION = 2.3.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.junyu.scoreNote5;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				STRING_CATALOG_GENERATE_SYMBOLS = YES;

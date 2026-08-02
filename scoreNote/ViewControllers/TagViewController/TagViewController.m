@@ -9,6 +9,7 @@
 #import "TagCell.h"
 #import "TagDetailViewController.h"
 #import "TagManager.h"
+#import "TagRankViewController.h"
 
 @interface TagViewController () <UITableViewDelegate, UITableViewDataSource, TagCellDelegate>
 @property (nonatomic, strong) UITableView *tableView;
@@ -21,7 +22,12 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addClick)];
+    self.title = @"标签";
+    
+    UIBarButtonItem *addItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addClick)];
+    UIBarButtonItem *rankItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"RankItem"] style:UIBarButtonItemStylePlain target:self action:@selector(rankClick)];
+    
+    self.navigationItem.rightBarButtonItems = @[addItem, rankItem];
     
     [self tableView];
     
@@ -33,6 +39,12 @@
 }
 
 #pragma mark -Action
+- (void)rankClick
+{
+    TagRankViewController *vc = [TagRankViewController new];
+    [self.navigationController pushViewController:vc animated:YES];
+}
+
 - (void)addClick
 {
     NSString *placeholder = @"#空白";

@@ -25,7 +25,7 @@
     [super viewDidLoad];
     
     //ui 嵌套网页 和 添加单子
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"AddItem"] style:UIBarButtonItemStylePlain target:self action:@selector(addClick)];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addClick)];
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"WebItem"] style:UIBarButtonItemStylePlain target:self action:@selector(webClick)];
 
     //刷新数据
