@@ -31,8 +31,6 @@
     
     [self tableView];
     
-    [self addKeyboardNotification];
-    
     [TagManager updateBlock:^{
             [self.tableView reloadData];
     }];

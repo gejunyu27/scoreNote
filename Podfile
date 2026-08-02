@@ -17,6 +17,6 @@ target 'scoreNote' do
 #  pod 'Masonry', '1.1.0'
 #  pod 'YYModel', '1.0.4'
 #  pod 'SVProgressHUD'
-#  pod 'IQKeyboardManager'
+  pod 'IQKeyboardManager'
 end
 

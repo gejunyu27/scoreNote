@@ -6,6 +6,7 @@
 //
 
 #import "AppDelegate.h"
+#import <IQKeyboardManager/IQKeyboardManager.h>
 
 @interface AppDelegate ()
 
@@ -15,10 +16,19 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    // Override point for customization after application launch.
+    [self configKeyboard];
     return YES;
 }
 
+- (void)configKeyboard
+{
+    IQKeyboardManager *manager = [IQKeyboardManager sharedManager];
+    manager.enable = YES; // 总开关：开启键盘避让
+    manager.shouldResignOnTouchOutside = YES; // 点击空白收起键盘
+    manager.shouldToolbarUsesTextFieldTintColor = YES; // 工具条颜色跟随输入框
+    manager.enableAutoToolbar = NO; // 输入框上方显示工具栏（上一项、下一项、完成） 大部分建议关闭
+//    manager.keyboardDistanceFromTextField = 12;
+}
 
 #pragma mark - UISceneSession lifecycle
 

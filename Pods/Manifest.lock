@@ -4,17 +4,21 @@ PODS:
   - FMDB/Core (2.7.12)
   - FMDB/standard (2.7.12):
     - FMDB/Core
+  - IQKeyboardManager (6.5.19)
 
 DEPENDENCIES:
   - FMDB
+  - IQKeyboardManager
 
 SPEC REPOS:
   trunk:
     - FMDB
+    - IQKeyboardManager
 
 SPEC CHECKSUMS:
   FMDB: 728731dd336af3936ce00f91d9d8495f5718a0e6
+  IQKeyboardManager: c8665b3396bd0b79402b4c573eac345a31c7d485
 
-PODFILE CHECKSUM: ee77de6bbaca19929bec15bebd4a59dc38a1b8b6
+PODFILE CHECKSUM: 35cbcddd9bd7b57ce4d3be5cc00d5ba4fa37faed
 
 COCOAPODS: 1.15.2

@@ -13,8 +13,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, assign) BOOL isMainTabVC;        //是否是首页tab
 
-- (void)addKeyboardNotification;//添加键盘监控
-
 @end
 
 NS_ASSUME_NONNULL_END
