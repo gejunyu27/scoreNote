@@ -26,7 +26,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) UIButton *overButton;     //结束
 @property (nonatomic, strong) UILabel *boughtLabel;     //本期购买
 
-@property (nonatomic, strong) UIImageView *caiIcon;     //体彩标识
+@property (nonatomic, strong) UIImageView *modeIcon;     //模式标识 体彩/外围
 
 @end
 
@@ -116,7 +116,18 @@ NS_ASSUME_NONNULL_BEGIN
         
     }
     
-    self.caiIcon.hidden = !self.record.isSporttery;
+    /*模式标志
+     默认外围模式下，体彩单子显示体彩标识，外围单子不显示
+     默认竞彩模式下，外围单子显示外围标识，竞彩单子不显示
+     */
+    BOOL isSporttertDefault = [ConfigManager getValue:ConfigTypeIsSporttery];
+    if (record.isSporttery == isSporttertDefault) {
+        self.modeIcon.hidden = YES;
+        
+    }else {
+        self.modeIcon.hidden = NO;
+        self.modeIcon.image = [UIImage imageNamed:(record.isSporttery ? @"CaiIcon" : @"WaiIcon")];
+    }
 
 }
 
@@ -349,15 +360,14 @@ NS_ASSUME_NONNULL_BEGIN
     
 }
 
-- (UIImageView *)caiIcon
+- (UIImageView *)modeIcon
 {
-    if (!_caiIcon) {
+    if (!_modeIcon) {
         CGFloat wh = 25;
-        _caiIcon = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, wh, wh)];
-        _caiIcon.image = [UIImage imageNamed:@"CaiIcon"];
-        [self.bgView addSubview:_caiIcon];
+        _modeIcon = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, wh, wh)];
+        [self.bgView addSubview:_modeIcon];
     }
-    return _caiIcon;
+    return _modeIcon;
 }
 
 @end
