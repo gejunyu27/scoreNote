@@ -10,8 +10,7 @@
 #import <WebKit/WebKit.h>
 #import "NetworkReachability.h"
 
-#define url_spf  @"https://m.sporttery.cn/mjc/jsq/zqspf/"    //胜平负
-#define url_hhgg @"https://m.sporttery.cn/mjc/jsq/zqhhgg/"   //混合过关
+
 #define activityY NAV_BAR_HEIGHT - 40
 
 @interface SportteryViewController ()<WKNavigationDelegate, UIScrollViewDelegate>
@@ -23,6 +22,7 @@
 @property (nonatomic, strong) UIButton *oddsTwoButton;
 @property (nonatomic, strong) UIButton *planButton;
 @property (nonatomic, strong) UIButton *resultButton;
+@property (nonatomic, strong) NSArray *urlList;
 
 @end
 
@@ -30,9 +30,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
-    //切换
-    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"SwitchItem"] style:UIBarButtonItemStylePlain target:self action:@selector(switchClick)];
+
     //计算器
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"CalculatorItem"] style:UIBarButtonItemStylePlain target:self action:@selector(calculatorClick)];
 
@@ -42,7 +40,8 @@
 {
     self = [super init];
     if (self) {
-        NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:url_spf]];
+        NSString *spfUrl = self.urlList.firstObject;
+        NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:spfUrl]];
         
         //判断有没有网
         BOOL isNetworkOK = [NetworkReachability isReachable];
@@ -72,7 +71,7 @@
     NSString *urlStr = navigationAction.request.URL.absoluteString;
     
     //只允许跳转的几个页面
-    if ([urlStr containsString:url_spf] || [urlStr containsString:url_hhgg]) {
+    if ([self.urlList containsObject:urlStr]) {
         decisionHandler(WKNavigationActionPolicyAllow);
         
     }else { //拦截
@@ -99,21 +98,25 @@
 
 - (void)evaluateJavaScript
 {
-//    NSString *js = @"document.body.style.marginTop = '44px';document.documentElement.style.marginTop='44px';";
-//    [_webView evaluateJavaScript:js completionHandler:nil];
-    NSString *js =
+    CGFloat topPaddingValue = IS_BANGS_SCREEN ? 30.f : 15.f;
+    
+    NSString *js = [NSString stringWithFormat:
     @"setTimeout(function(){"
-    // 删除全部 m-header
+    // 网页整体顶部留出空白，数值自行调整  = 空白高度px
+    @"document.documentElement.style.paddingTop = '%.0fpx';"
+    @"document.body.style.paddingTop = '%.0fpx';"
+    // 删除全部 m-header 标题栏
     @"document.querySelectorAll('.m-header').forEach(function(item){item.remove();});"
-    // 隐藏 calculator_menu 保留高度
-    @"var menuDom = document.getElementById('calculator_menu');"
-    @"if(menuDom){"
-    @"    menuDom.style.visibility = 'hidden';"
-    @"}"
-    //直接移除 id="sel_pan"
+    // 隐藏 calculator_menu 保留高度 //胜平负，混合，比分等选项 之前隐藏，现在保留
+//    @"var menuDom = document.getElementById('calculator_menu');"
+//    @"if(menuDom){"
+//    @"    menuDom.style.visibility = 'hidden';"
+//    @"}"
+    //直接移除 id="sel_pan" 底部黑色tabbar
     @"var selPan = document.getElementById('sel_pan');"
     @"if(selPan) selPan.remove();"
-    @"},000);"; //这个0是延迟执行时间，避免失效，但目前测试不需要延迟也可以
+    @"},000);"//这个0是延迟执行时间，避免失效，但目前测试不需要延迟也可以
+    ,topPaddingValue,topPaddingValue];
     [_webView evaluateJavaScript:js completionHandler:nil];
 }
 
@@ -160,33 +163,23 @@
     [self.webView reload];
 }
 
-- (void)switchClick
-{
-    NSString *currentUrl = self.webView.URL.absoluteString;
-    
-    if ([currentUrl isEqualToString:url_spf]) {
-        [self.webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:url_hhgg]]];
-        
-    }else {
-        [self.webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:url_spf]]];
-    }
-
-}
-
 - (void)calculatorClick
 {
     self.calculatorView.hidden ^= 1;
+    if (self.calculatorView.hidden) {
+        [self clearCalculatorAction];
+    }
 }
 
 - (void)calculateClicked:(UIButton *)sender title:(NSString *)title
 {
     [NumberInputView showWithText:sender.currentTitle title:title clickView:sender type:InputTypeNoSymbol block:^(NSString * _Nonnull outputText) {
         [sender setTitle:outputText forState:UIControlStateNormal];
-        [self startCalculteResult];
+        [self startCalculateResult];
     }];
 }
 
-- (void)startCalculteResult
+- (void)startCalculateResult
 {
     //检查完整性
     CGFloat oddsOne = _oddsOneButton.currentTitle.floatValue;
@@ -201,6 +194,14 @@
     }else {
         [_resultButton setTitle:@"" forState:UIControlStateNormal];
     }
+}
+
+- (void)clearCalculatorAction
+{
+    [_oddsOneButton setTitle:nil forState:UIControlStateNormal];
+    [_oddsTwoButton setTitle:nil forState:UIControlStateNormal];
+    [_planButton setTitle:nil forState:UIControlStateNormal];
+    [_resultButton setTitle:nil forState:UIControlStateNormal];
 }
 
 #pragma mark -UI
@@ -253,8 +254,10 @@
         CGFloat labelW = _calculatorView.width/4;
         NSArray *labelArr = @[@"赔率1", @"赔率2", @"计划利润", @"所需投注"];
         
-        [labelArr enumerateObjectsUsingBlock:^(NSString *_Nonnull name, NSUInteger idx, BOOL * _Nonnull stop) {
-            UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(labelW*idx, 0, labelW, 30)];
+        for (int i=0; i<labelArr.count; i++) {
+            NSString *name = labelArr[i];
+            
+            UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(labelW*i, 0, labelW, 30)];
             label.textAlignment = NSTextAlignmentCenter;
             label.textColor = [UIColor whiteColor];
             label.font = SCFONT_SIZED(14);
@@ -266,9 +269,9 @@
             btn.centerX = label.centerX;
             [_calculatorView addSubview:btn];
             
-            if (idx==labelArr.count-1) {
+            if (i==labelArr.count-1) { //结果
                 btn.titleLabel.font = SCFONT_SIZED(18);
-                btn.userInteractionEnabled = NO;
+                [btn addTarget:self action:@selector(clearCalculatorAction) forControlEvents:UIControlEventTouchUpInside];
                 _resultButton = btn;
                 
             }else {
@@ -282,20 +285,33 @@
                     [self calculateClicked:btn title:name];
                 }];
                 
-                if (idx==0) {
+                if (i==0) { //赔率1
                     _oddsOneButton = btn;
-                }else if (idx==1) {
+                }else if (i==1) { //赔率2
                     _oddsTwoButton = btn;
-                }else if (idx==2) {
+                }else if (i==2) { //计划利润
                     _planButton = btn;
                 }
                  
             }
-            
-        }];
+        }
         
     }
     return _calculatorView;
+}
+
+#pragma mark -lazy load
+- (NSArray *)urlList
+{
+    if (!_urlList) {
+        _urlList = @[@"https://m.sporttery.cn/mjc/jsq/zqspf/",    //胜平负
+                     @"https://m.sporttery.cn/mjc/jsq/zqbf/",     //比分
+                     @"https://m.sporttery.cn/mjc/jsq/zqzjq/",    //总进球
+                     @"https://m.sporttery.cn/mjc/jsq/zqbqc/",    //半全场
+                     @"https://m.sporttery.cn/mjc/jsq/zqhhgg/"];  //混合过关
+
+    }
+    return _urlList;
 }
 
 @end
