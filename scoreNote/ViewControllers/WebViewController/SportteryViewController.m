@@ -10,13 +10,10 @@
 #import <WebKit/WebKit.h>
 #import "NetworkReachability.h"
 
-
-#define activityY NAV_BAR_HEIGHT - 40
-
 @interface SportteryViewController ()<WKNavigationDelegate, UIScrollViewDelegate>
 @property (nonatomic, strong) WKWebView *webView;
 @property (nonatomic, strong) UIRefreshControl *refreshControl;
-@property (nonatomic, strong) UIImageView *activityView; //注入js后刷新组件的菊花消失，原因未知，先用这个代替
+@property (nonatomic, strong) UIActivityIndicatorView *indicator; //注入js后刷新组件的菊花消失，可能是因为y过高在屏幕外面，解决之前先用这个代替
 @property (nonatomic, strong) UIView *calculatorView; //计算器视图
 @property (nonatomic, strong) UIButton *oddsOneButton;
 @property (nonatomic, strong) UIButton *oddsTwoButton;
@@ -132,25 +129,24 @@
 {
     //起始位置是0，上滑增大，下拉减小
     CGFloat offsetY = scrollView.contentOffset.y;
+    
     //菊花位置
-    CGFloat newY = activityY - offsetY;
-    self.activityView.top = newY;
+    CGFloat orignY = NAV_BAR_HEIGHT - 50; //初始位置
+    CGFloat newY = orignY - offsetY;
+    self.indicator.top = newY;
     
     //菊花透明度
-    if (offsetY >-40) {  //偏移量40之前不显示
-        _activityView.alpha = 0;
+    if (offsetY > -40) { //偏移量40之前不显示 否则影响美观
+        _indicator.alpha = 0;
+        [_indicator stopAnimating];
         
-    }else { //超过40后逐渐显示，滑动测试了下，大概170左右开始刷新
-//        CGFloat alpha = (-offsetY-40)/(280-40); //170看的不明显，数值设大一点，280
-//            if (alpha < 0) alpha = 0;
-//            if (alpha > 1) alpha = 1;
-//        _activityView.alpha = alpha;
-        //代码简化
-        if (offsetY < -170) {
-            _activityView.alpha = 1;
+    }else {
+        if (offsetY < -170) { //滑动测试了下 大约170开始执行刷新
+            _indicator.alpha = 1;
+            [_indicator startAnimating]; //开始转圈
             
         }else {
-            _activityView.alpha = 0.2;
+            _indicator.alpha = 0.2;
         }
     }
 
@@ -229,15 +225,19 @@
     return _webView;
 }
 
-- (UIImageView *)activityView
+- (UIActivityIndicatorView *)indicator
 {
-    if (!_activityView) {
-        CGFloat wh = 30;
-        _activityView = [[UIImageView alloc] initWithFrame:CGRectMake((SCREEN_WIDTH-wh)/2, activityY, wh, wh)];
-        _activityView.image = [UIImage imageNamed:@"WebRefresh"];
-        [self.view addSubview:_activityView];
+    if (!_indicator) {
+        _indicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleLarge];
+        // 中心放在页面中间
+        _indicator.center = self.view.center;
+        // 菊花颜色自定义
+//        _indicator.color = [UIColor orangeColor];
+        // 初始停止动画（不转圈）
+        _indicator.hidesWhenStopped = NO; // 停止时自动隐藏
+        [self.view addSubview:_indicator];
     }
-    return _activityView;
+    return _indicator;
 }
 
 - (UIView *)calculatorView
