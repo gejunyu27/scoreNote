@@ -8,17 +8,15 @@
 #import "ScoreViewController.h"
 #import <WebKit/WebKit.h>
 #import "NetworkReachability.h"
+#import "WebNaviBar.h"
 
 //#define url_score @"https://m.okooo.com/live/"   //澳客体育
 #define url_score @"https://zucaijia.cn/zcj/H5App/index"    //加加体育
 #define naviY (NAV_BAR_HEIGHT+(IS_BANGS_SCREEN ? 15 : 8))   //原生导航栏初始高度 适配机型
 
-@interface ScoreViewController ()<WKNavigationDelegate, UIScrollViewDelegate>
+@interface ScoreViewController ()<WKNavigationDelegate, UIScrollViewDelegate, WebNaviBarDelegate>
 @property (nonatomic, strong) WKWebView *webView;
-@property (nonatomic, strong) UIView *naviBar;
-@property (nonatomic, strong) UIButton *playingButton; //进行中
-@property (nonatomic, strong) UIButton *overButton;   //结束
-@property (nonatomic, strong) UIView *sepLine; //滑块
+@property (nonatomic, strong) WebNaviBar *naviBar;
 @property (nonatomic, strong) UIRefreshControl *refreshControl;
 @end
 
@@ -159,42 +157,9 @@
     _naviBar.alpha = alpha;
 }
 
-#pragma mark -action
-- (void)naviClicked:(UIButton *)sender
+#pragma mark -WebNaviBarDelegate
+- (void)webNaviBarSelectIndex:(NSInteger)index
 {
-    [self swithNavi:(sender == _playingButton)];
-}
-
-- (void)panScrollHandle:(UIPanGestureRecognizer *)pan
-{
-    if (pan.state == UIGestureRecognizerStateEnded) {
-        CGFloat offsetX = [pan translationInView:self.webView].x;
-        //横向滑动阈值 40px，超过判定为切换Tab
-        CGFloat maxX = 40;
-        if (offsetX > maxX) { //手指右滑，切换左边页面
-            [self swithNavi:YES];
-            
-        } else if (offsetX < -maxX) { //手指左滑，切换右边页面
-            [self swithNavi:NO];
-        }
-    }
-}
-
-- (void)swithNavi:(BOOL)isPlaying
-{
-    if (isPlaying) {
-        _playingButton.selected = YES;
-        _overButton.selected = NO;
-        _sepLine.centerX = _playingButton.centerX;
-    }else {
-        _playingButton.selected = NO;
-        _overButton.selected = YES;
-        _sepLine.centerX = _overButton.centerX;
-    }
-    
-    
-    NSInteger index = isPlaying ? 0 : 1;
-    
     //该js方法是原网页里抓取的，是切换tab的方法。原本有li0,li1,li3 3个，只需要前两个
     NSString *js = [NSString stringWithFormat:
                     @"var x = %ld;\n"
@@ -209,6 +174,22 @@
                     @"    }\n"
                     @"}",(long)index];
     [self.webView evaluateJavaScript:js completionHandler:nil];
+}
+
+#pragma mark -action
+- (void)panScrollHandle:(UIPanGestureRecognizer *)pan
+{
+    if (pan.state == UIGestureRecognizerStateEnded) {
+        CGFloat offsetX = [pan translationInView:self.webView].x;
+        //横向滑动阈值 40px，超过判定为切换Tab
+        CGFloat maxX = 40;
+        if (offsetX > maxX) { //手指右滑，切换左边页面
+            self.naviBar.selectedIndex = 0;
+            
+        } else if (offsetX < -maxX) { //手指左滑，切换右边页面
+            self.naviBar.selectedIndex = 1;
+        }
+    }
 }
 
 - (void)webRefreshAction
@@ -247,40 +228,13 @@
     return _webView;
 }
 
-- (UIView *)naviBar
+- (WebNaviBar *)naviBar
 {
     if (!_naviBar) {
-        _naviBar = [[UIView alloc] initWithFrame:CGRectMake(0, naviY, SCREEN_WIDTH, 38)];
+        _naviBar = [[WebNaviBar alloc] initWithFrame:CGRectMake(0, naviY, SCREEN_WIDTH, 38)];
+        [_naviBar createButtonsWithTitleList:@[@"即时", @"完场"] selectedColor:HEX_RGB(@"#87BF3B")];
+        _naviBar.delegate = self;
         [self.view addSubview:_naviBar];
-        
-        UIView *topLine = [[UIView alloc] initWithFrame:CGRectMake(0, 0, _naviBar.width, 1)];
-        topLine.backgroundColor = HEX_RGB(@"#ECECEC");
-        [_naviBar addSubview:topLine];
-        
-        CGFloat sepH = 2;
-        UIColor *selectedColor = HEX_RGB(@"#87BF3B");
-        _sepLine = [[UIView alloc] initWithFrame:CGRectMake(0, _naviBar.height-sepH, _naviBar.width/2, sepH)];
-        _sepLine.backgroundColor = selectedColor;
-        [_naviBar addSubview:_sepLine];
-        
-        CGFloat w = _naviBar.width/2;
-        for (int i=0; i<2; i++) {
-            UIButton *btn = [[UIButton alloc] initWithFrame:CGRectMake(w*i, topLine.bottom, w, _sepLine.top-topLine.bottom)];
-            [btn setTitleColor:HEX_RGB(@"#6E6E6E") forState:UIControlStateNormal];
-            [btn setTitleColor:_sepLine.backgroundColor forState:UIControlStateSelected];
-            btn.titleLabel.font = SCFONT_SIZED(18);
-            [btn addTarget:self action:@selector(naviClicked:) forControlEvents:UIControlEventTouchUpInside];
-            if (i==0) {
-                [btn setTitle:@"即时" forState:UIControlStateNormal];
-                btn.selected = YES;
-                _playingButton = btn;
-            }else {
-                [btn setTitle:@"完场" forState:UIControlStateNormal];
-                _overButton = btn;
-            }
-            [_naviBar addSubview:btn];
-        }
-        
     }
     return _naviBar;
 }

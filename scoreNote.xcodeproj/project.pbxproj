@@ -77,6 +77,7 @@
 		4B0319852F794C100041EFC7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4B0319842F794C100041EFC7 /* Assets.xcassets */; };
 		4B0319882F79804D0041EFC7 /* NetworkReachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B0319872F79804D0041EFC7 /* NetworkReachability.m */; };
 		4B2280D93020EDAB003E2274 /* CalculatorView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B2280D83020EDAA003E2274 /* CalculatorView.m */; };
+		4B2280DC3020EF93003E2274 /* WebNaviBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B2280DB3020EF93003E2274 /* WebNaviBar.m */; };
 		4B42D1122FD1B63000816442 /* FinanceView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B42D1112FD1B63000816442 /* FinanceView.m */; };
 		4B42D1152FD1B65300816442 /* FinanceButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B42D1142FD1B65300816442 /* FinanceButton.m */; };
 		4B42D1182FD1B6F300816442 /* FinanceModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B42D1172FD1B6F300816442 /* FinanceModel.m */; };
@@ -228,6 +229,8 @@
 		4B0319872F79804D0041EFC7 /* NetworkReachability.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NetworkReachability.m; sourceTree = "<group>"; };
 		4B2280D73020EDAA003E2274 /* CalculatorView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CalculatorView.h; sourceTree = "<group>"; };
 		4B2280D83020EDAA003E2274 /* CalculatorView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CalculatorView.m; sourceTree = "<group>"; };
+		4B2280DA3020EF93003E2274 /* WebNaviBar.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WebNaviBar.h; sourceTree = "<group>"; };
+		4B2280DB3020EF93003E2274 /* WebNaviBar.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WebNaviBar.m; sourceTree = "<group>"; };
 		4B42D1102FD1B63000816442 /* FinanceView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FinanceView.h; sourceTree = "<group>"; };
 		4B42D1112FD1B63000816442 /* FinanceView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FinanceView.m; sourceTree = "<group>"; };
 		4B42D1132FD1B65300816442 /* FinanceButton.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FinanceButton.h; sourceTree = "<group>"; };
@@ -626,6 +629,8 @@
 				4B2280D83020EDAA003E2274 /* CalculatorView.m */,
 				4BBB9E9E301E682700B5FB7C /* ScoreViewController.h */,
 				4BBB9E9F301E682700B5FB7C /* ScoreViewController.m */,
+				4B2280DA3020EF93003E2274 /* WebNaviBar.h */,
+				4B2280DB3020EF93003E2274 /* WebNaviBar.m */,
 			);
 			path = WebViewController;
 			sourceTree = "<group>";
@@ -805,6 +810,7 @@
 				4B2280D93020EDAB003E2274 /* CalculatorView.m in Sources */,
 				4B0319692F79452C0041EFC7 /* TagRankViewController.m in Sources */,
 				4B03196A2F79452C0041EFC7 /* TagRankModel.m in Sources */,
+				4B2280DC3020EF93003E2274 /* WebNaviBar.m in Sources */,
 				4B03196B2F79452C0041EFC7 /* MainTabBarController.m in Sources */,
 				4B03196C2F79452C0041EFC7 /* TotalSectionModel.m in Sources */,
 				4B03196D2F79452C0041EFC7 /* UIView+SCExtension.m in Sources */,
