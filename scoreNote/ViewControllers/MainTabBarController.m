@@ -33,9 +33,9 @@
     
     [temp addObject:[self getNavVcFrom:[HomeViewController new] title:@"首页" tabImage:@"Tab_Home" tabSelectedImage:@"Tab_Home_selected"]];
     
-    [temp addObject:[self getNavVcFrom:[ScoreViewController new] title:@"比分" tabImage:@"Tab_Score" tabSelectedImage:@"Tab_Score_selected"]];
-    
     [temp addObject:[self getNavVcFrom:[SportteryViewController new] title:@"竞彩" tabImage:@"Tab_Sporttery" tabSelectedImage:@"Tab_Sporttery_selected"]];
+    
+    [temp addObject:[self getNavVcFrom:[ScoreViewController new] title:@"比分" tabImage:@"Tab_Score" tabSelectedImage:@"Tab_Score_selected"]];
     
     [temp addObject:[self getNavVcFrom:[TotalViewController new] title:@"统计" tabImage:@"Tab_Total" tabSelectedImage:@"Tab_Total_selected"]];
     

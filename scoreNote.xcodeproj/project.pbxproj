@@ -617,10 +617,10 @@
 		4BBB9E9D301E67F100B5FB7C /* WebViewController */ = {
 			isa = PBXGroup;
 			children = (
-				4BBB9E9E301E682700B5FB7C /* ScoreViewController.h */,
-				4BBB9E9F301E682700B5FB7C /* ScoreViewController.m */,
 				4B5890D8301F7F3C0026300A /* SportteryViewController.h */,
 				4B5890D9301F7F3C0026300A /* SportteryViewController.m */,
+				4BBB9E9E301E682700B5FB7C /* ScoreViewController.h */,
+				4BBB9E9F301E682700B5FB7C /* ScoreViewController.m */,
 			);
 			path = WebViewController;
 			sourceTree = "<group>";

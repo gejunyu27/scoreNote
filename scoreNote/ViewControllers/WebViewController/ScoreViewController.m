@@ -151,13 +151,11 @@
     
     
     //导航栏透明度
-    //    CGFloat fadeDistance = 50; //透明度变化完的最大滑动距离
-    //    CGFloat alpha = 1.0 - (offsetY / fadeDistance);
-    //    if (alpha < 0) alpha = 0;
-    //    if (alpha > 1) alpha = 1;
-    //    _naviBar.alpha = alpha;
-    //代码简化 滑了就透明
-    self.naviBar.alpha = offsetY > 0 ? 0.2 : 1;
+    CGFloat fadeDistance = 30; //透明度变化完的最大滑动距离
+    CGFloat alpha = 1.0 - (offsetY / fadeDistance);
+    if (alpha < 0.2) alpha = 0.2;
+    if (alpha > 1) alpha = 1;
+    _naviBar.alpha = alpha;
 }
 
 #pragma mark -action
