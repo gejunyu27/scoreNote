@@ -7,8 +7,6 @@
 
 #import <UIKit/UIKit.h>
 
-NS_ASSUME_NONNULL_BEGIN
-
 @protocol WebNaviBarDelegate <NSObject>
 
 - (void)webNaviBarSelectIndex:(NSInteger)index;
@@ -19,8 +17,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, assign) NSInteger selectedIndex;
 @property (nonatomic, weak) id <WebNaviBarDelegate> delegate;
 
-- (void)createButtonsWithTitleList:(NSArray <NSString *> *)titleList selectedColor:(UIColor *)selectedColor;
+- (void)createButtonsWithTitleList:(nullable NSArray <NSString *> *)titleList selectedColor:(nullable UIColor *)selectedColor;
+- (void)createButtonsWithTitleList:(nullable NSArray <NSString *> *)titleList selectedColor:(nullable UIColor *)selectedColor font:(nullable UIFont *)font;
 
 @end
 
-NS_ASSUME_NONNULL_END

@@ -10,9 +10,13 @@
 #import <WebKit/WebKit.h>
 #import "NetworkReachability.h"
 #import "CalculatorView.h"
+#import "WebNaviBar.h"
 
-@interface SportteryViewController ()<WKNavigationDelegate, UIScrollViewDelegate>
+#define naviY (NAV_BAR_HEIGHT+(IS_BANGS_SCREEN ? 15 : 8))   //原生导航栏初始高度 适配机型
+
+@interface SportteryViewController ()<WKNavigationDelegate, UIScrollViewDelegate, WebNaviBarDelegate>
 @property (nonatomic, strong) WKWebView *webView;
+@property (nonatomic, strong) WebNaviBar *naviBar;
 @property (nonatomic, strong) UIRefreshControl *refreshControl;
 @property (nonatomic, strong) UIActivityIndicatorView *indicator; //注入js后刷新组件的菊花消失，可能是因为y过高在屏幕外面，解决之前先用这个代替
 @property (nonatomic, strong) CalculatorView *calculatorView; //计算器视图
@@ -92,7 +96,7 @@
 
 - (void)evaluateJavaScript
 {
-    CGFloat topPaddingValue = IS_BANGS_SCREEN ? 18.f : 12.f;
+    CGFloat topPaddingValue = IS_BANGS_SCREEN ? 20.f : 12.f;
     
     NSString *js = [NSString stringWithFormat:
     @"setTimeout(function(){"
@@ -127,6 +131,16 @@
     //起始位置是0，上滑增大，下拉减小
     CGFloat offsetY = scrollView.contentOffset.y;
     
+    //调整菊花
+    [self configIndicatorWithOffsetY:offsetY];
+    
+    //调整导航栏
+    [self confitNaviBarWithOffsetY:offsetY];
+
+}
+
+- (void)configIndicatorWithOffsetY:(CGFloat)offsetY
+{
     //菊花位置
     CGFloat orignY = NAV_BAR_HEIGHT - 50; //初始位置
     CGFloat newY = orignY - offsetY;
@@ -146,7 +160,31 @@
             _indicator.alpha = 0.2;
         }
     }
+}
 
+- (void)confitNaviBarWithOffsetY:(CGFloat)offsetY
+{
+    //导航栏位置
+    CGFloat newY = naviY - offsetY;
+    self.naviBar.top = newY;
+    
+    //导航栏透明度
+    CGFloat fadeDistance = 30; //透明度变化完的最大滑动距离
+    CGFloat alpha = 1.0 - (offsetY / fadeDistance);
+    if (alpha < 0.2) alpha = 0.2;
+    if (alpha > 1) alpha = 1;
+    _naviBar.alpha = alpha;
+}
+
+#pragma mark -WebNaviBarDelegate
+- (void)webNaviBarSelectIndex:(NSInteger)index
+{
+    if (index >= self.urlList.count) {
+        return;
+    }
+    
+    NSString *url = self.urlList[index];
+    [self.webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:url]]];
 }
 
 #pragma mark -action
@@ -173,35 +211,13 @@
         CGFloat offsetX = [pan translationInView:self.webView].x;
         //横向滑动阈值 40px，超过判定为切换Tab
         CGFloat maxX = 40;
-        if (offsetX > maxX) { //手指右滑，切换左边页面
-            [self swichPage:YES];
+        if (offsetX > maxX) { //手指右滑，切换左边页面 导航栏有纠错机制
+            self.naviBar.selectedIndex--;
             
         } else if (offsetX < -maxX) { //手指左滑，切换右边页面
-            [self swichPage:NO];
+            self.naviBar.selectedIndex++;
         }
     }
-}
-
-- (void)swichPage:(BOOL)isLeftPage
-{
-    NSString *currentUrl = _webView.URL.absoluteString;
-    
-    NSInteger currentIndex = 0;
-    
-    if ([_urlList containsObject:currentUrl]) {
-        currentIndex = [_urlList indexOfObject:currentUrl]; //获取当前网页下标
-    }
-    
-    //第一个不能再左滑 最后一个不能再右滑
-    if ((currentIndex == 0 && isLeftPage) || (currentIndex == _urlList.count-1 && !isLeftPage)) {
-        return;
-    }
-    
-    NSInteger newIndex = isLeftPage ? currentIndex-1 : currentIndex+1;
-    
-    NSString *newUrl = _urlList[newIndex];
-    
-    [self.webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:newUrl]]];
 }
 
 #pragma mark -UI
@@ -276,4 +292,14 @@
     return _urlList;
 }
 
+- (WebNaviBar *)naviBar
+{
+    if (!_naviBar) {
+        _naviBar = [[WebNaviBar alloc] initWithFrame:CGRectMake(0, naviY, SCREEN_WIDTH, 40)];
+        [_naviBar createButtonsWithTitleList:@[@"胜平负", @"比分", @"总进球", @"半全场", @"混合过关"] selectedColor:HEX_RGB(@"#EC6660") font:SCFONT_SIZED(16)];
+        _naviBar.delegate = self;
+        [self.view addSubview:_naviBar];
+    }
+    return _naviBar;
+}
 @end

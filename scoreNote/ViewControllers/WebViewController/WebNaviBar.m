@@ -25,7 +25,7 @@
 }
 
 #pragma mark -set&get
-- (void)createButtonsWithTitleList:(NSArray <NSString *> *)titleList selectedColor:(UIColor *)selectedColor
+- (void)createButtonsWithTitleList:(NSArray <NSString *> *)titleList selectedColor:(UIColor *)selectedColor font:(nullable UIFont *)font
 {
     [self removeOldBtns];
     
@@ -40,7 +40,7 @@
         UIButton *btn = [[UIButton alloc] initWithFrame:CGRectMake(w*i, self.topLine.bottom, w, self.selectedLine.top - self.topLine.bottom)];
         [btn setTitleColor:HEX_RGB(@"#6E6E6E") forState:UIControlStateNormal];
         [btn setTitleColor:self.selectedLine.backgroundColor forState:UIControlStateSelected];
-        btn.titleLabel.font = SCFONT_SIZED(18);
+        btn.titleLabel.font = font?:SCFONT_SIZED(18);
         [btn addTarget:self action:@selector(btnClicked:) forControlEvents:UIControlEventTouchUpInside];
         NSString *title = titleList[i];
         [btn setTitle:title forState:UIControlStateNormal];
@@ -51,6 +51,11 @@
             btn.selected = YES;
         }
     }
+}
+
+- (void)createButtonsWithTitleList:(NSArray <NSString *> *)titleList selectedColor:(UIColor *)selectedColor
+{
+    [self createButtonsWithTitleList:titleList selectedColor:selectedColor font:nil];
 }
 
 //移除旧按钮
@@ -65,7 +70,7 @@
 
 - (void)setSelectedIndex:(NSInteger)selectedIndex
 {
-    if (_selectedIndex == selectedIndex || selectedIndex >= _btnList.count) {
+    if (_selectedIndex == selectedIndex || selectedIndex >= _btnList.count || selectedIndex < 0) {
         return;
     }
     
