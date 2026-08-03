@@ -165,16 +165,16 @@
     [self swithNavi:(sender == _playingButton)];
 }
 
-- (void)panScrollHandle:(UIPanGestureRecognizer *)pan {
+- (void)panScrollHandle:(UIPanGestureRecognizer *)pan
+{
     if (pan.state == UIGestureRecognizerStateEnded) {
         CGFloat offsetX = [pan translationInView:self.webView].x;
         //横向滑动阈值 40px，超过判定为切换Tab
         CGFloat maxX = 40;
-        if (offsetX > maxX) {
-            //右滑
+        if (offsetX > maxX) { //手指右滑，切换左边页面
             [self swithNavi:YES];
-        } else if (offsetX < -maxX) {
-            //左滑
+            
+        } else if (offsetX < -maxX) { //手指左滑，切换右边页面
             [self swithNavi:NO];
         }
     }

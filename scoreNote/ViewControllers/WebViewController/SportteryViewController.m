@@ -153,18 +153,58 @@
 }
 
 #pragma mark -action
+//刷新
 - (void)webRefreshAction
 {
     // 网页重载
     [self.webView reload];
 }
 
+//计算器
 - (void)calculatorClick
 {
     self.calculatorView.hidden ^= 1;
     if (self.calculatorView.hidden) {
         [self clearCalculatorAction];
     }
+}
+
+//滑动手势
+- (void)panScrollHandle:(UIPanGestureRecognizer *)pan
+{
+    if (pan.state == UIGestureRecognizerStateEnded) {
+        CGFloat offsetX = [pan translationInView:self.webView].x;
+        //横向滑动阈值 40px，超过判定为切换Tab
+        CGFloat maxX = 40;
+        if (offsetX > maxX) { //手指右滑，切换左边页面
+            [self swichPage:YES];
+            
+        } else if (offsetX < -maxX) { //手指左滑，切换右边页面
+            [self swichPage:NO];
+        }
+    }
+}
+
+- (void)swichPage:(BOOL)isLeftPage
+{
+    NSString *currentUrl = _webView.URL.absoluteString;
+    
+    NSInteger currentIndex = 0;
+    
+    if ([_urlList containsObject:currentUrl]) {
+        currentIndex = [_urlList indexOfObject:currentUrl]; //获取当前网页下标
+    }
+    
+    //第一个不能再左滑 最后一个不能再右滑
+    if ((currentIndex == 0 && isLeftPage) || (currentIndex == _urlList.count-1 && !isLeftPage)) {
+        return;
+    }
+    
+    NSInteger newIndex = isLeftPage ? currentIndex-1 : currentIndex+1;
+    
+    NSString *newUrl = _urlList[newIndex];
+    
+    [self.webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:newUrl]]];
 }
 
 - (void)calculateClicked:(UIButton *)sender title:(NSString *)title
@@ -213,6 +253,11 @@
         _webView.navigationDelegate = self;
         _webView.scrollView.delegate = self;
         [self.view addSubview:_webView];
+        
+        //滑动手势
+        UIPanGestureRecognizer *panGes = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(panScrollHandle:)];
+        panGes.cancelsTouchesInView = NO;
+        [_webView addGestureRecognizer:panGes];
     
         //下拉刷新
         _refreshControl = [[UIRefreshControl alloc] init];
