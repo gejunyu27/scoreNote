@@ -9,16 +9,13 @@
 
 #import <WebKit/WebKit.h>
 #import "NetworkReachability.h"
+#import "CalculatorView.h"
 
 @interface SportteryViewController ()<WKNavigationDelegate, UIScrollViewDelegate>
 @property (nonatomic, strong) WKWebView *webView;
 @property (nonatomic, strong) UIRefreshControl *refreshControl;
 @property (nonatomic, strong) UIActivityIndicatorView *indicator; //注入js后刷新组件的菊花消失，可能是因为y过高在屏幕外面，解决之前先用这个代替
-@property (nonatomic, strong) UIView *calculatorView; //计算器视图
-@property (nonatomic, strong) UIButton *oddsOneButton;
-@property (nonatomic, strong) UIButton *oddsTwoButton;
-@property (nonatomic, strong) UIButton *planButton;
-@property (nonatomic, strong) UIButton *resultButton;
+@property (nonatomic, strong) CalculatorView *calculatorView; //计算器视图
 @property (nonatomic, strong) NSArray *urlList;
 
 @end
@@ -95,7 +92,7 @@
 
 - (void)evaluateJavaScript
 {
-    CGFloat topPaddingValue = IS_BANGS_SCREEN ? 30.f : 15.f;
+    CGFloat topPaddingValue = IS_BANGS_SCREEN ? 18.f : 12.f;
     
     NSString *js = [NSString stringWithFormat:
     @"setTimeout(function(){"
@@ -104,11 +101,11 @@
     @"document.body.style.paddingTop = '%.0fpx';"
     // 删除全部 m-header 标题栏
     @"document.querySelectorAll('.m-header').forEach(function(item){item.remove();});"
-    // 隐藏 calculator_menu 保留高度 //胜平负，混合，比分等选项 之前隐藏，现在保留
-//    @"var menuDom = document.getElementById('calculator_menu');"
-//    @"if(menuDom){"
-//    @"    menuDom.style.visibility = 'hidden';"
-//    @"}"
+    // 隐藏 calculator_menu 保留高度 胜平负，混合，比分等选项
+    @"var menuDom = document.getElementById('calculator_menu');"
+    @"if(menuDom){"
+    @"    menuDom.style.visibility = 'hidden';"
+    @"}"
     //直接移除 id="sel_pan" 底部黑色tabbar
     @"var selPan = document.getElementById('sel_pan');"
     @"if(selPan) selPan.remove();"
@@ -165,7 +162,7 @@
 {
     self.calculatorView.hidden ^= 1;
     if (self.calculatorView.hidden) {
-        [self clearCalculatorAction];
+        [self.calculatorView clear];
     }
 }
 
@@ -205,39 +202,6 @@
     NSString *newUrl = _urlList[newIndex];
     
     [self.webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:newUrl]]];
-}
-
-- (void)calculateClicked:(UIButton *)sender title:(NSString *)title
-{
-    [NumberInputView showWithText:sender.currentTitle title:title clickView:sender type:InputTypeNoSymbol block:^(NSString * _Nonnull outputText) {
-        [sender setTitle:outputText forState:UIControlStateNormal];
-        [self startCalculateResult];
-    }];
-}
-
-- (void)startCalculateResult
-{
-    //检查完整性
-    CGFloat oddsOne = _oddsOneButton.currentTitle.floatValue;
-    CGFloat oddsTwo = _oddsTwoButton.currentTitle.floatValue;
-    CGFloat plan    = _planButton.currentTitle.floatValue;
-    
-    if (oddsOne > 1 && oddsTwo > 1 && plan > 0) {
-        CGFloat odds = oddsOne*oddsTwo; //3*4=12 标识1块钱中了能收回12
-        CGFloat result = plan/(odds-1);
-        [_resultButton setTitle:[SCUtilities removeFloatSuffix:result] forState:UIControlStateNormal];
-        
-    }else {
-        [_resultButton setTitle:@"" forState:UIControlStateNormal];
-    }
-}
-
-- (void)clearCalculatorAction
-{
-    [_oddsOneButton setTitle:nil forState:UIControlStateNormal];
-    [_oddsTwoButton setTitle:nil forState:UIControlStateNormal];
-    [_planButton setTitle:nil forState:UIControlStateNormal];
-    [_resultButton setTitle:nil forState:UIControlStateNormal];
 }
 
 #pragma mark -UI
@@ -285,61 +249,14 @@
     return _indicator;
 }
 
-- (UIView *)calculatorView
+- (CalculatorView *)calculatorView
 {
     if (!_calculatorView) {
         CGFloat x = 20;
         CGFloat h = 65;
-        _calculatorView = [[UIView alloc] initWithFrame:CGRectMake(x, SCREEN_HEIGHT-TAB_BAR_HEIGHT-10-h, SCREEN_WIDTH-x*2, h)];
+        _calculatorView = [[CalculatorView alloc] initWithFrame:CGRectMake(x, SCREEN_HEIGHT-TAB_BAR_HEIGHT-10-h, SCREEN_WIDTH-x*2, h)];
         _calculatorView.hidden = YES;
-        _calculatorView.backgroundColor = [UIColor blackColor];
-        _calculatorView.layer.cornerRadius = 8;
         [self.view addSubview:_calculatorView];
-        
-        CGFloat labelW = _calculatorView.width/4;
-        NSArray *labelArr = @[@"赔率1", @"赔率2", @"计划利润", @"所需投注"];
-        
-        for (int i=0; i<labelArr.count; i++) {
-            NSString *name = labelArr[i];
-            
-            UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(labelW*i, 0, labelW, 30)];
-            label.textAlignment = NSTextAlignmentCenter;
-            label.textColor = [UIColor whiteColor];
-            label.font = SCFONT_SIZED(14);
-            label.text = name;
-            [_calculatorView addSubview:label];
-            
-            CGFloat btnY = label.bottom;
-            UIButton *btn = [[UIButton alloc] initWithFrame:CGRectMake(0, btnY, labelW-25, _calculatorView.height-btnY-10)];
-            btn.centerX = label.centerX;
-            [_calculatorView addSubview:btn];
-            
-            if (i==labelArr.count-1) { //结果
-                btn.titleLabel.font = SCFONT_SIZED(18);
-                [btn addTarget:self action:@selector(clearCalculatorAction) forControlEvents:UIControlEventTouchUpInside];
-                _resultButton = btn;
-                
-            }else {
-                btn.backgroundColor = [UIColor whiteColor];
-                btn.titleLabel.font = SCFONT_SIZED(14);
-                [btn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-                
-                @weakify(self)
-                [btn sc_addEventTouchUpInsideHandle:^(id  _Nonnull sender) {
-                    @strongify(self)
-                    [self calculateClicked:btn title:name];
-                }];
-                
-                if (i==0) { //赔率1
-                    _oddsOneButton = btn;
-                }else if (i==1) { //赔率2
-                    _oddsTwoButton = btn;
-                }else if (i==2) { //计划利润
-                    _planButton = btn;
-                }
-                 
-            }
-        }
         
     }
     return _calculatorView;
