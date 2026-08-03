@@ -128,7 +128,7 @@ NS_ASSUME_NONNULL_BEGIN
             self.value = 5000;
             break;
         case ConfigTypeInputH:
-            self.value = 300;
+            self.value = (IS_BANGS_SCREEN ? 300 : 245);
             break;
         case ConfigTypeIsSporttery:
             self.value = 1;

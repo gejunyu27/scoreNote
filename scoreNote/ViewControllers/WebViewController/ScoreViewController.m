@@ -11,7 +11,7 @@
 
 //#define url_score @"https://m.okooo.com/live/"   //澳客体育
 #define url_score @"https://zucaijia.cn/zcj/H5App/index"    //加加体育
-#define naviY (NAV_BAR_HEIGHT+15)
+#define naviY (NAV_BAR_HEIGHT+(IS_BANGS_SCREEN ? 15 : 8))   //原生导航栏初始高度 适配机型
 
 @interface ScoreViewController ()<WKNavigationDelegate, UIScrollViewDelegate>
 @property (nonatomic, strong) WKWebView *webView;
@@ -143,12 +143,13 @@
 }
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
-    //初始会有116的偏移  重新设置后起始位置是0，上滑增大，下拉减小
-    CGFloat offsetY = scrollView.contentOffset.y + 116;
+    //刘海屏初始会有116的偏移 小屏初始会有74的偏移  重新设置后起始位置是0，上滑增大，下拉减小
+    CGFloat originOffsetY = IS_BANGS_SCREEN ? 116 : 74;
+    
+    CGFloat offsetY = scrollView.contentOffset.y + originOffsetY;
     //导航栏位置
     CGFloat newY = naviY - offsetY;
     self.naviBar.top = newY;
-    
     
     //导航栏透明度
     CGFloat fadeDistance = 30; //透明度变化完的最大滑动距离
@@ -184,16 +185,17 @@
     if (isPlaying) {
         _playingButton.selected = YES;
         _overButton.selected = NO;
-        _sepLine.left = _playingButton.left;
+        _sepLine.centerX = _playingButton.centerX;
     }else {
         _playingButton.selected = NO;
         _overButton.selected = YES;
-        _sepLine.left = _overButton.left;
+        _sepLine.centerX = _overButton.centerX;
     }
     
     
     NSInteger index = isPlaying ? 0 : 1;
     
+    //该js方法是原网页里抓取的，是切换tab的方法。原本有li0,li1,li3 3个，只需要前两个
     NSString *js = [NSString stringWithFormat:
                     @"var x = %ld;\n"
                     @"for (var j = 0; j < 5; j++) {\n"
