@@ -149,7 +149,7 @@
 - (void)recordDetailCellEditOutMoney:(LineModel *)line clickView:(UIView *)clickView
 {
     NSString *text = line.outMoney > 0 ? [SCUtilities removeFloatSuffix:line.outMoney] : @"";
-    [NumberInputView showWithText:text title:@"输入投入额" clickView:clickView type:InputTypeNoSymbol block:^(NSString * _Nonnull outputText) {
+    [NumberInputView showWithText:text title:@"输入投入额" clickView:clickView type:InputTypeNumber block:^(NSString * _Nonnull outputText) {
         CGFloat outmoney = VALID_STRING(outputText) ? outputText.floatValue : 0;
 
         BOOL result = [RecordManager editLineOutMoney:outmoney line:line];
@@ -161,7 +161,7 @@
 - (void)recordDetailCellEditGetMoney:(LineModel *)line clickView:(UIView *)clickView
 {
     NSString *text = line.getMoney > 0 ? [SCUtilities removeFloatSuffix:line.getMoney] : @"";
-    [NumberInputView showWithText:text title:@"输入收入额" clickView:clickView type:InputTypeNoSymbol block:^(NSString * _Nonnull outputText) {
+    [NumberInputView showWithText:text title:@"输入收入额" clickView:clickView type:InputTypeNumber block:^(NSString * _Nonnull outputText) {
         CGFloat getmoney = VALID_STRING(outputText) ? outputText.floatValue : 0;
         
         BOOL result = [RecordManager editLineGetMoney:getmoney line:line];
@@ -205,7 +205,7 @@
     NSString *text = _record.baseProfit ? [SCUtilities removeFloatSuffix:_record.baseProfit] : @"" ;
     
     @weakify(self)
-    [NumberInputView showWithText:text title:@"修改固定利润" clickView:nil type:InputTypeReduce block:^(NSString * _Nonnull outputText) {
+    [NumberInputView showWithText:text title:@"修改固定利润" clickView:nil type:InputTypeNoDot block:^(NSString * _Nonnull outputText) {
         @strongify(self)
         BOOL result = [RecordManager editBaseProfit:outputText.floatValue record:self.record];
         [self handleEditResult:result refreshTable:NO];
@@ -217,7 +217,7 @@
     NSString *text = _record.breakLine ? [SCUtilities removeFloatSuffix:_record.breakLine] : @"";
     
     @weakify(self)
-    [NumberInputView showWithText:text title:@"修改止损线" clickView:nil type:InputTypeNoSymbol block:^(NSString * _Nonnull outputText) {
+    [NumberInputView showWithText:text title:@"修改止损线" clickView:nil type:InputTypeNoDot block:^(NSString * _Nonnull outputText) {
         @strongify(self)
         BOOL result = [RecordManager editBreakLine:outputText.floatValue record:self.record];
         [self handleEditResult:result refreshTable:NO];

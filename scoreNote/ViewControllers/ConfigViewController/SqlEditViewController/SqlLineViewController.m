@@ -166,7 +166,7 @@ typedef NS_ENUM(NSInteger, SqlLineType) {
 - (void)editOutMoney:(LineModel *)line
 {
     NSString *title = [NSString stringWithFormat:@"修改编号%@支出", line.lineId];
-    [NumberInputView showWithText:[SCUtilities removeFloatSuffix:line.outMoney] title:title clickView:nil type:InputTypeNoSymbol block:^(NSString * _Nonnull outputText) {
+    [NumberInputView showWithText:[SCUtilities removeFloatSuffix:line.outMoney] title:title clickView:nil type:InputTypeNumber block:^(NSString * _Nonnull outputText) {
         
         CGFloat oldOutMoney = line.outMoney;
         
@@ -188,7 +188,7 @@ typedef NS_ENUM(NSInteger, SqlLineType) {
 - (void)editGetMoney:(LineModel *)line
 {
     NSString *title = [NSString stringWithFormat:@"修改编号%@收入", line.lineId];
-    [NumberInputView showWithText:[SCUtilities removeFloatSuffix:line.getMoney] title:title clickView:nil type:InputTypeNoSymbol block:^(NSString * _Nonnull outputText) {
+    [NumberInputView showWithText:[SCUtilities removeFloatSuffix:line.getMoney] title:title clickView:nil type:InputTypeNumber block:^(NSString * _Nonnull outputText) {
         
         CGFloat oldGetMoney = line.getMoney;
         

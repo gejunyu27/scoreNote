@@ -70,7 +70,7 @@
         BitCoinModel *model = self.viewModel.dataList[row];
         NSString *text = model.money;
         
-        [NumberInputView showWithText:text title:nil clickView:nil type:InputTypeNoSymbol block:^(NSString * _Nonnull outputText) {
+        [NumberInputView showWithText:text title:nil clickView:nil type:InputTypeNumber block:^(NSString * _Nonnull outputText) {
             if (outputText.length > 0) {
                 model.money = outputText;
                 [self reload];
@@ -111,7 +111,7 @@
 {
     NSString *title = isRecharge ? @"请输入存储金额" : @"请输入提现金额";
     
-    [NumberInputView showWithText:nil title:title clickView:nil type:InputTypeNoSymbol block:^(NSString * _Nonnull outputText) {
+    [NumberInputView showWithText:nil title:title clickView:nil type:InputTypeNumber block:^(NSString * _Nonnull outputText) {
         if (outputText.length > 0) {
             BitCoinModel *model = [BitCoinModel new];
             model.isRecharge = isRecharge;

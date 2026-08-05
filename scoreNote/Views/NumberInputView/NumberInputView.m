@@ -11,8 +11,7 @@
 #define kClear  @"清空"
 #define kSpace  @"␣"
 #define kDelete @"⌫"
-#define kAdd    @"+"
-#define kReduce @"-"
+#define kcolon  @":"
 #define kDot    @"."
 
 @interface NumberInputView ()
@@ -100,20 +99,10 @@
     
     NSMutableString *text = [NSMutableString stringWithString:self.resultLabel.text?:@""];
     
-    /**以下3个判断是暂时为了简化计算的临时方法**/
-    if (([input isEqualToString:kAdd] || [input isEqualToString:kReduce]) && ([text containsString:kReduce] || [text containsString:kAdd])) { //加减只能出现一次
-        return;
-    }
-    
-    if ([input isEqualToString:kReduce] && text.length > 0) { //负号必须在开头
-        return;
-    }
-    
     if ([input isEqualToString:kDot] && [text containsString:kDot]) { //小数点只能有一个
         return;
     }
-    
-    /****/
+
     
     if ([input isEqualToString:kClear]) { //清空
         self.resultLabel.text = nil;
@@ -172,21 +161,19 @@
         rightView.right = self.width - margin;
         [_keyboardView addSubview:rightView];
         
-        NSString *symbol = kAdd;
-        if (_inputType >= InputTypeNoSymbol) {
-            symbol = @"";
-            
-        }else if (_inputType == InputTypeReduce) {
-            symbol = kReduce;
-        }
+        NSString *dot = _inputType == InputTypeNoDot ? @"" : kDot;
         
-        NSArray *rightTitles = @[kDelete, (_inputType < InputTypeNoDot ? kDot : @""), symbol, @"完成"];
+        NSString *colon = _inputType == InputTypeDefault ? kcolon : @"";
+        
+        NSString *finish = @"完成";
+
+        NSArray *rightTitles = @[kDelete, dot, colon, finish];
         for (int i=0; i<rightTitles.count; i++) {
             InputButton *btn = [[InputButton alloc] initWithFrame:CGRectMake(0, (margin + btnH)*i, leftView.width, btnH)];
             NSString *title = rightTitles[i];
             [btn setTitle:title forState:UIControlStateNormal];
             
-            if ([title isEqualToString:@"完成"]) {
+            if ([title isEqualToString:finish]) {
                 btn.originColor = HEX_RGB(@"#ED7041");
                 [btn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
                 [btn addTarget:self action:@selector(backClicked) forControlEvents:UIControlEventTouchUpInside];
@@ -206,7 +193,9 @@
         [_keyboardView addSubview:centerView];
         
         CGFloat btnW = (centerView.width - margin*2)/3;
-        NSArray *centerTitles = @[@"1",@"2",@"3",@"4",@"5",@"6",@"7",@"8",@"9",kClear,@"0",(_inputType == InputTypeDefault ? kSpace : @"")];
+        
+        NSString *space = _inputType == InputTypeDefault ? kSpace : @"";
+        NSArray *centerTitles = @[@"1",@"2",@"3",@"4",@"5",@"6",@"7",@"8",@"9",kClear,@"0",space];
         for (int i=0; i<4; i++) {
             for (int j=0; j<3; j++) {
                 InputButton *btn = [[InputButton alloc] initWithFrame:CGRectMake((btnW+margin)*j, (btnH+margin)*i, btnW, btnH)];

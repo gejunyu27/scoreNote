@@ -97,7 +97,7 @@
 
 - (void)homeCellBuy:(RecordModel *)record
 {
-    [NumberInputView showWithText:nil title:@"输入投入额" clickView:nil type:InputTypeNoSymbol block:^(NSString * _Nonnull outputText) {
+    [NumberInputView showWithText:nil title:@"输入投入额" clickView:nil type:InputTypeNumber block:^(NSString * _Nonnull outputText) {
         CGFloat outmoney = VALID_STRING(outputText) ? outputText.floatValue : 0;
         if (outmoney <= 0) {
             return;
@@ -146,7 +146,7 @@
 - (void)homeCellBuyWin:(RecordModel *)record
 {
     @weakify(self)
-    [NumberInputView showWithText:@"" title:(record.isSporttery?@"收入":@"利润") clickView:nil type:InputTypeNoSymbol block:^(NSString * _Nonnull outputText) {
+    [NumberInputView showWithText:@"" title:(record.isSporttery?@"收入":@"利润") clickView:nil type:InputTypeNumber block:^(NSString * _Nonnull outputText) {
         @strongify(self)
         if (outputText.length == 0) {
             return;

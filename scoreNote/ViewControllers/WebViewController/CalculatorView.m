@@ -87,7 +87,7 @@
 
 - (void)btnClicked:(UIButton *)sender title:(NSString *)title
 {
-    [NumberInputView showWithText:sender.currentTitle title:title clickView:sender type:InputTypeNoSymbol block:^(NSString * _Nonnull outputText) {
+    [NumberInputView showWithText:sender.currentTitle title:title clickView:sender type:InputTypeNumber block:^(NSString * _Nonnull outputText) {
         [sender setTitle:outputText forState:UIControlStateNormal];
         [self startCalculateResult];
     }];
