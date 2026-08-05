@@ -6,215 +6,194 @@
 //
 
 #import "ConfigViewController.h"
-#import "ConfigManager.h"
-#import "ConfigCalculateCell.h"
-#import "ConfigCommonCell.h"
-#import "ConfigFunctionCell.h"
-#import "BitCoinViewController.h"
+#import "ConfigViewModel.h"
+#import "ConfigCell.h"
 #import "SqlEditViewController.h"
 #import "ColumnAddViewController.h"
+#import "BitCoinViewController.h"
 
-@interface ConfigViewController () <UITableViewDelegate, UITableViewDataSource, ConfigCalculateDelegate, ConfigCommonDelegate, ConfigFunctionDelegate>
+
+@interface ConfigViewController () <UITableViewDelegate, UITableViewDataSource, ConfigCellDelegate>
+
 @property (nonatomic, strong) UITableView *tableView;
-@property (nonatomic, strong) NSArray <ConfigHeaderModel *> *headerList;
+@property (nonatomic, strong) ConfigViewModel *viewModel;
 
 @end
 
 @implementation ConfigViewController
 - (void)viewDidLoad{
     [super viewDidLoad];
-    
     self.title = @"设置";
-    _headerList = [ConfigManager getConfigHeaderList];
-    [self.tableView reloadData];
+    [self tableView];
 }
-
 
 #pragma mark -UITableViewDelegate, UITableViewDataSource
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return _headerList.count;
+    return self.viewModel.sectionList.count;
 }
 
-- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
+- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
 {
-    if (section == ConfigHeaderTypeCalcalte) {
-        return 30;
-        
-    }else {
-        return 50;
-    }
+    return 10;
 }
 
-- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
+- (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section
 {
-    if (section < _headerList.count) {
-        ConfigHeaderModel *model = _headerList[section];
-        return model.title;
+    //无实际意义，仅做间隔用
+    NSString *footerId = @"footerId";
+    UITableViewHeaderFooterView *footer = [tableView dequeueReusableHeaderFooterViewWithIdentifier:footerId];
+    if (!footer) {
+        footer = [[UITableViewHeaderFooterView alloc] initWithReuseIdentifier:footerId];
     }
-    
-    return @"";
+    return footer;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    if (section < _headerList.count) {
-        ConfigHeaderModel *model = _headerList[section];
+    if (section < self.viewModel.sectionList.count) {
+        ConfigSectionModel *sectioinModel = self.viewModel.sectionList[section];
+        return sectioinModel.models.count;
         
-        return model.list.count;
-    }
-
-    return 0;
-}
-
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    switch (indexPath.section) {
-        case ConfigHeaderTypeCalcalte:
-            return kCCCellH;
-        case ConfigHeaderTypeCommon:
-            return kConfigCellH;
-        case ConfigHeaderTypeFuction:
-            return kCFCellH;
-            
-        default:
-            return 0;
+    }else {
+        return 0;
     }
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSInteger section = indexPath.section;
+    ConfigCell *cell = [tableView dequeueReusableCellWithIdentifier:kConfigCellId forIndexPath:indexPath];
     
-    //双平计算
-    if (section == ConfigHeaderTypeCalcalte) {
-        ConfigCalculateCell *cell = [tableView dequeueReusableCellWithIdentifier:kCCCellId forIndexPath:indexPath];
-        ConfigModel *model = [self getConfigModelAtIndexPath:indexPath];
-        if (model) {
+    if (indexPath.section < self.viewModel.sectionList.count) {
+        ConfigSectionModel *sectionModel = self.viewModel.sectionList[indexPath.section];
+        if (indexPath.row < sectionModel.models.count) {
+            ConfigModel *model = sectionModel.models[indexPath.row];
             cell.model = model;
             cell.delegate = self;
         }
-        
-        return cell;
-    }
-    
-    //常用设置
-    if (section == ConfigHeaderTypeCommon) {
-        ConfigCommonCell *cell = [tableView dequeueReusableCellWithIdentifier:kConfigCellId forIndexPath:indexPath];
-        ConfigModel *model = [self getConfigModelAtIndexPath:indexPath];
-        if (model) {
-            cell.model = model;
-            cell.delegate = self;
-        }
-        
-        return cell;
-    }
-    
-    //其它功能
-    ConfigFunctionCell *cell = [tableView dequeueReusableCellWithIdentifier:kCFCellId forIndexPath:indexPath];
-    ConfigModel *model = [self getConfigModelAtIndexPath:indexPath];
-    if (model) {
-        cell.model = model;
-        cell.delegate = self;
     }
     
     return cell;
-
-
 }
 
-- (ConfigModel *)getConfigModelAtIndexPath:(NSIndexPath *)indexPath
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSInteger section = indexPath.section;
-    NSInteger row     = indexPath.row;
-    
-    if (section < _headerList.count) {
-        ConfigHeaderModel *headerModel = _headerList[section];
-        if (row < headerModel.list.count) {
-            ConfigModel *model = headerModel.list[row];
-            return model;
-        }
-    }
-    
-    return nil;
-}
-
-#pragma mark -ConfigCalculateDelegate
-- (void)calculateCellEditNumber:(ConfigModel *)model clickView:(UIView *)clickView
-{
-    [NumberInputView showWithText:model.point title:@"双平计算" clickView:clickView type:InputTypeNoSymbol block:^(NSString * _Nonnull outputText) {
-        model.point = outputText;
-        [ConfigManager doubleDrawCalculate];
-        [self.tableView reloadData];
-    }];
-}
-
-#pragma mark -ConfigCommonDelegate
-- (void)commonCellEditValue:(ConfigModel *)model clickView:(UIView *)clickView
-{
-    NSString *text = model.value == 0 ? @"" : [SCUtilities removeFloatSuffix:model.value];
-    
-    @weakify(self)
-    [NumberInputView showWithText:text title:model.title clickView:clickView type:InputTypeNoDot block:^(NSString * _Nonnull outputText) {
-        @strongify(self)
-        model.value = outputText.floatValue;
-        [self.tableView reloadData];
-    }];
-}
-
-- (void)commonCellReset:(ConfigModel *)model
-{
-    [model resetValue];
-    [self.tableView reloadData];
-}
-
-- (void)commonCellSwitchChanged:(ConfigModel *)model
-{
-    model.value = model.value ? 0 : 1;
-    [self.tableView reloadData];
-}
-
-#pragma mark -ConfigFunctionDelegate
-- (void)functionCellPushBitCoin
-{
-    [self.navigationController pushViewController:[BitCoinViewController new] animated:YES];
-}
-
-- (void)functionCellPushDeveloper
-{
-    if ([ConfigManager isDeveloper]) { //是开发者直接进入
-        [self pushDeveloper];
+    if (indexPath.section >= self.viewModel.sectionList.count) {
         return;
     }
+    
+    ConfigSectionModel *sectionModel = self.viewModel.sectionList[indexPath.section];
+    
+    if (indexPath.row >= sectionModel.models.count) {
+        return;
+    }
+    
+    ConfigModel *model = sectionModel.models[indexPath.row];
+    
+    
+    switch (model.type) {
+        case ConfigTypeLineProfit:  //每期利润
+        case ConfigTypeBaseProfit:  //固定利润
+        case ConfigTypeBreakLine:   //止损线
+        case ConfigTypeInputH:      //键盘高度
+        {
+            [self editValueAction:model];
+        }
+            break;
+        case ConfigTypeDeveloper:
+        {
+            [self pushDeveloperAction];
+        }
+            break;
+        case ConfigTypeBitCoin:
+        {
+            [self pushBitCoinAction];
+        }
+            break;
+        case ConfigTypeDoubleDraw:
+        {
+            [self doubleDrawAction];
+        }
+            break;
+        case ConfigTypeSaveData:
+        {
+            [self saveDataAction];
+        }
+            break;
+        case ConfigTypeClearData:
+        {
+            [self clearDataAction];
+        }
+            break;
+        default:
+            break;
+    }
+    //ConfigTypeIsSporttery  带switch开关的只能点击右边一小块区域，走代理
+    //ConfigTypeDataVersion ConfigTypeAppVersion 无点击事件
+}
+
+#pragma mark -更改各项数值
+- (void)editValueAction:(ConfigModel *)model
+{
+    [NumberInputView showWithText:model.content title:model.title clickView:nil type:InputTypeNoDot block:^(NSString * _Nonnull outputText) {
+        model.content = outputText;
+        [self.tableView reloadData];
+    }];
+}
+
+#pragma mark -开发者功能
+- (void)pushDeveloperAction
+{
+    if (self.viewModel.isDeveloper) { //是开发者直接进入
+        [self selectDeveloperViewController];
+        return;
+    }
+    
     //不是开发者要先输密码
     [NumberInputView showWithText:nil title:@"开发者密码" clickView:nil type:InputTypeNoDot block:^(NSString * _Nonnull outputText) {
-        BOOL result = [ConfigManager verifyDeveloperPassword:outputText];
+        if (outputText.length <= 0) {
+            return;
+        }
+        BOOL result = [self.viewModel verifyDeveloperPassword:outputText];
         if (result) {
-            [self pushDeveloper];
+            [self selectDeveloperViewController];
         }else {
             [self showWithStatus:@"密码错误"];
         }
     }];
 }
 
-- (void)pushDeveloper
+- (void)selectDeveloperViewController
 {
     UIAlertController *ac = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleActionSheet];
-    
+
     [ac addAction:[UIAlertAction actionWithTitle:@"修改数据库数据" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         [self.navigationController pushViewController:[SqlEditViewController new] animated:YES];
     }]];
-    
+
     [ac addAction:[UIAlertAction actionWithTitle:@"增加数据库字段" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         [self.navigationController pushViewController:[ColumnAddViewController new] animated:YES];
     }]];
-    
+
     [ac addAction:[UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil]];
-    
+
     [self presentViewController:ac animated:YES completion:nil];
 }
 
-- (void)functionCellSaveData
+#pragma mark -比特币账本
+- (void)pushBitCoinAction
+{
+    [self.navigationController pushViewController:[BitCoinViewController new] animated:YES];
+}
+
+#pragma mark -双平计算
+- (void)doubleDrawAction
+{
+    [self showWithStatus:@"暂时关闭"];
+}
+
+#pragma mark -备份数据
+- (void)saveDataAction
 {
     NSString *filePath = [DataManager sqliteFilePath];
     NSURL *fileURL = [NSURL fileURLWithPath:filePath];
@@ -229,23 +208,22 @@
     
     [self presentViewController:activityVC animated:YES completion:nil];
     
-    
     activityVC.completionWithItemsHandler = ^(UIActivityType activityType,BOOL completed,NSArray *returnedItems,NSError *activityError) {
         
     };
 }
 
-- (void)functionCellDeleteData
+- (void)clearDataAction
 {
     NSString *filePath = [DataManager sqliteFilePath];
-    
+
     if (![[NSFileManager defaultManager] fileExistsAtPath:filePath]) {
         [self showWithStatus:@"暂无数据"];
-        
+
         return;
     }
-    
-    [SCUtilities alertWithTitle:@"警告" message:@"数据库删除后将无法恢复" textFieldBlock:nil sureBlock:^(NSString * _Nullable text) {
+
+    [SCUtilities alertWithTitle:@"警告" message:@"数据清除后将无法恢复" textFieldBlock:nil sureBlock:^(NSString * _Nullable text) {
         NSError *error = nil;
         BOOL result = [[NSFileManager defaultManager] removeItemAtPath:filePath error:&error];
         if (result && !error) {
@@ -256,6 +234,16 @@
         }
     }];
 }
+
+#pragma mark -ConfigCellDelegate 开关
+- (void)configCellSwitchClicked:(ConfigModel *)model
+{
+    BOOL on = model.content.floatValue;
+    
+    model.content = [NSString stringWithFormat:@"%i", !on];
+    [self.tableView reloadData];
+}
+
 
 #pragma mark -UI
 - (UITableView *)tableView
@@ -274,15 +262,22 @@
         _tableView.dataSource = self;
         _tableView.delegate = self;
         _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-        [_tableView registerClass:ConfigCalculateCell.class forCellReuseIdentifier:kCCCellId];
-        [_tableView registerClass:ConfigCommonCell.class forCellReuseIdentifier:kConfigCellId];
-        [_tableView registerClass:ConfigFunctionCell.class forCellReuseIdentifier:kCFCellId];
+        _tableView.backgroundColor = HEX_RGB(@"#F6F6F6");
         _tableView.sectionHeaderTopPadding = 0;
+        _tableView.rowHeight = kConfigCellH;
+        [_tableView registerClass:ConfigCell.class forCellReuseIdentifier:kConfigCellId];
         [self.view addSubview:_tableView];
     }
     return _tableView;
 }
 
+- (ConfigViewModel *)viewModel
+{
+    if (!_viewModel) {
+        _viewModel = [ConfigViewModel new];
+    }
+    return _viewModel;
+}
 @end
 
 

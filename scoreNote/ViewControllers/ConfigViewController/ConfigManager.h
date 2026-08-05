@@ -6,24 +6,36 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "ConfigHeaderModel.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface ConfigManager : NSObject
+typedef NS_ENUM(NSInteger, ConfigType) {
+    //数值设置
+    ConfigTypeLineProfit,    //每期利润
+    ConfigTypeBaseProfit,    //固定利润
+    ConfigTypeBreakLine,     //止损线
+    ConfigTypeIsSporttery,   //是否是竞彩模式
+    
+    //常用功能
+    ConfigTypeInputH,        //自定义键盘高度
+    ConfigTypeDeveloper,     //开发者功能
+    ConfigTypeBitCoin,       //比特币
+    ConfigTypeDoubleDraw,    //双平计算
+    
+    //系统 (以后如果联网会增加联系我们，求助反馈等功能)
+    ConfigTypeSaveData,      //备份数据
+    ConfigTypeClearData,     //清除数据
+    ConfigTypeDataVersion,   //数据库版本
+    ConfigTypeAppVersion,    //APP版本
+    
+};
 
-//获取数据
-+ (NSArray <ConfigHeaderModel *> *)getConfigHeaderList;
-//双平计算
-+ (void)doubleDrawCalculate;
+@interface ConfigManager : NSObject
 
 //根据类型取值
 + (CGFloat)getValue:(ConfigType)type;
-
-//开发者功能
-//是否是验证过的开发者
-+ (BOOL)isDeveloper;
-+ (BOOL)verifyDeveloperPassword:(NSString *)password;
+//根据类型赋值
++ (void)setValue:(CGFloat)value type:(ConfigType)type;
 
 @end
 

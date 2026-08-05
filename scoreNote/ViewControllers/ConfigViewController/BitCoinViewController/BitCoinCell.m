@@ -37,7 +37,7 @@
     
     self.moneyLabel.text = model.money;
     
-    self.dateLabel.text  = [model.date getStringWithDateFormat:@"yyyy-MM-dd"];
+    self.dateLabel.text  = [self getDateStringFromData:model.date];
     
     if (model.isRecharge) {
         self.transactionLabel.backgroundColor = HEX_RGB(@"#14C725");
@@ -56,8 +56,14 @@
 {
     NSDate *pickDate = sender.date;
     
-    self.dateLabel.text = [pickDate getStringWithDateFormat:@"yyyy-MM-dd"];
+    self.dateLabel.text = [self getDateStringFromData:pickDate];
     self.model.date     = pickDate;
+}
+
+- (NSString *)getDateStringFromData:(NSDate *)date
+{
+    NSString *dateStr = [date getStringWithDateFormat:@"yyyy-MM-dd"];
+    return dateStr;
 }
 
 #pragma mark -ui
@@ -112,7 +118,7 @@
 - (UIDatePicker *)datePicker
 {
     if (!_datePicker) {
-        CGFloat w = 200;
+        CGFloat w = 220;
         CGFloat h = 40;
         _datePicker = [[UIDatePicker alloc] initWithFrame:CGRectMake(SCREEN_WIDTH-w-20, (kBCCellH-h)/2, w, h)];
         _datePicker.datePickerMode = UIDatePickerModeDate;
@@ -127,7 +133,6 @@
         self.datePicker.maximumDate = [NSDate dateWithTimeIntervalSinceNow:0];
         // 4. 添加值改变监听
         [_datePicker addTarget:self action:@selector(datePickerValueChanged:) forControlEvents:UIControlEventValueChanged];
-        
         [self.contentView addSubview:_datePicker];
         [self.contentView insertSubview:_datePicker belowSubview:self.dateLabel];
     }

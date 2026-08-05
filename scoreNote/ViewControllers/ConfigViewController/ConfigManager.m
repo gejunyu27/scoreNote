@@ -5,176 +5,133 @@
 //  Created by gejunyu on 2023/10/29.
 //
 
-#import "ConfigManager.h"
-#import "ConfigHeaderModel.h"
+static CGFloat kInputH;  //键盘高度取的比较频繁，就保存在内存中，不每次从本地取
 
+#import "ConfigManager.h"
 @interface ConfigManager ()
-@property (nonatomic, strong) NSArray <ConfigModel *> *calculateList; //计算
-@property (nonatomic, strong) NSArray <ConfigModel *> *commonList;    //常用
 @property (nonatomic, assign) BOOL isDeveloper;
 @property (nonatomic, copy) NSString *developerPassword;
 
 @end
 
 @implementation ConfigManager
-DEF_SINGLETON(ConfigManager)
 
-#pragma mark -获取数据
-+ (NSArray<ConfigHeaderModel *> *)getConfigHeaderList
+
+- (instancetype)init
 {
-    ConfigManager *manager = [self sharedInstance];
-    
-    NSMutableArray *temp = [NSMutableArray array];
-    
-    for (int i=0; i<ConfigHeaderTypeCount; i++) {
-        
-        ConfigHeaderModel *headerModel;
-        if (i==ConfigHeaderTypeCalcalte) {
-            headerModel = [[ConfigHeaderModel alloc] initWithType:i list:manager.calculateList];
-            
-        }else if (i == ConfigHeaderTypeCommon) {
-            headerModel = [[ConfigHeaderModel alloc] initWithType:i list:manager.commonList];
-            
-        }else {
-            headerModel = [[ConfigHeaderModel alloc] initWithType:i list:manager.functionList];
-        }
-        
-        [temp addObject:headerModel];
+    self = [super init];
+    if (self) {
     }
-    
-    return temp.copy;
+    return self;
 }
-
-- (NSArray<ConfigModel *> *)calculateList
-{
-    if (!_calculateList) {
-        NSMutableArray *temp = [NSMutableArray array];
-        for (int i=0; i<ConfigCalculateCount; i++) {
-            ConfigModel *model = [[ConfigModel alloc] initWithCalculateType:i];
-            [temp addObject:model];
-        }
-        _calculateList = temp.copy;
-    }
-    return _calculateList;
-}
-
-- (NSArray<ConfigModel *> *)commonList
-{
-    if (!_commonList) {
-        NSMutableArray *temp = [NSMutableArray array];
-        for (int i=0; i<ConfigTypeCount; i++) {
-            ConfigModel *model = [[ConfigModel alloc] initWithConfigType:i];
-            [temp addObject:model];
-        }
-        _commonList = temp.copy;
-    }
-    return _commonList;
-}
-
-- (NSArray<ConfigModel *> *)functionList
-{
-    NSMutableArray *temp = [NSMutableArray array];
-    for (int i=0; i<ConfigFunctionCount; i++) {
-        ConfigModel *model = [[ConfigModel alloc] initWithFunctionType:i];
-        [temp addObject:model];
-    }
-    
-    return temp.copy;
-}
-
-
-//双平计算
-+ (void)doubleDrawCalculate
-{
-    NSArray *modelList = [self sharedInstance].calculateList;
-    
-    if (modelList.count < ConfigCalculateCount) {
-        return;
-    }
-    
-    ConfigModel *targetModel = modelList[ConfigCalculateTarget];
-    CGFloat target = targetModel.point.floatValue;
-    
-    ConfigModel *firstPointModel = modelList[ConfigCalculateFirst];
-    CGFloat point1 = firstPointModel.point.floatValue;  //为公示看的清楚，命中用数字不用first
-    
-    ConfigModel *secondPointModel = modelList[ConfigCalculateSecond];
-    CGFloat point2 = secondPointModel.point.floatValue;
-
-    if (target > 0 && point1 > 0 && point2 > 0) {
-        CGFloat pay1 = point2*target/(point1*point2-point1-point2);
-        CGFloat pay2 = point1*target/(point1*point2-point1-point2);
-        firstPointModel.pay = [SCUtilities removeFloatSuffix:pay1];
-        secondPointModel.pay = [SCUtilities removeFloatSuffix:pay2];
-    }
-}
-
+#pragma mark -public method
 //根据类型取值
 + (CGFloat)getValue:(ConfigType)type
 {
-    NSArray *models = [[self sharedInstance] commonList];
+    BOOL isInput = type == ConfigTypeInputH;
+    if (isInput && kInputH > 0) { //键盘高度取用频繁，节省性能（虽然也浪费不了多少）
+        return kInputH;
+    }
     
-    if (models.count < ConfigTypeCount) {
+    NSString *cacheKey = [self getCacheKey:type];
+    if (cacheKey.length == 0) {
         return 0;
     }
     
-    ConfigModel *model  = models[type];
+    //先判断本地是否已经存储
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
     
-    return model.value;
-}
-
-
-//开发者功能
-//是否是验证过的开发者
-+ (BOOL)isDeveloper
-{
-    return [self sharedInstance].isDeveloper;
-}
-
-+ (BOOL)verifyDeveloperPassword:(NSString *)password
-{
-    ConfigManager *manager = [self sharedInstance];
+    BOOL hasCache = [userDefaults objectForKey:cacheKey]; //没有返回nil说明已经在本地存过
     
-    //留一个后门，方便使用
-    NSString *backdoor = @"17625904534";
-    if ([password isEqualToString:backdoor]) {
-        [self showWithStatus:manager.developerPassword delay:2];
-        return YES;
+    CGFloat value = 0;
+    
+    if (hasCache) { //存储过，直接本地取值
+        value = [userDefaults floatForKey:cacheKey];
+        
+    }else { //没存储过， 赋默认值，并存储本地
+        value = [self getDefaultValue:type];
+        [self setValue:value type:type];
     }
     
-    if ([password isEqualToString:manager.developerPassword]) {
-        manager.isDeveloper = YES;
-        return YES;
-        
-    }else {
-        return NO;
+    if (isInput) {
+        kInputH = value;
     }
+    
+    return value;
 }
 
-- (NSString *)developerPassword
+//根据类型赋值
++ (void)setValue:(CGFloat)value type:(ConfigType)type
 {
-    if (!_developerPassword) {
-        NSString *today = [[NSDate date] getStringWithDateFormat:@"yyyy-MM-dd"];
-        //加密
-        NSString *enc = [SCUtilities desEncrypt:today];
+    NSString *cacheKey = [self getCacheKey:type];
+    
+    if (cacheKey.length > 0) {
+        [[NSUserDefaults standardUserDefaults] setFloat:value forKey:cacheKey];
+        [[NSUserDefaults standardUserDefaults] synchronize];
         
-        //倒序取数字
-        NSMutableString *temp = [NSMutableString string];
-        for (NSInteger i=enc.length-1; i>=0; i--) {
-            NSString *c = [enc substringWithRange:NSMakeRange(i, 1)];
-            
-            if ([c isNumber]) {
-                [temp appendString:c];
-            }
-
-            
-            if (temp.length >= 6) {
-                break;
-            }
+        if (type == ConfigTypeInputH) {
+            kInputH = value;
         }
-        _developerPassword = temp.copy;
     }
-    return _developerPassword;
+    
+}
+
++ (NSString *)getCacheKey:(ConfigType)type
+{
+    NSString *propertyName = @"";
+    
+    switch (type) {
+        case ConfigTypeLineProfit:
+            propertyName = @"lineProfit";
+            break;
+        case ConfigTypeBaseProfit:
+            propertyName = @"baseProfit";
+            break;
+        case ConfigTypeBreakLine:
+            propertyName = @"breakLine";
+            break;
+        case ConfigTypeIsSporttery:
+            propertyName = @"isSporttery";
+            break;
+        case ConfigTypeInputH:
+            propertyName = @"inputH";
+            break;
+            
+        default:
+            return @"";
+    }
+
+    NSString *key = [NSString stringWithFormat:@"key_%@", propertyName];
+    
+    return key;
+}
+
+//重置数值
++ (CGFloat)getDefaultValue:(ConfigType)type
+{
+    CGFloat value = 0;
+    switch (type) {
+        case ConfigTypeLineProfit:
+            value = 50;
+            break;
+        case ConfigTypeBaseProfit:
+            value = 0;
+            break;
+        case ConfigTypeBreakLine:
+            value = 5000;
+            break;
+        case ConfigTypeIsSporttery:
+            value = 1;
+            break;
+        case ConfigTypeInputH:
+            value = (IS_BANGS_SCREEN ? 300 : 245);
+            break;
+
+        default:
+            break;
+    }
+    
+    return value;
 }
 
 @end

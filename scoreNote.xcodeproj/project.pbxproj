@@ -15,7 +15,6 @@
 		4B0318B72F79451E0041EFC7 /* welcome@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4B0318B42F79451E0041EFC7 /* welcome@3x.png */; };
 		4B0319472F79452C0041EFC7 /* ColumnAddViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4B0318DE2F79452C0041EFC7 /* ColumnAddViewController.xib */; };
 		4B0319482F79452C0041EFC7 /* SCToolBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B0319422F79452C0041EFC7 /* SCToolBar.m */; };
-		4B0319492F79452C0041EFC7 /* ConfigCommonCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B0318EC2F79452C0041EFC7 /* ConfigCommonCell.m */; };
 		4B03194A2F79452C0041EFC7 /* RecordDetailCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B0318F92F79452C0041EFC7 /* RecordDetailCell.m */; };
 		4B03194B2F79452C0041EFC7 /* SqlHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B0319402F79452C0041EFC7 /* SqlHeaderView.m */; };
 		4B03194C2F79452C0041EFC7 /* TagRankViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B03192A2F79452C0041EFC7 /* TagRankViewModel.m */; };
@@ -43,7 +42,6 @@
 		4B0319622F79452C0041EFC7 /* SqlEditUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B0318E12F79452C0041EFC7 /* SqlEditUtil.m */; };
 		4B0319632F79452C0041EFC7 /* TagManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B03190E2F79452C0041EFC7 /* TagManager.m */; };
 		4B0319642F79452C0041EFC7 /* TotalViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B0319332F79452C0041EFC7 /* TotalViewController.m */; };
-		4B0319652F79452C0041EFC7 /* ConfigHeaderModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B0318F02F79452C0041EFC7 /* ConfigHeaderModel.m */; };
 		4B0319662F79452C0041EFC7 /* NSString+SCExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B0318C82F79452C0041EFC7 /* NSString+SCExtension.m */; };
 		4B0319672F79452C0041EFC7 /* RecordModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B0319062F79452C0041EFC7 /* RecordModel.m */; };
 		4B0319682F79452C0041EFC7 /* TagDetailCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B0319092F79452C0041EFC7 /* TagDetailCell.m */; };
@@ -66,18 +64,19 @@
 		4B0319792F79452C0041EFC7 /* TagModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B0319152F79452C0041EFC7 /* TagModel.m */; };
 		4B03197A2F79452C0041EFC7 /* ColumnModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B0318D32F79452C0041EFC7 /* ColumnModel.m */; };
 		4B03197B2F79452C0041EFC7 /* LineModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B0319022F79452C0041EFC7 /* LineModel.m */; };
-		4B03197C2F79452C0041EFC7 /* ConfigFunctionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B0318EE2F79452C0041EFC7 /* ConfigFunctionCell.m */; };
 		4B03197D2F79452C0041EFC7 /* SqlEditViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B0318E32F79452C0041EFC7 /* SqlEditViewController.m */; };
 		4B03197E2F79452C0041EFC7 /* BaseNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B0318B92F79452C0041EFC7 /* BaseNavigationController.m */; };
 		4B03197F2F79452C0041EFC7 /* NSDate+SCExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B0318BE2F79452C0041EFC7 /* NSDate+SCExtension.m */; };
 		4B0319802F79452C0041EFC7 /* TagCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B0319132F79452C0041EFC7 /* TagCell.m */; };
 		4B0319812F79452C0041EFC7 /* RecordDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B0318FB2F79452C0041EFC7 /* RecordDetailViewController.m */; };
-		4B0319822F79452C0041EFC7 /* ConfigCalculateCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B0318EA2F79452C0041EFC7 /* ConfigCalculateCell.m */; };
 		4B0319832F79452C0041EFC7 /* CareerModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B03191D2F79452C0041EFC7 /* CareerModel.m */; };
 		4B0319852F794C100041EFC7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4B0319842F794C100041EFC7 /* Assets.xcassets */; };
 		4B0319882F79804D0041EFC7 /* NetworkReachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B0319872F79804D0041EFC7 /* NetworkReachability.m */; };
 		4B2280D93020EDAB003E2274 /* CalculatorView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B2280D83020EDAA003E2274 /* CalculatorView.m */; };
 		4B2280DC3020EF93003E2274 /* WebNaviBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B2280DB3020EF93003E2274 /* WebNaviBar.m */; };
+		4B2280DF30223056003E2274 /* ConfigViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B2280DE30223056003E2274 /* ConfigViewModel.m */; };
+		4B2280E230223161003E2274 /* ConfigSectionModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B2280E130223161003E2274 /* ConfigSectionModel.m */; };
+		4B2817E33023721C0056769D /* ConfigCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B2817E23023721C0056769D /* ConfigCell.m */; };
 		4B42D1122FD1B63000816442 /* FinanceView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B42D1112FD1B63000816442 /* FinanceView.m */; };
 		4B42D1152FD1B65300816442 /* FinanceButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B42D1142FD1B65300816442 /* FinanceButton.m */; };
 		4B42D1182FD1B6F300816442 /* FinanceModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B42D1172FD1B6F300816442 /* FinanceModel.m */; };
@@ -144,14 +143,6 @@
 		4B0318E52F79452C0041EFC7 /* SqlLineViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SqlLineViewController.m; sourceTree = "<group>"; };
 		4B0318E72F79452C0041EFC7 /* BitCoinViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BitCoinViewController.h; sourceTree = "<group>"; };
 		4B0318E82F79452C0041EFC7 /* BitCoinViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BitCoinViewController.m; sourceTree = "<group>"; };
-		4B0318E92F79452C0041EFC7 /* ConfigCalculateCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ConfigCalculateCell.h; sourceTree = "<group>"; };
-		4B0318EA2F79452C0041EFC7 /* ConfigCalculateCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ConfigCalculateCell.m; sourceTree = "<group>"; };
-		4B0318EB2F79452C0041EFC7 /* ConfigCommonCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ConfigCommonCell.h; sourceTree = "<group>"; };
-		4B0318EC2F79452C0041EFC7 /* ConfigCommonCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ConfigCommonCell.m; sourceTree = "<group>"; };
-		4B0318ED2F79452C0041EFC7 /* ConfigFunctionCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ConfigFunctionCell.h; sourceTree = "<group>"; };
-		4B0318EE2F79452C0041EFC7 /* ConfigFunctionCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ConfigFunctionCell.m; sourceTree = "<group>"; };
-		4B0318EF2F79452C0041EFC7 /* ConfigHeaderModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ConfigHeaderModel.h; sourceTree = "<group>"; };
-		4B0318F02F79452C0041EFC7 /* ConfigHeaderModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ConfigHeaderModel.m; sourceTree = "<group>"; };
 		4B0318F12F79452C0041EFC7 /* ConfigManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ConfigManager.h; sourceTree = "<group>"; };
 		4B0318F22F79452C0041EFC7 /* ConfigManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ConfigManager.m; sourceTree = "<group>"; };
 		4B0318F32F79452C0041EFC7 /* ConfigModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ConfigModel.h; sourceTree = "<group>"; };
@@ -231,6 +222,12 @@
 		4B2280D83020EDAA003E2274 /* CalculatorView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CalculatorView.m; sourceTree = "<group>"; };
 		4B2280DA3020EF93003E2274 /* WebNaviBar.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WebNaviBar.h; sourceTree = "<group>"; };
 		4B2280DB3020EF93003E2274 /* WebNaviBar.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WebNaviBar.m; sourceTree = "<group>"; };
+		4B2280DD30223056003E2274 /* ConfigViewModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ConfigViewModel.h; sourceTree = "<group>"; };
+		4B2280DE30223056003E2274 /* ConfigViewModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ConfigViewModel.m; sourceTree = "<group>"; };
+		4B2280E030223161003E2274 /* ConfigSectionModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ConfigSectionModel.h; sourceTree = "<group>"; };
+		4B2280E130223161003E2274 /* ConfigSectionModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ConfigSectionModel.m; sourceTree = "<group>"; };
+		4B2817E13023721C0056769D /* ConfigCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ConfigCell.h; sourceTree = "<group>"; };
+		4B2817E23023721C0056769D /* ConfigCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ConfigCell.m; sourceTree = "<group>"; };
 		4B42D1102FD1B63000816442 /* FinanceView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FinanceView.h; sourceTree = "<group>"; };
 		4B42D1112FD1B63000816442 /* FinanceView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FinanceView.m; sourceTree = "<group>"; };
 		4B42D1132FD1B65300816442 /* FinanceButton.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FinanceButton.h; sourceTree = "<group>"; };
@@ -420,18 +417,16 @@
 			children = (
 				4B0318F52F79452C0041EFC7 /* ConfigViewController.h */,
 				4B0318F62F79452C0041EFC7 /* ConfigViewController.m */,
-				4B0318E92F79452C0041EFC7 /* ConfigCalculateCell.h */,
-				4B0318EA2F79452C0041EFC7 /* ConfigCalculateCell.m */,
-				4B0318EB2F79452C0041EFC7 /* ConfigCommonCell.h */,
-				4B0318EC2F79452C0041EFC7 /* ConfigCommonCell.m */,
-				4B0318ED2F79452C0041EFC7 /* ConfigFunctionCell.h */,
-				4B0318EE2F79452C0041EFC7 /* ConfigFunctionCell.m */,
-				4B0318EF2F79452C0041EFC7 /* ConfigHeaderModel.h */,
-				4B0318F02F79452C0041EFC7 /* ConfigHeaderModel.m */,
-				4B0318F32F79452C0041EFC7 /* ConfigModel.h */,
-				4B0318F42F79452C0041EFC7 /* ConfigModel.m */,
 				4B0318F12F79452C0041EFC7 /* ConfigManager.h */,
 				4B0318F22F79452C0041EFC7 /* ConfigManager.m */,
+				4B2280DD30223056003E2274 /* ConfigViewModel.h */,
+				4B2280DE30223056003E2274 /* ConfigViewModel.m */,
+				4B2280E030223161003E2274 /* ConfigSectionModel.h */,
+				4B2280E130223161003E2274 /* ConfigSectionModel.m */,
+				4B0318F32F79452C0041EFC7 /* ConfigModel.h */,
+				4B0318F42F79452C0041EFC7 /* ConfigModel.m */,
+				4B2817E13023721C0056769D /* ConfigCell.h */,
+				4B2817E23023721C0056769D /* ConfigCell.m */,
 				4B0CD2D62FC4989D00B45BA6 /* BitCoinViewController */,
 				4B0318DF2F79452C0041EFC7 /* ColumnAddViewController */,
 				4B0318E62F79452C0041EFC7 /* SqlEditViewController */,
@@ -771,7 +766,6 @@
 				4B0318B12F7944FF0041EFC7 /* main.m in Sources */,
 				4B0319482F79452C0041EFC7 /* SCToolBar.m in Sources */,
 				4BBB9EA0301E682700B5FB7C /* ScoreViewController.m in Sources */,
-				4B0319492F79452C0041EFC7 /* ConfigCommonCell.m in Sources */,
 				4B03194A2F79452C0041EFC7 /* RecordDetailCell.m in Sources */,
 				4B03194B2F79452C0041EFC7 /* SqlHeaderView.m in Sources */,
 				4B03194C2F79452C0041EFC7 /* TagRankViewModel.m in Sources */,
@@ -783,9 +777,11 @@
 				4B0319522F79452C0041EFC7 /* TagSelectView.m in Sources */,
 				4B0319532F79452C0041EFC7 /* CareerCell.m in Sources */,
 				4B0319542F79452C0041EFC7 /* HomeViewController.m in Sources */,
+				4B2280DF30223056003E2274 /* ConfigViewModel.m in Sources */,
 				4B0319552F79452C0041EFC7 /* NSObject+SCHUD.m in Sources */,
 				4B0319562F79452C0041EFC7 /* BaseViewController.m in Sources */,
 				4B0319572F79452C0041EFC7 /* CareerViewController.m in Sources */,
+				4B2817E33023721C0056769D /* ConfigCell.m in Sources */,
 				4B0319582F79452C0041EFC7 /* ConfigModel.m in Sources */,
 				4B0319592F79452C0041EFC7 /* ColumnAddViewController.m in Sources */,
 				4B03195A2F79452C0041EFC7 /* NumberInputView.m in Sources */,
@@ -803,7 +799,6 @@
 				4B0319622F79452C0041EFC7 /* SqlEditUtil.m in Sources */,
 				4B0319632F79452C0041EFC7 /* TagManager.m in Sources */,
 				4B0319642F79452C0041EFC7 /* TotalViewController.m in Sources */,
-				4B0319652F79452C0041EFC7 /* ConfigHeaderModel.m in Sources */,
 				4B0319662F79452C0041EFC7 /* NSString+SCExtension.m in Sources */,
 				4B0319672F79452C0041EFC7 /* RecordModel.m in Sources */,
 				4B0319682F79452C0041EFC7 /* TagDetailCell.m in Sources */,
@@ -830,16 +825,15 @@
 				4B03197A2F79452C0041EFC7 /* ColumnModel.m in Sources */,
 				4B42D1472FD58BD000816442 /* BitCoinCell.m in Sources */,
 				4B03197B2F79452C0041EFC7 /* LineModel.m in Sources */,
-				4B03197C2F79452C0041EFC7 /* ConfigFunctionCell.m in Sources */,
 				4B03197D2F79452C0041EFC7 /* SqlEditViewController.m in Sources */,
 				4B03197E2F79452C0041EFC7 /* BaseNavigationController.m in Sources */,
 				4B03197F2F79452C0041EFC7 /* NSDate+SCExtension.m in Sources */,
 				4B42D1152FD1B65300816442 /* FinanceButton.m in Sources */,
 				4B0319802F79452C0041EFC7 /* TagCell.m in Sources */,
 				4B0319812F79452C0041EFC7 /* RecordDetailViewController.m in Sources */,
-				4B0319822F79452C0041EFC7 /* ConfigCalculateCell.m in Sources */,
 				4B0319832F79452C0041EFC7 /* CareerModel.m in Sources */,
 				4B0318B22F7944FF0041EFC7 /* SceneDelegate.m in Sources */,
+				4B2280E230223161003E2274 /* ConfigSectionModel.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -882,7 +876,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.4.2;
+				MARKETING_VERSION = 2.5.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.junyu.scoreNote5;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				STRING_CATALOG_GENERATE_SYMBOLS = YES;
@@ -920,7 +914,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.4.2;
+				MARKETING_VERSION = 2.5.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.junyu.scoreNote5;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				STRING_CATALOG_GENERATE_SYMBOLS = YES;
