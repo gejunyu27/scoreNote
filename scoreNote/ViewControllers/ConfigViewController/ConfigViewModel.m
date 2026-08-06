@@ -29,10 +29,10 @@
     ConfigSectionModel *valueModel    = [self getSectionModelWithStartType:ConfigTypeLineProfit endType:ConfigTypeIsSporttery];
     
     //常用功能
-    ConfigSectionModel *functionModel = [self getSectionModelWithStartType:ConfigTypeInputH endType:ConfigTypeDoubleDraw];
+    ConfigSectionModel *functionModel = [self getSectionModelWithStartType:ConfigTypeInputH endType:ConfigTypeDataBase];
     
     //其它
-    ConfigSectionModel *otherModel    = [self getSectionModelWithStartType:ConfigTypeSaveData endType:ConfigTypeAppVersion];
+    ConfigSectionModel *otherModel    = [self getSectionModelWithStartType:ConfigTypeDeveloper endType:ConfigTypeAppVersion];
     
     _sectionList = @[valueModel, functionModel, otherModel];
     
@@ -51,8 +51,7 @@
     NSInteger num = endType+1-startType;
     
     for (NSInteger i=0; i<num; i++) {
-        ConfigModel *model = [ConfigModel new];
-        model.type = i+startType;
+        ConfigModel *model = [[ConfigModel alloc] initWithType:(i+startType)];
         if (i==num-1) {
             model.position = ConfigPositionBottom;
         }else if (i==0) {

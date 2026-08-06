@@ -555,8 +555,8 @@
 				4B0319372F79452C0041EFC7 /* MainTabBarController.h */,
 				4B0319382F79452C0041EFC7 /* MainTabBarController.m */,
 				4B0319072F79452C0041EFC7 /* HomeViewController */,
-				4B0319362F79452C0041EFC7 /* TotalViewController */,
 				4BBB9E9D301E67F100B5FB7C /* WebViewController */,
+				4B0319362F79452C0041EFC7 /* TotalViewController */,
 				4B0319182F79452C0041EFC7 /* TagViewController */,
 				4B0318F72F79452C0041EFC7 /* ConfigViewController */,
 			);

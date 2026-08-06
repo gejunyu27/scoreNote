@@ -22,6 +22,8 @@ typedef NS_ENUM(NSInteger, ConfigPosition) { //位置
 @property (nonatomic, assign) ConfigType type;
 @property (nonatomic, assign) ConfigPosition position;
 
+- (instancetype)initWithType:(ConfigType)type;
+
 @end
 
 NS_ASSUME_NONNULL_END

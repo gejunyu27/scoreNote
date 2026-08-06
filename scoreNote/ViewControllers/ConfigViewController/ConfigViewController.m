@@ -41,11 +41,7 @@
 - (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section
 {
     //无实际意义，仅做间隔用
-    NSString *footerId = @"footerId";
-    UITableViewHeaderFooterView *footer = [tableView dequeueReusableHeaderFooterViewWithIdentifier:footerId];
-    if (!footer) {
-        footer = [[UITableViewHeaderFooterView alloc] initWithReuseIdentifier:footerId];
-    }
+    UIView *footer = [UIView new];
     return footer;
 }
 
@@ -110,19 +106,9 @@
             [self pushBitCoinAction];
         }
             break;
-        case ConfigTypeDoubleDraw:
+        case ConfigTypeDataBase:
         {
-            [self doubleDrawAction];
-        }
-            break;
-        case ConfigTypeSaveData:
-        {
-            [self saveDataAction];
-        }
-            break;
-        case ConfigTypeClearData:
-        {
-            [self clearDataAction];
+            [self dataBaseAction];
         }
             break;
         default:
@@ -186,13 +172,24 @@
     [self.navigationController pushViewController:[BitCoinViewController new] animated:YES];
 }
 
-#pragma mark -双平计算
-- (void)doubleDrawAction
+#pragma mark -数据库
+- (void)dataBaseAction
 {
-    [self showWithStatus:@"暂时关闭"];
+    UIAlertController *ac = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleActionSheet];
+
+    [ac addAction:[UIAlertAction actionWithTitle:@"备份数据库" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        [self saveDataAction];
+    }]];
+
+    [ac addAction:[UIAlertAction actionWithTitle:@"清除数据库" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        [self clearDataAction];
+    }]];
+
+    [ac addAction:[UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil]];
+
+    [self presentViewController:ac animated:YES completion:nil];
 }
 
-#pragma mark -备份数据
 - (void)saveDataAction
 {
     NSString *filePath = [DataManager sqliteFilePath];

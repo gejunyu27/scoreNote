@@ -15,40 +15,48 @@ NS_ASSUME_NONNULL_BEGIN
 
 @implementation ConfigModel
 
-#pragma mark -get&set
-- (void)setType:(ConfigType)type
+- (instancetype)initWithType:(ConfigType)type
 {
-    _type = type;
-    
-    switch (type) {
+    self = [super init];
+    if (self) {
+        _type = type;
+        [self initData];
+    }
+    return self;
+}
+
+#pragma mark -init
+- (void)initData
+{
+    switch (_type) {
         case ConfigTypeLineProfit:
         {
             _title = @"默认每期利润";
-            _content = [self getValueContent:type];
+            _content = [self getValueContent:_type];
         }
             break;
         case ConfigTypeBaseProfit:
         {
             _title = @"默认固定利润";
-            _content = [self getValueContent:type];
+            _content = [self getValueContent:_type];
         }
             break;
         case ConfigTypeBreakLine:
         {
             _title = @"默认止损线";
-            _content = [self getValueContent:type];
+            _content = [self getValueContent:_type];
         }
             break;
         case ConfigTypeIsSporttery:
         {
             _title = @"默认竞彩模式";
-            _content = [self getValueContent:type];
+            _content = [self getValueContent:_type];
         }
             break;
         case ConfigTypeInputH:
         {
             _title = @"自定义键盘高度";
-            _content = [self getValueContent:type];
+            _content = [self getValueContent:_type];
         }
             break;
         case ConfigTypeDeveloper:
@@ -61,26 +69,16 @@ NS_ASSUME_NONNULL_BEGIN
             _title = @"比特币账本";
         }
             break;
-        case ConfigTypeDoubleDraw:
+        case ConfigTypeDataBase:
         {
-            _title = @"双平计算";
-        }
-            break;
-        case ConfigTypeSaveData:
-        {
-            _title = @"备份数据";
-        }
-            break;
-
-        case ConfigTypeClearData:
-        {
-            _title = @"清除数据";
+            _title = @"数据备份&清除";
         }
             break;
         case ConfigTypeDataVersion:
         {
             _title = @"数据库版本";
-            _content = [NSString stringWithFormat:@"%li",[[NSUserDefaults standardUserDefaults] integerForKey:KEY_DB_VERSION]];
+            NSInteger dbVersion = [[NSUserDefaults standardUserDefaults] integerForKey:KEY_DB_VERSION];
+            _content = [NSString stringWithFormat:@"%li",dbVersion+1]; //初始版本是0，显示0不好看，所以展示的时候都比真实版本大1
         }
             break;
         case ConfigTypeAppVersion:
@@ -101,6 +99,7 @@ NS_ASSUME_NONNULL_BEGIN
     return content;
 }
 
+#pragma mark -get&set
 - (void)setContent:(NSString *)content
 {
     _content = content;

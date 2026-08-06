@@ -18,13 +18,11 @@ typedef NS_ENUM(NSInteger, ConfigType) {
     
     //常用功能
     ConfigTypeInputH,        //自定义键盘高度
-    ConfigTypeDeveloper,     //开发者功能
     ConfigTypeBitCoin,       //比特币
-    ConfigTypeDoubleDraw,    //双平计算
+    ConfigTypeDataBase,      //数据库
     
     //系统 (以后如果联网会增加联系我们，求助反馈等功能)
-    ConfigTypeSaveData,      //备份数据
-    ConfigTypeClearData,     //清除数据
+    ConfigTypeDeveloper,     //开发者功能
     ConfigTypeDataVersion,   //数据库版本
     ConfigTypeAppVersion,    //APP版本
     
