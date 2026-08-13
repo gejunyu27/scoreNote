@@ -84,7 +84,7 @@ NS_ASSUME_NONNULL_BEGIN
         CGFloat y = 5;
         _bgView = [[UIView alloc] initWithFrame:CGRectMake(x, y, SCREEN_WIDTH-x*2, kRDCellH-y*2)];
         _bgView.backgroundColor = [UIColor whiteColor];
-        _bgView.layer.cornerRadius = 10;
+        _bgView.layer.cornerRadius = DEFAULT_CORNER_RADIUS;
         [_bgView setCommonShadow];
         [self.contentView addSubview:_bgView];
     }

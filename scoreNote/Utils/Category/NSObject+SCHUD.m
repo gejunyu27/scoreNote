@@ -26,7 +26,7 @@ DEF_SINGLETON(SCHUD)
     self = [super init];
     if (self) {
         [self setActViewFrame];
-        self.layer.cornerRadius = 10;
+        self.layer.cornerRadius = DEFAULT_CORNER_RADIUS;
         self.layer.masksToBounds = YES;
         self.backgroundColor = [UIColor blackColor];
         self.textAlignment = NSTextAlignmentCenter;

@@ -6,17 +6,24 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "RecordModel.h"
+#import "YearModel.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface RecordManager : NSObject
 
-//数据是否因外部情况产生变化 ui未能及时更新 例如接收到通知
-+ (void)updateBlock:(baseBlock)updateBlock;
+//所有数据 废弃 拆分成下面两个已完成年份和进行中
+//+ (NSMutableArray <YearModel *> *)yearModels;
 
-//获取首页展示的记录
-+ (NSMutableArray <RecordModel *> *)homeRecords;
+//已完成年份
++ (NSMutableArray <YearModel *> *)finishYears;
+//进行中
++ (YearModel *)followingYear;
+//进行中的单子
++ (NSMutableArray <RecordModel *> *)followingRecords;
+
+//接收到通知更新数据
++ (void)updateBlock:(baseBlock)updateBlock;
 
 //结束一轮记录
 + (BOOL)closeRecord:(RecordModel *)record;

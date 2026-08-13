@@ -280,7 +280,7 @@
         CGFloat margin = 15;
         UIView *bgView = [[UIView alloc] initWithFrame:CGRectMake(margin, 0, _topView.width-margin*2, _topView.height-5)];
         bgView.backgroundColor = [UIColor whiteColor];
-        bgView.layer.cornerRadius = 10;
+        bgView.layer.cornerRadius = DEFAULT_CORNER_RADIUS;
         [bgView setCommonShadow];
         [_topView addSubview:bgView];
         

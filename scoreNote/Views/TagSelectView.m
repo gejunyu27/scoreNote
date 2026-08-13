@@ -214,7 +214,7 @@
         CGFloat x = 10;
         CGFloat h = 60;
         _cancelButton = [[UIButton alloc] initWithFrame:CGRectMake(x, self.height- SCREEN_SAFE_BOTTOM - h, self.width-2*x, h)];
-        _cancelButton.layer.cornerRadius = 10;
+        _cancelButton.layer.cornerRadius = DEFAULT_CORNER_RADIUS;
         _cancelButton.layer.masksToBounds = YES;
         _cancelButton.backgroundColor = [UIColor whiteColor];
         [_cancelButton setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
@@ -230,7 +230,7 @@
     if (!_tableView) {
         CGFloat y = NAV_BAR_HEIGHT;
         _tableView = [[UITableView alloc] initWithFrame:CGRectMake(self.cancelButton.left, y, self.cancelButton.width, self.cancelButton.top - y - 10)];
-        _tableView.layer.cornerRadius = 10;
+        _tableView.layer.cornerRadius = DEFAULT_CORNER_RADIUS;
         _tableView.layer.masksToBounds = YES;
         _tableView.delegate = self;
         _tableView.dataSource = self;

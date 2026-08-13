@@ -7,14 +7,12 @@
 
 #import "HomeViewController.h"
 #import "HomeCell.h"
-#import "RecordManager.h"
 #import "TagSelectView.h"
+#import "RecordManager.h"
 #import "RecordDetailViewController.h"
 
 @interface HomeViewController () <UITableViewDelegate, UITableViewDataSource, HomeCellDelegate>
 @property (nonatomic, strong) UITableView *tableView;
-@property (nonatomic, weak) NSMutableArray <RecordModel *> *records;
-
 @end
 
 @implementation HomeViewController
@@ -24,28 +22,20 @@
     
     //添加单子
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addClick)];
-
-    //刷新数据
-    [self refreshUI];
     
+    //更新UI
+    [self tableView];
+    
+    //这个更新回调只有开发者功能里面动了数据库才会调用
     [RecordManager updateBlock:^{
-        [self refreshUI];
+        [self.tableView reloadData];
     }];
-
-}
-
-- (void)refreshUI
-{
-    //获取首页展示记录
-    _records = [RecordManager homeRecords];
-    
-    [self.tableView reloadData];
 }
 
 #pragma mark -UITableViewDelegate, UITableViewDataSource
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return _records.count;
+    return [RecordManager followingRecords].count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -53,8 +43,10 @@
     HomeCell *cell = [tableView dequeueReusableCellWithIdentifier:kHomeCellId forIndexPath:indexPath];
     cell.delegate = self;
     
-    if (indexPath.row < _records.count) {
-        RecordModel *record = _records[indexPath.row];
+    NSArray *followingRecords = [RecordManager followingRecords];
+    
+    if (indexPath.row < followingRecords.count) {
+        RecordModel *record = followingRecords[indexPath.row];
         cell.record = record;
     }
     

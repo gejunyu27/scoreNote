@@ -11,17 +11,7 @@
 #define kDateFormat       @"yyyy年MM月"
 
 @interface TotalViewModel ()
-//总利润
-//@property (nonatomic, assign) CGFloat totalProfit;
-////起投日期
-//@property (nonatomic, copy) NSString *startDateString;
-////投注总月份
-//@property (nonatomic, assign) NSInteger totalMonths;
-//@property (nonatomic, copy) NSString *periodString;
-////月均利润
-//@property (nonatomic, assign) CGFloat perMonthProfit;
-////总单数
-//@property (nonatomic, assign) NSInteger allRecordsNum;
+
 
 @end
 

@@ -7,10 +7,16 @@
 
 #import "RecordManager.h"
 #import "TagManager.h"
+#import "YearModel.h"
+
+#define kFollowingTip @"进行中"
 
 @interface RecordManager ()
-@property (nonatomic, strong) NSMutableArray <RecordModel *> *homeRecords;
 @property (nonatomic, copy) baseBlock updateBlock;
+//@property (nonatomic, strong) NSMutableArray <YearModel *> *yearModels;
+@property (nonatomic, strong) NSMutableArray <YearModel *> *finishYears; //已完成年份
+@property (nonatomic, strong) YearModel *followingYear;//进行中
+
 @end
 
 @implementation RecordManager
@@ -20,9 +26,13 @@ DEF_SINGLETON(RecordManager)
 {
     self = [super init];
     if (self) {
-        //接收通知
+        [self initData];
+        
+        //接收数据库变动通知 只有开发者功能会用到
         [[NSNotificationCenter defaultCenter] addObserverForName:NOTI_SQLITE_UPDATE object:nil queue:nil usingBlock:^(NSNotification * _Nonnull note) {
-            self.homeRecords = nil;
+//            self.yearModels = nil;
+            [self initData];
+            
             if (self.updateBlock) {
                 self.updateBlock();
             }
@@ -31,36 +41,141 @@ DEF_SINGLETON(RecordManager)
     return self;
 }
 
+//接收到通知更新数据
 + (void)updateBlock:(baseBlock)updateBlock
 {
     [self sharedInstance].updateBlock = updateBlock;
 }
 
-#pragma mark -获取首页展示的记录
-+ (NSMutableArray <RecordModel *> *)homeRecords
+- (void)initData
 {
-    if ([self sharedInstance].homeRecords.count > 0) {
-        return [self sharedInstance].homeRecords;
+    //已完成数据
+    _finishYears = [NSMutableArray array];
+    //从数据库倒序获取已完成数据
+    NSMutableArray <RecordModel *> *finishRecords = [DataManager queryFinishRecords];
+    //分类
+    for (RecordModel *record in finishRecords) {
+        [self createYearAndMonthFromRecord:record save:YES];
     }
-    //没有从数据库获取
-    NSMutableArray <RecordModel *> *homeRecords = [DataManager queryFollowingRecords];
     
-    //把已经有购买记录的放前面
-    [homeRecords sortUsingComparator:^NSComparisonResult(RecordModel *_Nonnull obj1, RecordModel *_Nonnull obj2) {
-        NSInteger line1 = obj1.lineList.count > 0 ? 1 : 0;
-        NSInteger line2 = obj2.lineList.count > 0 ? 1 : 0;
-        
-        if (line1 < line2) {
-            return NSOrderedDescending;
-        }else  {
-            return NSOrderedAscending;
+    //进行中数据
+    _followingYear = nil;
+    //从数据库获取未完成数据
+    NSMutableArray <RecordModel *> *followingRecords = [DataManager queryFollowingRecords];
+    for (RecordModel *record in followingRecords) {
+        [self createYearAndMonthFromRecord:record save:YES];
+    }
+    
+    if (_followingYear.monthModels.count > 0) { //把已经有投注记录的放到前面
+        MonthModel *fMonth = _followingYear.monthModels.firstObject;
+        [fMonth.records sortUsingComparator:^NSComparisonResult(RecordModel *_Nonnull obj1, RecordModel *_Nonnull obj2) {
+            NSInteger line1 = obj1.lineList.count > 0 ? 1 : 0;
+            NSInteger line2 = obj2.lineList.count > 0 ? 1 : 0;
+            
+            if (line1 < line2) {
+                return NSOrderedDescending;
+            }else  {
+                return NSOrderedAscending;
+            }
+        }];
+    }
+    
+
+}
+
+#pragma mark -public
++ (NSMutableArray<YearModel *> *)finishYears
+{
+    return [self sharedInstance].finishYears;
+}
+
++ (YearModel *)followingYear
+{
+    return [self sharedInstance].followingYear;
+}
+
+//进行中的单子
++ (NSMutableArray <RecordModel *> *)followingRecords
+{
+    YearModel *followingYear = [self followingYear];
+    
+    if (followingYear && followingYear.monthModels.count > 0) {
+        MonthModel *fMonth = followingYear.monthModels.firstObject;
+        return fMonth.records;
+    }
+    
+    return nil;
+}
+
+#pragma mark -数据归档
+- (void)createYearAndMonthFromRecord:(RecordModel *)record save:(BOOL)save
+{
+    //先获取年份model 如果没有会自动创建
+    YearModel *year = [self getYearModel:record];
+    
+    //再获取月份model 如果没有会自动创建
+    MonthModel *month = [self getMonthModel:record yearModel:year];
+    
+    //存储记录
+    if (save) {
+        [month.records addObject:record];
+    }
+
+}
+
+- (YearModel *)getYearModel:(RecordModel *)record
+{
+    BOOL isFollowing = !record.isOver;
+    
+    //获取年份
+    NSString *yearStr = isFollowing ? kFollowingTip : [record.endTime getStringWithDateFormat:@"yyyy年"];
+    
+    if (isFollowing) {
+        if (_followingYear) {
+            return _followingYear;
         }
-    }];
+    }else {
+        for (YearModel *year in _finishYears) {
+            //有就直接取
+            if ([year.title isEqualToString:yearStr]) {
+                return year;
+            }
+        }
+    }
+
     
+    //没有就新建
+    YearModel *newYear = [YearModel new];
+    newYear.title = yearStr;
+    newYear.isFollowing = isFollowing;
+    if (isFollowing) {
+        _followingYear = newYear;
+    }else {
+        [_finishYears addObject:newYear];
+    }
+
+    return newYear;
+}
+
+- (MonthModel *)getMonthModel:(RecordModel *)record yearModel:(YearModel *)yearModel
+{
+    BOOL isFollowing = yearModel.isFollowing;
+    //获取月份
+    NSString *monthStr = isFollowing ? kFollowingTip : [record.endTime getStringWithDateFormat:@"MM月"];
+        
+    for (MonthModel *month in yearModel.monthModels) {
+        //有就直接取
+        if ([month.title isEqualToString:monthStr]) {
+            return month;
+        }
+    }
     
-    [self sharedInstance].homeRecords = homeRecords;
-    
-    return homeRecords;
+    //没有就新建
+    MonthModel *newMonth = [MonthModel new];
+    newMonth.title = monthStr;
+    newMonth.isFollowing = isFollowing;
+    [yearModel.monthModels addObject:newMonth];
+    return newMonth;
 }
 
 #pragma mark -结束一轮记录
@@ -88,18 +203,15 @@ DEF_SINGLETON(RecordManager)
         return NO;
     }
     
-    //从列表中移除
-    NSMutableArray <RecordModel *> *homeRecords = [RecordManager homeRecords];
-    if ([homeRecords containsObject:record]) {
-        [homeRecords removeObject:record];
+    //先从进行中列表移除
+    NSMutableArray <RecordModel *> *followingRecords = [RecordManager followingRecords];
+    if ([followingRecords containsObject:record]) {
+        [followingRecords removeObject:record];
     }
     
-    //列表新增一个空白记录 填补主页记录数量  //旧版功能 新版不需要
-//    RecordModel *newRecord = [DataManager insertNewRecord];
-//    if (newRecord) {
-//        [homeRecords addObject:newRecord];
-//    }
-    
+    //再归档到对应年份月份
+    [[self sharedInstance] createYearAndMonthFromRecord:record save:YES];
+
     //检测真实期数，如果期数比标签最大期高，则更新
     [TagManager checkMaxCount:record.realNum tagId:record.tagId];
     
@@ -109,7 +221,7 @@ DEF_SINGLETON(RecordManager)
 #pragma mark -添加新列
 + (BOOL)addNewLine:(RecordModel *)record outMoney:(CGFloat)outMoney
 {
-    //上一列强制结束  旧版需要，新版只有结束了上期才能购买，不再存在这个问题
+    //上一列强制结束  旧版需要，新版只有结束了上期才能购买，不再存在这个问题。代码不影响运行，还能拍错，先放着
     if (record.lineList.count > 0) {
         LineModel *lastLine = record.lineList.lastObject;
         
@@ -272,6 +384,7 @@ DEF_SINGLETON(RecordManager)
     return result;
 }
 
+#pragma mark -修改买法
 + (BOOL)editCurrentScore:(NSString *)currentScore record:(RecordModel *)record
 {
     NSString *oldScore = record.currentScore;
@@ -287,11 +400,13 @@ DEF_SINGLETON(RecordManager)
     return result;
 }
 
+#pragma mark -最新购买未中
 + (BOOL)lastLineLose:(RecordModel *)record
 {
     return [self lastLineOver:NO record:record profit:0];
 }
 
+#pragma mark -最新购买红单
 + (BOOL)lastLineWin:(CGFloat)profit record:(RecordModel *)record
 {
     return [self lastLineOver:YES record:record profit:profit];
@@ -332,6 +447,7 @@ DEF_SINGLETON(RecordManager)
     return result;
 }
 
+#pragma mark -新增一个记录
 + (BOOL)addNewRecord:(NSInteger)tagId
 {
     RecordModel *record = [DataManager insertNewRecord:tagId];
@@ -340,12 +456,12 @@ DEF_SINGLETON(RecordManager)
         return NO;
     }
     
-    [[self sharedInstance].homeRecords addObject:record];
+    [[self sharedInstance] createYearAndMonthFromRecord:record save:YES];
     return YES;
     
 }
 
-//修改列支出
+#pragma mark -修改列支出
 + (BOOL)editLineOutMoney:(CGFloat)outMoney line:(LineModel *)line
 {
     CGFloat oldOut = line.outMoney;
@@ -362,7 +478,8 @@ DEF_SINGLETON(RecordManager)
     
     return result;
 }
-//修改列收入
+
+#pragma mark -修改列收入
 + (BOOL)editLineGetMoney:(CGFloat)getMoney line:(LineModel *)line
 {
     CGFloat oldGet = line.getMoney;

@@ -9,8 +9,8 @@
 #import "FinanceButton.h"
 
 @interface FinanceView ()
-@property (nonatomic, strong) NSArray <FinanceButton *> *financeButtonList;
-@property (nonatomic, strong) NSMutableArray <UIButton *> *functionButtonList;
+@property (nonatomic, strong) NSArray <FinanceButton *> *financeButtonList; //展示的
+@property (nonatomic, strong) NSMutableArray <UIButton *> *functionButtonList; //右上角的按钮
 @end
 
 @implementation FinanceView
@@ -20,7 +20,7 @@
     self = [super initWithFrame:frame];
     if (self) {
         self.backgroundColor = [UIColor whiteColor];
-        self.layer.cornerRadius = 10;
+        self.layer.cornerRadius = DEFAULT_CORNER_RADIUS;
         [self setCommonShadow];
     }
     return self;
@@ -57,6 +57,7 @@
     CGFloat horEdge = 15;
     FinanceButton *headerButton = [[FinanceButton alloc] initWithFrame:CGRectMake(horEdge, 15, 200, 50)];
     [headerButton largerSize];
+    headerButton.userInteractionEnabled = NO; //目前先不加点击事件
     [self addSubview:headerButton];
     
     [temp addObject:headerButton];
@@ -72,6 +73,7 @@
         FinanceButton *btn = [[FinanceButton alloc] initWithFrame:CGRectMake(horEdge+w*(i%2), y+(btnH+verEdge)*(i/2), w, btnH)];
         [self addSubview:btn];
         [temp addObject:btn];
+        btn.userInteractionEnabled = NO; //目前先不加点击事件
     }
     
     _financeButtonList = temp.copy;
@@ -128,6 +130,15 @@
         _functionButtonList = [NSMutableArray array];
     }
     return _functionButtonList;
+}
+
+- (UIView *)hitTest:(CGPoint)point withEvent:(UIEvent *)event {
+    UIView *hitView = [super hitTest:point withEvent:event];
+    // 如果点击区域内没有可交互控件（按钮、输入框），手势穿透到下层tableView
+    if (hitView == self) {
+        return nil;
+    }
+    return hitView;
 }
 
 @end

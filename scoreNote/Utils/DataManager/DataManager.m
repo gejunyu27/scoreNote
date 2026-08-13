@@ -32,6 +32,18 @@ DEF_SINGLETON(DataManager)
 + (NSMutableArray <RecordModel *> *)queryAllRecords
 {
     NSString *sql = [NSString stringWithFormat:@"SELECT * FROM %@ ORDER BY id", t_record];
+    
+    FMResultSet *rs = [kDatabase executeQuery:sql];
+    
+    NSMutableArray *records = [self getRecordsFrom:rs];
+    
+    return records;
+}
+
+#pragma mark - 获取所有记录（根据完成时间倒序）
++ (NSMutableArray <RecordModel *> *)queryAllRecordsOrderDesc
+{
+    NSString *sql = [NSString stringWithFormat:@"SELECT * FROM %@ ORDER BY endTime DESC", t_record];
     FMResultSet *rs = [kDatabase executeQuery:sql];
     
     NSMutableArray *records = [self getRecordsFrom:rs];

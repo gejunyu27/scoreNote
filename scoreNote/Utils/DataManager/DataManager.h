@@ -8,7 +8,6 @@
 #import <Foundation/Foundation.h>
 #import "RecordModel.h"
 #import "TagModel.h"
-#import "LineModel.h"
 @class FMDatabase;
 
 NS_ASSUME_NONNULL_BEGIN
@@ -17,13 +16,16 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (NSString *)sqliteFilePath;
 
-#pragma mark -获取所有记录
+#pragma mark -获取所有记录（根据id正序）
 + (NSMutableArray <RecordModel *> *)queryAllRecords;
 
-#pragma mark -获取在跟记录
+#pragma mark - 获取所有记录（根据完成时间倒序）
++ (NSMutableArray <RecordModel *> *)queryAllRecordsOrderDesc;
+
+#pragma mark -获取在跟记录 暂时不用
 + (NSMutableArray <RecordModel *> *)queryFollowingRecords;
 
-#pragma mark -获取已完成记录（根据时间倒序）
+#pragma mark -获取已完成记录（根据时间倒序） 暂时不用
 + (NSMutableArray <RecordModel *> *)queryFinishRecords;
 
 #pragma mark -根据标签获取记录（根据时间倒序）

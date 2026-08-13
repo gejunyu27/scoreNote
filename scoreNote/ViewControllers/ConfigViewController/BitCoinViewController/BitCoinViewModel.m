@@ -7,7 +7,6 @@
 
 #import "BitCoinViewModel.h"
 #import "TagManager.h"
-#import "RecordManager.h"
 
 @implementation BitCoinViewModel
 

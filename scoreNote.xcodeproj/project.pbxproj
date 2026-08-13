@@ -72,6 +72,12 @@
 		4B0319832F79452C0041EFC7 /* CareerModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B03191D2F79452C0041EFC7 /* CareerModel.m */; };
 		4B0319852F794C100041EFC7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4B0319842F794C100041EFC7 /* Assets.xcassets */; };
 		4B0319882F79804D0041EFC7 /* NetworkReachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B0319872F79804D0041EFC7 /* NetworkReachability.m */; };
+		4B07EBAC3024CE34005C6CB9 /* Statistics‌ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B07EBAB3024CE34005C6CB9 /* Statistics‌ViewController.m */; };
+		4B07EBB23024CEF5005C6CB9 /* Statistics‌ViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B07EBB13024CEF5005C6CB9 /* Statistics‌ViewModel.m */; };
+		4B07EBBF30276D54005C6CB9 /* YearModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B07EBBE30276D54005C6CB9 /* YearModel.m */; };
+		4B07EBC230276D72005C6CB9 /* MonthModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B07EBC130276D72005C6CB9 /* MonthModel.m */; };
+		4B07EBC83028CD7B005C6CB9 /* StatisticsYearView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B07EBC73028CD7B005C6CB9 /* StatisticsYearView.m */; };
+		4B07EC75302B603F005C6CB9 /* StatisticsHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B07EC74302B603F005C6CB9 /* StatisticsHeaderView.m */; };
 		4B2280D93020EDAB003E2274 /* CalculatorView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B2280D83020EDAA003E2274 /* CalculatorView.m */; };
 		4B2280DC3020EF93003E2274 /* WebNaviBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B2280DB3020EF93003E2274 /* WebNaviBar.m */; };
 		4B2280DF30223056003E2274 /* ConfigViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B2280DE30223056003E2274 /* ConfigViewModel.m */; };
@@ -218,6 +224,18 @@
 		4B0319842F794C100041EFC7 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		4B0319862F79804D0041EFC7 /* NetworkReachability.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NetworkReachability.h; sourceTree = "<group>"; };
 		4B0319872F79804D0041EFC7 /* NetworkReachability.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NetworkReachability.m; sourceTree = "<group>"; };
+		4B07EBAA3024CE34005C6CB9 /* Statistics‌ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Statistics‌ViewController.h"; sourceTree = "<group>"; };
+		4B07EBAB3024CE34005C6CB9 /* Statistics‌ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "Statistics‌ViewController.m"; sourceTree = "<group>"; };
+		4B07EBB03024CEF5005C6CB9 /* Statistics‌ViewModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Statistics‌ViewModel.h"; sourceTree = "<group>"; };
+		4B07EBB13024CEF5005C6CB9 /* Statistics‌ViewModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "Statistics‌ViewModel.m"; sourceTree = "<group>"; };
+		4B07EBBD30276D54005C6CB9 /* YearModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YearModel.h; sourceTree = "<group>"; };
+		4B07EBBE30276D54005C6CB9 /* YearModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YearModel.m; sourceTree = "<group>"; };
+		4B07EBC030276D72005C6CB9 /* MonthModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MonthModel.h; sourceTree = "<group>"; };
+		4B07EBC130276D72005C6CB9 /* MonthModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MonthModel.m; sourceTree = "<group>"; };
+		4B07EBC63028CD7B005C6CB9 /* StatisticsYearView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StatisticsYearView.h; sourceTree = "<group>"; };
+		4B07EBC73028CD7B005C6CB9 /* StatisticsYearView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = StatisticsYearView.m; sourceTree = "<group>"; };
+		4B07EC73302B603F005C6CB9 /* StatisticsHeaderView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StatisticsHeaderView.h; sourceTree = "<group>"; };
+		4B07EC74302B603F005C6CB9 /* StatisticsHeaderView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = StatisticsHeaderView.m; sourceTree = "<group>"; };
 		4B2280D73020EDAA003E2274 /* CalculatorView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CalculatorView.h; sourceTree = "<group>"; };
 		4B2280D83020EDAA003E2274 /* CalculatorView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CalculatorView.m; sourceTree = "<group>"; };
 		4B2280DA3020EF93003E2274 /* WebNaviBar.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WebNaviBar.h; sourceTree = "<group>"; };
@@ -382,6 +400,7 @@
 				4B0319872F79804D0041EFC7 /* NetworkReachability.m */,
 				4B0318BC2F79452C0041EFC7 /* Base */,
 				4B0318CF2F79452C0041EFC7 /* Category */,
+				4B07EBBC30276BE3005C6CB9 /* RecordManager */,
 				4B0318D62F79452C0041EFC7 /* DataManager */,
 			);
 			path = Utils;
@@ -452,12 +471,6 @@
 				4B0319002F79452C0041EFC7 /* HomeViewController.m */,
 				4B0318FD2F79452C0041EFC7 /* HomeCell.h */,
 				4B0318FE2F79452C0041EFC7 /* HomeCell.m */,
-				4B0319052F79452C0041EFC7 /* RecordModel.h */,
-				4B0319062F79452C0041EFC7 /* RecordModel.m */,
-				4B0319012F79452C0041EFC7 /* LineModel.h */,
-				4B0319022F79452C0041EFC7 /* LineModel.m */,
-				4B0319032F79452C0041EFC7 /* RecordManager.h */,
-				4B0319042F79452C0041EFC7 /* RecordManager.m */,
 				4B0318FC2F79452C0041EFC7 /* RecordDetailViewController */,
 			);
 			path = HomeViewController;
@@ -556,6 +569,7 @@
 				4B0319382F79452C0041EFC7 /* MainTabBarController.m */,
 				4B0319072F79452C0041EFC7 /* HomeViewController */,
 				4BBB9E9D301E67F100B5FB7C /* WebViewController */,
+				4B07EBA93024CE10005C6CB9 /* Statistics‌ViewController */,
 				4B0319362F79452C0041EFC7 /* TotalViewController */,
 				4B0319182F79452C0041EFC7 /* TagViewController */,
 				4B0318F72F79452C0041EFC7 /* ConfigViewController */,
@@ -585,6 +599,38 @@
 				4B03193E2F79452C0041EFC7 /* NumberInputView */,
 			);
 			path = Views;
+			sourceTree = "<group>";
+		};
+		4B07EBA93024CE10005C6CB9 /* Statistics‌ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				4B07EBAA3024CE34005C6CB9 /* Statistics‌ViewController.h */,
+				4B07EBAB3024CE34005C6CB9 /* Statistics‌ViewController.m */,
+				4B07EC73302B603F005C6CB9 /* StatisticsHeaderView.h */,
+				4B07EC74302B603F005C6CB9 /* StatisticsHeaderView.m */,
+				4B07EBC63028CD7B005C6CB9 /* StatisticsYearView.h */,
+				4B07EBC73028CD7B005C6CB9 /* StatisticsYearView.m */,
+				4B07EBB03024CEF5005C6CB9 /* Statistics‌ViewModel.h */,
+				4B07EBB13024CEF5005C6CB9 /* Statistics‌ViewModel.m */,
+			);
+			path = "Statistics‌ViewController";
+			sourceTree = "<group>";
+		};
+		4B07EBBC30276BE3005C6CB9 /* RecordManager */ = {
+			isa = PBXGroup;
+			children = (
+				4B0319032F79452C0041EFC7 /* RecordManager.h */,
+				4B0319042F79452C0041EFC7 /* RecordManager.m */,
+				4B07EBBD30276D54005C6CB9 /* YearModel.h */,
+				4B07EBBE30276D54005C6CB9 /* YearModel.m */,
+				4B07EBC030276D72005C6CB9 /* MonthModel.h */,
+				4B07EBC130276D72005C6CB9 /* MonthModel.m */,
+				4B0319052F79452C0041EFC7 /* RecordModel.h */,
+				4B0319062F79452C0041EFC7 /* RecordModel.m */,
+				4B0319012F79452C0041EFC7 /* LineModel.h */,
+				4B0319022F79452C0041EFC7 /* LineModel.m */,
+			);
+			path = RecordManager;
 			sourceTree = "<group>";
 		};
 		4B0CD2D62FC4989D00B45BA6 /* BitCoinViewController */ = {
@@ -803,6 +849,7 @@
 				4B0319672F79452C0041EFC7 /* RecordModel.m in Sources */,
 				4B0319682F79452C0041EFC7 /* TagDetailCell.m in Sources */,
 				4B2280D93020EDAB003E2274 /* CalculatorView.m in Sources */,
+				4B07EBB23024CEF5005C6CB9 /* Statistics‌ViewModel.m in Sources */,
 				4B0319692F79452C0041EFC7 /* TagRankViewController.m in Sources */,
 				4B03196A2F79452C0041EFC7 /* TagRankModel.m in Sources */,
 				4B2280DC3020EF93003E2274 /* WebNaviBar.m in Sources */,
@@ -817,7 +864,10 @@
 				4B0319722F79452C0041EFC7 /* BitCoinViewController.m in Sources */,
 				4B0319732F79452C0041EFC7 /* TotalHeaderView.m in Sources */,
 				4B0319742F79452C0041EFC7 /* TotalViewModel.m in Sources */,
+				4B07EBBF30276D54005C6CB9 /* YearModel.m in Sources */,
+				4B07EBC83028CD7B005C6CB9 /* StatisticsYearView.m in Sources */,
 				4B0319752F79452C0041EFC7 /* RecordManager.m in Sources */,
+				4B07EBC230276D72005C6CB9 /* MonthModel.m in Sources */,
 				4B0319762F79452C0041EFC7 /* UIControl+SCExtension.m in Sources */,
 				4B0319772F79452C0041EFC7 /* TotalCell.m in Sources */,
 				4B0319782F79452C0041EFC7 /* NSError+SCExtension.m in Sources */,
@@ -825,6 +875,8 @@
 				4B03197A2F79452C0041EFC7 /* ColumnModel.m in Sources */,
 				4B42D1472FD58BD000816442 /* BitCoinCell.m in Sources */,
 				4B03197B2F79452C0041EFC7 /* LineModel.m in Sources */,
+				4B07EBAC3024CE34005C6CB9 /* Statistics‌ViewController.m in Sources */,
+				4B07EC75302B603F005C6CB9 /* StatisticsHeaderView.m in Sources */,
 				4B03197D2F79452C0041EFC7 /* SqlEditViewController.m in Sources */,
 				4B03197E2F79452C0041EFC7 /* BaseNavigationController.m in Sources */,
 				4B03197F2F79452C0041EFC7 /* NSDate+SCExtension.m in Sources */,
