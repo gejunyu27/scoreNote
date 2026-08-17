@@ -12,7 +12,7 @@
 
 //#define url_score @"https://m.okooo.com/live/"   //澳客体育
 #define url_score @"https://zucaijia.cn/zcj/H5App/index"    //加加体育
-#define naviY (NAV_BAR_HEIGHT+(IS_BANGS_SCREEN ? 15 : 8))   //原生导航栏初始高度 适配机型
+#define naviY (NAV_BAR_HEIGHT+8)    //原生导航栏初始高度 适配机型
 
 @interface ScoreViewController ()<WKNavigationDelegate, UIScrollViewDelegate, WebNaviBarDelegate>
 @property (nonatomic, strong) WKWebView *webView;

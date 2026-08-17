@@ -55,7 +55,7 @@
     NSMutableArray *temp = [NSMutableArray arrayWithCapacity:count];
     
     CGFloat horEdge = 15;
-    FinanceButton *headerButton = [[FinanceButton alloc] initWithFrame:CGRectMake(horEdge, 15, 200, 50)];
+    FinanceButton *headerButton = [[FinanceButton alloc] initWithFrame:CGRectMake(horEdge, 15, 200, 60)];
     [headerButton largerSize];
     headerButton.userInteractionEnabled = NO; //目前先不加点击事件
     [self addSubview:headerButton];
@@ -64,8 +64,8 @@
     
     //1排两个，剩下按钮占几排
     NSInteger lines = (count-1)/2;
-    CGFloat btnH = 40;
-    CGFloat verEdge = 5;
+    CGFloat btnH = 50;
+    CGFloat verEdge = 10;
     CGFloat y = self.height - btnH*lines - verEdge*lines;
     CGFloat w = (self.width-horEdge*2)/2;
     
@@ -82,7 +82,8 @@
     if (lines > 0) {
         CGFloat lineH = 0.5;
         UIView *line = [[UIView alloc] initWithFrame:CGRectMake(horEdge, y-10-lineH, self.width-horEdge*2, lineH)];
-        line.backgroundColor = HEX_RGB(@"#F1F1F1");
+        line.backgroundColor = HEX_RGB(@"#88B8ED");
+        line.alpha = 0.6;
         [self addSubview:line];
     }
 }

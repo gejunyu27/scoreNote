@@ -26,6 +26,7 @@
     
     [self setupTabBar];
     
+//    [self setupNaviBar]; //用毛玻璃效果
 }
 
 - (void)createTabs
@@ -38,7 +39,7 @@
     
     [temp addObject:[self getNavVcFrom:[ScoreViewController new] title:@"比分" tabImage:@"Tab_Score" tabSelectedImage:@"Tab_Score_selected"]];
     
-    [temp addObject:[self getNavVcFrom:[TotalViewController new] title:@"统计" tabImage:@"Tab_Total" tabSelectedImage:@"Tab_Total_selected"]];
+//    [temp addObject:[self getNavVcFrom:[TotalViewController new] title:@"统计" tabImage:@"Tab_Total" tabSelectedImage:@"Tab_Total_selected"]];
     
     //开发中
     [temp addObject:[self getNavVcFrom:[StatisticsViewController new] title:@"统计" tabImage:@"Tab_Total" tabSelectedImage:@"Tab_Total_selected"]];
@@ -87,6 +88,28 @@
         [item setTitleTextAttributes:kNormalTextAttributes forState:UIControlStateNormal];
         [item setTitleTextAttributes:kSelectedTextAttributes forState:UIControlStateSelected];
     }
+}
+
+- (void)setupNaviBar
+{
+    UINavigationBarAppearance *navBarAppearance = [[UINavigationBarAppearance alloc] init];
+    // ✅关键：启用不透明背景，关闭系统毛玻璃材质
+    [navBarAppearance configureWithOpaqueBackground];
+    // 设置默认底色（你想要的默认白色）
+    navBarAppearance.backgroundColor = [UIColor whiteColor];
+    
+    // 标题文字颜色
+    navBarAppearance.titleTextAttributes = @{NSForegroundColorAttributeName:[UIColor blackColor]};
+    // 底部分割线（不需要就设clear）
+    navBarAppearance.shadowColor = [UIColor clearColor];
+    
+    // 重中之重：standardAppearance + scrollEdgeAppearance 必须同时赋值
+    // scrollEdgeAppearance 控制列表滚动到顶部时不会自动变透明毛玻璃
+    [UINavigationBar appearance].standardAppearance = navBarAppearance;
+    [UINavigationBar appearance].scrollEdgeAppearance = navBarAppearance;
+    
+    // 全局统一按钮颜色（返回箭头、导航栏按钮）
+    [UINavigationBar appearance].tintColor = [UIColor blackColor];
 }
 
 @end

@@ -14,3 +14,17 @@ NS_ASSUME_NONNULL_BEGIN
 @end
 
 NS_ASSUME_NONNULL_END
+
+
+/**
+ 必做重大改动
+ 1.统计页重写：1.日期跳转详情页 2.折线图卡片，点击跳转生涯页面 结合数据和折线图  3.标签排行卡片，一页暂定10个，考虑动态调高度
+ 2.几个详情页tableview重写，为普通分割线UI
+ 3.考虑标签页放置位置，目前倾向于首页navibar左侧
+ 
+ 小优化
+ 1.首页UI优化
+  2.删除overtagname
+ 3.web自动刷新
+ 
+ */

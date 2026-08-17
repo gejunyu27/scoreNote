@@ -16,12 +16,19 @@
 #define SCREEN_HEIGHT         [[UIScreen mainScreen] bounds].size.height
 //像素适配
 #define SCREEN_FIX(P)         ((float)floor((SCREEN_WIDTH * P) / 375.0))
-//状态栏 导航栏
-#define STATUS_BAR_HEIGHT     ((UIWindowScene *)[UIApplication sharedApplication].connectedScenes.anyObject).statusBarManager.statusBarFrame.size.height //如果隐藏状态栏，该取值会出错
-#define NAV_BAR_HEIGHT        (STATUS_BAR_HEIGHT + 44.f)
-
+//系统栏
 //是否是刘海屏
 #define IS_BANGS_SCREEN       (STATUS_BAR_HEIGHT > 20)
+//状态栏高度
+#define STATUS_BAR_HEIGHT     ((UIWindowScene *)[UIApplication sharedApplication].connectedScenes.anyObject).statusBarManager.statusBarFrame.size.height //如果隐藏状态栏，该取值会出错
+//导航栏标准高度
+#define NAVI_TITLE_HEIGHT     44.f
+//灵动岛高度
+#define ISLAND_HEIGHT         62.f   //灵动岛高度
+#define NAV_BAR_HEIGHT        (IS_BANGS_SCREEN ? (ISLAND_HEIGHT+NAVI_TITLE_HEIGHT) : (STATUS_BAR_HEIGHT + NAVI_TITLE_HEIGHT))
+#define SCROLL_SAFE_TOP       (NAV_BAR_HEIGHT+10) //scorllview会向下多偏移出10的距离
+
+
 #define SCREEN_SAFE_BOTTOM    (IS_BANGS_SCREEN ? 34.f : 0.f)   
 #define TAB_BAR_HEIGHT        (SCREEN_SAFE_BOTTOM + 49.f)
 

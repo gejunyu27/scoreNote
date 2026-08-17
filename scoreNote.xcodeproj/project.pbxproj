@@ -76,8 +76,10 @@
 		4B07EBB23024CEF5005C6CB9 /* Statistics‌ViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B07EBB13024CEF5005C6CB9 /* Statistics‌ViewModel.m */; };
 		4B07EBBF30276D54005C6CB9 /* YearModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B07EBBE30276D54005C6CB9 /* YearModel.m */; };
 		4B07EBC230276D72005C6CB9 /* MonthModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B07EBC130276D72005C6CB9 /* MonthModel.m */; };
-		4B07EBC83028CD7B005C6CB9 /* StatisticsYearView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B07EBC73028CD7B005C6CB9 /* StatisticsYearView.m */; };
-		4B07EC75302B603F005C6CB9 /* StatisticsHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B07EC74302B603F005C6CB9 /* StatisticsHeaderView.m */; };
+		4B07EC7E303200E9005C6CB9 /* StatisticsCalendarView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B07EC7D303200E9005C6CB9 /* StatisticsCalendarView.m */; };
+		4B07EC8830320FBF005C6CB9 /* SegmentedView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B07EC8730320FBF005C6CB9 /* SegmentedView.m */; };
+		4B07EC8B303344DF005C6CB9 /* SwitchYearView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B07EC8A303344DF005C6CB9 /* SwitchYearView.m */; };
+		4B07EC9330335430005C6CB9 /* CalendarDateItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B07EC9230335430005C6CB9 /* CalendarDateItem.m */; };
 		4B2280D93020EDAB003E2274 /* CalculatorView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B2280D83020EDAA003E2274 /* CalculatorView.m */; };
 		4B2280DC3020EF93003E2274 /* WebNaviBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B2280DB3020EF93003E2274 /* WebNaviBar.m */; };
 		4B2280DF30223056003E2274 /* ConfigViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B2280DE30223056003E2274 /* ConfigViewModel.m */; };
@@ -232,10 +234,14 @@
 		4B07EBBE30276D54005C6CB9 /* YearModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YearModel.m; sourceTree = "<group>"; };
 		4B07EBC030276D72005C6CB9 /* MonthModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MonthModel.h; sourceTree = "<group>"; };
 		4B07EBC130276D72005C6CB9 /* MonthModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MonthModel.m; sourceTree = "<group>"; };
-		4B07EBC63028CD7B005C6CB9 /* StatisticsYearView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StatisticsYearView.h; sourceTree = "<group>"; };
-		4B07EBC73028CD7B005C6CB9 /* StatisticsYearView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = StatisticsYearView.m; sourceTree = "<group>"; };
-		4B07EC73302B603F005C6CB9 /* StatisticsHeaderView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StatisticsHeaderView.h; sourceTree = "<group>"; };
-		4B07EC74302B603F005C6CB9 /* StatisticsHeaderView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = StatisticsHeaderView.m; sourceTree = "<group>"; };
+		4B07EC7C303200E9005C6CB9 /* StatisticsCalendarView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StatisticsCalendarView.h; sourceTree = "<group>"; };
+		4B07EC7D303200E9005C6CB9 /* StatisticsCalendarView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = StatisticsCalendarView.m; sourceTree = "<group>"; };
+		4B07EC8630320FBF005C6CB9 /* SegmentedView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SegmentedView.h; sourceTree = "<group>"; };
+		4B07EC8730320FBF005C6CB9 /* SegmentedView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SegmentedView.m; sourceTree = "<group>"; };
+		4B07EC89303344DF005C6CB9 /* SwitchYearView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SwitchYearView.h; sourceTree = "<group>"; };
+		4B07EC8A303344DF005C6CB9 /* SwitchYearView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SwitchYearView.m; sourceTree = "<group>"; };
+		4B07EC9130335430005C6CB9 /* CalendarDateItem.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CalendarDateItem.h; sourceTree = "<group>"; };
+		4B07EC9230335430005C6CB9 /* CalendarDateItem.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CalendarDateItem.m; sourceTree = "<group>"; };
 		4B2280D73020EDAA003E2274 /* CalculatorView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CalculatorView.h; sourceTree = "<group>"; };
 		4B2280D83020EDAA003E2274 /* CalculatorView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CalculatorView.m; sourceTree = "<group>"; };
 		4B2280DA3020EF93003E2274 /* WebNaviBar.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WebNaviBar.h; sourceTree = "<group>"; };
@@ -595,6 +601,8 @@
 				4B0319442F79452C0041EFC7 /* TagSelectView.m */,
 				4B0319412F79452C0041EFC7 /* SCToolBar.h */,
 				4B0319422F79452C0041EFC7 /* SCToolBar.m */,
+				4B07EC8630320FBF005C6CB9 /* SegmentedView.h */,
+				4B07EC8730320FBF005C6CB9 /* SegmentedView.m */,
 				4B42D10F2FD1B5E200816442 /* FinanceView */,
 				4B03193E2F79452C0041EFC7 /* NumberInputView */,
 			);
@@ -606,10 +614,7 @@
 			children = (
 				4B07EBAA3024CE34005C6CB9 /* Statistics‌ViewController.h */,
 				4B07EBAB3024CE34005C6CB9 /* Statistics‌ViewController.m */,
-				4B07EC73302B603F005C6CB9 /* StatisticsHeaderView.h */,
-				4B07EC74302B603F005C6CB9 /* StatisticsHeaderView.m */,
-				4B07EBC63028CD7B005C6CB9 /* StatisticsYearView.h */,
-				4B07EBC73028CD7B005C6CB9 /* StatisticsYearView.m */,
+				4B07EC7F303203DC005C6CB9 /* StatisticsCalendarView */,
 				4B07EBB03024CEF5005C6CB9 /* Statistics‌ViewModel.h */,
 				4B07EBB13024CEF5005C6CB9 /* Statistics‌ViewModel.m */,
 			);
@@ -631,6 +636,19 @@
 				4B0319022F79452C0041EFC7 /* LineModel.m */,
 			);
 			path = RecordManager;
+			sourceTree = "<group>";
+		};
+		4B07EC7F303203DC005C6CB9 /* StatisticsCalendarView */ = {
+			isa = PBXGroup;
+			children = (
+				4B07EC7C303200E9005C6CB9 /* StatisticsCalendarView.h */,
+				4B07EC7D303200E9005C6CB9 /* StatisticsCalendarView.m */,
+				4B07EC89303344DF005C6CB9 /* SwitchYearView.h */,
+				4B07EC8A303344DF005C6CB9 /* SwitchYearView.m */,
+				4B07EC9130335430005C6CB9 /* CalendarDateItem.h */,
+				4B07EC9230335430005C6CB9 /* CalendarDateItem.m */,
+			);
+			path = StatisticsCalendarView;
 			sourceTree = "<group>";
 		};
 		4B0CD2D62FC4989D00B45BA6 /* BitCoinViewController */ = {
@@ -810,6 +828,7 @@
 				4B5890DA301F7F3C0026300A /* SportteryViewController.m in Sources */,
 				4B0318B02F7944FF0041EFC7 /* AppDelegate.m in Sources */,
 				4B0318B12F7944FF0041EFC7 /* main.m in Sources */,
+				4B07EC7E303200E9005C6CB9 /* StatisticsCalendarView.m in Sources */,
 				4B0319482F79452C0041EFC7 /* SCToolBar.m in Sources */,
 				4BBB9EA0301E682700B5FB7C /* ScoreViewController.m in Sources */,
 				4B03194A2F79452C0041EFC7 /* RecordDetailCell.m in Sources */,
@@ -824,6 +843,7 @@
 				4B0319532F79452C0041EFC7 /* CareerCell.m in Sources */,
 				4B0319542F79452C0041EFC7 /* HomeViewController.m in Sources */,
 				4B2280DF30223056003E2274 /* ConfigViewModel.m in Sources */,
+				4B07EC8B303344DF005C6CB9 /* SwitchYearView.m in Sources */,
 				4B0319552F79452C0041EFC7 /* NSObject+SCHUD.m in Sources */,
 				4B0319562F79452C0041EFC7 /* BaseViewController.m in Sources */,
 				4B0319572F79452C0041EFC7 /* CareerViewController.m in Sources */,
@@ -844,6 +864,7 @@
 				4B42D1182FD1B6F300816442 /* FinanceModel.m in Sources */,
 				4B0319622F79452C0041EFC7 /* SqlEditUtil.m in Sources */,
 				4B0319632F79452C0041EFC7 /* TagManager.m in Sources */,
+				4B07EC9330335430005C6CB9 /* CalendarDateItem.m in Sources */,
 				4B0319642F79452C0041EFC7 /* TotalViewController.m in Sources */,
 				4B0319662F79452C0041EFC7 /* NSString+SCExtension.m in Sources */,
 				4B0319672F79452C0041EFC7 /* RecordModel.m in Sources */,
@@ -854,6 +875,7 @@
 				4B03196A2F79452C0041EFC7 /* TagRankModel.m in Sources */,
 				4B2280DC3020EF93003E2274 /* WebNaviBar.m in Sources */,
 				4B03196B2F79452C0041EFC7 /* MainTabBarController.m in Sources */,
+				4B07EC8830320FBF005C6CB9 /* SegmentedView.m in Sources */,
 				4B03196C2F79452C0041EFC7 /* TotalSectionModel.m in Sources */,
 				4B03196D2F79452C0041EFC7 /* UIView+SCExtension.m in Sources */,
 				4B03196E2F79452C0041EFC7 /* SqlLineViewController.m in Sources */,
@@ -865,7 +887,6 @@
 				4B0319732F79452C0041EFC7 /* TotalHeaderView.m in Sources */,
 				4B0319742F79452C0041EFC7 /* TotalViewModel.m in Sources */,
 				4B07EBBF30276D54005C6CB9 /* YearModel.m in Sources */,
-				4B07EBC83028CD7B005C6CB9 /* StatisticsYearView.m in Sources */,
 				4B0319752F79452C0041EFC7 /* RecordManager.m in Sources */,
 				4B07EBC230276D72005C6CB9 /* MonthModel.m in Sources */,
 				4B0319762F79452C0041EFC7 /* UIControl+SCExtension.m in Sources */,
@@ -876,7 +897,6 @@
 				4B42D1472FD58BD000816442 /* BitCoinCell.m in Sources */,
 				4B03197B2F79452C0041EFC7 /* LineModel.m in Sources */,
 				4B07EBAC3024CE34005C6CB9 /* Statistics‌ViewController.m in Sources */,
-				4B07EC75302B603F005C6CB9 /* StatisticsHeaderView.m in Sources */,
 				4B03197D2F79452C0041EFC7 /* SqlEditViewController.m in Sources */,
 				4B03197E2F79452C0041EFC7 /* BaseNavigationController.m in Sources */,
 				4B03197F2F79452C0041EFC7 /* NSDate+SCExtension.m in Sources */,
@@ -928,7 +948,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.5.1;
+				MARKETING_VERSION = 3.0.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.junyu.scoreNote5;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				STRING_CATALOG_GENERATE_SYMBOLS = YES;
@@ -966,7 +986,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.5.1;
+				MARKETING_VERSION = 3.0.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.junyu.scoreNote5;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				STRING_CATALOG_GENERATE_SYMBOLS = YES;

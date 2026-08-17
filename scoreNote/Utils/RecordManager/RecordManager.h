@@ -17,8 +17,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 //已完成年份
 + (NSMutableArray <YearModel *> *)finishYears;
-//进行中
-+ (YearModel *)followingYear;
+
 //进行中的单子
 + (NSMutableArray <RecordModel *> *)followingRecords;
 

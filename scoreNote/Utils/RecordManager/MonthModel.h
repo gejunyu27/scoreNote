@@ -12,7 +12,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface MonthModel : NSObject
 @property (nonatomic, strong, readonly) NSMutableArray <RecordModel *> *records;
-@property (nonatomic, assign) BOOL isFollowing; //进行中
 @property (nonatomic, copy) NSString *title;
 
 @property (nonatomic, assign) CGFloat allProfit;

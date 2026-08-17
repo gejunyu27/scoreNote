@@ -40,10 +40,10 @@ DEF_SINGLETON(DataManager)
     return records;
 }
 
-#pragma mark - 获取所有记录（根据完成时间倒序）
-+ (NSMutableArray <RecordModel *> *)queryAllRecordsOrderDesc
+#pragma mark - 获取所有记录（根据完成时间正序）
++ (NSMutableArray <RecordModel *> *)queryAllRecordsOrderEndTime
 {
-    NSString *sql = [NSString stringWithFormat:@"SELECT * FROM %@ ORDER BY endTime DESC", t_record];
+    NSString *sql = [NSString stringWithFormat:@"SELECT * FROM %@ ORDER BY endTime", t_record];
     FMResultSet *rs = [kDatabase executeQuery:sql];
     
     NSMutableArray *records = [self getRecordsFrom:rs];

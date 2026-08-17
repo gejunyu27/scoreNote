@@ -1,4 +1,5 @@
 PODS:
+  - AAChartKit (10.0.0)
   - FMDB (2.7.12):
     - FMDB/standard (= 2.7.12)
   - FMDB/Core (2.7.12)
@@ -7,18 +8,21 @@ PODS:
   - IQKeyboardManager (6.5.19)
 
 DEPENDENCIES:
+  - AAChartKit
   - FMDB
   - IQKeyboardManager
 
 SPEC REPOS:
   trunk:
+    - AAChartKit
     - FMDB
     - IQKeyboardManager
 
 SPEC CHECKSUMS:
+  AAChartKit: bc5f4cd72b9e2b15d338e0576408cfbe5744294a
   FMDB: 728731dd336af3936ce00f91d9d8495f5718a0e6
   IQKeyboardManager: c8665b3396bd0b79402b4c573eac345a31c7d485
 
-PODFILE CHECKSUM: b860493c99108e2d93ef89c62b9753a186bb0ecf
+PODFILE CHECKSUM: c888be161b93b1ce0e35c67d4ce721e63778ccf6
 
 COCOAPODS: 1.15.2

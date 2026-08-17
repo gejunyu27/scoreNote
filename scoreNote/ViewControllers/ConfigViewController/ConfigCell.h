@@ -6,7 +6,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "ConfigModel.h"
+#import "ConfigSectionModel.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -20,8 +20,9 @@ NS_ASSUME_NONNULL_BEGIN
 @end
 
 @interface ConfigCell : UITableViewCell
-@property (nonatomic, strong) ConfigModel *model;
 @property (nonatomic, weak) id <ConfigCellDelegate> delegate;
+
+- (void)update:(ConfigSectionModel *)sectionModel index:(NSInteger)index;
 @end
 
 NS_ASSUME_NONNULL_END

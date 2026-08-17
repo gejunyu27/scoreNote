@@ -26,6 +26,9 @@ NS_ASSUME_NONNULL_BEGIN
 //设置阴影
 - (void)setShadowWithColor:(UIColor *)color opacity:(CGFloat)opacity offset:(CGSize)offset radius:(CGFloat)radius;
 - (void)setCommonShadow; //常用阴影
+//渐变色
+//从上到下
+- (void)setGradientColorWithTopColor:(UIColor *)topColor bottomColor:(UIColor *)bottomColor;
 @end
 
 NS_ASSUME_NONNULL_END

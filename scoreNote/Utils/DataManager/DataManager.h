@@ -20,7 +20,7 @@ NS_ASSUME_NONNULL_BEGIN
 + (NSMutableArray <RecordModel *> *)queryAllRecords;
 
 #pragma mark - 获取所有记录（根据完成时间倒序）
-+ (NSMutableArray <RecordModel *> *)queryAllRecordsOrderDesc;
++ (NSMutableArray <RecordModel *> *)queryAllRecordsOrderEndTime;
 
 #pragma mark -获取在跟记录 暂时不用
 + (NSMutableArray <RecordModel *> *)queryFollowingRecords;

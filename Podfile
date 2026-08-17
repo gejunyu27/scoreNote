@@ -18,6 +18,7 @@ target 'scoreNote' do
 #  pod 'YYModel', '1.0.4'
 #  pod 'SVProgressHUD'
   pod 'IQKeyboardManager'
+  pod 'AAChartKit'
 end
 
 # 强制统一所有Pods编译版本（关键）

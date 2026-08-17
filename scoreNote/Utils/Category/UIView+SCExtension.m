@@ -7,6 +7,7 @@
 //
 
 #import "UIView+SCExtension.h"
+#import <QuartzCore/QuartzCore.h>
 
 @implementation UIView (SCExtension)
 
@@ -121,4 +122,33 @@
     [self setShadowWithColor:[UIColor lightGrayColor] opacity:0.2 offset:CGSizeMake(2, 2) radius:4];
 }
 
+
+//渐变色
+//从上到下
+- (void)setGradientColorWithTopColor:(UIColor *)topColor bottomColor:(UIColor *)bottomColor
+{
+    // 移除旧渐变，防止重复叠加
+        for (CALayer *layer in self.layer.sublayers) {
+            if ([layer isKindOfClass:[CAGradientLayer class]]) {
+                [layer removeFromSuperlayer];
+            }
+        }
+        
+        CAGradientLayer *gradientLayer = [CAGradientLayer layer];
+        gradientLayer.frame = self.bounds;
+        // 渐变方向：垂直从上到下
+        gradientLayer.startPoint = CGPointMake(0.5, 0.0);
+        gradientLayer.endPoint = CGPointMake(0.5, 1.0);
+        
+        // 颜色：顶部蓝色，底部白色
+        gradientLayer.colors = @[
+            (__bridge id)topColor.CGColor,
+            (__bridge id)bottomColor.CGColor
+        ];
+        
+        // 渐变分割位置（0顶部，1底部）
+        gradientLayer.locations = @[@0.0, @1.0];
+        
+        [self.layer insertSublayer:gradientLayer atIndex:0];
+}
 @end

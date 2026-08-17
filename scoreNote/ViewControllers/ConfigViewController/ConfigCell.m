@@ -14,6 +14,7 @@
 @property (nonatomic, strong) UIButton *switchButton;
 @property (nonatomic, strong) UIImageView *arrowIcon;
 @property (nonatomic, strong) UIView *sepLine;
+@property (nonatomic, strong) ConfigModel *model;
 @end
 
 @implementation ConfigCell
@@ -28,6 +29,44 @@
 }
 
 #pragma mark -data
+- (void)update:(ConfigSectionModel *)sectionModel index:(NSInteger)index
+{
+    NSArray *models = sectionModel.models;
+    if (index >= models.count) {
+        return;
+    }
+    
+    ConfigModel *model = models[index];
+    self.model = model;
+    
+    self.sepLine.hidden = NO;
+    if (index > 0 && index < models.count-1) { //中间的
+        self.bgView.layer.cornerRadius = 0;
+        self.bgView.layer.masksToBounds = NO;
+        
+    }else {
+        self.bgView.layer.cornerRadius = DEFAULT_CORNER_RADIUS;
+        self.bgView.layer.masksToBounds = YES;
+        
+        //特殊情况，总共只有一个元素
+        if (models.count == 1) {
+            self.bgView.layer.maskedCorners = kCALayerMinXMaxYCorner | kCALayerMaxXMaxYCorner | kCALayerMinXMinYCorner | kCALayerMaxXMinYCorner;
+            self.sepLine.hidden = YES;
+            
+        }else if (index == 0) { //第一个
+            // 只开启左上、右上圆角
+            self.bgView.layer.maskedCorners = kCALayerMinXMinYCorner | kCALayerMaxXMinYCorner;
+        }else if (index == models.count - 1) {
+            //左下、右下角圆角
+            self.bgView.layer.maskedCorners = kCALayerMinXMaxYCorner | kCALayerMaxXMaxYCorner;
+            self.sepLine.hidden = YES;
+        }
+        
+    }
+
+}
+
+
 - (void)setModel:(ConfigModel *)model
 {
     _model = model;
@@ -50,22 +89,6 @@
         self.contentLabel.text = model.content?:@"";
     }
     
-    //分隔线
-    self.sepLine.hidden = (model.position == ConfigPositionBottom);
-    
-    //圆角
-    if (model.position == ConfigPositionCenter) {
-        self.bgView.layer.cornerRadius = 0;
-        self.bgView.layer.masksToBounds = NO;
-    }else {
-        self.bgView.layer.cornerRadius = 8;
-        self.bgView.layer.masksToBounds = YES;
-        if (model.position == ConfigPositionTop) { // 只开启左上、右上圆角
-            self.bgView.layer.maskedCorners = kCALayerMinXMinYCorner | kCALayerMaxXMinYCorner;
-        }else { //左下、右下角圆角
-            self.bgView.layer.maskedCorners = kCALayerMinXMaxYCorner | kCALayerMaxXMaxYCorner;
-        }
-    }
 }
 
 #pragma mark -action
@@ -139,9 +162,8 @@
 - (UIView *)sepLine
 {
     if (!_sepLine) {
-        CGFloat margin = self.titleLabel.left;  //左右间距一样
         CGFloat h = 1;
-        _sepLine = [[UIView alloc] initWithFrame:CGRectMake(margin, self.bgView.height-h, self.bgView.width-margin*2, h)];
+        _sepLine = [[UIView alloc] initWithFrame:CGRectMake(kMargin, self.bgView.height-h, self.bgView.width-kMargin*2, h)];
         _sepLine.backgroundColor = HEX_RGB(@"#E6E6E6");
         [self.bgView addSubview:_sepLine];
     }

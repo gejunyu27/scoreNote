@@ -14,7 +14,6 @@ NS_ASSUME_NONNULL_BEGIN
 @end
 
 @implementation ConfigModel
-
 - (instancetype)initWithType:(ConfigType)type
 {
     self = [super init];

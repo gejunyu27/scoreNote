@@ -62,11 +62,8 @@
     
     if (indexPath.section < self.viewModel.sectionList.count) {
         ConfigSectionModel *sectionModel = self.viewModel.sectionList[indexPath.section];
-        if (indexPath.row < sectionModel.models.count) {
-            ConfigModel *model = sectionModel.models[indexPath.row];
-            cell.model = model;
-            cell.delegate = self;
-        }
+        [cell update:sectionModel index:indexPath.row];
+        cell.delegate = self;
     }
     
     return cell;
@@ -259,7 +256,7 @@
         _tableView.dataSource = self;
         _tableView.delegate = self;
         _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-        _tableView.backgroundColor = HEX_RGB(@"#F6F6F6");
+        _tableView.backgroundColor = DEFAULT_BG_COLOR;
         _tableView.sectionHeaderTopPadding = 0;
         _tableView.rowHeight = kConfigCellH;
         [_tableView registerClass:ConfigCell.class forCellReuseIdentifier:kConfigCellId];

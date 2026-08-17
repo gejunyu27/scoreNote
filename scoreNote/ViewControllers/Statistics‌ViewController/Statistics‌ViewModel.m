@@ -32,11 +32,6 @@
     return self;
 }
 
-//- (NSMutableArray<YearModel *> *)yearModels
-//{
-//    return [RecordManager yearModels];
-//}
-
 - (void)update
 {
     //清除数据
@@ -97,35 +92,29 @@
 {
     NSMutableArray <YearModel *> *temp = [NSMutableArray array];
     
-    //先添加进行中的 为了统计准确性，进行中的把还未投注的剔除
-    YearModel *followingYear = [RecordManager followingYear];
-    if (followingYear && followingYear.monthModels.count > 0) {
-        YearModel *copyYear = [YearModel new];
-        copyYear.isFollowing = YES;
-        copyYear.title = followingYear.title;
-        MonthModel *fMonth = followingYear.monthModels.firstObject;
-        if (fMonth.records.count > 0) {
-            MonthModel *copyMonth = [MonthModel new];
-            copyMonth.isFollowing = YES;
-            copyMonth.title = fMonth.title;
-            [copyYear.monthModels addObject:copyMonth];
-            
-            for (RecordModel *fRecord in fMonth.records) {
-                if (fRecord.lineList.count > 0) {
-                    [copyMonth.records addObject:fRecord];
-                }
-            }
-            
-            if (copyMonth.records.count > 0) {
-                [temp addObject:copyYear];
-            }
-            
-        }
-
-    }
-    
-    //再添加已完成的
+    //先添加已完成
     [temp addObjectsFromArray:[RecordManager finishYears]];
+    
+    //再添加进行中的 为了统计准确性，进行中的把还未投注的剔除
+    NSArray *followingRecords = [RecordManager followingRecords];
+    if (followingRecords.count > 0) {
+        YearModel *fYear = [YearModel new];
+        fYear.title = @"进行中";
+        fYear.isFollowing = YES;
+        MonthModel *fMonth = [MonthModel new];
+        fMonth.title = [[NSDate date] getStringWithDateFormat:@"MM月"];
+        [fYear.monthModels addObject:fMonth];
+        
+        for (RecordModel *fRecord in followingRecords) { //只添加有购买记录的
+            if (fRecord.lineList.count > 0) {
+                [fMonth.records addObject:fRecord];
+            }
+        }
+        
+        if (fMonth.records.count > 0) {
+            [temp addObject:fYear];
+        }
+    }
     
     _yearModels = temp.copy;
 }

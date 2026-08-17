@@ -9,13 +9,11 @@
 #import "TagManager.h"
 #import "YearModel.h"
 
-#define kFollowingTip @"进行中"
-
 @interface RecordManager ()
 @property (nonatomic, copy) baseBlock updateBlock;
 //@property (nonatomic, strong) NSMutableArray <YearModel *> *yearModels;
 @property (nonatomic, strong) NSMutableArray <YearModel *> *finishYears; //已完成年份
-@property (nonatomic, strong) YearModel *followingYear;//进行中
+@property (nonatomic, strong) NSMutableArray <RecordModel *> *followingRecords;
 
 @end
 
@@ -49,26 +47,22 @@ DEF_SINGLETON(RecordManager)
 
 - (void)initData
 {
+    //从数据库根据完成时间取出所有数据
+    NSMutableArray <RecordModel *> *allRecords = [DataManager queryAllRecordsOrderEndTime];
+    
     //已完成数据
     _finishYears = [NSMutableArray array];
-    //从数据库倒序获取已完成数据
-    NSMutableArray <RecordModel *> *finishRecords = [DataManager queryFinishRecords];
-    //分类
-    for (RecordModel *record in finishRecords) {
-        [self createYearAndMonthFromRecord:record save:YES];
-    }
-    
     //进行中数据
-    _followingYear = nil;
-    //从数据库获取未完成数据
-    NSMutableArray <RecordModel *> *followingRecords = [DataManager queryFollowingRecords];
-    for (RecordModel *record in followingRecords) {
-        [self createYearAndMonthFromRecord:record save:YES];
+    _followingRecords = [NSMutableArray array];
+    
+    //分类
+    for (RecordModel *record in allRecords) {
+        [self saveFinishRecord:record];
     }
     
-    if (_followingYear.monthModels.count > 0) { //把已经有投注记录的放到前面
-        MonthModel *fMonth = _followingYear.monthModels.firstObject;
-        [fMonth.records sortUsingComparator:^NSComparisonResult(RecordModel *_Nonnull obj1, RecordModel *_Nonnull obj2) {
+    //把进行中数据进行排序
+    if (_followingRecords.count > 0) { //把已经有投注记录的放到前面
+        [_followingRecords sortUsingComparator:^NSComparisonResult(RecordModel *_Nonnull obj1, RecordModel *_Nonnull obj2) {
             NSInteger line1 = obj1.lineList.count > 0 ? 1 : 0;
             NSInteger line2 = obj2.lineList.count > 0 ? 1 : 0;
             
@@ -79,7 +73,6 @@ DEF_SINGLETON(RecordManager)
             }
         }];
     }
-    
 
 }
 
@@ -89,79 +82,57 @@ DEF_SINGLETON(RecordManager)
     return [self sharedInstance].finishYears;
 }
 
-+ (YearModel *)followingYear
-{
-    return [self sharedInstance].followingYear;
-}
-
 //进行中的单子
 + (NSMutableArray <RecordModel *> *)followingRecords
 {
-    YearModel *followingYear = [self followingYear];
-    
-    if (followingYear && followingYear.monthModels.count > 0) {
-        MonthModel *fMonth = followingYear.monthModels.firstObject;
-        return fMonth.records;
-    }
-    
-    return nil;
+    return [self sharedInstance].followingRecords;
 }
 
 #pragma mark -数据归档
-- (void)createYearAndMonthFromRecord:(RecordModel *)record save:(BOOL)save
+- (void)saveFinishRecord:(RecordModel *)record
 {
-    //先获取年份model 如果没有会自动创建
-    YearModel *year = [self getYearModel:record];
-    
-    //再获取月份model 如果没有会自动创建
-    MonthModel *month = [self getMonthModel:record yearModel:year];
-    
-    //存储记录
-    if (save) {
+    if (!record.isOver) {
+        [_followingRecords addObject:record];
+        
+    }else {
+        //先获取年份model 如果没有会自动创建
+        YearModel *year = [self getYearModel:record];
+        
+        //再获取月份model 如果没有会自动创建
+        MonthModel *month = [self getMonthModel:record yearModel:year];
+        
+        //存储记录
         [month.records addObject:record];
     }
+    
+
 
 }
 
 - (YearModel *)getYearModel:(RecordModel *)record
 {
-    BOOL isFollowing = !record.isOver;
-    
     //获取年份
-    NSString *yearStr = isFollowing ? kFollowingTip : [record.endTime getStringWithDateFormat:@"yyyy年"];
-    
-    if (isFollowing) {
-        if (_followingYear) {
-            return _followingYear;
-        }
-    }else {
-        for (YearModel *year in _finishYears) {
-            //有就直接取
-            if ([year.title isEqualToString:yearStr]) {
-                return year;
-            }
+    NSString *yearStr = [record.endTime getStringWithDateFormat:@"yyyy年"];
+
+    for (YearModel *year in _finishYears) {
+        //有就直接取
+        if ([year.title isEqualToString:yearStr]) {
+            return year;
         }
     }
 
-    
     //没有就新建
     YearModel *newYear = [YearModel new];
     newYear.title = yearStr;
-    newYear.isFollowing = isFollowing;
-    if (isFollowing) {
-        _followingYear = newYear;
-    }else {
-        [_finishYears addObject:newYear];
-    }
+    [_finishYears addObject:newYear];
 
     return newYear;
 }
 
 - (MonthModel *)getMonthModel:(RecordModel *)record yearModel:(YearModel *)yearModel
 {
-    BOOL isFollowing = yearModel.isFollowing;
     //获取月份
-    NSString *monthStr = isFollowing ? kFollowingTip : [record.endTime getStringWithDateFormat:@"MM月"];
+    NSString *monthStr = [record.endTime getStringWithDateFormat:@"MM月"];
         
     for (MonthModel *month in yearModel.monthModels) {
         //有就直接取
@@ -173,7 +144,6 @@ DEF_SINGLETON(RecordManager)
     //没有就新建
     MonthModel *newMonth = [MonthModel new];
     newMonth.title = monthStr;
-    newMonth.isFollowing = isFollowing;
     [yearModel.monthModels addObject:newMonth];
     return newMonth;
 }
@@ -210,7 +180,7 @@ DEF_SINGLETON(RecordManager)
     }
     
     //再归档到对应年份月份
-    [[self sharedInstance] createYearAndMonthFromRecord:record save:YES];
+    [[self sharedInstance] saveFinishRecord:record];
 
     //检测真实期数，如果期数比标签最大期高，则更新
     [TagManager checkMaxCount:record.realNum tagId:record.tagId];
@@ -456,7 +426,7 @@ DEF_SINGLETON(RecordManager)
         return NO;
     }
     
-    [[self sharedInstance] createYearAndMonthFromRecord:record save:YES];
+    [[self followingRecords] addObject:record];
     return YES;
     
 }

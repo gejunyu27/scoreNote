@@ -52,13 +52,6 @@
     
     for (NSInteger i=0; i<num; i++) {
         ConfigModel *model = [[ConfigModel alloc] initWithType:(i+startType)];
-        if (i==num-1) {
-            model.position = ConfigPositionBottom;
-        }else if (i==0) {
-            model.position = ConfigPositionTop;
-        }else {
-            model.position = ConfigPositionCenter;
-        }
         [sectionModel.models addObject:model];
     }
     

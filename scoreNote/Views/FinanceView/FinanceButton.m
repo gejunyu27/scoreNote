@@ -16,9 +16,9 @@
 
 - (void)largerSize
 {
-    self.titleLabel.textColor = HEX_RGB(@"#797979");
-    self.titleLabel.font = SCFONT_SIZED(14);
-    self.contentLabel.font = SCFONT_BOLD_SIZED(19);
+//    self.titleLabel.textColor = HEX_RGB(@"#797979");
+    self.titleLabel.font = SCFONT_SIZED(13);
+    self.contentLabel.font = SCFONT_BOLD_SIZED(28);
 }
 
 - (void)setTitle:(NSString *)title
@@ -36,9 +36,9 @@
 - (UILabel *)titleLabel
 {
     if (!_titleLabel) {
-        _titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, self.width, 15)];
-        _titleLabel.textColor = HEX_RGB(@"#858585");
-        _titleLabel.font = SCFONT_SIZED(13);
+        _titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, self.width, 20)];
+        _titleLabel.textColor = HEX_RGB(@"#9F9F9F");
+        _titleLabel.font = SCFONT_SIZED(12);
         [self addSubview:_titleLabel];
     }
     return _titleLabel;
@@ -49,7 +49,7 @@
     if (!_contentLabel) {
         CGFloat h = self.height - self.titleLabel.bottom;
         _contentLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, self.height-h, self.width, h)];
-        _contentLabel.font = SCFONT_SIZED(14);
+        _contentLabel.font = SCFONT_SIZED(16);
         _contentLabel.textColor = [UIColor blackColor];
         [self addSubview:_contentLabel];
     }

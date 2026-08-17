@@ -7,17 +7,18 @@
 
 #import "Statistics‌ViewController.h"
 #import "Statistics‌ViewModel.h"
+#import "FinanceView.h"
+#import "StatisticsCalendarView.h"
 #import "TagViewController.h"
+#import "CareerViewController.h"
 #import "ConfigViewController.h"
-#import "StatisticsHeaderView.h"
 
-#define kHeaderY 0
-
-@interface StatisticsViewController () <UITableViewDelegate, UITableViewDataSource, UIScrollViewDelegate, StatisticsHeaderDelegate>
-@property (nonatomic, strong) StatisticsHeaderView *headerView;
-@property (nonatomic, strong) StatisticsViewModel *viewModel;
+@interface StatisticsViewController () <UIScrollViewDelegate>
+@property (nonatomic, strong) UIView *bgView;
 @property (nonatomic, strong) UIScrollView *scrollView;
-@property (nonatomic, strong) NSMutableArray <UITableView *> *tableList;
+@property (nonatomic, strong) FinanceView *financeView;
+@property (nonatomic, strong) StatisticsCalendarView *calendarView;
+@property (nonatomic, strong) StatisticsViewModel *viewModel;
 
 @end
 
@@ -25,12 +26,12 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
-    //第一个可能没用，第二个设了有效果，是让y=0起点从导航栏下方开始。
-    self.extendedLayoutIncludesOpaqueBars = YES;
-    self.edgesForExtendedLayout = UIRectEdgeNone;
+    [self bgView];
+    //暂时先这么写，以后有3个卡片就要更改代码
+    self.scrollView.contentSize = CGSizeMake(self.scrollView.width, SCREEN_HEIGHT-SCROLL_SAFE_TOP-TAB_BAR_HEIGHT+10);
     
     [self refreshUI];
+    
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -43,204 +44,47 @@
         [self refreshUI];
     }
     
-    
+}
+
+- (void)viewDidDisappear:(BOOL)animated
+{
+    [self setNaviTitleColor:nil];
 }
 
 - (void)refreshUI
 {
-    //先创建table
-    NSArray *yearModels = self.viewModel.yearModels;
-    [self createTableList:yearModels.count];
+    //金融界面
+    self.financeView.models = self.viewModel.financeModels;
 
-    //年份 金融界面
-    [self.headerView updateWithFinanceModels:self.viewModel.financeModels yearModels:yearModels];
-    
-    //刷新列表
-    for (UITableView *tableView in self.tableList) {
-        [tableView reloadData];
-    }
-    
-}
+    //月份图
+    self.calendarView.yearModels = self.viewModel.yearModels;
 
-- (void)createTableList:(NSInteger)count
-{
-    //少加，多减，避免反复刷新反复删除和新建列表
-    CGFloat w = self.scrollView.width;
-    CGFloat h = self.scrollView.height;
-    
-    if (count > self.tableList.count) { //补齐少的列表
-        NSInteger addNum = count - self.tableList.count;
-        for (int i=0; i<addNum; i++) {
-            UITableView *tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, w, h)];
-            tableView.showsVerticalScrollIndicator = NO;
-            tableView.delegate = self;
-            tableView.dataSource = self;
-            tableView.sectionHeaderTopPadding = 0;
-            tableView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
-            tableView.backgroundColor = [UIColor clearColor];
-            [self.scrollView addSubview:tableView];
-            [self.tableList addObject:tableView];
-            
-            UIView *topView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, w, kHeaderY + self.headerView.height)];
-            tableView.tableHeaderView = topView;
-            UIView *footerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, w, NAV_BAR_HEIGHT)];
-            tableView.tableFooterView = footerView;
-        }
-        
-    }else if (count < self.tableList.count) { //删掉多的列表
-        [self.tableList enumerateObjectsWithOptions:NSEnumerationReverse usingBlock:^(UITableView * _Nonnull tableView, NSUInteger idx, BOOL * _Nonnull stop) {
-            if (idx >= count) {
-                [tableView removeFromSuperview];
-                [self.tableList removeObject:tableView];
-            }
-        }];
-    }
-    
-
-    for (int i=0; i<count; i++) {
-        UITableView *tableView = self.tableList[i];
-        tableView.left = i*w;
-    }
-    self.scrollView.contentSize = CGSizeMake(count*w, 0);
-
-}
-
-#pragma mark -UITableViewDelegate, UITableViewDataSource
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
-{
-    YearModel *year = [self getYear:tableView];
-    return year.monthModels.count;
-}
-
-- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
-{
-    MonthModel *month = [self getMonth:tableView section:section];
-    
-    return month.title ?: @"";
-}
-
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
-{
-    MonthModel *month = [self getMonth:tableView section:section];
-    
-    return month.records.count;
-}
-
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"id"];
-    if (!cell) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"id"];
-        cell.contentView.backgroundColor = [UIColor clearColor];
-    }
-    
-    RecordModel *record = [self getRecord:tableView indexPath:indexPath];
-    if (record) {
-        cell.textLabel.text = record.tagModel.name;
-    }
-
-    return cell;
-}
-
-- (YearModel *)getYear:(UITableView *)tableView
-{
-    if ([self.tableList containsObject:tableView]) {
-        NSInteger index = [self.tableList indexOfObject:tableView];
-        if (index < self.viewModel.yearModels.count) {
-            YearModel *year = self.viewModel.yearModels[index];
-            return year;
-        }
-        
-    }
-    
-    return nil;
-}
-
-- (MonthModel *)getMonth:(UITableView *)tableView section:(NSInteger)section
-{
-    YearModel *year = [self getYear:tableView];
-    
-    if (year) {
-        if (section < year.monthModels.count) {
-            MonthModel *month = year.monthModels[section];
-            return month;
-        }
-    }
-    
-    return nil;
-}
-
-- (RecordModel *)getRecord:(UITableView *)tableView indexPath:(NSIndexPath *)indexPath
-{
-    MonthModel *month = [self getMonth:tableView section:indexPath.section];
-    
-    if (indexPath.row < month.records.count) {
-        RecordModel *record = month.records[indexPath.row];
-        return record;
-    }
-    
-    return nil;
 }
 
 #pragma mark -UIScrollViewDelegate
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
-    if (![scrollView isKindOfClass:UITableView.class]) {
-        return;
-    }
+    self.navigationController.navigationBar.titleTextAttributes = nil;
     
-    UITableView *table = (UITableView *)scrollView;
-    CGFloat offsetY = table.contentOffset.y;  //向上滑增大 下拉减小
-    // 同步所有table偏移
-    for (UITableView *t in self.tableList) {
-        if(t != table) t.contentOffset = CGPointMake(0, offsetY);
-    }
+    CGFloat offset = scrollView.contentOffset.y+SCROLL_SAFE_TOP; //默认偏移-116 上滑增加 下拉减小
     
-    // 移动顶层topView 如果需要吸顶，就设个最小值
-    self.headerView.top = kHeaderY - offsetY;
-    
+    [self setNaviTitleColor:offset<=30 ? [UIColor whiteColor] : [UIColor blackColor]];
 }
 
-- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
+- (void)setNaviTitleColor:(UIColor *)color
 {
-    if (scrollView != self.scrollView) {
-        return;
-    }
-    
-    CGFloat offsetX = scrollView.contentOffset.x;
-    CGFloat pageW = scrollView.width;
-    NSInteger index = offsetX / pageW;
-    index = MAX(0, MIN(index, self.tableList.count - 1));
-    
-    // 执行切换页面逻辑
-    self.headerView.selectedIndex = index;
-}
-
-#pragma mark -StatisticsHeaderDelegate
-- (void)statisticsHeaderYearSelected:(NSInteger)index
-{
-    if (index < 0 || index >= self.tableList.count) {
-        return;
-    }
-    
-    //滑动
-    [self.scrollView setContentOffset:CGPointMake(index*self.scrollView.width, 0) animated:YES];
-    
+    self.navigationController.navigationBar.titleTextAttributes = color ? @{NSForegroundColorAttributeName:color} : nil;
 }
 
 #pragma mark -action
-- (void)tagClicked:(UIButton *)sender
+- (void)tagClicked
 {
     [self.navigationController pushViewController:[TagViewController new] animated:YES];
 }
 
-- (void)careerClicked:(UIButton *)sender
+- (void)careerClicked
 {
-//    if (!self.viewModel.startRecord) {
-//        [self showWithStatus:@"还未起投"];
-//        return;
-//    }
-//    
+    [self showWithStatus:@"功能更新中"];
 //    CareerViewController *vc = [CareerViewController new];
 //    [vc setSectionList:self.viewModel.sectionList startRecord:self.viewModel.startRecord];
 //    [self.navigationController pushViewController:vc animated:YES];
@@ -253,42 +97,66 @@
 }
 
 #pragma mark -UI
+#define kHorEdge 15
+#define kVerEdge 20
+
 - (UIScrollView *)scrollView
 {
     if (!_scrollView) {
         //新版
-        CGFloat h = SCREEN_HEIGHT - NAV_BAR_HEIGHT;
-
+        CGFloat h = SCREEN_HEIGHT - NAV_BAR_HEIGHT - TAB_BAR_HEIGHT;
+        if (@available(iOS 26.0, *)) {
+            //ios26不减导航栏高度，否则会出错，原因未知 tabbar高度可减可不减。减了底部正好在tabbar上方，不减和毛玻璃效果适配'
+            //            h = SCREEN_HEIGHT - TAB_BAR_HEIGHT;
+            h = SCREEN_HEIGHT; //这里不减，视觉效果最好
+        }
         _scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, h)];
-        _scrollView.pagingEnabled = YES;
-        _scrollView.showsHorizontalScrollIndicator = NO;
         _scrollView.showsVerticalScrollIndicator = NO;
-        _scrollView.bounces = NO;
-        _scrollView.backgroundColor = DEFAULT_BG_COLOR;
         _scrollView.delegate = self;
+        _scrollView.backgroundColor = DEFAULT_BG_COLOR;
         [self.view addSubview:_scrollView];
-        [self.view insertSubview:_scrollView belowSubview:self.headerView];
-        
     }
     return _scrollView;
 }
 
-- (StatisticsHeaderView *)headerView
+- (UIView *)bgView
 {
-    if (!_headerView) {
-        _headerView = [[StatisticsHeaderView alloc] initWithFrame:CGRectMake(0, kHeaderY, SCREEN_WIDTH, 250)];
-        _headerView.delegate = self;
-        [self.view addSubview:_headerView];
+    if (!_bgView) {
+        //顶部加个颜色
+        //y为0的话，起始位置是在116。所以先设-116，保证视觉上可以顶在最上面
+        //在实际使用过程中，下拉会把上面的白色露出来，不是很好看，为了美观再加300的高度
+        CGFloat extraH = 200;
+        _bgView = [[UIView alloc]initWithFrame:CGRectMake(0, -SCROLL_SAFE_TOP-extraH, self.scrollView.width, 280+extraH)];
+//        _bgView.backgroundColor = HEX_RGB(@"#1A77DD");
+        [_bgView setGradientColorWithTopColor:HEX_RGB(@"#1A77DD") bottomColor:HEX_RGB(@"#6CB2F7")];
+//        [self.view addSubview:_bgView];
+        [self.scrollView addSubview:_bgView];
     }
-    return _headerView;
+    return _bgView;
 }
 
-- (NSMutableArray<UITableView *> *)tableList
+- (FinanceView *)financeView
 {
-    if (!_tableList) {
-        _tableList = [NSMutableArray array];
+    if (!_financeView) {
+        CGFloat x = kHorEdge;
+        _financeView = [[FinanceView alloc] initWithFrame:CGRectMake(x, 0, self.scrollView.width-x*2, 220)];
+        
+        [_financeView addFunctionButtonWithImage:@"Config" target:self action:@selector(configClick) forControlEvents:UIControlEventTouchUpInside];
+        [_financeView addFunctionButtonWithImage:@"Tag" target:self action:@selector(tagClicked) forControlEvents:UIControlEventTouchUpInside];
+        [_financeView addFunctionButtonWithImage:@"Carrer" target:self action:@selector(careerClicked) forControlEvents:UIControlEventTouchUpInside];
+        [self.scrollView addSubview:_financeView];
     }
-    return _tableList;
+    return _financeView;
+}
+
+- (StatisticsCalendarView *)calendarView
+{
+    if (!_calendarView) {
+        CGFloat x = kHorEdge;
+        _calendarView = [[StatisticsCalendarView alloc] initWithFrame:CGRectMake(x, self.financeView.bottom + kVerEdge, self.scrollView.width-x*2, 320)];
+        [self.scrollView addSubview:_calendarView];
+    }
+    return _calendarView;
 }
 
 - (StatisticsViewModel *)viewModel

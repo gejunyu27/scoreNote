@@ -12,7 +12,7 @@
 #import "CalculatorView.h"
 #import "WebNaviBar.h"
 
-#define naviY (NAV_BAR_HEIGHT+(IS_BANGS_SCREEN ? 15 : 8))   //原生导航栏初始高度 适配机型
+#define naviY (NAV_BAR_HEIGHT+8)   //原生导航栏初始高度 适配机型
 
 @interface SportteryViewController ()<WKNavigationDelegate, UIScrollViewDelegate, WebNaviBarDelegate>
 @property (nonatomic, strong) WKWebView *webView;

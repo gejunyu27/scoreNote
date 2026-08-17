@@ -158,7 +158,7 @@
         [self.view addSubview:_tableView];
         
         //topview
-        UIView *topView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 135)];
+        UIView *topView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 165)];
         _tableView.tableHeaderView = topView;
         
         CGFloat edge = 15;

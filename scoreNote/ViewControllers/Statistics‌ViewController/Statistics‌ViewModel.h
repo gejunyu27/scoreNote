@@ -15,6 +15,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 //收益数据合集
 @property (nonatomic, strong, readonly) NSArray <FinanceModel *> *financeModels;
+//折线图数据
+//@property (nonatomic, strong)
 //年份数据
 @property (nonatomic, strong, readonly) NSArray <YearModel *> *yearModels;
 
