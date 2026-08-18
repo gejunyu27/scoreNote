@@ -93,6 +93,9 @@
 		4B42D1472FD58BD000816442 /* BitCoinCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B42D1462FD58BD000816442 /* BitCoinCell.m */; };
 		4B5890DA301F7F3C0026300A /* SportteryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B5890D9301F7F3C0026300A /* SportteryViewController.m */; };
 		4BBB9EA0301E682700B5FB7C /* ScoreViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BBB9E9F301E682700B5FB7C /* ScoreViewController.m */; };
+		4BF5F2D23034C01C00F41EDA /* StatisticsRecordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BF5F2D13034C01C00F41EDA /* StatisticsRecordViewController.m */; };
+		4BF5F2D53034C21300F41EDA /* StatisticsRecordHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BF5F2D43034C21300F41EDA /* StatisticsRecordHeaderView.m */; };
+		4BF5F2D83034C2DF00F41EDA /* StatisticsRecordCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BF5F2D73034C2DF00F41EDA /* StatisticsRecordCell.m */; };
 		61F0C5ABAEDAF0B802CBEBEE /* Pods_scoreNote.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 27964327C396DCC0BA9E34FE /* Pods_scoreNote.framework */; };
 /* End PBXBuildFile section */
 
@@ -268,6 +271,12 @@
 		4B5890D9301F7F3C0026300A /* SportteryViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SportteryViewController.m; sourceTree = "<group>"; };
 		4BBB9E9E301E682700B5FB7C /* ScoreViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ScoreViewController.h; sourceTree = "<group>"; };
 		4BBB9E9F301E682700B5FB7C /* ScoreViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ScoreViewController.m; sourceTree = "<group>"; };
+		4BF5F2D03034C01C00F41EDA /* StatisticsRecordViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StatisticsRecordViewController.h; sourceTree = "<group>"; };
+		4BF5F2D13034C01C00F41EDA /* StatisticsRecordViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = StatisticsRecordViewController.m; sourceTree = "<group>"; };
+		4BF5F2D33034C21300F41EDA /* StatisticsRecordHeaderView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StatisticsRecordHeaderView.h; sourceTree = "<group>"; };
+		4BF5F2D43034C21300F41EDA /* StatisticsRecordHeaderView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = StatisticsRecordHeaderView.m; sourceTree = "<group>"; };
+		4BF5F2D63034C2DF00F41EDA /* StatisticsRecordCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StatisticsRecordCell.h; sourceTree = "<group>"; };
+		4BF5F2D73034C2DF00F41EDA /* StatisticsRecordCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = StatisticsRecordCell.m; sourceTree = "<group>"; };
 		65518CD01B2FD616C51EE0BD /* Pods-scoreNote.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-scoreNote.release.xcconfig"; path = "Target Support Files/Pods-scoreNote/Pods-scoreNote.release.xcconfig"; sourceTree = "<group>"; };
 		67F835AE28BC049367D8A4E8 /* Pods-scoreNote.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-scoreNote.debug.xcconfig"; path = "Target Support Files/Pods-scoreNote/Pods-scoreNote.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -614,9 +623,10 @@
 			children = (
 				4B07EBAA3024CE34005C6CB9 /* Statistics‌ViewController.h */,
 				4B07EBAB3024CE34005C6CB9 /* Statistics‌ViewController.m */,
-				4B07EC7F303203DC005C6CB9 /* StatisticsCalendarView */,
 				4B07EBB03024CEF5005C6CB9 /* Statistics‌ViewModel.h */,
 				4B07EBB13024CEF5005C6CB9 /* Statistics‌ViewModel.m */,
+				4BF5F2CF3034C00100F41EDA /* StatisticsRecordViewController */,
+				4B07EC7F303203DC005C6CB9 /* StatisticsCalendarView */,
 			);
 			path = "Statistics‌ViewController";
 			sourceTree = "<group>";
@@ -692,6 +702,19 @@
 				4B2280DB3020EF93003E2274 /* WebNaviBar.m */,
 			);
 			path = WebViewController;
+			sourceTree = "<group>";
+		};
+		4BF5F2CF3034C00100F41EDA /* StatisticsRecordViewController */ = {
+			isa = PBXGroup;
+			children = (
+				4BF5F2D03034C01C00F41EDA /* StatisticsRecordViewController.h */,
+				4BF5F2D13034C01C00F41EDA /* StatisticsRecordViewController.m */,
+				4BF5F2D33034C21300F41EDA /* StatisticsRecordHeaderView.h */,
+				4BF5F2D43034C21300F41EDA /* StatisticsRecordHeaderView.m */,
+				4BF5F2D63034C2DF00F41EDA /* StatisticsRecordCell.h */,
+				4BF5F2D73034C2DF00F41EDA /* StatisticsRecordCell.m */,
+			);
+			path = StatisticsRecordViewController;
 			sourceTree = "<group>";
 		};
 		F4C1EE76CCF14FFF58A5AEFB /* Pods */ = {
@@ -852,10 +875,12 @@
 				4B0319592F79452C0041EFC7 /* ColumnAddViewController.m in Sources */,
 				4B03195A2F79452C0041EFC7 /* NumberInputView.m in Sources */,
 				4B03195B2F79452C0041EFC7 /* TagViewController.m in Sources */,
+				4BF5F2D83034C2DF00F41EDA /* StatisticsRecordCell.m in Sources */,
 				4B03195C2F79452C0041EFC7 /* UIColor+SCHex.m in Sources */,
 				4B42D1122FD1B63000816442 /* FinanceView.m in Sources */,
 				4B03195D2F79452C0041EFC7 /* TagDetailViewController.m in Sources */,
 				4B42D1442FD5885600816442 /* BitCoinModel.m in Sources */,
+				4BF5F2D53034C21300F41EDA /* StatisticsRecordHeaderView.m in Sources */,
 				4B42D1412FD587A400816442 /* BitCoinViewModel.m in Sources */,
 				4B03195E2F79452C0041EFC7 /* SCUtilities.m in Sources */,
 				4B03195F2F79452C0041EFC7 /* TagRankCell.m in Sources */,
@@ -895,6 +920,7 @@
 				4B0319792F79452C0041EFC7 /* TagModel.m in Sources */,
 				4B03197A2F79452C0041EFC7 /* ColumnModel.m in Sources */,
 				4B42D1472FD58BD000816442 /* BitCoinCell.m in Sources */,
+				4BF5F2D23034C01C00F41EDA /* StatisticsRecordViewController.m in Sources */,
 				4B03197B2F79452C0041EFC7 /* LineModel.m in Sources */,
 				4B07EBAC3024CE34005C6CB9 /* Statistics‌ViewController.m in Sources */,
 				4B03197D2F79452C0041EFC7 /* SqlEditViewController.m in Sources */,
@@ -948,7 +974,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 3.0.0;
+				MARKETING_VERSION = 3.0.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.junyu.scoreNote5;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				STRING_CATALOG_GENERATE_SYMBOLS = YES;
@@ -986,7 +1012,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 3.0.0;
+				MARKETING_VERSION = 3.0.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.junyu.scoreNote5;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				STRING_CATALOG_GENERATE_SYMBOLS = YES;

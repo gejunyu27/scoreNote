@@ -7,6 +7,7 @@
 
 #import <Foundation/Foundation.h>
 #import "RecordModel.h"
+@class YearModel;
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -14,7 +15,16 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong, readonly) NSMutableArray <RecordModel *> *records;
 @property (nonatomic, copy) NSString *title;
 
+@property (nonatomic, assign) CGFloat allOut;
+@property (nonatomic, assign) CGFloat allGet;
 @property (nonatomic, assign) CGFloat allProfit;
+
+@property (nonatomic, assign) BOOL isOn;
+
+@property (nonatomic, weak) YearModel *yearModel;
+
+- (void)updateData;
+
 @end
 
 NS_ASSUME_NONNULL_END

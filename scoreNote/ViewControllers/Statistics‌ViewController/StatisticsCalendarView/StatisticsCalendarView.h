@@ -10,8 +10,17 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+@protocol StatisticsCalendarDelegate <NSObject>
+- (void)statisticsCalendarSelectedYear:(nullable YearModel *)year orMonth:(nullable MonthModel *)month;
+
+@end
+
+#pragma mark -StatisticsCalendarDelegate
+
+
 @interface StatisticsCalendarView : UIView
 @property (nonatomic, strong) NSArray <YearModel *> *yearModels;
+@property (nonatomic, weak) id <StatisticsCalendarDelegate> delegate;
 
 @end
 

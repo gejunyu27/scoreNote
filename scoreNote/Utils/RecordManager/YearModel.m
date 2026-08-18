@@ -18,15 +18,18 @@
     return self;
 }
 
-- (CGFloat)allProfit
+- (void)updateData
 {
-    if (_allProfit == 0) { //0的情况很少
-        for (MonthModel *month in _monthModels) {
-            _allProfit += month.allProfit;
-        }
+    _allGet = 0;
+    _allOut = 0;
+    
+    for (MonthModel *month in _monthModels) {
+        [month updateData];
+        _allGet += month.allGet;
+        _allOut += month.allOut;
     }
     
-    return _allProfit;
+    _allProfit = _allGet - _allOut;
 }
 
 @end

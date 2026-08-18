@@ -144,6 +144,7 @@ DEF_SINGLETON(RecordManager)
     //没有就新建
     MonthModel *newMonth = [MonthModel new];
     newMonth.title = monthStr;
+    newMonth.yearModel = yearModel;
     [yearModel.monthModels addObject:newMonth];
     return newMonth;
 }

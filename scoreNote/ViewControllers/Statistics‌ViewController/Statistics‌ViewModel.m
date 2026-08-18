@@ -116,6 +116,11 @@
         }
     }
     
+    //全部完成后，更新数据
+    for (YearModel *year in temp) {
+        [year updateData];
+    }
+    
     _yearModels = temp.copy;
 }
 
@@ -155,6 +160,7 @@
     _yearModels    = nil;
     _startRecord   = nil;
 }
+
 
 - (void)dealloc
 {

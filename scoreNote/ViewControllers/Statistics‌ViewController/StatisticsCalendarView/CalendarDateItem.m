@@ -45,7 +45,7 @@
     BOOL isWin = num > 0; //是否盈利
     
     self.backgroundColor = isWin ? HEX_RGB(@"#FAEDEE") : HEX_RGB(@"#E6F5F0");
-    self.numLabel.textColor = isWin ? HEX_RGB(@"#D63232") : HEX_RGB(@"#279E79");
+    self.numLabel.textColor = isWin ? COLOR_WIN_NUM : COLOR_LOSE_NUM;
 }
 
 #pragma mark -ui

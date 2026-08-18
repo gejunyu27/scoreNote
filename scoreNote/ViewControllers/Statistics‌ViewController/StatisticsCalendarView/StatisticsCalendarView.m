@@ -123,7 +123,18 @@
         return;
     }
     
-    //跳转
+    if ([self.delegate respondsToSelector:@selector(statisticsCalendarSelectedYear:orMonth:)]) {
+        YearModel *year = sender.year;
+        //特殊情况，进行中只传月份
+        if (year.isFollowing && year.monthModels.count > 0) {
+            MonthModel *fMonth = year.monthModels.firstObject;
+            [self.delegate statisticsCalendarSelectedYear:nil orMonth:fMonth];
+            
+        }else {
+            [self.delegate statisticsCalendarSelectedYear:year orMonth:sender.month];
+        }
+        
+    }
     
 }
 

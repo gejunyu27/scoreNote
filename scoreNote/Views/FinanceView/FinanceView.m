@@ -82,7 +82,7 @@
     if (lines > 0) {
         CGFloat lineH = 0.5;
         UIView *line = [[UIView alloc] initWithFrame:CGRectMake(horEdge, y-10-lineH, self.width-horEdge*2, lineH)];
-        line.backgroundColor = HEX_RGB(@"#88B8ED");
+        line.backgroundColor = HEX_RGB(@"#AEAEAE");
         line.alpha = 0.6;
         [self addSubview:line];
     }

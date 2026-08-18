@@ -18,15 +18,17 @@
     return self;
 }
 
-- (CGFloat)allProfit
+- (void)updateData
 {
-    if (_allProfit == 0) { //0的情况很少
-        for (RecordModel *record in _records) {
-            _allProfit += record.allProfit;
-        }
+    _allGet = 0;
+    _allOut = 0;
+    
+    for (RecordModel *record in _records) {
+        _allGet += record.allGet;
+        _allOut += record.allOut;
     }
     
-    return _allProfit;
+    _allProfit = _allGet - _allOut;
 }
 
 @end

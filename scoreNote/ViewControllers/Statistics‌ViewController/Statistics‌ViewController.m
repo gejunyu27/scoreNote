@@ -12,8 +12,9 @@
 #import "TagViewController.h"
 #import "CareerViewController.h"
 #import "ConfigViewController.h"
+#import "StatisticsRecordViewController.h"
 
-@interface StatisticsViewController () <UIScrollViewDelegate>
+@interface StatisticsViewController () <UIScrollViewDelegate, StatisticsCalendarDelegate>
 @property (nonatomic, strong) UIView *bgView;
 @property (nonatomic, strong) UIScrollView *scrollView;
 @property (nonatomic, strong) FinanceView *financeView;
@@ -96,6 +97,14 @@
     [self.navigationController pushViewController:vc animated:YES];
 }
 
+#pragma mark -StatisticsCalendarDelegate
+- (void)statisticsCalendarSelectedYear:(YearModel *)year orMonth:(MonthModel *)month
+{
+    StatisticsRecordViewController *vc = [StatisticsRecordViewController new];
+    year ? (vc.year = year) : (vc.month = month);
+    [self.navigationController pushViewController:vc animated:YES];
+}
+
 #pragma mark -UI
 #define kHorEdge 15
 #define kVerEdge 20
@@ -153,6 +162,7 @@
     if (!_calendarView) {
         CGFloat x = kHorEdge;
         _calendarView = [[StatisticsCalendarView alloc] initWithFrame:CGRectMake(x, self.financeView.bottom + kVerEdge, self.scrollView.width-x*2, 320)];
+        _calendarView.delegate = self;
         [self.scrollView addSubview:_calendarView];
     }
     return _calendarView;

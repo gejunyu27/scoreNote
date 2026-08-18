@@ -127,6 +127,10 @@
 #define NAME_CASH_BACK       @"#返水福利"
 #define NAME_BIT_COIN        @"#比特币"
 
+#pragma mark -颜色
+#define COLOR_WIN_NUM        HEX_RGB(@"#D63232")
+#define COLOR_LOSE_NUM       HEX_RGB(@"#279E79")
+
 #pragma mark - 通知
 #define NOTI_RECORD_UPDATE   @"NOTI_RECORD_UPDATE"  //记录更新
 #define NOTI_SQLITE_UPDATE   @"NOTI_SQLITE_UPDATE"  //数据库更新
