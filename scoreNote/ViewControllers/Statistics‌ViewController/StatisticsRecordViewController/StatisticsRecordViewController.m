@@ -9,6 +9,9 @@
 #import "FinanceView.h"
 #import "StatisticsRecordHeaderView.h"
 #import "StatisticsRecordCell.h"
+#import "RecordDetailViewController.h"
+#import "StatisticsRecordViewModel.h"
+
 
 #define kIsYear (_year!=nil)
 
@@ -30,7 +33,7 @@
     _year = year;
     self.title = year.title;
     [self.tableView reloadData];
-    self.financeView.models = [self getFinanceModelsFromYear:year];
+    self.financeView.models = [StatisticsRecordViewModel getFinanceModelsFromYear:year];
 
 }
 
@@ -39,7 +42,7 @@
     _month = month;
     self.title = [NSString stringWithFormat:@"%@%@", month.yearModel.title, month.title];
     [self.tableView reloadData];
-    self.financeView.models = [self getFinanceModelsFromMonth:month];
+    self.financeView.models = [StatisticsRecordViewModel getFinanceModelsFromMonth:month];
 
 }
 
@@ -111,33 +114,23 @@
     return cell;
 }
 
-//详情页两个功能
-- (NSArray <FinanceModel *> *)getFinanceModelsFromYear:(YearModel *)year
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    //利润
-    FinanceModel *profitModel = [[FinanceModel alloc] initWithTitle:(year.isFollowing ? @"投入状况" : @"本年利润") content:[SCUtilities removeFloatSuffix:year.allProfit]];
+    MonthModel *month = _month;
     
-    //支出
-    FinanceModel *outModel = [[FinanceModel alloc] initWithTitle:@"支出" content:[SCUtilities removeFloatSuffix:year.allOut]];
+    if (kIsYear) {
+        if (indexPath.section < _year.monthModels.count) {
+            month = _year.monthModels[indexPath.section];
+        }
+    }
     
-    //收入
-    FinanceModel *getModel = [[FinanceModel alloc] initWithTitle:@"收入" content:[SCUtilities removeFloatSuffix:year.allGet]];
-    
-    return @[profitModel, outModel , getModel];
-}
-
-- (NSArray <FinanceModel *> *)getFinanceModelsFromMonth:(MonthModel *)month
-{
-    //利润
-    FinanceModel *profitModel = [[FinanceModel alloc] initWithTitle:(month.yearModel.isFollowing ? @"投入状况" : @"本月利润") content:[SCUtilities removeFloatSuffix:month.allProfit]];
-    
-    //支出
-    FinanceModel *outModel = [[FinanceModel alloc] initWithTitle:@"支出" content:[SCUtilities removeFloatSuffix:month.allOut]];
-    
-    //收入
-    FinanceModel *getModel = [[FinanceModel alloc] initWithTitle:@"收入" content:[SCUtilities removeFloatSuffix:month.allGet]];
-    
-    return @[profitModel, outModel , getModel];
+    if (indexPath.row < month.records.count) {
+        RecordModel *record = month.records[indexPath.row];
+        
+        RecordDetailViewController *vc = [RecordDetailViewController new];
+        [vc setRecord:record canEdit:NO];
+        [self.navigationController pushViewController:vc animated:YES];
+    }
 }
 
 #pragma mark -UI
