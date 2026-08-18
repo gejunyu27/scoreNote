@@ -9,7 +9,6 @@
 #import "TagCell.h"
 #import "TagDetailViewController.h"
 #import "TagManager.h"
-#import "TagRankViewController.h"
 
 @interface TagViewController () <UITableViewDelegate, UITableViewDataSource, TagCellDelegate>
 @property (nonatomic, strong) UITableView *tableView;
@@ -24,25 +23,17 @@
 
     self.title = @"标签";
     
-    UIBarButtonItem *addItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addClick)];
-    UIBarButtonItem *rankItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"RankItem"] style:UIBarButtonItemStylePlain target:self action:@selector(rankClick)];
-    
-    self.navigationItem.rightBarButtonItems = @[addItem, rankItem];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addClick)];
     
     [self tableView];
     
+    //原本是常驻tab页，现在改为二级页面，该方法几乎不会用到，后面可以废弃。
     [TagManager updateBlock:^{
-            [self.tableView reloadData];
+        [self.tableView reloadData];
     }];
 }
 
 #pragma mark -Action
-- (void)rankClick
-{
-    TagRankViewController *vc = [TagRankViewController new];
-    [self.navigationController pushViewController:vc animated:YES];
-}
-
 - (void)addClick
 {
     NSString *placeholder = @"#空白";

@@ -13,7 +13,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface TagManager : NSObject
 
 AS_SINGLETON(TagManager)
-//数据是否因外部情况产生变化 ui未能及时更新 例如接收到通知
+//数据是否因外部情况产生变化 ui未能及时更新 例如接收到通知 //原本是常驻tab页，现在改为二级页面，该方法几乎不会用到，后面可以废弃。
 + (void)updateBlock:(baseBlock)updateBlock;
 
 //获取拼音列表

@@ -142,7 +142,6 @@
         _financeView = [[FinanceView alloc] initWithFrame:CGRectMake(x, 0, self.scrollView.width-x*2, 220)];
         
         [_financeView addFunctionButtonWithImage:@"Config" target:self action:@selector(configClick) forControlEvents:UIControlEventTouchUpInside];
-        [_financeView addFunctionButtonWithImage:@"Tag" target:self action:@selector(tagClicked) forControlEvents:UIControlEventTouchUpInside];
         [_financeView addFunctionButtonWithImage:@"Carrer" target:self action:@selector(careerClicked) forControlEvents:UIControlEventTouchUpInside];
         [self.scrollView addSubview:_financeView];
     }

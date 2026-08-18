@@ -10,6 +10,7 @@
 #import "TagSelectView.h"
 #import "RecordManager.h"
 #import "RecordDetailViewController.h"
+#import "TagViewController.h"
 
 @interface HomeViewController () <UITableViewDelegate, UITableViewDataSource, HomeCellDelegate>
 @property (nonatomic, strong) UITableView *tableView;
@@ -20,6 +21,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    //标签
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"TagItem"] style:UIBarButtonItemStylePlain target:self action:@selector(tagClick)];
     //添加单子
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addClick)];
     
@@ -164,6 +167,11 @@
 }
 
 #pragma mark -action
+- (void)tagClick
+{
+    [self.navigationController pushViewController:[TagViewController new] animated:YES];
+}
+
 - (void)addClick
 {
     [TagSelectView show:^(TagModel * _Nullable tag) {
