@@ -61,9 +61,9 @@ NS_ASSUME_NONNULL_BEGIN
 #pragma mark -action
 - (void)outClicked:(UIButton *)sender
 {
-    if (!_line.isOver) {
-        return;
-    }
+//    if (!_line.isOver) {
+//        return;
+//    }
     if ([self.delegate respondsToSelector:@selector(recordDetailCellEditOutMoney:clickView:)]) {
         [self.delegate recordDetailCellEditOutMoney:_line clickView:sender];
     }

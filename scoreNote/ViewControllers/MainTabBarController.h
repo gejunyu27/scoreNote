@@ -23,8 +23,5 @@ NS_ASSUME_NONNULL_END
  
  小优化
  1.首页UI优化
-  2.删除overtagname
- 3.web自动刷新
- 4.单子详情 数值修改
  
  */
