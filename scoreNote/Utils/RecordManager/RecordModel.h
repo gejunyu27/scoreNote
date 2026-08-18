@@ -36,8 +36,6 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong, readonly) NSDate *startTime;
 //当期买法
 @property (nonatomic, copy) NSString *currentScore;
-//结束时的标签名
-@property (nonatomic, copy) NSString *overTagName; //大部分情况用不到，只有旧标签删了才会用到(标签删除功能也暂时移除)
 //止损线
 @property (nonatomic, assign) CGFloat breakLine;
 //竞彩模式

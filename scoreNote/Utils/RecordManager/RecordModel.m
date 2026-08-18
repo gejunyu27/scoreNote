@@ -23,7 +23,6 @@
 {
     if (isOver && !_isOver) {
         _endTime = [NSDate date];
-        _overTagName = _tagModel.name;
     }
     
     _isOver = isOver;
@@ -103,7 +102,7 @@
 
 - (BOOL)isBetTag
 {
-    NSString *tagName = self.isOver ? self.overTagName : self.tagModel.name;
+    NSString *tagName = self.tagModel.name;
     
     return ![tagName isEqualToString:NAME_CASH_BACK] && ![tagName isEqualToString:NAME_BIT_COIN];
 }

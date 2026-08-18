@@ -36,7 +36,7 @@
     self.profitLabel.text = [NSString stringWithFormat:@"%@  %@", (isWin ? @"🎁" : @"💣"), [SCUtilities removeFloatSuffix:record.allProfit]];
     self.profitLabel.textColor = isWin > 0 ? [UIColor redColor] : [UIColor blackColor];
     
-    NSString *tagName = record.overTagName.length > 0 ? record.overTagName : record.tagModel.name;
+    NSString *tagName = record.tagModel.name;
     tagName = tagName.length > 0 ? tagName : @"无";
     self.tagLabel.text = tagName;
     

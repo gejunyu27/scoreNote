@@ -98,7 +98,6 @@ DEF_SINGLETON(DataManager)
         record.note          = [rs stringForColumn:@"note"];
         record.isOver        = [rs intForColumn:@"isOver"];
         record.currentScore  = [rs stringForColumn:@"currentScore"];
-        record.overTagName   = [rs stringForColumn:@"overTagName"];
         record.breakLine     = [rs doubleForColumn:@"breakLine"];
         record.isSporttery   = [rs intForColumn:@"isSporttery"];
         
@@ -151,8 +150,8 @@ DEF_SINGLETON(DataManager)
         return NO;
     }
     
-    NSString *sql = [NSString stringWithFormat:@"UPDATE %@ SET profitPerLine = ?, baseProfit = ?, endTime = ?, tagId = ?, realNum = ?, note = ?, isOver = ?, currentScore = ?, overTagName = ?, breakLine = ?, isSporttery = ? WHERE id = ?", t_record];
-    BOOL result = [kDatabase executeUpdate:sql, @(record.profitPerLine), @(record.baseProfit), record.endTime, @(record.tagId), @(record.realNum), (record.note?:@""), @(record.isOver?1:0), (record.currentScore?:@""), (record.overTagName?:@""), @(record.breakLine), @(record.isSporttery), record.recordId];
+    NSString *sql = [NSString stringWithFormat:@"UPDATE %@ SET profitPerLine = ?, baseProfit = ?, endTime = ?, tagId = ?, realNum = ?, note = ?, isOver = ?, currentScore = ?, breakLine = ?, isSporttery = ? WHERE id = ?", t_record];
+    BOOL result = [kDatabase executeUpdate:sql, @(record.profitPerLine), @(record.baseProfit), record.endTime, @(record.tagId), @(record.realNum), (record.note?:@""), @(record.isOver?1:0), (record.currentScore?:@""), @(record.breakLine), @(record.isSporttery), record.recordId];
     
     if (result) {
         [self postRecordUpdateNoti];
@@ -537,7 +536,7 @@ DEF_SINGLETON(DataManager)
         if ([_db open]) {
 
             //3.创建记录表
-            NSString *recordSql = [NSString stringWithFormat:@"CREATE TABLE IF NOT EXISTS %@ (id integer PRIMARY KEY AUTOINCREMENT, profitPerLine real, createTime text NOT NULL, endTime text, tagId integer, baseProfit real, realNum integer, note text, isOver integer, currentScore text, overTagName text, breakLine real, isSporttery integer)", t_record];
+            NSString *recordSql = [NSString stringWithFormat:@"CREATE TABLE IF NOT EXISTS %@ (id integer PRIMARY KEY AUTOINCREMENT, profitPerLine real, createTime text NOT NULL, endTime text, tagId integer, baseProfit real, realNum integer, note text, isOver integer, currentScore text, breakLine real, isSporttery integer)", t_record];
             [_db executeUpdate:recordSql];
             
             //4.创建列表
