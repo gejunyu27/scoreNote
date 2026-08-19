@@ -21,16 +21,20 @@
     self.contentLabel.font = SCFONT_BOLD_SIZED(28);
 }
 
-- (void)setTitle:(NSString *)title
+- (void)setModel:(FinanceModel *)model
 {
-    _title = title;
-    self.titleLabel.text = title;
-}
-
-- (void)setContent:(NSString *)content
-{
-    _content = content;
-    self.contentLabel.text = content;
+    _model = model;
+    
+    self.titleLabel.text = model.title;
+    self.contentLabel.text = model.content;
+    
+    if (model.changeColor) {
+        CGFloat num = model.content.floatValue;
+        self.contentLabel.textColor = [UIColor colorWithProfit:num];
+        
+    }else {
+        self.contentLabel.textColor = [UIColor blackColor];
+    }
 }
 
 - (UILabel *)titleLabel
@@ -50,7 +54,6 @@
         CGFloat h = self.height - self.titleLabel.bottom;
         _contentLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, self.height-h, self.width, h)];
         _contentLabel.font = SCFONT_SIZED(16);
-        _contentLabel.textColor = [UIColor blackColor];
         [self addSubview:_contentLabel];
     }
     return _contentLabel;

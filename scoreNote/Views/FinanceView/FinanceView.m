@@ -41,8 +41,7 @@
     [models enumerateObjectsUsingBlock:^(FinanceModel * _Nonnull model, NSUInteger idx, BOOL * _Nonnull stop) {
         if (idx < self.financeButtonList.count) {
             FinanceButton *btn = self.financeButtonList[idx];
-            btn.title   = model.title;
-            btn.content = model.content;
+            btn.model = model;
         }
     }];
     

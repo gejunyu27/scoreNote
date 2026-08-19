@@ -28,6 +28,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (UIColor *)colorWithHex:(NSString *)color;
 
++ (UIColor *)colorWithProfit:(CGFloat)profit;
+
 @end
 
 NS_ASSUME_NONNULL_END

@@ -39,7 +39,7 @@
     
     self.profitLabel.text = [NSString stringWithFormat:@"%@", [SCUtilities removeFloatSuffix:month.allProfit]];
     
-    self.profitLabel.textColor = month.allProfit>=0 ? COLOR_WIN_NUM : COLOR_LOSE_NUM;
+    self.profitLabel.textColor = [UIColor colorWithProfit:month.allProfit];
     
 }
 

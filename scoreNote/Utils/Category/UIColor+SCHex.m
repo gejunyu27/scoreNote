@@ -62,4 +62,17 @@
     return [self colorWithHex:color alpha:1.0f];
 }
 
++ (UIColor *)colorWithProfit:(CGFloat)profit
+{
+    if (profit > 0) {
+        return HEX_RGB(@"#E53E3E");
+        
+    }else if (profit < 0) {
+        return HEX_RGB(@"#38A169");
+        
+    }else {
+        return [UIColor blackColor];
+    }
+}
+
 @end

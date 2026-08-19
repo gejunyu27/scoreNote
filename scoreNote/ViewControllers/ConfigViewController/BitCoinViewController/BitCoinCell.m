@@ -104,13 +104,22 @@
 - (UILabel *)dateLabel
 {
     if (!_dateLabel) {
-        CGFloat w = 180;
-        _dateLabel = [[UILabel alloc] initWithFrame:CGRectMake(SCREEN_WIDTH-20-w, 0, w, kBCCellH)];
+        CGFloat edge = 20;
+        CGFloat w = 120;
+        _dateLabel = [[UILabel alloc] initWithFrame:CGRectMake(SCREEN_WIDTH-edge-w, 0, w, kBCCellH)];
         _dateLabel.textColor = [UIColor grayColor];
         _dateLabel.font = SCFONT_SIZED(13);
         _dateLabel.backgroundColor = [UIColor whiteColor];
         _dateLabel.textAlignment = NSTextAlignmentRight;
         [self.contentView addSubview:_dateLabel];
+        
+        //右边加一个uiview。遮挡datePicker，datePicker的frame机制没弄明白
+        UIView *rightView = [[UIView alloc] initWithFrame:CGRectMake(SCREEN_WIDTH-edge, 0, edge, kBCCellH)];
+        rightView.backgroundColor = [UIColor whiteColor];
+        [self.contentView addSubview:rightView];
+        [self.contentView insertSubview:rightView aboveSubview:_dateLabel];
+        
+
     }
     return _dateLabel;
 }
@@ -118,7 +127,7 @@
 - (UIDatePicker *)datePicker
 {
     if (!_datePicker) {
-        CGFloat w = 220;
+        CGFloat w = 180;
         CGFloat h = 40;
         _datePicker = [[UIDatePicker alloc] initWithFrame:CGRectMake(SCREEN_WIDTH-w-20, (kBCCellH-h)/2, w, h)];
         _datePicker.datePickerMode = UIDatePickerModeDate;

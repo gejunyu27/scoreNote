@@ -40,7 +40,7 @@
     
     self.needUpdate = NO;
     
-    //合并数据
+    //合并年份数据
     [self getYearModels];
     
     //获取统计数据
@@ -79,7 +79,7 @@
     }
     NSString *periodString = temp.copy;
     
-    //生成数据
+    //生成金融数据
     FinanceModel *totalProfitModel    = [[FinanceModel alloc] initWithTitle:@"总收益（非现金流）" content:[SCUtilities removeFloatSuffix:totalProfit]];
     FinanceModel *startDateModel      = [[FinanceModel alloc] initWithTitle:@"起投日期" content:startDateString];
     FinanceModel *periodModel         = [[FinanceModel alloc] initWithTitle:@"投注时长" content:periodString];
@@ -103,6 +103,7 @@
         fYear.title = @"进行中";
         fYear.isFollowing = YES;
         MonthModel *fMonth = [MonthModel new];
+        fMonth.yearModel = fYear;
         fMonth.title = [[NSDate date] getStringWithDateFormat:@"MM月"];
         [fYear.monthModels addObject:fMonth];
         
@@ -168,6 +169,7 @@
 {
     //利润
     FinanceModel *profitModel = [[FinanceModel alloc] initWithTitle:(year.isFollowing ? @"投入状况" : @"本年利润") content:[SCUtilities removeFloatSuffix:year.allProfit]];
+    profitModel.changeColor = YES;
     
     //支出
     FinanceModel *outModel = [[FinanceModel alloc] initWithTitle:@"支出" content:[SCUtilities removeFloatSuffix:year.allOut]];
@@ -182,6 +184,7 @@
 {
     //利润
     FinanceModel *profitModel = [[FinanceModel alloc] initWithTitle:(month.yearModel.isFollowing ? @"投入状况" : @"本月利润") content:[SCUtilities removeFloatSuffix:month.allProfit]];
+    profitModel.changeColor = YES;
     
     //支出
     FinanceModel *outModel = [[FinanceModel alloc] initWithTitle:@"支出" content:[SCUtilities removeFloatSuffix:month.allOut]];

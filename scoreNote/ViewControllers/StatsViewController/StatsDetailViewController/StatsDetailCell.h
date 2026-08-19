@@ -7,7 +7,7 @@
 
 #import <UIKit/UIKit.h>
 
-#define kSDCellH 50
+#define kSDCellH 60
 #define kSDCellId @"kSDCellId"
 
 NS_ASSUME_NONNULL_BEGIN

@@ -42,10 +42,8 @@
     self.dateLabel.text = dateString;
     self.numLabel.text = [SCUtilities removeFloatSuffix:num];
     
-    BOOL isWin = num > 0; //是否盈利
-    
-    self.backgroundColor = isWin ? HEX_RGB(@"#FAEDEE") : HEX_RGB(@"#E6F5F0");
-    self.numLabel.textColor = isWin ? COLOR_WIN_NUM : COLOR_LOSE_NUM;
+    self.backgroundColor = num>=0 ? HEX_RGB(@"#FAEDEE") : HEX_RGB(@"#E6F5F0");
+    self.numLabel.textColor = [UIColor colorWithProfit:num];
 }
 
 #pragma mark -ui

@@ -34,14 +34,16 @@
     NSString *tagName = record.tagModel.name;
     tagName = tagName.length > 0 ? tagName : @"无";
     self.tagLabel.text = [NSString stringWithFormat:@"%li.%@", row+1 ,tagName];
-    self.tagLabel.textColor = isYear ? [UIColor grayColor] : [UIColor blackColor];
     
     //期数
     self.numLabel.text = [NSString stringWithFormat:@"%li期", record.realNum];
     
     //利润
     self.profitLabel.text = [SCUtilities removeFloatSuffix:record.allProfit];
-    self.profitLabel.textColor = record.allProfit>=0 ? COLOR_WIN_NUM : COLOR_LOSE_NUM;
+    self.profitLabel.textColor = [UIColor colorWithProfit:record.allProfit];
+    
+    //ui
+    self.contentView.backgroundColor = isYear ? HEX_RGB(@"#F7F8FA") : [UIColor whiteColor];
     
 }
 

@@ -16,6 +16,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, copy, readonly) NSString *title;
 @property (nonatomic, copy, readonly) NSString *content;
 
+@property (nonatomic, assign) BOOL changeColor;
+
 @end
 
 NS_ASSUME_NONNULL_END
