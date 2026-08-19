@@ -1,13 +1,13 @@
 //
-//  StatisticsRecordCell.m
+//  StatsDetailCell.m
 //  scoreNote
 //
 //  Created by Zhuanz密码0000 on 2026/8/19.
 //
 
-#import "StatisticsRecordCell.h"
+#import "StatsDetailCell.h"
 
-@interface StatisticsRecordCell ()
+@interface StatsDetailCell ()
 
 @property (nonatomic, strong) UILabel *profitLabel;
 @property (nonatomic, strong) UILabel *numLabel;
@@ -16,7 +16,7 @@
 
 @end
 
-@implementation StatisticsRecordCell
+@implementation StatsDetailCell
 
 - (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
@@ -50,7 +50,7 @@
 - (UILabel *)tagLabel
 {
     if (!_tagLabel) {
-        _tagLabel = [[UILabel alloc] initWithFrame:CGRectMake(kEdge, 0, 140, kSRCellH)];
+        _tagLabel = [[UILabel alloc] initWithFrame:CGRectMake(kEdge, 0, 140, kSDCellH)];
         _tagLabel.textAlignment = NSTextAlignmentLeft;
         _tagLabel.font = SCFONT_SIZED(17);
         _tagLabel.adjustsFontSizeToFitWidth = YES;
@@ -62,7 +62,7 @@
 - (UILabel *)numLabel
 {
     if (!_numLabel) {
-        _numLabel = [[UILabel alloc] initWithFrame:CGRectMake(self.tagLabel.right, 0, 60, kSRCellH)];
+        _numLabel = [[UILabel alloc] initWithFrame:CGRectMake(self.tagLabel.right, 0, 60, kSDCellH)];
         _numLabel.font = SCFONT_SIZED(15);
         _numLabel.textAlignment = NSTextAlignmentLeft;
         _numLabel.textColor = [UIColor grayColor];
@@ -75,7 +75,7 @@
 {
     if (!_profitLabel) {
         CGFloat w = 170;
-        _profitLabel = [[UILabel alloc] initWithFrame:CGRectMake(SCREEN_WIDTH-kEdge-w, 0, w, kSRCellH)];
+        _profitLabel = [[UILabel alloc] initWithFrame:CGRectMake(SCREEN_WIDTH-kEdge-w, 0, w, kSDCellH)];
         _profitLabel.font = SCFONT_SIZED(24);
         _profitLabel.textAlignment = NSTextAlignmentRight;
         [self.contentView addSubview:_profitLabel];
@@ -89,11 +89,12 @@
     if (!_sepLine) {
         CGFloat h = 1;
         CGFloat x = kEdge;
-        _sepLine = [[UIView alloc] initWithFrame:CGRectMake(x, kSRCellH-h, SCREEN_WIDTH-x*2, h)];
+        _sepLine = [[UIView alloc] initWithFrame:CGRectMake(x, kSDCellH-h, SCREEN_WIDTH-x*2, h)];
         _sepLine.backgroundColor = HEX_RGB(@"#EEEEEE");
         [self.contentView addSubview:_sepLine];
     }
     return _sepLine;
 }
+
 
 @end

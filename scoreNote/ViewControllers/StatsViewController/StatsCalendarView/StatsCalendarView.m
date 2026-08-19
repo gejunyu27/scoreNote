@@ -1,22 +1,22 @@
 //
-//  StatisticsCalendarView.m
+//  StatsCalendarView.m
 //  scoreNote
 //
-//  Created by Zhuanz密码0000 on 2026/8/16.
+//  Created by Zhuanz密码0000 on 2026/8/19.
 //
 
-#import "StatisticsCalendarView.h"
+#import "StatsCalendarView.h"
 #import "SwitchYearView.h"
 #import "CalendarDateItem.h"
 
-@interface StatisticsCalendarView () <SwitchYearViewDelegate>
+@interface StatsCalendarView ()  <SwitchYearViewDelegate>
 @property (nonatomic, strong) NSArray <UIButton *> *categoryButtonList; //月收益 年收益
 @property (nonatomic, strong) SwitchYearView *switchView;
 @property (nonatomic, strong) NSArray <CalendarDateItem *> *itemList;
 
 @end
 
-@implementation StatisticsCalendarView
+@implementation StatsCalendarView
 
 - (instancetype)initWithFrame:(CGRect)frame
 {
@@ -123,15 +123,15 @@
         return;
     }
     
-    if ([self.delegate respondsToSelector:@selector(statisticsCalendarSelectedYear:orMonth:)]) {
+    if ([self.delegate respondsToSelector:@selector(statsCalendarSelectedYear:orMonth:)]) {
         YearModel *year = sender.year;
         //特殊情况，进行中只传月份
         if (year.isFollowing && year.monthModels.count > 0) {
             MonthModel *fMonth = year.monthModels.firstObject;
-            [self.delegate statisticsCalendarSelectedYear:nil orMonth:fMonth];
+            [self.delegate statsCalendarSelectedYear:nil orMonth:fMonth];
             
         }else {
-            [self.delegate statisticsCalendarSelectedYear:year orMonth:sender.month];
+            [self.delegate statsCalendarSelectedYear:year orMonth:sender.month];
         }
         
     }
@@ -202,5 +202,6 @@
     }
     return _itemList;
 }
+
 
 @end

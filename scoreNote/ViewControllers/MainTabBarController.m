@@ -11,7 +11,7 @@
 #import "TotalViewController.h"
 #import "ScoreViewController.h"
 #import "SportteryViewController.h"
-#import "Statistics‌ViewController.h"
+#import "StatsViewController.h"
 
 #define kNormalTextAttributes   @{NSForegroundColorAttributeName: HEX_RGB(@"#999999")}
 #define kSelectedTextAttributes @{NSForegroundColorAttributeName: HEX_RGB(@"#F2270C")}
@@ -42,7 +42,7 @@
 //    [temp addObject:[self getNavVcFrom:[TotalViewController new] title:@"统计" tabImage:@"Tab_Total" tabSelectedImage:@"Tab_Total_selected"]];
     
     //开发中
-    [temp addObject:[self getNavVcFrom:[StatisticsViewController new] title:@"统计" tabImage:@"Tab_Total" tabSelectedImage:@"Tab_Total_selected"]];
+    [temp addObject:[self getNavVcFrom:[StatsViewController new] title:@"统计" tabImage:@"Tab_Total" tabSelectedImage:@"Tab_Total_selected"]];
     
     self.viewControllers = temp.copy;
     

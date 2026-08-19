@@ -1,27 +1,26 @@
 //
-//  StatisticsRecordViewController.m
+//  StatsDetailViewController.m
 //  scoreNote
 //
 //  Created by Zhuanz密码0000 on 2026/8/19.
 //
 
-#import "StatisticsRecordViewController.h"
+#import "StatsDetailViewController.h"
 #import "FinanceView.h"
-#import "StatisticsRecordHeaderView.h"
-#import "StatisticsRecordCell.h"
+#import "StatsDetailHeaderView.h"
+#import "StatsDetailCell.h"
 #import "RecordDetailViewController.h"
-#import "StatisticsRecordViewModel.h"
-
+#import "StatsViewModel.h"
 
 #define kIsYear (_year!=nil)
 
-@interface StatisticsRecordViewController () <UITableViewDelegate, UITableViewDataSource>
+@interface StatsDetailViewController () <UITableViewDelegate, UITableViewDataSource>
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) FinanceView *financeView;
 
 @end
 
-@implementation StatisticsRecordViewController
+@implementation StatsDetailViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -33,7 +32,7 @@
     _year = year;
     self.title = year.title;
     [self.tableView reloadData];
-    self.financeView.models = [StatisticsRecordViewModel getFinanceModelsFromYear:year];
+    self.financeView.models = [StatsViewModel getFinanceModelsFromYear:year];
 
 }
 
@@ -42,7 +41,7 @@
     _month = month;
     self.title = [NSString stringWithFormat:@"%@%@", month.yearModel.title, month.title];
     [self.tableView reloadData];
-    self.financeView.models = [StatisticsRecordViewModel getFinanceModelsFromMonth:month];
+    self.financeView.models = [StatsViewModel getFinanceModelsFromMonth:month];
 
 }
 
@@ -54,13 +53,13 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
-    return kIsYear ? kSRHeaderH : 0;
+    return kIsYear ? kSDHeaderH : 0;
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
     if (kIsYear) {
-        StatisticsRecordHeaderView *header = [tableView dequeueReusableHeaderFooterViewWithIdentifier:kSRHeaderId];
+        StatsDetailHeaderView *header = [tableView dequeueReusableHeaderFooterViewWithIdentifier:kSDHeaderId];
         if (section < _year.monthModels.count) {
             MonthModel *month = _year.monthModels[section];
             header.month = month;
@@ -95,7 +94,7 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    StatisticsRecordCell *cell = [tableView dequeueReusableCellWithIdentifier:kSRCellId forIndexPath:indexPath];
+    StatsDetailCell *cell = [tableView dequeueReusableCellWithIdentifier:kSDCellId forIndexPath:indexPath];
     
     MonthModel *month = _month;
     
@@ -151,9 +150,9 @@
         _tableView.delegate = self;
         _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
         _tableView.sectionHeaderTopPadding = 0;
-        [_tableView registerClass:StatisticsRecordHeaderView.class forHeaderFooterViewReuseIdentifier:kSRHeaderId];
-        _tableView.rowHeight = kSRCellH;
-        [_tableView registerClass:StatisticsRecordCell.class forCellReuseIdentifier:kSRCellId];
+        [_tableView registerClass:StatsDetailHeaderView.class forHeaderFooterViewReuseIdentifier:kSDHeaderId];
+        _tableView.rowHeight = kSDCellH;
+        [_tableView registerClass:StatsDetailCell.class forCellReuseIdentifier:kSDCellId];
         
         [self.view addSubview:_tableView];
         

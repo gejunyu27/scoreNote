@@ -1,29 +1,27 @@
 //
-//  Statistics‌ViewController.m
+//  StatsViewController.m
 //  scoreNote
 //
-//  Created by Zhuanz密码0000 on 2026/8/6.
+//  Created by Zhuanz密码0000 on 2026/8/19.
 //
 
-#import "Statistics‌ViewController.h"
-#import "Statistics‌ViewModel.h"
+#import "StatsViewController.h"
+#import "StatsViewModel.h"
 #import "FinanceView.h"
-#import "StatisticsCalendarView.h"
-#import "TagViewController.h"
-#import "CareerViewController.h"
+#import "StatsCalendarView.h"
 #import "ConfigViewController.h"
-#import "StatisticsRecordViewController.h"
+#import "StatsDetailViewController.h"
 
-@interface StatisticsViewController () <UIScrollViewDelegate, StatisticsCalendarDelegate>
+@interface StatsViewController () <UIScrollViewDelegate, StatsCalendarDelegate>
 @property (nonatomic, strong) UIView *bgView;
 @property (nonatomic, strong) UIScrollView *scrollView;
 @property (nonatomic, strong) FinanceView *financeView;
-@property (nonatomic, strong) StatisticsCalendarView *calendarView;
-@property (nonatomic, strong) StatisticsViewModel *viewModel;
+@property (nonatomic, strong) StatsCalendarView *calendarView;
+@property (nonatomic, strong) StatsViewModel *viewModel;
 
 @end
 
-@implementation StatisticsViewController
+@implementation StatsViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -78,29 +76,16 @@
 }
 
 #pragma mark -action
-- (void)tagClicked
-{
-    [self.navigationController pushViewController:[TagViewController new] animated:YES];
-}
-
-- (void)careerClicked
-{
-    [self showWithStatus:@"功能更新中"];
-//    CareerViewController *vc = [CareerViewController new];
-//    [vc setSectionList:self.viewModel.sectionList startRecord:self.viewModel.startRecord];
-//    [self.navigationController pushViewController:vc animated:YES];
-}
-
 - (void)configClick
 {
     ConfigViewController *vc = [ConfigViewController new];
     [self.navigationController pushViewController:vc animated:YES];
 }
 
-#pragma mark -StatisticsCalendarDelegate
-- (void)statisticsCalendarSelectedYear:(YearModel *)year orMonth:(MonthModel *)month
+#pragma mark -StatsCalendarDelegate
+- (void)statsCalendarSelectedYear:(YearModel *)year orMonth:(MonthModel *)month
 {
-    StatisticsRecordViewController *vc = [StatisticsRecordViewController new];
+    StatsDetailViewController *vc = [StatsDetailViewController new];
     year ? (vc.year = year) : (vc.month = month);
     [self.navigationController pushViewController:vc animated:YES];
 }
@@ -151,28 +136,28 @@
         _financeView = [[FinanceView alloc] initWithFrame:CGRectMake(x, 0, self.scrollView.width-x*2, 220)];
         
         [_financeView addFunctionButtonWithImage:@"Config" target:self action:@selector(configClick) forControlEvents:UIControlEventTouchUpInside];
-        [_financeView addFunctionButtonWithImage:@"Carrer" target:self action:@selector(careerClicked) forControlEvents:UIControlEventTouchUpInside];
         [self.scrollView addSubview:_financeView];
     }
     return _financeView;
 }
 
-- (StatisticsCalendarView *)calendarView
+- (StatsCalendarView *)calendarView
 {
     if (!_calendarView) {
         CGFloat x = kHorEdge;
-        _calendarView = [[StatisticsCalendarView alloc] initWithFrame:CGRectMake(x, self.financeView.bottom + kVerEdge, self.scrollView.width-x*2, 320)];
+        _calendarView = [[StatsCalendarView alloc] initWithFrame:CGRectMake(x, self.financeView.bottom + kVerEdge, self.scrollView.width-x*2, 320)];
         _calendarView.delegate = self;
         [self.scrollView addSubview:_calendarView];
     }
     return _calendarView;
 }
 
-- (StatisticsViewModel *)viewModel
+- (StatsViewModel *)viewModel
 {
     if (!_viewModel) {
-        _viewModel = [StatisticsViewModel new];
+        _viewModel = [StatsViewModel new];
     }
     return _viewModel;
 }
+
 @end

@@ -1,5 +1,5 @@
 //
-//  StatisticsRecordHeaderView.h
+//  StatsDetailHeaderView.h
 //  scoreNote
 //
 //  Created by Zhuanz密码0000 on 2026/8/19.
@@ -8,14 +8,15 @@
 #import <UIKit/UIKit.h>
 #import "MonthModel.h"
 
-#define kSRHeaderH 60
-#define kSRHeaderId @"kSDHeaderId"
+#define kSDHeaderH 60
+#define kSDHeaderId @"kSDHeaderId"
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface StatisticsRecordHeaderView : UITableViewHeaderFooterView
+@interface StatsDetailHeaderView : UITableViewHeaderFooterView
 @property (nonatomic, weak) MonthModel *month;
 @property (nonatomic, copy) baseBlock clickBlock;
+
 @end
 
 NS_ASSUME_NONNULL_END

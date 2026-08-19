@@ -1,17 +1,18 @@
 //
-//  Statistics‌ViewModel.h
+//  StatsViewModel.h
 //  scoreNote
 //
-//  Created by Zhuanz密码0000 on 2026/8/6.
+//  Created by Zhuanz密码0000 on 2026/8/19.
 //
 
 #import <Foundation/Foundation.h>
 #import "FinanceModel.h"
 #import "YearModel.h"
 
+
 NS_ASSUME_NONNULL_BEGIN
 
-@interface StatisticsViewModel : NSObject
+@interface StatsViewModel : NSObject
 
 //收益数据合集
 @property (nonatomic, strong, readonly) NSArray <FinanceModel *> *financeModels;
@@ -23,6 +24,10 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, assign) BOOL needUpdate;
 
 - (void)update;
+
+//详情页两个方法
++ (NSArray <FinanceModel *> *)getFinanceModelsFromYear:(YearModel *)year;
++ (NSArray <FinanceModel *> *)getFinanceModelsFromMonth:(MonthModel *)month;
 
 @end
 
