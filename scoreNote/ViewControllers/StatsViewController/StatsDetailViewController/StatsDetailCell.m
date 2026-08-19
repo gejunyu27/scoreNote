@@ -50,7 +50,7 @@
 - (UILabel *)tagLabel
 {
     if (!_tagLabel) {
-        _tagLabel = [[UILabel alloc] initWithFrame:CGRectMake(kEdge, 0, 140, kSDCellH)];
+        _tagLabel = [[UILabel alloc] initWithFrame:CGRectMake(kEdge, 0, 150, kSDCellH)];
         _tagLabel.textAlignment = NSTextAlignmentLeft;
         _tagLabel.font = SCFONT_SIZED(17);
         _tagLabel.adjustsFontSizeToFitWidth = YES;
@@ -74,10 +74,11 @@
 - (UILabel *)profitLabel
 {
     if (!_profitLabel) {
-        CGFloat w = 170;
+        CGFloat w = 100;
         _profitLabel = [[UILabel alloc] initWithFrame:CGRectMake(SCREEN_WIDTH-kEdge-w, 0, w, kSDCellH)];
-        _profitLabel.font = SCFONT_SIZED(24);
+        _profitLabel.font = SCFONT_SIZED(18);
         _profitLabel.textAlignment = NSTextAlignmentRight;
+        _profitLabel.adjustsFontSizeToFitWidth = YES;
         [self.contentView addSubview:_profitLabel];
     }
     return _profitLabel;

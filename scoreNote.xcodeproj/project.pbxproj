@@ -685,8 +685,8 @@
 				4BBD15463035EB240070E802 /* StatsViewController.m */,
 				4BBD15483035EB630070E802 /* StatsViewModel.h */,
 				4BBD15493035EB630070E802 /* StatsViewModel.m */,
-				4BBD154F3035EC400070E802 /* StatsDetailViewController */,
 				4BBD154B3035EB800070E802 /* StatsCalendarView */,
+				4BBD154F3035EC400070E802 /* StatsDetailViewController */,
 			);
 			path = StatsViewController;
 			sourceTree = "<group>";

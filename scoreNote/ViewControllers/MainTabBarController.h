@@ -22,7 +22,6 @@ NS_ASSUME_NONNULL_END
  2.几个详情页tableview重写，为普通分割线UI
  
  修复
- 1.进行中显示bug    2.4月
  
  3.考虑动态字体  4.考虑横条
  

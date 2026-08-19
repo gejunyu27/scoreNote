@@ -39,7 +39,12 @@
 - (void)setMonth:(MonthModel *)month
 {
     _month = month;
-    self.title = [NSString stringWithFormat:@"%@%@", month.yearModel.title, month.title];
+    if (month.yearModel.isFollowing) {
+        self.title = @"进行中";
+    }else {
+        self.title = [NSString stringWithFormat:@"%@%@", month.yearModel.title, month.title];
+    }
+    
     [self.tableView reloadData];
     self.financeView.models = [StatsViewModel getFinanceModelsFromMonth:month];
 

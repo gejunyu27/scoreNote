@@ -38,6 +38,7 @@
     self.numsLabel.text   = [NSString stringWithFormat:@"共%li单", month.records.count];
     
     self.profitLabel.text = [NSString stringWithFormat:@"%@", [SCUtilities removeFloatSuffix:month.allProfit]];
+    
     self.profitLabel.textColor = month.allProfit>=0 ? COLOR_WIN_NUM : COLOR_LOSE_NUM;
     
 }
@@ -88,11 +89,12 @@
 - (UILabel *)profitLabel
 {
     if (!_profitLabel) {
-        CGFloat w = 70;
+        CGFloat w = 190;
         _profitLabel = [[UILabel alloc] initWithFrame:CGRectMake(SCREEN_WIDTH-kEdge-w-15, 0, w, kSDHeaderH)];
-        _profitLabel.font = SCFONT_SIZED(15);
+        _profitLabel.font = SCFONT_SIZED(22);
         _profitLabel.textColor = [UIColor grayColor];
         _profitLabel.textAlignment = NSTextAlignmentRight;
+        _profitLabel.adjustsFontSizeToFitWidth = YES;
         [self.contentView addSubview:_profitLabel];
     }
     return _profitLabel;
