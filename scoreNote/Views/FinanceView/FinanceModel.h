@@ -17,6 +17,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, copy, readonly) NSString *content;
 
 @property (nonatomic, assign) BOOL changeColor;
+@property (nonatomic, assign) BOOL showAnimation;
 
 @end
 

@@ -81,6 +81,7 @@
     
     //生成金融数据
     FinanceModel *totalProfitModel    = [[FinanceModel alloc] initWithTitle:@"总收益（非现金流）" content:[SCUtilities removeFloatSuffix:totalProfit]];
+    totalProfitModel.showAnimation = YES;
     FinanceModel *startDateModel      = [[FinanceModel alloc] initWithTitle:@"起投日期" content:startDateString];
     FinanceModel *periodModel         = [[FinanceModel alloc] initWithTitle:@"投注时长" content:periodString];
     FinanceModel *allRecordsNumModel  = [[FinanceModel alloc] initWithTitle:@"总单数" content:[NSString stringWithFormat:@"%li单", allRecordsNum]];
