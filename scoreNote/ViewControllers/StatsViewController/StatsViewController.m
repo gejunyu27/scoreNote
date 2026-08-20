@@ -12,7 +12,7 @@
 #import "ConfigViewController.h"
 #import "StatsDetailViewController.h"
 
-@interface StatsViewController () <UIScrollViewDelegate, StatsCalendarDelegate>
+@interface StatsViewController () <UIScrollViewDelegate, StatsCalendarDelegate, FinanceViewDelegate>
 @property (nonatomic, strong) UIView *bgView;
 @property (nonatomic, strong) UIScrollView *scrollView;
 @property (nonatomic, strong) FinanceView *financeView;
@@ -57,6 +57,9 @@
 
     //月份图
     self.calendarView.yearModels = self.viewModel.yearModels;
+    
+    //折线图
+    self.financeView.monthProfitList = self.viewModel.monthProfitList;
 
 }
 
@@ -88,6 +91,13 @@
     StatsDetailViewController *vc = [StatsDetailViewController new];
     year ? (vc.year = year) : (vc.month = month);
     [self.navigationController pushViewController:vc animated:YES];
+}
+
+#pragma mark -FinanceViewDelegate
+- (void)financeViewChartClicked
+{
+    //进入分析页
+    [self showWithStatus:@"分析页正在开发中..."];
 }
 
 #pragma mark -UI
@@ -134,9 +144,10 @@
     if (!_financeView) {
         CGFloat x = kHorEdge;
         _financeView = [[FinanceView alloc] initWithFrame:CGRectMake(x, 0, self.scrollView.width-x*2, 220)];
-        
-        [_financeView addFunctionButtonWithImage:@"Config" target:self action:@selector(configClick) forControlEvents:UIControlEventTouchUpInside];
+        _financeView.delegate = self;
         [self.scrollView addSubview:_financeView];
+        
+        
     }
     return _financeView;
 }

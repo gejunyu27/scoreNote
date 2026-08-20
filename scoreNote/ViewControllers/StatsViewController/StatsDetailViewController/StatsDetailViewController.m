@@ -167,7 +167,6 @@
         
         CGFloat edge = 15;
         _financeView = [[FinanceView alloc] initWithFrame:CGRectMake(edge, 0, topView.width-edge*2, topView.height-5)];
-        _financeView.backgroundColor = HEX_RGB(@"#FBF9F6");
 
 
         [topView addSubview:_financeView];

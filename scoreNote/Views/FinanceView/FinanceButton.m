@@ -40,7 +40,7 @@
     
     if (model.showAnimation && isNum & !_hasAnimated) {
         _hasAnimated = YES; //只在进入时显示一次
-        [self startCountAnimationFrom:0 to:num duration:2];
+        [self startCountAnimationFrom:0 to:num duration:4];
         
     }else {
         self.contentLabel.text = model.content;

@@ -41,8 +41,7 @@
     
 //    [temp addObject:[self getNavVcFrom:[TotalViewController new] title:@"统计" tabImage:@"Tab_Total" tabSelectedImage:@"Tab_Total_selected"]];
     
-    //开发中
-    [temp addObject:[self getNavVcFrom:[StatsViewController new] title:@"统计" tabImage:@"Tab_Total" tabSelectedImage:@"Tab_Total_selected"]];
+    [temp addObject:[self getNavVcFrom:[StatsViewController new] title:@"统计" tabImage:@"Tab_Stats" tabSelectedImage:@"Tab_Stats_selected"]];
     
     self.viewControllers = temp.copy;
     

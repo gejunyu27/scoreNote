@@ -47,15 +47,29 @@
     NSInteger allRecordsNum = 0;   //总单数
     CGFloat totalProfit = 0;       //总利润
     
+    
+    NSMutableArray *tempList = [NSMutableArray array]; //折线图数据
+    CGFloat monthAddProfit = 0; //月叠加利润，折线图用
+    
     for (YearModel *year in self.yearModels) {
-        totalProfit += year.allProfit; //计算总利润
+        //计算总利润
+        totalProfit += year.allProfit;
+        
         for (MonthModel *month in year.monthModels) {
-            allRecordsNum += month.records.count; //计算总单数
+            //计算总单数
+            allRecordsNum += month.records.count;
+
             for (RecordModel *record in month.records) {
-                [self getStartRecord:record]; //获取起始单
+                //获取起始单
+                [self getStartRecord:record];
             }
+            
+            //计算折线图数据
+            [tempList addObject:@(monthAddProfit+=month.allProfit)];
         }
     }
+    
+    _monthProfitList = tempList.copy;
     
     //这里顺手可以更新下本地的数据
     [self updateLocalData:totalProfit];
@@ -70,14 +84,14 @@
     //投注时长
     NSInteger year = totalMonths/12;
     NSInteger month = totalMonths%12;
-    NSMutableString *temp = [NSMutableString string];
+    NSMutableString *tempPeriod = [NSMutableString string];
     if (year > 0) {
-        [temp appendFormat:@"%li年", year];
+        [tempPeriod appendFormat:@"%li年", year];
     }
     if (month > 0) {
-        [temp appendFormat:@"%li个月", month];
+        [tempPeriod appendFormat:@"%li个月", month];
     }
-    NSString *periodString = temp.copy;
+    NSString *periodString = tempPeriod.copy;
     
     //生成金融数据
     FinanceModel *totalProfitModel    = [[FinanceModel alloc] initWithTitle:@"总收益（非现金流）" content:[SCUtilities removeFloatSuffix:totalProfit]];
@@ -88,6 +102,7 @@
     FinanceModel *perMonthProfitModel = [[FinanceModel alloc] initWithTitle:@"月均收益" content:[SCUtilities removeFloatSuffix:perMonthProfit]];
     
     _financeModels = @[totalProfitModel, startDateModel, periodModel, allRecordsNumModel, perMonthProfitModel];
+    
 }
 
 - (void)getYearModels

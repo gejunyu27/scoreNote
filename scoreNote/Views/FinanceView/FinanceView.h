@@ -11,8 +11,16 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+@protocol FinanceViewDelegate <NSObject>
+
+- (void)financeViewChartClicked;
+
+@end
+
 @interface FinanceView : UIView
 @property (nonatomic, strong) NSArray <FinanceModel *> *models;
+@property (nonatomic, strong) NSArray <NSNumber *> *monthProfitList;
+@property (nonatomic, weak) id <FinanceViewDelegate> delegate;
 
 //添加右侧按钮 写法1
 - (void)addFunctionButtonWithImage:(id)image target:(nullable id)target action:(SEL)action forControlEvents:(UIControlEvents)controlEvents;
