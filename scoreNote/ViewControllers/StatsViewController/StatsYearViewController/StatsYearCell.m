@@ -1,34 +1,31 @@
 //
-//  StatsDetailCell.m
+//  StatsYearCell.m
 //  scoreNote
 //
-//  Created by Zhuanz密码0000 on 2026/8/19.
+//  Created by Zhuanz密码0000 on 2026/8/22.
 //
 
-#import "StatsDetailCell.h"
+#import "StatsYearCell.h"
 
-@interface StatsDetailCell ()
-
+@interface StatsYearCell ()
 @property (nonatomic, strong) UILabel *profitLabel;
 @property (nonatomic, strong) UILabel *numLabel;
 @property (nonatomic, strong) UILabel *tagLabel;
-@property (nonatomic, strong) UIView *sepLine;
 
 @end
 
-@implementation StatsDetailCell
-
+@implementation StatsYearCell
 - (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
         self.selectionStyle = UITableViewCellSelectionStyleNone;
-        [self sepLine];
+        self.backgroundColor = [UIColor clearColor];
     }
     return self;
 }
 
-- (void)update:(RecordModel *)record isYear:(BOOL)isYear row:(NSInteger)row
+- (void)update:(RecordModel *)record row:(NSInteger)row
 {
     //标签
     NSString *tagName = record.tagModel.name;
@@ -41,10 +38,6 @@
     //利润
     self.profitLabel.text = [SCUtilities removeFloatSuffix:record.allProfit];
     self.profitLabel.textColor = [UIColor colorWithProfit:record.allProfit];
-    
-    //ui
-    self.contentView.backgroundColor = isYear ? HEX_RGB(@"#F7F8FA") : [UIColor whiteColor];
-    
 }
 
 #pragma mark -ui
@@ -52,7 +45,7 @@
 - (UILabel *)tagLabel
 {
     if (!_tagLabel) {
-        _tagLabel = [[UILabel alloc] initWithFrame:CGRectMake(kEdge, 0, 150, kSDCellH)];
+        _tagLabel = [[UILabel alloc] initWithFrame:CGRectMake(kEdge, 0, 150, kSYCellH)];
         _tagLabel.textAlignment = NSTextAlignmentLeft;
         _tagLabel.font = SCFONT_SIZED(17);
         _tagLabel.adjustsFontSizeToFitWidth = YES;
@@ -64,7 +57,7 @@
 - (UILabel *)numLabel
 {
     if (!_numLabel) {
-        _numLabel = [[UILabel alloc] initWithFrame:CGRectMake(self.tagLabel.right, 0, 60, kSDCellH)];
+        _numLabel = [[UILabel alloc] initWithFrame:CGRectMake(self.tagLabel.right, 0, 60, kSYCellH)];
         _numLabel.font = SCFONT_SIZED(15);
         _numLabel.textAlignment = NSTextAlignmentLeft;
         _numLabel.textColor = [UIColor grayColor];
@@ -77,26 +70,13 @@
 {
     if (!_profitLabel) {
         CGFloat w = 100;
-        _profitLabel = [[UILabel alloc] initWithFrame:CGRectMake(SCREEN_WIDTH-kEdge-w, 0, w, kSDCellH)];
+        _profitLabel = [[UILabel alloc] initWithFrame:CGRectMake(SCREEN_WIDTH-kEdge-w, 0, w, kSYCellH)];
         _profitLabel.font = SCFONT_SIZED(18);
         _profitLabel.textAlignment = NSTextAlignmentRight;
         _profitLabel.adjustsFontSizeToFitWidth = YES;
         [self.contentView addSubview:_profitLabel];
     }
     return _profitLabel;
-}
-
-
-- (UIView *)sepLine
-{
-    if (!_sepLine) {
-        CGFloat h = 1;
-        CGFloat x = kEdge;
-        _sepLine = [[UIView alloc] initWithFrame:CGRectMake(x, kSDCellH-h, SCREEN_WIDTH-x*2, h)];
-        _sepLine.backgroundColor = HEX_RGB(@"#EEEEEE");
-        [self.contentView addSubview:_sepLine];
-    }
-    return _sepLine;
 }
 
 

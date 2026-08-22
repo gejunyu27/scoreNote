@@ -24,11 +24,9 @@
 		4B0319502F79452C0041EFC7 /* InputButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B03193B2F79452C0041EFC7 /* InputButton.m */; };
 		4B0319512F79452C0041EFC7 /* TagPinyinModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B0319102F79452C0041EFC7 /* TagPinyinModel.m */; };
 		4B0319522F79452C0041EFC7 /* TagSelectView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B0319442F79452C0041EFC7 /* TagSelectView.m */; };
-		4B0319532F79452C0041EFC7 /* CareerCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B03191A2F79452C0041EFC7 /* CareerCell.m */; };
 		4B0319542F79452C0041EFC7 /* HomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B0319002F79452C0041EFC7 /* HomeViewController.m */; };
 		4B0319552F79452C0041EFC7 /* NSObject+SCHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B0318C62F79452C0041EFC7 /* NSObject+SCHUD.m */; };
 		4B0319562F79452C0041EFC7 /* BaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B0318BB2F79452C0041EFC7 /* BaseViewController.m */; };
-		4B0319572F79452C0041EFC7 /* CareerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B03191F2F79452C0041EFC7 /* CareerViewController.m */; };
 		4B0319582F79452C0041EFC7 /* ConfigModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B0318F42F79452C0041EFC7 /* ConfigModel.m */; };
 		4B0319592F79452C0041EFC7 /* ColumnAddViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B0318DD2F79452C0041EFC7 /* ColumnAddViewController.m */; };
 		4B03195A2F79452C0041EFC7 /* NumberInputView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B03193D2F79452C0041EFC7 /* NumberInputView.m */; };
@@ -37,29 +35,23 @@
 		4B03195D2F79452C0041EFC7 /* TagDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B03190B2F79452C0041EFC7 /* TagDetailViewController.m */; };
 		4B03195E2F79452C0041EFC7 /* SCUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B0318DA2F79452C0041EFC7 /* SCUtilities.m */; };
 		4B03195F2F79452C0041EFC7 /* TagRankCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B0319242F79452C0041EFC7 /* TagRankCell.m */; };
-		4B0319602F79452C0041EFC7 /* CareerViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B0319212F79452C0041EFC7 /* CareerViewModel.m */; };
 		4B0319612F79452C0041EFC7 /* ColumnManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B0318D12F79452C0041EFC7 /* ColumnManager.m */; };
 		4B0319622F79452C0041EFC7 /* SqlEditUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B0318E12F79452C0041EFC7 /* SqlEditUtil.m */; };
 		4B0319632F79452C0041EFC7 /* TagManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B03190E2F79452C0041EFC7 /* TagManager.m */; };
-		4B0319642F79452C0041EFC7 /* TotalViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B0319332F79452C0041EFC7 /* TotalViewController.m */; };
 		4B0319662F79452C0041EFC7 /* NSString+SCExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B0318C82F79452C0041EFC7 /* NSString+SCExtension.m */; };
 		4B0319672F79452C0041EFC7 /* RecordModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B0319062F79452C0041EFC7 /* RecordModel.m */; };
 		4B0319682F79452C0041EFC7 /* TagDetailCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B0319092F79452C0041EFC7 /* TagDetailCell.m */; };
 		4B0319692F79452C0041EFC7 /* TagRankViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B0319282F79452C0041EFC7 /* TagRankViewController.m */; };
 		4B03196A2F79452C0041EFC7 /* TagRankModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B0319262F79452C0041EFC7 /* TagRankModel.m */; };
 		4B03196B2F79452C0041EFC7 /* MainTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B0319382F79452C0041EFC7 /* MainTabBarController.m */; };
-		4B03196C2F79452C0041EFC7 /* TotalSectionModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B0319312F79452C0041EFC7 /* TotalSectionModel.m */; };
 		4B03196D2F79452C0041EFC7 /* UIView+SCExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B0318CE2F79452C0041EFC7 /* UIView+SCExtension.m */; };
 		4B03196E2F79452C0041EFC7 /* SqlLineViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B0318E52F79452C0041EFC7 /* SqlLineViewController.m */; };
 		4B03196F2F79452C0041EFC7 /* HomeCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B0318FE2F79452C0041EFC7 /* HomeCell.m */; };
 		4B0319702F79452C0041EFC7 /* ConfigViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B0318F62F79452C0041EFC7 /* ConfigViewController.m */; };
 		4B0319712F79452C0041EFC7 /* NSDictionary+SCExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B0318C22F79452C0041EFC7 /* NSDictionary+SCExtension.m */; };
 		4B0319722F79452C0041EFC7 /* BitCoinViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B0318E82F79452C0041EFC7 /* BitCoinViewController.m */; };
-		4B0319732F79452C0041EFC7 /* TotalHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B03192F2F79452C0041EFC7 /* TotalHeaderView.m */; };
-		4B0319742F79452C0041EFC7 /* TotalViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B0319352F79452C0041EFC7 /* TotalViewModel.m */; };
 		4B0319752F79452C0041EFC7 /* RecordManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B0319042F79452C0041EFC7 /* RecordManager.m */; };
 		4B0319762F79452C0041EFC7 /* UIControl+SCExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B0318CC2F79452C0041EFC7 /* UIControl+SCExtension.m */; };
-		4B0319772F79452C0041EFC7 /* TotalCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B03192D2F79452C0041EFC7 /* TotalCell.m */; };
 		4B0319782F79452C0041EFC7 /* NSError+SCExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B0318C42F79452C0041EFC7 /* NSError+SCExtension.m */; };
 		4B0319792F79452C0041EFC7 /* TagModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B0319152F79452C0041EFC7 /* TagModel.m */; };
 		4B03197A2F79452C0041EFC7 /* ColumnModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B0318D32F79452C0041EFC7 /* ColumnModel.m */; };
@@ -69,7 +61,6 @@
 		4B03197F2F79452C0041EFC7 /* NSDate+SCExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B0318BE2F79452C0041EFC7 /* NSDate+SCExtension.m */; };
 		4B0319802F79452C0041EFC7 /* TagCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B0319132F79452C0041EFC7 /* TagCell.m */; };
 		4B0319812F79452C0041EFC7 /* RecordDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B0318FB2F79452C0041EFC7 /* RecordDetailViewController.m */; };
-		4B0319832F79452C0041EFC7 /* CareerModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B03191D2F79452C0041EFC7 /* CareerModel.m */; };
 		4B0319852F794C100041EFC7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4B0319842F794C100041EFC7 /* Assets.xcassets */; };
 		4B0319882F79804D0041EFC7 /* NetworkReachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B0319872F79804D0041EFC7 /* NetworkReachability.m */; };
 		4B07EBBF30276D54005C6CB9 /* YearModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B07EBBE30276D54005C6CB9 /* YearModel.m */; };
@@ -93,12 +84,12 @@
 		4BBD15473035EB240070E802 /* StatsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BBD15463035EB240070E802 /* StatsViewController.m */; };
 		4BBD154A3035EB630070E802 /* StatsViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BBD15493035EB630070E802 /* StatsViewModel.m */; };
 		4BBD154E3035EB940070E802 /* StatsCalendarView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BBD154D3035EB940070E802 /* StatsCalendarView.m */; };
-		4BBD15523035EC600070E802 /* StatsDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BBD15513035EC600070E802 /* StatsDetailViewController.m */; };
-		4BBD15553035ED120070E802 /* StatsDetailHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BBD15543035ED120070E802 /* StatsDetailHeaderView.m */; };
-		4BBD15583035ED600070E802 /* StatsDetailCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BBD15573035ED600070E802 /* StatsDetailCell.m */; };
 		4BBD155B3039D1600070E802 /* StatsMonthViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BBD155A3039D1600070E802 /* StatsMonthViewController.m */; };
 		4BBD155F3039D4340070E802 /* StatsMonthCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BBD155E3039D4340070E802 /* StatsMonthCell.m */; };
 		4BBD15623039DC670070E802 /* CommonCornerCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BBD15613039DC670070E802 /* CommonCornerCell.m */; };
+		4BBD15663039E47B0070E802 /* StatsYearViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BBD15653039E47B0070E802 /* StatsYearViewController.m */; };
+		4BBD15693039E51E0070E802 /* StatsYearHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BBD15683039E51D0070E802 /* StatsYearHeaderView.m */; };
+		4BBD156C3039E7EC0070E802 /* StatsYearCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BBD156B3039E7EC0070E802 /* StatsYearCell.m */; };
 		61F0C5ABAEDAF0B802CBEBEE /* Pods_scoreNote.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 27964327C396DCC0BA9E34FE /* Pods_scoreNote.framework */; };
 /* End PBXBuildFile section */
 
@@ -191,14 +182,6 @@
 		4B0319152F79452C0041EFC7 /* TagModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TagModel.m; sourceTree = "<group>"; };
 		4B0319162F79452C0041EFC7 /* TagViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TagViewController.h; sourceTree = "<group>"; };
 		4B0319172F79452C0041EFC7 /* TagViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TagViewController.m; sourceTree = "<group>"; };
-		4B0319192F79452C0041EFC7 /* CareerCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CareerCell.h; sourceTree = "<group>"; };
-		4B03191A2F79452C0041EFC7 /* CareerCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CareerCell.m; sourceTree = "<group>"; };
-		4B03191C2F79452C0041EFC7 /* CareerModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CareerModel.h; sourceTree = "<group>"; };
-		4B03191D2F79452C0041EFC7 /* CareerModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CareerModel.m; sourceTree = "<group>"; };
-		4B03191E2F79452C0041EFC7 /* CareerViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CareerViewController.h; sourceTree = "<group>"; };
-		4B03191F2F79452C0041EFC7 /* CareerViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CareerViewController.m; sourceTree = "<group>"; };
-		4B0319202F79452C0041EFC7 /* CareerViewModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CareerViewModel.h; sourceTree = "<group>"; };
-		4B0319212F79452C0041EFC7 /* CareerViewModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CareerViewModel.m; sourceTree = "<group>"; };
 		4B0319232F79452C0041EFC7 /* TagRankCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TagRankCell.h; sourceTree = "<group>"; };
 		4B0319242F79452C0041EFC7 /* TagRankCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TagRankCell.m; sourceTree = "<group>"; };
 		4B0319252F79452C0041EFC7 /* TagRankModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TagRankModel.h; sourceTree = "<group>"; };
@@ -207,16 +190,6 @@
 		4B0319282F79452C0041EFC7 /* TagRankViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TagRankViewController.m; sourceTree = "<group>"; };
 		4B0319292F79452C0041EFC7 /* TagRankViewModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TagRankViewModel.h; sourceTree = "<group>"; };
 		4B03192A2F79452C0041EFC7 /* TagRankViewModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TagRankViewModel.m; sourceTree = "<group>"; };
-		4B03192C2F79452C0041EFC7 /* TotalCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TotalCell.h; sourceTree = "<group>"; };
-		4B03192D2F79452C0041EFC7 /* TotalCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TotalCell.m; sourceTree = "<group>"; };
-		4B03192E2F79452C0041EFC7 /* TotalHeaderView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TotalHeaderView.h; sourceTree = "<group>"; };
-		4B03192F2F79452C0041EFC7 /* TotalHeaderView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TotalHeaderView.m; sourceTree = "<group>"; };
-		4B0319302F79452C0041EFC7 /* TotalSectionModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TotalSectionModel.h; sourceTree = "<group>"; };
-		4B0319312F79452C0041EFC7 /* TotalSectionModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TotalSectionModel.m; sourceTree = "<group>"; };
-		4B0319322F79452C0041EFC7 /* TotalViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TotalViewController.h; sourceTree = "<group>"; };
-		4B0319332F79452C0041EFC7 /* TotalViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TotalViewController.m; sourceTree = "<group>"; };
-		4B0319342F79452C0041EFC7 /* TotalViewModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TotalViewModel.h; sourceTree = "<group>"; };
-		4B0319352F79452C0041EFC7 /* TotalViewModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TotalViewModel.m; sourceTree = "<group>"; };
 		4B0319372F79452C0041EFC7 /* MainTabBarController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MainTabBarController.h; sourceTree = "<group>"; };
 		4B0319382F79452C0041EFC7 /* MainTabBarController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MainTabBarController.m; sourceTree = "<group>"; };
 		4B03193A2F79452C0041EFC7 /* InputButton.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = InputButton.h; sourceTree = "<group>"; };
@@ -274,18 +247,18 @@
 		4BBD15493035EB630070E802 /* StatsViewModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = StatsViewModel.m; sourceTree = "<group>"; };
 		4BBD154C3035EB940070E802 /* StatsCalendarView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StatsCalendarView.h; sourceTree = "<group>"; };
 		4BBD154D3035EB940070E802 /* StatsCalendarView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = StatsCalendarView.m; sourceTree = "<group>"; };
-		4BBD15503035EC600070E802 /* StatsDetailViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StatsDetailViewController.h; sourceTree = "<group>"; };
-		4BBD15513035EC600070E802 /* StatsDetailViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = StatsDetailViewController.m; sourceTree = "<group>"; };
-		4BBD15533035ED120070E802 /* StatsDetailHeaderView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StatsDetailHeaderView.h; sourceTree = "<group>"; };
-		4BBD15543035ED120070E802 /* StatsDetailHeaderView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = StatsDetailHeaderView.m; sourceTree = "<group>"; };
-		4BBD15563035ED600070E802 /* StatsDetailCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StatsDetailCell.h; sourceTree = "<group>"; };
-		4BBD15573035ED600070E802 /* StatsDetailCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = StatsDetailCell.m; sourceTree = "<group>"; };
 		4BBD15593039D1600070E802 /* StatsMonthViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StatsMonthViewController.h; sourceTree = "<group>"; };
 		4BBD155A3039D1600070E802 /* StatsMonthViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = StatsMonthViewController.m; sourceTree = "<group>"; };
 		4BBD155D3039D4340070E802 /* StatsMonthCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StatsMonthCell.h; sourceTree = "<group>"; };
 		4BBD155E3039D4340070E802 /* StatsMonthCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = StatsMonthCell.m; sourceTree = "<group>"; };
 		4BBD15603039DC670070E802 /* CommonCornerCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CommonCornerCell.h; sourceTree = "<group>"; };
 		4BBD15613039DC670070E802 /* CommonCornerCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CommonCornerCell.m; sourceTree = "<group>"; };
+		4BBD15643039E47B0070E802 /* StatsYearViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StatsYearViewController.h; sourceTree = "<group>"; };
+		4BBD15653039E47B0070E802 /* StatsYearViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = StatsYearViewController.m; sourceTree = "<group>"; };
+		4BBD15673039E51D0070E802 /* StatsYearHeaderView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StatsYearHeaderView.h; sourceTree = "<group>"; };
+		4BBD15683039E51D0070E802 /* StatsYearHeaderView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = StatsYearHeaderView.m; sourceTree = "<group>"; };
+		4BBD156A3039E7EC0070E802 /* StatsYearCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StatsYearCell.h; sourceTree = "<group>"; };
+		4BBD156B3039E7EC0070E802 /* StatsYearCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = StatsYearCell.m; sourceTree = "<group>"; };
 		65518CD01B2FD616C51EE0BD /* Pods-scoreNote.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-scoreNote.release.xcconfig"; path = "Target Support Files/Pods-scoreNote/Pods-scoreNote.release.xcconfig"; sourceTree = "<group>"; };
 		67F835AE28BC049367D8A4E8 /* Pods-scoreNote.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-scoreNote.debug.xcconfig"; path = "Target Support Files/Pods-scoreNote/Pods-scoreNote.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -538,21 +511,6 @@
 			path = TagViewController;
 			sourceTree = "<group>";
 		};
-		4B0319222F79452C0041EFC7 /* CareerViewController */ = {
-			isa = PBXGroup;
-			children = (
-				4B03191E2F79452C0041EFC7 /* CareerViewController.h */,
-				4B03191F2F79452C0041EFC7 /* CareerViewController.m */,
-				4B0319192F79452C0041EFC7 /* CareerCell.h */,
-				4B03191A2F79452C0041EFC7 /* CareerCell.m */,
-				4B03191C2F79452C0041EFC7 /* CareerModel.h */,
-				4B03191D2F79452C0041EFC7 /* CareerModel.m */,
-				4B0319202F79452C0041EFC7 /* CareerViewModel.h */,
-				4B0319212F79452C0041EFC7 /* CareerViewModel.m */,
-			);
-			path = CareerViewController;
-			sourceTree = "<group>";
-		};
 		4B03192B2F79452C0041EFC7 /* TagRankViewController */ = {
 			isa = PBXGroup;
 			children = (
@@ -568,24 +526,6 @@
 			path = TagRankViewController;
 			sourceTree = "<group>";
 		};
-		4B0319362F79452C0041EFC7 /* TotalViewController */ = {
-			isa = PBXGroup;
-			children = (
-				4B0319322F79452C0041EFC7 /* TotalViewController.h */,
-				4B0319332F79452C0041EFC7 /* TotalViewController.m */,
-				4B03192E2F79452C0041EFC7 /* TotalHeaderView.h */,
-				4B03192F2F79452C0041EFC7 /* TotalHeaderView.m */,
-				4B03192C2F79452C0041EFC7 /* TotalCell.h */,
-				4B03192D2F79452C0041EFC7 /* TotalCell.m */,
-				4B0319302F79452C0041EFC7 /* TotalSectionModel.h */,
-				4B0319312F79452C0041EFC7 /* TotalSectionModel.m */,
-				4B0319342F79452C0041EFC7 /* TotalViewModel.h */,
-				4B0319352F79452C0041EFC7 /* TotalViewModel.m */,
-				4B0319222F79452C0041EFC7 /* CareerViewController */,
-			);
-			path = TotalViewController;
-			sourceTree = "<group>";
-		};
 		4B0319392F79452C0041EFC7 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
@@ -594,7 +534,6 @@
 				4B0319072F79452C0041EFC7 /* HomeViewController */,
 				4BBB9E9D301E67F100B5FB7C /* WebViewController */,
 				4BBD15443035EB130070E802 /* StatsViewController */,
-				4B0319362F79452C0041EFC7 /* TotalViewController */,
 				4B0319182F79452C0041EFC7 /* TagViewController */,
 				4B0318F72F79452C0041EFC7 /* ConfigViewController */,
 			);
@@ -698,7 +637,7 @@
 				4BBD15493035EB630070E802 /* StatsViewModel.m */,
 				4BBD154B3035EB800070E802 /* StatsCalendarView */,
 				4BBD155C3039D1660070E802 /* StatsMonthViewController */,
-				4BBD154F3035EC400070E802 /* StatsDetailViewController */,
+				4BBD15633039E4500070E802 /* StatsYearViewController */,
 			);
 			path = StatsViewController;
 			sourceTree = "<group>";
@@ -716,19 +655,6 @@
 			path = StatsCalendarView;
 			sourceTree = "<group>";
 		};
-		4BBD154F3035EC400070E802 /* StatsDetailViewController */ = {
-			isa = PBXGroup;
-			children = (
-				4BBD15503035EC600070E802 /* StatsDetailViewController.h */,
-				4BBD15513035EC600070E802 /* StatsDetailViewController.m */,
-				4BBD15533035ED120070E802 /* StatsDetailHeaderView.h */,
-				4BBD15543035ED120070E802 /* StatsDetailHeaderView.m */,
-				4BBD15563035ED600070E802 /* StatsDetailCell.h */,
-				4BBD15573035ED600070E802 /* StatsDetailCell.m */,
-			);
-			path = StatsDetailViewController;
-			sourceTree = "<group>";
-		};
 		4BBD155C3039D1660070E802 /* StatsMonthViewController */ = {
 			isa = PBXGroup;
 			children = (
@@ -738,6 +664,19 @@
 				4BBD155E3039D4340070E802 /* StatsMonthCell.m */,
 			);
 			path = StatsMonthViewController;
+			sourceTree = "<group>";
+		};
+		4BBD15633039E4500070E802 /* StatsYearViewController */ = {
+			isa = PBXGroup;
+			children = (
+				4BBD15643039E47B0070E802 /* StatsYearViewController.h */,
+				4BBD15653039E47B0070E802 /* StatsYearViewController.m */,
+				4BBD15673039E51D0070E802 /* StatsYearHeaderView.h */,
+				4BBD15683039E51D0070E802 /* StatsYearHeaderView.m */,
+				4BBD156A3039E7EC0070E802 /* StatsYearCell.h */,
+				4BBD156B3039E7EC0070E802 /* StatsYearCell.m */,
+			);
+			path = StatsYearViewController;
 			sourceTree = "<group>";
 		};
 		F4C1EE76CCF14FFF58A5AEFB /* Pods */ = {
@@ -880,20 +819,18 @@
 				4B03194B2F79452C0041EFC7 /* SqlHeaderView.m in Sources */,
 				4B03194C2F79452C0041EFC7 /* TagRankViewModel.m in Sources */,
 				4B03194D2F79452C0041EFC7 /* DataManager.m in Sources */,
-				4BBD15553035ED120070E802 /* StatsDetailHeaderView.m in Sources */,
 				4B03194E2F79452C0041EFC7 /* NSDictionary+log.m in Sources */,
 				4B03194F2F79452C0041EFC7 /* ConfigManager.m in Sources */,
 				4BBD154A3035EB630070E802 /* StatsViewModel.m in Sources */,
 				4B0319502F79452C0041EFC7 /* InputButton.m in Sources */,
 				4B0319512F79452C0041EFC7 /* TagPinyinModel.m in Sources */,
 				4B0319522F79452C0041EFC7 /* TagSelectView.m in Sources */,
-				4B0319532F79452C0041EFC7 /* CareerCell.m in Sources */,
 				4B0319542F79452C0041EFC7 /* HomeViewController.m in Sources */,
 				4B2280DF30223056003E2274 /* ConfigViewModel.m in Sources */,
+				4BBD15663039E47B0070E802 /* StatsYearViewController.m in Sources */,
 				4B07EC8B303344DF005C6CB9 /* SwitchYearView.m in Sources */,
 				4B0319552F79452C0041EFC7 /* NSObject+SCHUD.m in Sources */,
 				4B0319562F79452C0041EFC7 /* BaseViewController.m in Sources */,
-				4B0319572F79452C0041EFC7 /* CareerViewController.m in Sources */,
 				4B2817E33023721C0056769D /* ConfigCell.m in Sources */,
 				4B0319582F79452C0041EFC7 /* ConfigModel.m in Sources */,
 				4B0319592F79452C0041EFC7 /* ColumnAddViewController.m in Sources */,
@@ -901,20 +838,17 @@
 				4B03195B2F79452C0041EFC7 /* TagViewController.m in Sources */,
 				4BBD15623039DC670070E802 /* CommonCornerCell.m in Sources */,
 				4B03195C2F79452C0041EFC7 /* UIColor+SCHex.m in Sources */,
-				4BBD15583035ED600070E802 /* StatsDetailCell.m in Sources */,
 				4B42D1122FD1B63000816442 /* FinanceView.m in Sources */,
 				4B03195D2F79452C0041EFC7 /* TagDetailViewController.m in Sources */,
 				4B42D1442FD5885600816442 /* BitCoinModel.m in Sources */,
 				4B42D1412FD587A400816442 /* BitCoinViewModel.m in Sources */,
 				4B03195E2F79452C0041EFC7 /* SCUtilities.m in Sources */,
 				4B03195F2F79452C0041EFC7 /* TagRankCell.m in Sources */,
-				4B0319602F79452C0041EFC7 /* CareerViewModel.m in Sources */,
 				4B0319612F79452C0041EFC7 /* ColumnManager.m in Sources */,
 				4B42D1182FD1B6F300816442 /* FinanceModel.m in Sources */,
 				4B0319622F79452C0041EFC7 /* SqlEditUtil.m in Sources */,
 				4B0319632F79452C0041EFC7 /* TagManager.m in Sources */,
 				4B07EC9330335430005C6CB9 /* CalendarDateItem.m in Sources */,
-				4B0319642F79452C0041EFC7 /* TotalViewController.m in Sources */,
 				4B0319662F79452C0041EFC7 /* NSString+SCExtension.m in Sources */,
 				4B0319672F79452C0041EFC7 /* RecordModel.m in Sources */,
 				4B0319682F79452C0041EFC7 /* TagDetailCell.m in Sources */,
@@ -924,7 +858,6 @@
 				4B2280DC3020EF93003E2274 /* WebNaviBar.m in Sources */,
 				4B03196B2F79452C0041EFC7 /* MainTabBarController.m in Sources */,
 				4B07EC8830320FBF005C6CB9 /* SegmentedView.m in Sources */,
-				4B03196C2F79452C0041EFC7 /* TotalSectionModel.m in Sources */,
 				4BBD15473035EB240070E802 /* StatsViewController.m in Sources */,
 				4B03196D2F79452C0041EFC7 /* UIView+SCExtension.m in Sources */,
 				4B03196E2F79452C0041EFC7 /* SqlLineViewController.m in Sources */,
@@ -933,17 +866,14 @@
 				4B0319882F79804D0041EFC7 /* NetworkReachability.m in Sources */,
 				4B0319712F79452C0041EFC7 /* NSDictionary+SCExtension.m in Sources */,
 				4B0319722F79452C0041EFC7 /* BitCoinViewController.m in Sources */,
-				4BBD15523035EC600070E802 /* StatsDetailViewController.m in Sources */,
-				4B0319732F79452C0041EFC7 /* TotalHeaderView.m in Sources */,
-				4B0319742F79452C0041EFC7 /* TotalViewModel.m in Sources */,
 				4B07EBBF30276D54005C6CB9 /* YearModel.m in Sources */,
 				4B0319752F79452C0041EFC7 /* RecordManager.m in Sources */,
 				4B07EBC230276D72005C6CB9 /* MonthModel.m in Sources */,
 				4B0319762F79452C0041EFC7 /* UIControl+SCExtension.m in Sources */,
-				4B0319772F79452C0041EFC7 /* TotalCell.m in Sources */,
 				4B0319782F79452C0041EFC7 /* NSError+SCExtension.m in Sources */,
 				4B0319792F79452C0041EFC7 /* TagModel.m in Sources */,
 				4B03197A2F79452C0041EFC7 /* ColumnModel.m in Sources */,
+				4BBD15693039E51E0070E802 /* StatsYearHeaderView.m in Sources */,
 				4BBD154E3035EB940070E802 /* StatsCalendarView.m in Sources */,
 				4B42D1472FD58BD000816442 /* BitCoinCell.m in Sources */,
 				4B03197B2F79452C0041EFC7 /* LineModel.m in Sources */,
@@ -951,11 +881,11 @@
 				4B03197E2F79452C0041EFC7 /* BaseNavigationController.m in Sources */,
 				4B03197F2F79452C0041EFC7 /* NSDate+SCExtension.m in Sources */,
 				4B42D1152FD1B65300816442 /* FinanceButton.m in Sources */,
+				4BBD156C3039E7EC0070E802 /* StatsYearCell.m in Sources */,
 				4B0319802F79452C0041EFC7 /* TagCell.m in Sources */,
 				4BBD155F3039D4340070E802 /* StatsMonthCell.m in Sources */,
 				4B0319812F79452C0041EFC7 /* RecordDetailViewController.m in Sources */,
 				4BBD155B3039D1600070E802 /* StatsMonthViewController.m in Sources */,
-				4B0319832F79452C0041EFC7 /* CareerModel.m in Sources */,
 				4B0318B22F7944FF0041EFC7 /* SceneDelegate.m in Sources */,
 				4B2280E230223161003E2274 /* ConfigSectionModel.m in Sources */,
 			);
@@ -1000,7 +930,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 3.0.4;
+				MARKETING_VERSION = 3.0.5;
 				PRODUCT_BUNDLE_IDENTIFIER = com.junyu.scoreNote5;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				STRING_CATALOG_GENERATE_SYMBOLS = YES;
@@ -1038,7 +968,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 3.0.4;
+				MARKETING_VERSION = 3.0.5;
 				PRODUCT_BUNDLE_IDENTIFIER = com.junyu.scoreNote5;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				STRING_CATALOG_GENERATE_SYMBOLS = YES;

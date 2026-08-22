@@ -10,6 +10,7 @@
 #import "YearModel.h"
 #import "StatsViewModel.h"
 #import "StatsMonthCell.h"
+#import "RecordDetailViewController.h"
 
 @interface StatsMonthViewController () <UITableViewDelegate, UITableViewDataSource>
 @property (nonatomic, strong) UITableView *tableView;
@@ -53,6 +54,17 @@
     [cell update:_month index:indexPath.row];
     
     return cell;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (indexPath.row < _month.records.count) {
+        RecordModel *record = _month.records[indexPath.row];
+        RecordDetailViewController *vc = [RecordDetailViewController new];
+        [vc setRecord:record canEdit:NO];
+        [self.navigationController pushViewController:vc animated:YES];
+    }
+    
 }
 
 #pragma mark -UI

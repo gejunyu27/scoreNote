@@ -10,8 +10,8 @@
 #import "FinanceView.h"
 #import "StatsCalendarView.h"
 #import "ConfigViewController.h"
-#import "StatsDetailViewController.h"
 #import "StatsMonthViewController.h"
+#import "StatsYearViewController.h"
 
 @interface StatsViewController () <UIScrollViewDelegate, StatsCalendarDelegate, FinanceViewDelegate>
 @property (nonatomic, strong) UIView *bgView;
@@ -31,10 +31,6 @@
     self.scrollView.contentSize = CGSizeMake(self.scrollView.width, SCREEN_HEIGHT-SCROLL_SAFE_TOP-TAB_BAR_HEIGHT+10);
     
     [self refreshUI];
-    
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        [self.navigationController pushViewController:[ConfigViewController new] animated:YES];
-    });
     
 }
 
@@ -93,7 +89,7 @@
 #pragma mark -StatsCalendarDelegate
 - (void)statsCalendarSelectedYear:(YearModel *)year
 {
-    StatsDetailViewController *vc = [StatsDetailViewController new];
+    StatsYearViewController *vc = [StatsYearViewController new];
     vc.year = year;
     [self.navigationController pushViewController:vc animated:YES];
 }
