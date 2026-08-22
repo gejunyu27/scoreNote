@@ -5,7 +5,7 @@
 //  Created by Zhuanz密码0000 on 2026/8/5.
 //
 
-#import <UIKit/UIKit.h>
+#import "CommonCornerCell.h"
 #import "ConfigSectionModel.h"
 
 NS_ASSUME_NONNULL_BEGIN
@@ -19,7 +19,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @end
 
-@interface ConfigCell : UITableViewCell
+@interface ConfigCell : CommonCornerCell
 @property (nonatomic, weak) id <ConfigCellDelegate> delegate;
 
 - (void)update:(ConfigSectionModel *)sectionModel index:(NSInteger)index;

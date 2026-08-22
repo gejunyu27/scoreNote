@@ -11,7 +11,8 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @protocol StatsCalendarDelegate <NSObject>
-- (void)statsCalendarSelectedYear:(nullable YearModel *)year orMonth:(nullable MonthModel *)month;
+- (void)statsCalendarSelectedYear:(nullable YearModel *)year;
+- (void)statsCalendarSelectedMonth:(nullable MonthModel *)month;
 
 @end
 

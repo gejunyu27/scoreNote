@@ -123,15 +123,29 @@
         return;
     }
     
-    if ([self.delegate respondsToSelector:@selector(statsCalendarSelectedYear:orMonth:)]) {
+    
+    if (sender.showYear) {
         YearModel *year = sender.year;
         //特殊情况，进行中只传月份
-        if (year.isFollowing && year.monthModels.count > 0) {
-            MonthModel *fMonth = year.monthModels.firstObject;
-            [self.delegate statsCalendarSelectedYear:nil orMonth:fMonth];
-            
+        if (year.isFollowing) {
+            if (year.monthModels.count > 0) {
+                MonthModel *fMonth = year.monthModels.firstObject;
+                if ([self.delegate respondsToSelector:@selector(statsCalendarSelectedMonth:)]) {
+                    [self.delegate statsCalendarSelectedMonth:fMonth];
+                }
+            }
+
         }else {
-            [self.delegate statsCalendarSelectedYear:year orMonth:sender.month];
+            if (year && [self.delegate respondsToSelector:@selector(statsCalendarSelectedYear:)]) {
+                [self.delegate statsCalendarSelectedYear:year];
+            }
+            
+        }
+        
+        
+    }else {
+        if (sender.month && [self.delegate respondsToSelector:@selector(statsCalendarSelectedMonth:)]) {
+            [self.delegate statsCalendarSelectedMonth:sender.month];
         }
         
     }

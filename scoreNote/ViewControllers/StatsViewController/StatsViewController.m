@@ -11,6 +11,7 @@
 #import "StatsCalendarView.h"
 #import "ConfigViewController.h"
 #import "StatsDetailViewController.h"
+#import "StatsMonthViewController.h"
 
 @interface StatsViewController () <UIScrollViewDelegate, StatsCalendarDelegate, FinanceViewDelegate>
 @property (nonatomic, strong) UIView *bgView;
@@ -30,6 +31,10 @@
     self.scrollView.contentSize = CGSizeMake(self.scrollView.width, SCREEN_HEIGHT-SCROLL_SAFE_TOP-TAB_BAR_HEIGHT+10);
     
     [self refreshUI];
+    
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [self.navigationController pushViewController:[ConfigViewController new] animated:YES];
+    });
     
 }
 
@@ -86,10 +91,16 @@
 }
 
 #pragma mark -StatsCalendarDelegate
-- (void)statsCalendarSelectedYear:(YearModel *)year orMonth:(MonthModel *)month
+- (void)statsCalendarSelectedYear:(YearModel *)year
 {
     StatsDetailViewController *vc = [StatsDetailViewController new];
-    year ? (vc.year = year) : (vc.month = month);
+    vc.year = year;
+    [self.navigationController pushViewController:vc animated:YES];
+}
+- (void)statsCalendarSelectedMonth:(MonthModel *)month
+{
+    StatsMonthViewController *vc = [StatsMonthViewController new];
+    vc.month = month;
     [self.navigationController pushViewController:vc animated:YES];
 }
 
@@ -145,6 +156,7 @@
         CGFloat x = kHorEdge;
         _financeView = [[FinanceView alloc] initWithFrame:CGRectMake(x, 0, self.scrollView.width-x*2, 220)];
         _financeView.delegate = self;
+        [_financeView setCommonShadow];
         [self.scrollView addSubview:_financeView];
         
         

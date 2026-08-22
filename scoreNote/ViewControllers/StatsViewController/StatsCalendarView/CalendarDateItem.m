@@ -27,6 +27,7 @@
 {
     _month = nil;
     _year = year;
+    _showYear = YES;
     [self refresh:year.title num:year.allProfit];
 }
 
@@ -34,6 +35,7 @@
 {
     _year = nil;
     _month = month;
+    _showYear = NO;
     [self refresh:month.title num:month.allProfit];
 }
 

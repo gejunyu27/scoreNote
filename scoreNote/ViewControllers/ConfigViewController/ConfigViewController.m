@@ -256,7 +256,7 @@
         _tableView.dataSource = self;
         _tableView.delegate = self;
         _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-        _tableView.backgroundColor = HEX_RGB(@"#F6F6F6");
+        _tableView.backgroundColor = GRAY_BG_COLOR;
         _tableView.sectionHeaderTopPadding = 0;
         _tableView.rowHeight = kConfigCellH;
         [_tableView registerClass:ConfigCell.class forCellReuseIdentifier:kConfigCellId];

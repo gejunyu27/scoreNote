@@ -13,6 +13,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface CalendarDateItem : UIControl
 @property (nonatomic, strong) YearModel *year;
 @property (nonatomic, strong) MonthModel *month;
+@property (nonatomic, assign, readonly) BOOL showYear;
 
 @end
 

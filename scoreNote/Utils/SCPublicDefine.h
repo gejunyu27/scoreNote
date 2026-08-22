@@ -35,6 +35,7 @@
 #pragma mark - 常用
 //默认背景色
 #define DEFAULT_BG_COLOR      HEX_RGB(@"#F8F9FE")
+#define GRAY_BG_COLOR         HEX_RGB(@"#F6F6F6")
 //默认圆角
 #define DEFAULT_CORNER_RADIUS 10.f
 

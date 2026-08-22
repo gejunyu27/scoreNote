@@ -96,6 +96,9 @@
 		4BBD15523035EC600070E802 /* StatsDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BBD15513035EC600070E802 /* StatsDetailViewController.m */; };
 		4BBD15553035ED120070E802 /* StatsDetailHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BBD15543035ED120070E802 /* StatsDetailHeaderView.m */; };
 		4BBD15583035ED600070E802 /* StatsDetailCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BBD15573035ED600070E802 /* StatsDetailCell.m */; };
+		4BBD155B3039D1600070E802 /* StatsMonthViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BBD155A3039D1600070E802 /* StatsMonthViewController.m */; };
+		4BBD155F3039D4340070E802 /* StatsMonthCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BBD155E3039D4340070E802 /* StatsMonthCell.m */; };
+		4BBD15623039DC670070E802 /* CommonCornerCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BBD15613039DC670070E802 /* CommonCornerCell.m */; };
 		61F0C5ABAEDAF0B802CBEBEE /* Pods_scoreNote.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 27964327C396DCC0BA9E34FE /* Pods_scoreNote.framework */; };
 /* End PBXBuildFile section */
 
@@ -277,6 +280,12 @@
 		4BBD15543035ED120070E802 /* StatsDetailHeaderView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = StatsDetailHeaderView.m; sourceTree = "<group>"; };
 		4BBD15563035ED600070E802 /* StatsDetailCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StatsDetailCell.h; sourceTree = "<group>"; };
 		4BBD15573035ED600070E802 /* StatsDetailCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = StatsDetailCell.m; sourceTree = "<group>"; };
+		4BBD15593039D1600070E802 /* StatsMonthViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StatsMonthViewController.h; sourceTree = "<group>"; };
+		4BBD155A3039D1600070E802 /* StatsMonthViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = StatsMonthViewController.m; sourceTree = "<group>"; };
+		4BBD155D3039D4340070E802 /* StatsMonthCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StatsMonthCell.h; sourceTree = "<group>"; };
+		4BBD155E3039D4340070E802 /* StatsMonthCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = StatsMonthCell.m; sourceTree = "<group>"; };
+		4BBD15603039DC670070E802 /* CommonCornerCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CommonCornerCell.h; sourceTree = "<group>"; };
+		4BBD15613039DC670070E802 /* CommonCornerCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CommonCornerCell.m; sourceTree = "<group>"; };
 		65518CD01B2FD616C51EE0BD /* Pods-scoreNote.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-scoreNote.release.xcconfig"; path = "Target Support Files/Pods-scoreNote/Pods-scoreNote.release.xcconfig"; sourceTree = "<group>"; };
 		67F835AE28BC049367D8A4E8 /* Pods-scoreNote.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-scoreNote.debug.xcconfig"; path = "Target Support Files/Pods-scoreNote/Pods-scoreNote.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -612,6 +621,8 @@
 				4B0319422F79452C0041EFC7 /* SCToolBar.m */,
 				4B07EC8630320FBF005C6CB9 /* SegmentedView.h */,
 				4B07EC8730320FBF005C6CB9 /* SegmentedView.m */,
+				4BBD15603039DC670070E802 /* CommonCornerCell.h */,
+				4BBD15613039DC670070E802 /* CommonCornerCell.m */,
 				4B42D10F2FD1B5E200816442 /* FinanceView */,
 				4B03193E2F79452C0041EFC7 /* NumberInputView */,
 			);
@@ -686,6 +697,7 @@
 				4BBD15483035EB630070E802 /* StatsViewModel.h */,
 				4BBD15493035EB630070E802 /* StatsViewModel.m */,
 				4BBD154B3035EB800070E802 /* StatsCalendarView */,
+				4BBD155C3039D1660070E802 /* StatsMonthViewController */,
 				4BBD154F3035EC400070E802 /* StatsDetailViewController */,
 			);
 			path = StatsViewController;
@@ -715,6 +727,17 @@
 				4BBD15573035ED600070E802 /* StatsDetailCell.m */,
 			);
 			path = StatsDetailViewController;
+			sourceTree = "<group>";
+		};
+		4BBD155C3039D1660070E802 /* StatsMonthViewController */ = {
+			isa = PBXGroup;
+			children = (
+				4BBD15593039D1600070E802 /* StatsMonthViewController.h */,
+				4BBD155A3039D1600070E802 /* StatsMonthViewController.m */,
+				4BBD155D3039D4340070E802 /* StatsMonthCell.h */,
+				4BBD155E3039D4340070E802 /* StatsMonthCell.m */,
+			);
+			path = StatsMonthViewController;
 			sourceTree = "<group>";
 		};
 		F4C1EE76CCF14FFF58A5AEFB /* Pods */ = {
@@ -876,6 +899,7 @@
 				4B0319592F79452C0041EFC7 /* ColumnAddViewController.m in Sources */,
 				4B03195A2F79452C0041EFC7 /* NumberInputView.m in Sources */,
 				4B03195B2F79452C0041EFC7 /* TagViewController.m in Sources */,
+				4BBD15623039DC670070E802 /* CommonCornerCell.m in Sources */,
 				4B03195C2F79452C0041EFC7 /* UIColor+SCHex.m in Sources */,
 				4BBD15583035ED600070E802 /* StatsDetailCell.m in Sources */,
 				4B42D1122FD1B63000816442 /* FinanceView.m in Sources */,
@@ -928,7 +952,9 @@
 				4B03197F2F79452C0041EFC7 /* NSDate+SCExtension.m in Sources */,
 				4B42D1152FD1B65300816442 /* FinanceButton.m in Sources */,
 				4B0319802F79452C0041EFC7 /* TagCell.m in Sources */,
+				4BBD155F3039D4340070E802 /* StatsMonthCell.m in Sources */,
 				4B0319812F79452C0041EFC7 /* RecordDetailViewController.m in Sources */,
+				4BBD155B3039D1600070E802 /* StatsMonthViewController.m in Sources */,
 				4B0319832F79452C0041EFC7 /* CareerModel.m in Sources */,
 				4B0318B22F7944FF0041EFC7 /* SceneDelegate.m in Sources */,
 				4B2280E230223161003E2274 /* ConfigSectionModel.m in Sources */,
@@ -974,7 +1000,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 3.0.3;
+				MARKETING_VERSION = 3.0.4;
 				PRODUCT_BUNDLE_IDENTIFIER = com.junyu.scoreNote5;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				STRING_CATALOG_GENERATE_SYMBOLS = YES;
@@ -1012,7 +1038,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 3.0.3;
+				MARKETING_VERSION = 3.0.4;
 				PRODUCT_BUNDLE_IDENTIFIER = com.junyu.scoreNote5;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				STRING_CATALOG_GENERATE_SYMBOLS = YES;

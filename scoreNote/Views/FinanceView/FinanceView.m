@@ -25,7 +25,7 @@
     if (self) {
         self.backgroundColor = [UIColor whiteColor];
         self.layer.cornerRadius = DEFAULT_CORNER_RADIUS;
-        [self setCommonShadow];
+//        [self setCommonShadow];
     }
     return self;
 }
