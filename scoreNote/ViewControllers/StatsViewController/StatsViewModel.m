@@ -8,10 +8,6 @@
 #import "StatsViewModel.h"
 #import "RecordManager.h"
 
-@interface StatsViewModel ()
-@property (nonatomic, strong) RecordModel *startRecord;
-@end
-
 @implementation StatsViewModel
 
 - (instancetype)init

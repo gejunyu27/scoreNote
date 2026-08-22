@@ -21,7 +21,12 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, assign) BOOL isOn;
 
-@property (nonatomic, weak) YearModel *yearModel;
+@property (nonatomic, weak) YearModel *yearModel; //弱引用一个父类属性，方便使用
+
+//新增比特币数据
+@property (nonatomic, assign, readonly) CGFloat bitcoinOut;
+@property (nonatomic, assign, readonly) CGFloat bitcoinGet;
+@property (nonatomic, assign, readonly) CGFloat bitcoinProfit;
 
 - (void)updateData;
 

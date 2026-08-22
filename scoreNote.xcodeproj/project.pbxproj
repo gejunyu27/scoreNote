@@ -90,6 +90,10 @@
 		4BBD15663039E47B0070E802 /* StatsYearViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BBD15653039E47B0070E802 /* StatsYearViewController.m */; };
 		4BBD15693039E51E0070E802 /* StatsYearHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BBD15683039E51D0070E802 /* StatsYearHeaderView.m */; };
 		4BBD156C3039E7EC0070E802 /* StatsYearCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BBD156B3039E7EC0070E802 /* StatsYearCell.m */; };
+		4BBD15713039F0240070E802 /* StatsReportViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BBD15703039F0240070E802 /* StatsReportViewController.m */; };
+		4BBD15813039F18F0070E802 /* StatsReportViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BBD15803039F18F0070E802 /* StatsReportViewModel.m */; };
+		4BBD15843039F2710070E802 /* StatsReportCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BBD15833039F2710070E802 /* StatsReportCell.m */; };
+		4BBD15873039F27F0070E802 /* StatsReportModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BBD15863039F27F0070E802 /* StatsReportModel.m */; };
 		61F0C5ABAEDAF0B802CBEBEE /* Pods_scoreNote.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 27964327C396DCC0BA9E34FE /* Pods_scoreNote.framework */; };
 /* End PBXBuildFile section */
 
@@ -259,6 +263,14 @@
 		4BBD15683039E51D0070E802 /* StatsYearHeaderView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = StatsYearHeaderView.m; sourceTree = "<group>"; };
 		4BBD156A3039E7EC0070E802 /* StatsYearCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StatsYearCell.h; sourceTree = "<group>"; };
 		4BBD156B3039E7EC0070E802 /* StatsYearCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = StatsYearCell.m; sourceTree = "<group>"; };
+		4BBD156F3039F0240070E802 /* StatsReportViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StatsReportViewController.h; sourceTree = "<group>"; };
+		4BBD15703039F0240070E802 /* StatsReportViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = StatsReportViewController.m; sourceTree = "<group>"; };
+		4BBD157F3039F18F0070E802 /* StatsReportViewModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StatsReportViewModel.h; sourceTree = "<group>"; };
+		4BBD15803039F18F0070E802 /* StatsReportViewModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = StatsReportViewModel.m; sourceTree = "<group>"; };
+		4BBD15823039F2710070E802 /* StatsReportCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StatsReportCell.h; sourceTree = "<group>"; };
+		4BBD15833039F2710070E802 /* StatsReportCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = StatsReportCell.m; sourceTree = "<group>"; };
+		4BBD15853039F27F0070E802 /* StatsReportModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StatsReportModel.h; sourceTree = "<group>"; };
+		4BBD15863039F27F0070E802 /* StatsReportModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = StatsReportModel.m; sourceTree = "<group>"; };
 		65518CD01B2FD616C51EE0BD /* Pods-scoreNote.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-scoreNote.release.xcconfig"; path = "Target Support Files/Pods-scoreNote/Pods-scoreNote.release.xcconfig"; sourceTree = "<group>"; };
 		67F835AE28BC049367D8A4E8 /* Pods-scoreNote.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-scoreNote.debug.xcconfig"; path = "Target Support Files/Pods-scoreNote/Pods-scoreNote.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -638,6 +650,7 @@
 				4BBD154B3035EB800070E802 /* StatsCalendarView */,
 				4BBD155C3039D1660070E802 /* StatsMonthViewController */,
 				4BBD15633039E4500070E802 /* StatsYearViewController */,
+				4BBD156E3039F0090070E802 /* StatsReportViewController */,
 			);
 			path = StatsViewController;
 			sourceTree = "<group>";
@@ -677,6 +690,21 @@
 				4BBD156B3039E7EC0070E802 /* StatsYearCell.m */,
 			);
 			path = StatsYearViewController;
+			sourceTree = "<group>";
+		};
+		4BBD156E3039F0090070E802 /* StatsReportViewController */ = {
+			isa = PBXGroup;
+			children = (
+				4BBD156F3039F0240070E802 /* StatsReportViewController.h */,
+				4BBD15703039F0240070E802 /* StatsReportViewController.m */,
+				4BBD157F3039F18F0070E802 /* StatsReportViewModel.h */,
+				4BBD15803039F18F0070E802 /* StatsReportViewModel.m */,
+				4BBD15823039F2710070E802 /* StatsReportCell.h */,
+				4BBD15833039F2710070E802 /* StatsReportCell.m */,
+				4BBD15853039F27F0070E802 /* StatsReportModel.h */,
+				4BBD15863039F27F0070E802 /* StatsReportModel.m */,
+			);
+			path = StatsReportViewController;
 			sourceTree = "<group>";
 		};
 		F4C1EE76CCF14FFF58A5AEFB /* Pods */ = {
@@ -856,11 +884,13 @@
 				4B0319692F79452C0041EFC7 /* TagRankViewController.m in Sources */,
 				4B03196A2F79452C0041EFC7 /* TagRankModel.m in Sources */,
 				4B2280DC3020EF93003E2274 /* WebNaviBar.m in Sources */,
+				4BBD15713039F0240070E802 /* StatsReportViewController.m in Sources */,
 				4B03196B2F79452C0041EFC7 /* MainTabBarController.m in Sources */,
 				4B07EC8830320FBF005C6CB9 /* SegmentedView.m in Sources */,
 				4BBD15473035EB240070E802 /* StatsViewController.m in Sources */,
 				4B03196D2F79452C0041EFC7 /* UIView+SCExtension.m in Sources */,
 				4B03196E2F79452C0041EFC7 /* SqlLineViewController.m in Sources */,
+				4BBD15813039F18F0070E802 /* StatsReportViewModel.m in Sources */,
 				4B03196F2F79452C0041EFC7 /* HomeCell.m in Sources */,
 				4B0319702F79452C0041EFC7 /* ConfigViewController.m in Sources */,
 				4B0319882F79804D0041EFC7 /* NetworkReachability.m in Sources */,
@@ -875,11 +905,13 @@
 				4B03197A2F79452C0041EFC7 /* ColumnModel.m in Sources */,
 				4BBD15693039E51E0070E802 /* StatsYearHeaderView.m in Sources */,
 				4BBD154E3035EB940070E802 /* StatsCalendarView.m in Sources */,
+				4BBD15843039F2710070E802 /* StatsReportCell.m in Sources */,
 				4B42D1472FD58BD000816442 /* BitCoinCell.m in Sources */,
 				4B03197B2F79452C0041EFC7 /* LineModel.m in Sources */,
 				4B03197D2F79452C0041EFC7 /* SqlEditViewController.m in Sources */,
 				4B03197E2F79452C0041EFC7 /* BaseNavigationController.m in Sources */,
 				4B03197F2F79452C0041EFC7 /* NSDate+SCExtension.m in Sources */,
+				4BBD15873039F27F0070E802 /* StatsReportModel.m in Sources */,
 				4B42D1152FD1B65300816442 /* FinanceButton.m in Sources */,
 				4BBD156C3039E7EC0070E802 /* StatsYearCell.m in Sources */,
 				4B0319802F79452C0041EFC7 /* TagCell.m in Sources */,

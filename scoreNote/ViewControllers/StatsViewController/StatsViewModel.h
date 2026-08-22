@@ -20,6 +20,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong, readonly) NSArray <NSNumber *> *monthProfitList;
 //年份数据
 @property (nonatomic, strong, readonly) NSArray <YearModel *> *yearModels;
+//起投单子 报告页用
+@property (nonatomic, strong, readonly) RecordModel *startRecord;
 
 @property (nonatomic, assign) BOOL needUpdate;
 

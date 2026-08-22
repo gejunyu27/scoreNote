@@ -12,6 +12,7 @@
 #import "ConfigViewController.h"
 #import "StatsMonthViewController.h"
 #import "StatsYearViewController.h"
+#import "StatsReportViewController.h"
 
 @interface StatsViewController () <UIScrollViewDelegate, StatsCalendarDelegate, FinanceViewDelegate>
 @property (nonatomic, strong) UIView *bgView;
@@ -103,8 +104,9 @@
 #pragma mark -FinanceViewDelegate
 - (void)financeViewChartClicked
 {
-    //进入分析页
-    [self showWithStatus:@"分析页正在开发中..."];
+    StatsReportViewController *vc = [StatsReportViewController new];
+    [vc getDataFrom:self.viewModel];
+    [self.navigationController pushViewController:vc animated:YES];
 }
 
 #pragma mark -UI
